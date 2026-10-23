@@ -3,13 +3,10 @@ import { chromium } from "playwright";
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-const sourcePath = (name) =>
-  resolve(
-    existsSync("../" + name + "/src") ? "../" + name : ".games/" + name,
-    "src/simulation.js",
-  );
+import { gameRoot } from "../scripts/game-paths.mjs";
+const sourcePath = (name) => resolve(gameRoot(name), "src/simulation.ts");
 const sourceURLs = {
-  board: "/@fs" + resolve("src/board.js"),
+  board: "/@fs" + resolve("src/board.ts"),
   shooter: "/@fs" + sourcePath("null-invaders"),
   runner: "/@fs" + sourcePath("byte-runner"),
 };
@@ -300,6 +297,87 @@ try {
     ),
     true,
   );
+  // Real React StrictMode mounts, effect replays, option changes and cleanup.
+  await page.goto(
+    "http://127.0.0.1:5199/@fs" + resolve("tests/react-fixture.html"),
+  );
+  await page.waitForFunction(() => Boolean(window.reactFixture));
+  await page.evaluate(() => window.reactFixture.render(true));
+  await page.waitForFunction(
+    () => document.querySelectorAll("[data-dom-virus-root]").length === 1,
+  );
+  const starts = await page.evaluate(
+    () =>
+      window.reactFixture.events.filter((event) => event === "start").length,
+  );
+  assert.ok(starts >= 2, "StrictMode replays the mounting effect");
+  await page.evaluate(() => window.reactFixture.render(true));
+  await page.waitForTimeout(100);
+  assert.equal(
+    await page.evaluate(
+      () =>
+        window.reactFixture.events.filter((event) => event === "start").length,
+    ),
+    starts,
+  );
+  await page.evaluate(() => window.reactFixture.render(true, false, true));
+  await page.waitForFunction(
+    (before) =>
+      window.reactFixture.events.filter((event) => event === "start").length >
+      before,
+    starts,
+  );
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 1);
+  await page.evaluate(() => window.reactFixture.render(false));
+  await page.waitForFunction(
+    () => document.querySelectorAll("[data-dom-virus-root]").length === 0,
+  );
+  assert.equal(await page.evaluate(() => CSS.highlights.size), 0);
+  await page.evaluate(() => window.reactFixture.render(true, true));
+  await page.waitForFunction(
+    () =>
+      document.querySelector("[data-dom-virus-root]")?.dataset.domVirusRoot ===
+      "byte-runner",
+  );
+  await page.evaluate(() => window.reactFixture.unmount());
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  assert.equal(await page.evaluate(() => CSS.highlights.size), 0);
+  assert.equal(
+    await page.locator("#board h1").textContent(),
+    "React owns these letters",
+  );
+  console.log(
+    "React StrictMode, stable options, option changes, active toggle and unmount checks passed.",
+  );
+  const capabilityChecks = await page.evaluate(async (url) => {
+    const { createArcade } = await import(url);
+    const events = [];
+    const make = (fire) => createArcade({
+      id: "capability-probe", title: "Probe", color: "#fff", hint: "Test",
+      capabilities: { fire },
+      create(api) {
+        return { reset() { api.emit("probe", { type: 123, game: 123 }); },
+          update() {}, draw() {}, snapshot: () => ({ score: 0, firing: api.firing }) };
+      },
+    }, { root: "#board", onEvent: (event) => events.push(event) });
+    const shoot = make(true);
+    shoot.start();
+    document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true, button: 0 }));
+    const firing = shoot.getSnapshot().firing;
+    const button = document.querySelector("#board button");
+    const suppressed = !button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
+    shoot.destroy();
+    const walk = make(false);
+    walk.start();
+    document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true, button: 0 }));
+    const notFiring = !walk.getSnapshot().firing;
+    const pageClickable = button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
+    walk.destroy();
+    const event = events.find((event) => event.type === "probe");
+    return { firing, suppressed, notFiring, pageClickable, eventIdentity: event?.game === "capability-probe" };
+  }, "/@fs" + resolve("src/index.ts"));
+  for (const [key, value] of Object.entries(capabilityChecks)) assert.equal(value, true, key);
+  console.log("Game capabilities work without a game-specific ID.");
   assert.deepEqual(errors, []);
   console.log("Browser smoke checks passed.");
 } finally {

@@ -1,10 +1,29 @@
+type TextNode = Pick<Text, "nodeValue">;
+interface TextWrite {
+  original: string | null;
+  latest: string | null;
+  abandoned: boolean;
+}
+interface StyleWrite {
+  original: string;
+  priority: string;
+  latest: string;
+  lastPriority: string;
+  abandoned?: boolean;
+}
+interface StyleEntry {
+  hadStyle: boolean;
+  props: Map<string, StyleWrite>;
+}
 // Compare before writing and restoring: a newer host update always wins.
 export class MutationLedger {
+  private readonly text: Map<TextNode, TextWrite>;
+  private readonly styles: Map<HTMLElement | SVGElement, StyleEntry>;
   constructor() {
     this.text = new Map();
     this.styles = new Map();
   }
-  writeText(node, value) {
+  writeText(node: TextNode, value: string): boolean {
     let r = this.text.get(node);
     if (!r) {
       r = {
@@ -22,13 +41,17 @@ export class MutationLedger {
     r.latest = value;
     return true;
   }
-  writeStyle(el, key, value) {
+  writeStyle(
+    el: HTMLElement | SVGElement,
+    key: string,
+    value: string,
+  ): boolean {
     if (!this.styles.has(el))
       this.styles.set(el, {
         hadStyle: el.hasAttribute("style"),
         props: new Map(),
       });
-    const entry = this.styles.get(el);
+    const entry = this.styles.get(el)!;
     let r = entry.props.get(key);
     if (!r) {
       r = {

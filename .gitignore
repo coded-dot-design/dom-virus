@@ -1,6 +1,8 @@
 node_modules/
 .games/
-dist/
+/dist/*
+!/dist/*.js
+!/dist/*.d.ts
 artifacts/
 test-results/
 .DS_Store

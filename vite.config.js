@@ -1,21 +1,28 @@
 import { defineConfig } from "vite";
-import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-const repo = process.cwd();
-const gamePath = (name) =>
-  existsSync(resolve(repo, "..", name, "src"))
-    ? resolve(repo, "..", name)
-    : resolve(repo, ".games", name);
+import {
+  repoRoot as repo,
+  gameRoot as gamePath,
+} from "./scripts/game-paths.mjs";
 export default defineConfig({
   root: resolve(repo, "playground"),
   resolve: {
     alias: {
-      "@coded-design/dom-virus": resolve(repo, "src/index.js"),
+      "@coded-design/dom-virus/react": resolve(repo, "src/react.ts"),
+      "@coded-design/dom-virus": resolve(repo, "src/index.ts"),
+      "@games/null-invaders/react": resolve(
+        gamePath("null-invaders"),
+        "src/react.ts",
+      ),
+      "@games/byte-runner/react": resolve(
+        gamePath("byte-runner"),
+        "src/react.ts",
+      ),
       "@games/null-invaders": resolve(
         gamePath("null-invaders"),
-        "src/index.js",
+        "src/index.ts",
       ),
-      "@games/byte-runner": resolve(gamePath("byte-runner"), "src/index.js"),
+      "@games/byte-runner": resolve(gamePath("byte-runner"), "src/index.ts"),
       "@games/swarm": resolve(
         gamePath("swarm-protocol"),
         "src/swarm-loader.js",

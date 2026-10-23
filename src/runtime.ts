@@ -1,41 +1,83 @@
+import type {
+  Board,
+  GameContext,
+  GameController,
+  GameDefinition,
+  GameOptions,
+  GameSimulation,
+  GameSnapshot,
+  GameStats,
+  GameStatus,
+  InputState,
+} from "./contracts.js";
+import { EntityPool, translateEntities } from "./entities.js";
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  color: string;
+}
+type ArcadeEvents = DocumentEventMap &
+  WindowEventMap &
+  HTMLElementEventMap &
+  MediaQueryListEventMap;
+type Field = "score" | "lives" | "wave" | "status" | "detail";
 import { createBoard } from "./board.js";
 import { clamp, seededRandom } from "./math.js";
 
 const editSelector =
   'input,textarea,select,[contenteditable],form,dialog,[role="dialog"]';
-export function createArcade(definition, options = {}) {
+export function createArcade<S extends GameStats>(
+  definition: GameDefinition<S>,
+  options: GameOptions<S> = {},
+): GameController<S> {
   const doc = options.document || globalThis.document;
   if (!doc?.defaultView)
     throw new Error("Create a DOM Virus game in the browser after mounting.");
   const win = doc.defaultView;
-  let host,
-    shadow,
-    canvas,
-    ctx,
-    board,
-    game,
-    raf = 0,
+  const supportsFire = definition.capabilities?.fire === true;
+  let host: HTMLDivElement | null = null;
+  let canvas: HTMLCanvasElement | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
+  let board: Board | null = null;
+  let game: GameSimulation<S> | null = null;
+  let raf = 0,
     last = 0,
     time = 0,
     notifyAt = -1,
     destroyed = false,
     pausedByVisibility = false;
-  let status = "idle",
-    width = 0,
+  let status: GameStatus = "idle";
+  let width = 0,
     height = 0,
     dpr = 1,
     sx = 0,
     sy = 0,
     frameMs = 0,
     maxFrameMs = 0;
-  let listeners = [],
-    particles = [],
-    pool = [],
-    notice = "",
-    input,
-    ui = {},
-    lastStats = {},
-    autoFire = false;
+  let listeners: (() => void)[] = [];
+  const particlePool = new EntityPool<Particle>(100, () => ({
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    life: 0,
+    color: "",
+  }));
+  const particles = particlePool.active;
+  let notice = "";
+  let input: InputState = {
+    keys: new Set(),
+    pointer: { x: 0, y: 0, active: false },
+    fire: false,
+    mode: "keyboard",
+  };
+  let ui: Partial<Record<Field, HTMLElement>> & { pause?: HTMLButtonElement } =
+    {};
+  let lastStats: Partial<S> = {};
+  let autoFire = false;
   const random =
     options.seed === undefined ? Math.random : seededRandom(options.seed);
   const darkQuery = win.matchMedia("(prefers-color-scheme: dark)"),
@@ -45,14 +87,20 @@ export function createArcade(definition, options = {}) {
       ? "dark"
       : "light";
   const reduced = () => options.reducedMotion ?? motionQuery.matches;
-  function on(target, event, fn, settings) {
-    target.addEventListener(event, fn, settings);
-    listeners.push(() => target.removeEventListener(event, fn, settings));
+  function on<K extends keyof ArcadeEvents>(
+    target: EventTarget,
+    event: K,
+    fn: (event: ArcadeEvents[K]) => void,
+    settings?: AddEventListenerOptions | boolean,
+  ) {
+    const listener = fn as EventListener;
+    target.addEventListener(event, listener, settings);
+    listeners.push(() => target.removeEventListener(event, listener, settings));
   }
-  function emit(type, data = {}) {
-    options.onEvent?.({ type, game: definition.id, ...data });
+  function emit(type: string, data: Record<string, unknown> = {}) {
+    options.onEvent?.({ ...data, type, game: definition.id });
   }
-  function getSnapshot() {
+  function getSnapshot(): GameSnapshot<S> {
     return {
       id: definition.id,
       status,
@@ -84,10 +132,15 @@ export function createArcade(definition, options = {}) {
       status: status.toUpperCase(),
       detail: notice || snap.detail || definition.hint,
     };
-    for (const [key, value] of Object.entries(fields))
-      if (ui[key]?.textContent !== value) ui[key].textContent = value;
-    ui.pause.textContent = status === "paused" ? "Resume" : "Pause";
-    ui.pause.disabled = !["running", "paused"].includes(status);
+    for (const key of Object.keys(fields) as Field[]) {
+      const element = ui[key];
+      if (element && element.textContent !== fields[key])
+        element.textContent = fields[key];
+    }
+    if (ui.pause) {
+      ui.pause.textContent = status === "paused" ? "Resume" : "Pause";
+      ui.pause.disabled = !["running", "paused"].includes(status);
+    }
   }
   function clearInput() {
     input?.keys.clear();
@@ -100,7 +153,7 @@ export function createArcade(definition, options = {}) {
     width = win.innerWidth;
     height = win.innerHeight;
     dpr = Math.min(win.devicePixelRatio || 1, 1.5);
-    if (canvas) {
+    if (canvas && ctx) {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
@@ -117,32 +170,34 @@ export function createArcade(definition, options = {}) {
     host = doc.createElement("div");
     host.dataset.domVirusRoot = definition.id;
     host.dataset.virusIgnore = "";
-    shadow = host.attachShadow({ mode: "open" });
+    const shadow = host.attachShadow({ mode: "open" });
     shadow.innerHTML = `<style>
       :host{all:initial!important;position:fixed!important;inset:0!important;display:block!important;z-index:2147483000!important;pointer-events:none!important;contain:layout style;--accent:${definition.color}}
       *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;right:18px;top:18px;width:300px;color:#f4f7f7;background:#101718f2;border:1px solid #3b4b49;border-radius:16px;padding:15px;font:12px/1.5 ui-monospace,SFMono-Regular,monospace;box-shadow:0 12px 40px #0005;pointer-events:auto}
       .hud[data-theme=light]{color:#152321;background:#f7fcfaf5;border-color:#a7bbb7}header{display:flex;justify-content:space-between;gap:8px}strong{letter-spacing:.08em;color:var(--accent);text-shadow:0 1px 2px #001b}small{opacity:.65}section{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0}b{font-size:27px;letter-spacing:.04em}p{margin:8px 0;min-height:36px;opacity:.8}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{opacity:.4}.touch{display:none;margin-top:8px;gap:7px}.touch button{min-width:42px;min-height:40px;touch-action:none}.touch button[data-k=ArrowLeft]{grid-column:1}.touch button[data-k=ArrowUp]{grid-column:2}.touch button[data-k=ArrowRight]{grid-column:3}.touch button[data-k=ArrowDown]{grid-column:2}.hud.folded section,.hud.folded p,.hud.folded nav,.hud.folded .touch{display:none}
       @media(pointer:coarse){.touch{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.hud{top:10px;right:10px;width:240px;padding:10px}b{font-size:22px}}
-    </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${definition.id === "null-invaders" ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
+    </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${supportsFire ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
     doc.documentElement.append(host);
-    canvas = shadow.querySelector("canvas");
+    canvas = shadow.querySelector("canvas")!;
     ctx = canvas.getContext("2d");
     if (!ctx) {
       teardown();
       throw new Error("Canvas 2D is unavailable.");
     }
     ui = Object.fromEntries(
-      [...shadow.querySelectorAll("[data-field]")].map((el) => [
+      [...shadow.querySelectorAll<HTMLElement>("[data-field]")].map((el) => [
         el.dataset.field,
         el,
       ]),
     );
-    ui.pause = shadow.querySelector("[data-action=pause]");
-    const hud = shadow.querySelector(".hud");
+    ui.pause = shadow.querySelector<HTMLButtonElement>("[data-action=pause]")!;
+    const hud = shadow.querySelector<HTMLElement>(".hud")!;
     const syncTheme = () => (hud.dataset.theme = theme());
     syncTheme();
     on(darkQuery, "change", syncTheme);
-    for (const el of shadow.querySelectorAll("[data-action]"))
+    for (const el of shadow.querySelectorAll<HTMLButtonElement>(
+      "[data-action]",
+    ))
       on(el, "click", () => {
         const action = el.dataset.action;
         if (action === "pause") status === "paused" ? resume() : pause();
@@ -168,26 +223,26 @@ export function createArcade(definition, options = {}) {
       fire: false,
       mode: options.controls === "keyboard" ? "keyboard" : "mouse",
     };
-    for (const el of shadow.querySelectorAll("[data-k]")) {
+    for (const el of shadow.querySelectorAll<HTMLButtonElement>("[data-k]")) {
       on(el, "pointerdown", (e) => {
         e.preventDefault();
         el.setPointerCapture(e.pointerId);
         input.mode = "keyboard";
-        input.keys.add(el.dataset.k);
+        input.keys.add(el.dataset.k!);
       });
-      const release = () => input.keys.delete(el.dataset.k);
+      const release = () => input.keys.delete(el.dataset.k!);
       on(el, "pointerup", release);
       on(el, "pointercancel", release);
       on(el, "lostpointercapture", release);
     }
-    function isProtected(e) {
+    function isProtected(e: Event) {
       return e
         .composedPath()
         .some(
           (el) =>
             el === host ||
-            el.matches?.(editSelector) ||
-            el.matches?.("[data-virus-ignore]"),
+            (el instanceof win.Element &&
+              (el.matches(editSelector) || el.matches("[data-virus-ignore]"))),
         );
     }
     on(
@@ -253,7 +308,7 @@ export function createArcade(definition, options = {}) {
       "pointerdown",
       (e) => {
         if (status !== "running" || isProtected(e) || e.button !== 0) return;
-        if (definition.id === "null-invaders") {
+        if (supportsFire) {
           input.fire = true;
           e.preventDefault();
         }
@@ -268,7 +323,7 @@ export function createArcade(definition, options = {}) {
       (e) => {
         if (
           status === "running" &&
-          definition.id === "null-invaders" &&
+          supportsFire &&
           !isProtected(e) &&
           e.detail > 0
         ) {
@@ -279,7 +334,12 @@ export function createArcade(definition, options = {}) {
       true,
     );
     on(doc, "focusin", (e) => {
-      if (e.target.matches?.(editSelector) && status === "running") pause();
+      if (
+        e.target instanceof win.Element &&
+        e.target.matches(editSelector) &&
+        status === "running"
+      )
+        pause();
     });
     on(win, "blur", () => {
       if (status === "running") pause();
@@ -300,7 +360,7 @@ export function createArcade(definition, options = {}) {
     sx = win.scrollX;
     sy = win.scrollY;
     board.measure(0, true);
-    const api = {
+    const api: GameContext = {
       board,
       input,
       random,
@@ -316,7 +376,9 @@ export function createArcade(definition, options = {}) {
         return time;
       },
       get firing() {
-        return input.fire || autoFire || input.keys.has("Space");
+        return (
+          supportsFire && (input.fire || autoFire || input.keys.has("Space"))
+        );
       },
       get reducedMotion() {
         return reduced();
@@ -343,10 +405,13 @@ export function createArcade(definition, options = {}) {
             Number(k.has("ArrowDown") || k.has("KeyS")) -
             Number(k.has("ArrowUp") || k.has("KeyW"));
           if (cardinal && x && y) {
-            const last = [...k]
-              .filter((key) => /^(Arrow|Key[WASD])/.test(key))
-              .at(-1);
-            if (["ArrowUp", "ArrowDown", "KeyW", "KeyS"].includes(last)) x = 0;
+            let lastDirection = "";
+            for (const key of k)
+              if (/^(Arrow|Key[WASD])/.test(key)) lastDirection = key;
+            if (
+              ["ArrowUp", "ArrowDown", "KeyW", "KeyS"].includes(lastDirection)
+            )
+              x = 0;
             else y = 0;
           }
           const n = Math.hypot(x, y);
@@ -362,7 +427,8 @@ export function createArcade(definition, options = {}) {
       burst(x, y, color, count = 9) {
         if (reduced()) return;
         for (let i = 0; i < count && particles.length < 100; i++) {
-          const p = pool.pop() || {};
+          const p = particlePool.acquire();
+          if (!p) break;
           const a = random() * Math.PI * 2,
             s = 30 + random() * 100;
           Object.assign(p, {
@@ -373,7 +439,6 @@ export function createArcade(definition, options = {}) {
             life: 0.3 + random() * 0.3,
             color,
           });
-          particles.push(p);
         }
       },
       finish(won = false) {
@@ -396,9 +461,9 @@ export function createArcade(definition, options = {}) {
     board?.invalidate();
     emit("jump", { target: t?.id });
   }
-  function frame(now) {
+  function frame(now: number) {
     raf = 0;
-    if (status !== "running") return;
+    if (status !== "running" || !game || !board) return;
     const dt = Math.min((now - last) / 1000, 0.034);
     last = now;
     time += dt;
@@ -410,21 +475,17 @@ export function createArcade(definition, options = {}) {
       sy = win.scrollY;
       if (dx || dy) {
         game.scroll?.(dx, dy);
-        for (const p of particles) {
-          p.x -= dx;
-          p.y -= dy;
-        }
+        translateEntities(particles, dx, dy);
       }
       board.measure(time);
       game.update(dt);
       for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
+        const p = particles[i]!;
         p.life -= dt;
         p.x += p.vx * dt;
         p.y += p.vy * dt;
         if (p.life <= 0) {
-          particles.splice(i, 1);
-          pool.push(p);
+          particlePool.releaseAt(i);
         }
       }
       draw();
@@ -439,7 +500,7 @@ export function createArcade(definition, options = {}) {
     }
   }
   function draw() {
-    if (!ctx) return;
+    if (!ctx || !board || !game) return;
     ctx.clearRect(0, 0, width, height);
     board.draw(ctx);
     game.draw(ctx);
@@ -460,8 +521,8 @@ export function createArcade(definition, options = {}) {
     host?.remove();
     host = null;
     game = null;
-    particles = [];
-    pool = [];
+    particlePool.clear();
+    pausedByVisibility = false;
     ctx = null;
     canvas = null;
     autoFire = false;
@@ -507,7 +568,7 @@ export function createArcade(definition, options = {}) {
     if (status !== "paused" || doc.hidden) return;
     status = "running";
     notice = "";
-    board.invalidate();
+    board?.invalidate();
     last = win.performance.now();
     notify(true);
     raf = win.requestAnimationFrame(frame);

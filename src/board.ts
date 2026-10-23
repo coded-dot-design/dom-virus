@@ -1,17 +1,30 @@
+import type {
+  Board,
+  BoardOptions,
+  Glyph,
+  TextRecord,
+  BoardTarget,
+  Point,
+  Bounds,
+  Rect,
+} from "./contracts.js";
 import { MutationLedger } from "./ledger.js";
 import { SpatialGrid, inside, segmentHit } from "./math.js";
 
 export const PROTECTED =
   'form,input,textarea,select,option,button,[contenteditable],script,style,noscript,pre,code,[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-swarm-ui]';
 let sequence = 0;
-export function createBoard(doc, options = {}) {
-  const win = doc.defaultView;
-  const root =
+export function createBoard(doc: Document, options: BoardOptions = {}): Board {
+  const view = doc.defaultView;
+  if (!view) throw new Error("DOM Virus requires a live browser document.");
+  const win = view;
+  const selectedRoot =
     typeof options.root === "string"
       ? doc.querySelector(options.root)
       : options.root || doc.body;
-  if (!root?.querySelectorAll)
+  if (!selectedRoot?.querySelectorAll)
     throw new Error("DOM Virus: root must be an existing element.");
+  const root = selectedRoot;
   const textSelector =
     options.textSelector ??
     "[data-virus-text],h1,h2,h3,h4,h5,h6,p,li,blockquote";
@@ -26,9 +39,9 @@ export function createBoard(doc, options = {}) {
   root.querySelectorAll(targetSelector);
   root.matches(exclude);
   const ledger = new MutationLedger(),
-    grid = new SpatialGrid();
-  const records = new Map(),
-    targetRecords = new Map();
+    grid = new SpatialGrid<Glyph>();
+  const records = new Map<Text, TextRecord>(),
+    targetRecords = new Map<HTMLElement | SVGElement, BoardTarget>();
   const visual = options.domMode !== "text";
   const canHighlight = Boolean(win.CSS?.highlights && win.Highlight);
   if (visual && !canHighlight)
@@ -37,37 +50,40 @@ export function createBoard(doc, options = {}) {
     );
   const name = `dom-virus-${++sequence}`;
   const highlight = visual ? new win.Highlight() : null;
-  let style = null,
-    dirty = true,
+  let style: HTMLStyleElement | null = null;
+  let dirty = true,
     scanDirty = true,
     lastScan = -Infinity,
     lastMeasure = -Infinity,
     destroyed = false;
-  let glyphs = [],
-    visibleGlyphs = [],
-    targets = [],
-    measurements = 0,
+  let glyphs: Glyph[] = [];
+  let visibleGlyphs: Glyph[] = [];
+  let targets: BoardTarget[] = [];
+  let measurements = 0,
     spentCount = 0;
   const binaryCanvas = doc.createElement("canvas"),
     binaryContext = binaryCanvas.getContext("2d");
+  if (!binaryContext) throw new Error("Canvas 2D is unavailable.");
+  const binaryCtx = binaryContext;
   let binaryDirty = true;
   const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
   const protectedTarget =
     'form,input,textarea,select,[contenteditable],[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-swarm-ui]';
-  const allowedTarget = (el) =>
+  const allowedTarget = (el: Element): el is HTMLElement | SVGElement =>
+    (el instanceof win.HTMLElement || el instanceof win.SVGElement) &&
     !el.closest(
       options.excludeSelector
         ? `${protectedTarget},${options.excludeSelector}`
         : protectedTarget,
     );
-  const visible = (r) =>
+  const visible = (r: Rect) =>
     r.width > 0 &&
     r.height > 0 &&
     r.right > 0 &&
     r.bottom > 0 &&
     r.left < win.innerWidth &&
     r.top < win.innerHeight;
-  const clearRecord = (r) => {
+  const clearRecord = (r: TextRecord) => {
     for (const g of r.glyphs) {
       if (g.range) highlight?.delete(g.range);
       if (g.spent) spentCount--;
@@ -84,7 +100,7 @@ export function createBoard(doc, options = {}) {
         node.nodeValue !== r.latest
       )
         clearRecord(r);
-    const seen = new Set();
+    const seen = new Set<Text>();
     let count = 0,
       visited = 0;
     const elements = [
@@ -94,8 +110,13 @@ export function createBoard(doc, options = {}) {
     for (const el of elements) {
       if (el.closest(exclude)) continue;
       const walker = doc.createTreeWalker(el, 4);
-      let node;
-      while ((node = walker.nextNode()) && visited++ < 6000 && count < 8000) {
+      let candidate: Node | null;
+      while (
+        (candidate = walker.nextNode()) &&
+        visited++ < 6000 &&
+        count < 8000
+      ) {
+        const node = candidate as Text; // TreeWalker is restricted to SHOW_TEXT.
         if (
           seen.has(node) ||
           node.parentElement?.closest(exclude) ||
@@ -107,8 +128,8 @@ export function createBoard(doc, options = {}) {
         if (!r) {
           r = {
             node,
-            latest: node.nodeValue,
-            original: node.nodeValue,
+            latest: node.data,
+            original: node.data,
             glyphs: [],
           };
           for (const part of segmenter.segment(r.original))
@@ -149,18 +170,18 @@ export function createBoard(doc, options = {}) {
         targetRecords.set(el, {
           element: el,
           id: el.id || `gate-${i}`,
-          label: el.textContent.trim().slice(0, 32),
+          label: (el.textContent ?? "").trim().slice(0, 32),
           health: 100,
           maxHealth: 100,
           rect: null,
           visible: false,
         });
-      return targetRecords.get(el);
+      return targetRecords.get(el)!;
     });
     for (const el of targetRecords.keys())
       if (!candidates.includes(el)) targetRecords.delete(el);
   }
-  function measure(now, force = false) {
+  function measure(now: number, force = false) {
     if (destroyed) return;
     if (scanDirty && (force || now - lastScan > 0.5)) {
       scan();
@@ -174,8 +195,8 @@ export function createBoard(doc, options = {}) {
     visibleGlyphs = [];
     grid.clear();
     binaryDirty = true;
-    const clipCache = new Map();
-    function clipped(rect, element) {
+    const clipCache = new Map<Element, Bounds>();
+    function clipped(rect: Rect, element: Element): Rect {
       let clip = clipCache.get(element);
       if (!clip) {
         clip = {
@@ -219,7 +240,7 @@ export function createBoard(doc, options = {}) {
         height: Math.max(0, bottom - top),
       };
     }
-    const parents = new Map();
+    const parents = new Map<Element, boolean>();
     for (const g of glyphs) {
       g.rect = null;
       const r = g.record,
@@ -265,7 +286,10 @@ export function createBoard(doc, options = {}) {
         css.opacity !== "0";
     }
   }
-  function consume(g, effect = "binary") {
+  function consume(
+    g: Glyph | null | undefined,
+    effect: "binary" | "erase" = "binary",
+  ) {
     if (
       !g ||
       g.spent ||
@@ -275,7 +299,7 @@ export function createBoard(doc, options = {}) {
       return false;
     g.bit = Math.random() < 0.5 ? "0" : "1";
     g.effect = effect;
-    if (visual) {
+    if (visual && highlight) {
       if (!style) {
         style = doc.createElement("style");
         style.dataset.virusIgnore = "";
@@ -308,15 +332,15 @@ export function createBoard(doc, options = {}) {
     binaryDirty = true;
     return true;
   }
-  function hitSegment(a, b) {
+  function hitSegment(a: Point, b: Point) {
     const candidates = grid.query({
       left: Math.min(a.x, b.x) - 2,
       right: Math.max(a.x, b.x) + 2,
       top: Math.min(a.y, b.y) - 2,
       bottom: Math.max(a.y, b.y) + 2,
     });
-    let result = null,
-      best = Infinity;
+    let result: Glyph | null = null;
+    let best = Infinity;
     for (const g of candidates)
       if (!g.spent && g.rect) {
         const t = segmentHit(a, b, g.rect, 2);
@@ -327,7 +351,7 @@ export function createBoard(doc, options = {}) {
       }
     return result ? { glyph: result, t: best } : null;
   }
-  function near(x, y, radius = 14) {
+  function near(x: number, y: number, radius = 14) {
     return grid
       .query({
         left: x - radius,
@@ -337,7 +361,7 @@ export function createBoard(doc, options = {}) {
       })
       .filter((g) => !g.spent && g.rect && inside(g.rect, x, y, radius));
   }
-  function damage(target, amount) {
+  function damage(target: BoardTarget, amount: number) {
     if (!target.element.isConnected || target.health <= 0) return false;
     target.health = Math.max(0, target.health - amount);
     ledger.writeStyle(
@@ -353,7 +377,7 @@ export function createBoard(doc, options = {}) {
       ledger.writeStyle(t.element, "opacity", "1");
     }
   }
-  function draw(ctx) {
+  function draw(ctx: CanvasRenderingContext2D) {
     if (!visual) return;
     if (!binaryDirty) {
       ctx.drawImage(binaryCanvas, 0, 0);
@@ -363,7 +387,7 @@ export function createBoard(doc, options = {}) {
     binaryCanvas.width = win.innerWidth;
     binaryCanvas.height = win.innerHeight;
     const output = ctx;
-    ctx = binaryContext;
+    ctx = binaryCtx;
     ctx.save();
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -390,7 +414,10 @@ export function createBoard(doc, options = {}) {
       changes.some(
         (c) =>
           !c.target.parentElement?.closest("[data-dom-virus-root]") &&
-          !c.target.closest?.("[data-dom-virus-root]"),
+          !(
+            c.target instanceof win.Element &&
+            c.target.closest("[data-dom-virus-root]")
+          ),
       )
     ) {
       dirty = true;

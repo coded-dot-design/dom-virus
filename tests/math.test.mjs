@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { segmentHit, SpatialGrid, seededRandom } from "../src/math.js";
-import { MutationLedger } from "../src/ledger.js";
+import { segmentHit, SpatialGrid, seededRandom } from "../src/math.ts";
+import { MutationLedger } from "../src/ledger.ts";
 test("a fast projectile cannot tunnel through a thin glyph", () => {
   assert.equal(
     segmentHit(
