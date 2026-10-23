@@ -3,6 +3,7 @@ import { chromium } from "playwright";
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
+import { checkShooterFeedback } from "./shooter-feedback.mjs";
 import { gameRoot } from "../scripts/game-paths.mjs";
 const sourcePath = (name) => resolve(gameRoot(name), "src/simulation.ts");
 const sourceURLs = {
@@ -92,6 +93,7 @@ try {
   await page.keyboard.press("Escape");
   await page.evaluate(() => window.playground.recall());
   assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  await checkShooterFeedback(page);
   await page.emulateMedia({ colorScheme: "light" });
   await page.screenshot({
     path: "artifacts/playground-light.png",
@@ -168,6 +170,7 @@ try {
       firing: false,
       emit() {},
       burst() {},
+      popup() {},
       move() {},
       finish(won) {
         this.finished = won ? "won" : "lost";
@@ -349,34 +352,73 @@ try {
   console.log(
     "React StrictMode, stable options, option changes, active toggle and unmount checks passed.",
   );
-  const capabilityChecks = await page.evaluate(async (url) => {
-    const { createArcade } = await import(url);
-    const events = [];
-    const make = (fire) => createArcade({
-      id: "capability-probe", title: "Probe", color: "#fff", hint: "Test",
-      capabilities: { fire },
-      create(api) {
-        return { reset() { api.emit("probe", { type: 123, game: 123 }); },
-          update() {}, draw() {}, snapshot: () => ({ score: 0, firing: api.firing }) };
-      },
-    }, { root: "#board", onEvent: (event) => events.push(event) });
-    const shoot = make(true);
-    shoot.start();
-    document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true, button: 0 }));
-    const firing = shoot.getSnapshot().firing;
-    const button = document.querySelector("#board button");
-    const suppressed = !button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
-    shoot.destroy();
-    const walk = make(false);
-    walk.start();
-    document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, cancelable: true, button: 0 }));
-    const notFiring = !walk.getSnapshot().firing;
-    const pageClickable = button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
-    walk.destroy();
-    const event = events.find((event) => event.type === "probe");
-    return { firing, suppressed, notFiring, pageClickable, eventIdentity: event?.game === "capability-probe" };
-  }, "/@fs" + resolve("src/index.ts"));
-  for (const [key, value] of Object.entries(capabilityChecks)) assert.equal(value, true, key);
+  const capabilityChecks = await page.evaluate(
+    async (url) => {
+      const { createArcade } = await import(url);
+      const events = [];
+      const make = (fire) =>
+        createArcade(
+          {
+            id: "capability-probe",
+            title: "Probe",
+            color: "#fff",
+            hint: "Test",
+            capabilities: { fire },
+            create(api) {
+              return {
+                reset() {
+                  api.emit("probe", { type: 123, game: 123 });
+                },
+                update() {},
+                draw() {},
+                snapshot: () => ({ score: 0, firing: api.firing }),
+              };
+            },
+          },
+          { root: "#board", onEvent: (event) => events.push(event) },
+        );
+      const shoot = make(true);
+      shoot.start();
+      document.body.dispatchEvent(
+        new PointerEvent("pointerdown", {
+          bubbles: true,
+          cancelable: true,
+          button: 0,
+        }),
+      );
+      const firing = shoot.getSnapshot().firing;
+      const button = document.querySelector("#board button");
+      const suppressed = !button.dispatchEvent(
+        new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }),
+      );
+      shoot.destroy();
+      const walk = make(false);
+      walk.start();
+      document.body.dispatchEvent(
+        new PointerEvent("pointerdown", {
+          bubbles: true,
+          cancelable: true,
+          button: 0,
+        }),
+      );
+      const notFiring = !walk.getSnapshot().firing;
+      const pageClickable = button.dispatchEvent(
+        new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }),
+      );
+      walk.destroy();
+      const event = events.find((event) => event.type === "probe");
+      return {
+        firing,
+        suppressed,
+        notFiring,
+        pageClickable,
+        eventIdentity: event?.game === "capability-probe",
+      };
+    },
+    "/@fs" + resolve("src/index.ts"),
+  );
+  for (const [key, value] of Object.entries(capabilityChecks))
+    assert.equal(value, true, key);
   console.log("Game capabilities work without a game-specific ID.");
   assert.deepEqual(errors, []);
   console.log("Browser smoke checks passed.");

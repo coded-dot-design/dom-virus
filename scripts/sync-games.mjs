@@ -14,8 +14,13 @@ const hash = createHash("sha256");
 for (const file of readdirSync("src").sort())
   hash.update(file).update(readFileSync(resolve("src", file)));
 const sourceSha256 = hash.digest("hex");
+const selected = process.argv.slice(2);
+for (const name of selected)
+  if (!["null-invaders", "byte-runner"].includes(name))
+    throw new Error(`Unknown game: ${name}`);
 let count = 0;
 for (const name of ["null-invaders", "byte-runner"]) {
+  if (selected.length && !selected.includes(name)) continue;
   const repo = resolve("..", name);
   if (!existsSync(resolve(repo, "src/index.ts"))) continue;
   const manifest = JSON.parse(

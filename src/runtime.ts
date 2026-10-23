@@ -10,6 +10,7 @@ import type {
   GameStatus,
   InputState,
 } from "./contracts.js";
+import { arcadeStyles, arcadeMarkup } from "./arcade-hud.js";
 import { EntityPool, translateEntities } from "./entities.js";
 interface Particle {
   x: number;
@@ -23,7 +24,25 @@ type ArcadeEvents = DocumentEventMap &
   WindowEventMap &
   HTMLElementEventMap &
   MediaQueryListEventMap;
-type Field = "score" | "lives" | "wave" | "status" | "detail";
+type Field =
+  | "score"
+  | "lives"
+  | "wave"
+  | "status"
+  | "detail"
+  | "kills"
+  | "alive"
+  | "combo"
+  | "weaponLabel"
+  | "progressText"
+  | "progress";
+interface Popup {
+  x: number;
+  y: number;
+  life: number;
+  text: string;
+  tone: "score" | "upgrade" | "hurt";
+}
 import { createBoard } from "./board.js";
 import { clamp, seededRandom } from "./math.js";
 
@@ -67,6 +86,14 @@ export function createArcade<S extends GameStats>(
     color: "",
   }));
   const particles = particlePool.active;
+  const popupPool = new EntityPool<Popup>(24, () => ({
+    x: 0,
+    y: 0,
+    life: 0,
+    text: "",
+    tone: "score",
+  }));
+  const popups = popupPool.active;
   let notice = "";
   let input: InputState = {
     keys: new Set(),
@@ -125,17 +152,34 @@ export function createArcade<S extends GameStats>(
     const snap = getSnapshot();
     options.onState?.(snap);
     if (!host) return;
-    const fields = {
-      score: String(snap.score || 0).padStart(5, "0"),
-      lives: `${snap.lives ?? 3} LIVES`,
-      wave: `WAVE ${snap.wave || 1}`,
+    const arcade = definition.hud === "arcade";
+    const fields: Partial<Record<Field, string>> = {
+      score: String(snap.score || 0).padStart(arcade ? 6 : 5, "0"),
+      lives: `${snap.lives ?? 3} ${arcade ? "SHIELDS" : "LIVES"}`,
+      wave: arcade
+        ? String(snap.wave || 1).padStart(2, "0")
+        : `WAVE ${snap.wave || 1}`,
       status: status.toUpperCase(),
       detail: notice || snap.detail || definition.hint,
     };
+    if (snap.hud) {
+      Object.assign(fields, {
+        kills: String(snap.hud.kills),
+        alive: String(snap.hud.alive),
+        combo: `×${snap.hud.combo} combo`,
+        weaponLabel: snap.hud.label,
+        progressText: snap.hud.progressText,
+      });
+      const value = String(Math.round(clamp(snap.hud.progress, 0, 1) * 100));
+      if (ui.progress && ui.progress.style.width !== `${value}%`) {
+        ui.progress.style.width = `${value}%`;
+        ui.progress.parentElement?.setAttribute("aria-valuenow", value);
+      }
+    }
     for (const key of Object.keys(fields) as Field[]) {
       const element = ui[key];
       if (element && element.textContent !== fields[key])
-        element.textContent = fields[key];
+        element.textContent = fields[key] ?? "";
     }
     if (ui.pause) {
       ui.pause.textContent = status === "paused" ? "Resume" : "Pause";
@@ -160,6 +204,11 @@ export function createArcade<S extends GameStats>(
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
+    // A resize clears canvas pixels even while the animation loop is paused.
+    if (game && board && status !== "running") {
+      board.measure(time, true);
+      draw();
+    }
   }
   function mount() {
     if (doc.querySelector("[data-dom-virus-root]"))
@@ -176,7 +225,13 @@ export function createArcade<S extends GameStats>(
       *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;right:18px;top:18px;width:300px;color:#f4f7f7;background:#101718f2;border:1px solid #3b4b49;border-radius:16px;padding:15px;font:12px/1.5 ui-monospace,SFMono-Regular,monospace;box-shadow:0 12px 40px #0005;pointer-events:auto}
       .hud[data-theme=light]{color:#152321;background:#f7fcfaf5;border-color:#a7bbb7}header{display:flex;justify-content:space-between;gap:8px}strong{letter-spacing:.08em;color:var(--accent);text-shadow:0 1px 2px #001b}small{opacity:.65}section{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0}b{font-size:27px;letter-spacing:.04em}p{margin:8px 0;min-height:36px;opacity:.8}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{opacity:.4}.touch{display:none;margin-top:8px;gap:7px}.touch button{min-width:42px;min-height:40px;touch-action:none}.touch button[data-k=ArrowLeft]{grid-column:1}.touch button[data-k=ArrowUp]{grid-column:2}.touch button[data-k=ArrowRight]{grid-column:3}.touch button[data-k=ArrowDown]{grid-column:2}.hud.folded section,.hud.folded p,.hud.folded nav,.hud.folded .touch{display:none}
       @media(pointer:coarse){.touch{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.hud{top:10px;right:10px;width:240px;padding:10px}b{font-size:22px}}
+      ${definition.hud === "arcade" ? arcadeStyles : ""}
     </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${supportsFire ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
+    if (definition.hud === "arcade") {
+      const panel = shadow.querySelector<HTMLElement>(".hud")!;
+      panel.classList.add("arcade");
+      panel.innerHTML = arcadeMarkup(definition.title, supportsFire);
+    }
     doc.documentElement.append(host);
     canvas = shadow.querySelector("canvas")!;
     ctx = canvas.getContext("2d");
@@ -192,7 +247,10 @@ export function createArcade<S extends GameStats>(
     );
     ui.pause = shadow.querySelector<HTMLButtonElement>("[data-action=pause]")!;
     const hud = shadow.querySelector<HTMLElement>(".hud")!;
-    const syncTheme = () => (hud.dataset.theme = theme());
+    const syncTheme = () => {
+      hud.dataset.theme = theme();
+      board?.invalidate();
+    };
     syncTheme();
     on(darkQuery, "change", syncTheme);
     for (const el of shadow.querySelectorAll<HTMLButtonElement>(
@@ -207,10 +265,15 @@ export function createArcade<S extends GameStats>(
         if (action === "fold") {
           hud.classList.toggle("folded");
           el.textContent = hud.classList.contains("folded") ? "+" : "−";
+          el.setAttribute(
+            "aria-expanded",
+            String(!hud.classList.contains("folded")),
+          );
         }
         if (action === "fire") {
           autoFire = !autoFire;
           el.textContent = autoFire ? "Fire: on" : "Auto fire";
+          el.setAttribute("aria-pressed", String(autoFire));
         }
       });
     input = {
@@ -441,6 +504,25 @@ export function createArcade<S extends GameStats>(
           });
         }
       },
+      popup(x, y, text, tone = "score") {
+        if (tone === "score" && /^\+\d+$/.test(text)) {
+          for (const p of popups)
+            if (
+              p.tone === tone &&
+              /^\+\d+$/.test(p.text) &&
+              p.life > 0.65 &&
+              Math.abs(p.x - x) < 28 &&
+              Math.abs(p.y - (y - 12)) < 28
+            ) {
+              p.text = `+${Number(p.text.slice(1)) + Number(text.slice(1))}`;
+              p.life = 1.1;
+              return;
+            }
+        }
+        const popup = popupPool.acquire();
+        if (popup)
+          Object.assign(popup, { x, y: y - 12, text, tone, life: 1.1 });
+      },
       finish(won = false) {
         status = won ? "won" : "gameover";
         notice = won
@@ -476,6 +558,7 @@ export function createArcade<S extends GameStats>(
       if (dx || dy) {
         game.scroll?.(dx, dy);
         translateEntities(particles, dx, dy);
+        translateEntities(popups, dx, dy);
       }
       board.measure(time);
       game.update(dt);
@@ -487,6 +570,12 @@ export function createArcade<S extends GameStats>(
         if (p.life <= 0) {
           particlePool.releaseAt(i);
         }
+      }
+      for (let i = popups.length - 1; i >= 0; i--) {
+        const p = popups[i]!;
+        p.life -= dt;
+        if (!reduced()) p.y -= 18 * dt;
+        if (p.life <= 0) popupPool.releaseAt(i);
       }
       draw();
       frameMs = win.performance.now() - workStart;
@@ -502,13 +591,34 @@ export function createArcade<S extends GameStats>(
   function draw() {
     if (!ctx || !board || !game) return;
     ctx.clearRect(0, 0, width, height);
-    board.draw(ctx);
+    board.draw(ctx, time, reduced());
     game.draw(ctx);
     for (const p of particles) {
       ctx.globalAlpha = Math.min(1, p.life * 3);
       ctx.fillStyle = p.color;
       ctx.fillRect(p.x, p.y, 3, 3);
     }
+    ctx.save();
+    ctx.font = "700 16px ui-monospace, monospace";
+    ctx.textAlign = "center";
+    ctx.lineJoin = "round";
+    for (const p of popups) {
+      ctx.globalAlpha = clamp(p.life / 0.4, 0, 1);
+      ctx.strokeStyle = theme() === "dark" ? "#101010" : "#ffffff";
+      ctx.lineWidth = 6;
+      ctx.strokeText(p.text, p.x, p.y);
+      ctx.strokeStyle = "#101010";
+      ctx.lineWidth = 3;
+      ctx.strokeText(p.text, p.x, p.y);
+      ctx.fillStyle =
+        p.tone === "upgrade"
+          ? "#06c4ff"
+          : p.tone === "hurt"
+            ? "#ffad80"
+            : "#74dfa1";
+      ctx.fillText(p.text, p.x, p.y);
+    }
+    ctx.restore();
     ctx.globalAlpha = 1;
   }
   function teardown() {
@@ -522,6 +632,7 @@ export function createArcade<S extends GameStats>(
     host = null;
     game = null;
     particlePool.clear();
+    popupPool.clear();
     pausedByVisibility = false;
     ctx = null;
     canvas = null;

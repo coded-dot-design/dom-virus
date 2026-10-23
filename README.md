@@ -29,7 +29,7 @@ If sibling checkouts named `null-invaders`, `byte-runner`, or `swarm-protocol` a
 
 ## Controls and scenarios
 
-- Null Invaders: mouse movement or arrows/WASD; hold click or Space to fire. Four waves upgrade the gun from one to four shots.
+- Null Invaders: mouse movement or arrows/WASD; hold click or Space to fire. Combat XP upgrades the gun from one to four shots within a wave; the run has four waves.
 - Byte Runner: arrows/WASD. Every six fresh letters spawns an orb nearby. Collect it to stop spawning and eat ghosts for six seconds; stacked power is capped at nine seconds. Glitch fruit appears periodically.
 - Swarm Protocol: click/tap bugs to defend the page. Its original behavior and controls remain intact.
 - New games: **P** pauses/resumes, **G** jumps to the next offscreen gate, **Escape** recalls the page. Coarse-pointer devices receive on-screen directional controls and an auto-fire toggle for the shooter.
@@ -67,6 +67,7 @@ Engine and both new games use strict TypeScript with unchecked-index and exact-o
 - `src/runtime.ts`: one animation loop, input, lifecycle, HUD, accessibility preferences and cleanup. Games declare capabilities such as `fire`; the engine does not check game IDs.
 - `src/board.ts` and `src/ledger.ts`: target discovery, cached glyph geometry, controlled mutations and compare-before-restore behavior.
 - `src/entities.ts`: bounded reusable entity pools, visible/live factory selection and scroll translation.
+- `src/arcade-hud.ts` and `src/target-effects.ts`: opt-in score panel, health fills, impact ripples and beacon presentation. Null Invaders uses these; Swarm retains its existing implementation.
 - `src/react.ts`: optional shared effect adapter, tested with real React StrictMode mounts and cleanup.
 
 Each game supplies a `GameDefinition` and `GameSimulation`: reset, update, draw and snapshot, plus optional scroll handling. Rules, player/enemy types and procedural artwork belong to each game. Swarm Protocol retains its existing engine/API for this migration.
@@ -81,6 +82,8 @@ npm run check
 npm run test:browser
 ```
 
+To update only one game, run `npm run build:engine && node scripts/sync-games.mjs null-invaders`. This leaves the other game’s pinned snapshot unchanged.
+
 `sync:games` generates the JavaScript engine, optional React adapter, declaration files and shared game builder. Each game's `shared/ORIGIN.json` records the engine version and source hash. Game builds always use that snapshot; Vite uses sibling source for live iteration. Commit snapshot updates with the affected game release.
 
 ## Target configuration
@@ -94,6 +97,8 @@ const game = createNullInvaders({
   targetSelector: 'button,[role="button"],a.button,a.btn,[data-virus-target]',
   excludeSelector: '[data-virus-ignore]',
   domMode: 'visual', // default; 'text' opts static content into real text changes
+  binaryStyle: 'native', // Null Invaders default; 'neon' is also available
+  targetEffects: 'liquid', // Null Invaders default; 'fade' is also available
   theme: 'system',
 });
 game.start();
@@ -120,7 +125,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Browser tests start and stop their own Vite server. Set `CHROMIUM_PATH` if using an existing Chromium binary. They cover all three games, movement, pause, switching, generic exclusions, nested clipping, visual/direct text modes, host updates, repeated cleanup, ghost power timing, wave progression, mobile page width, typed game capabilities, and real React StrictMode mount/update/unmount cleanup. Screenshots and sampled frame-work measurements are written to `artifacts/`.
+Browser tests start and stop their own Vite server. Set `CHROMIUM_PATH` if using an existing Chromium binary. They cover all three games, movement, pause, switching, generic exclusions, nested clipping, visual/direct text modes, host updates, repeated cleanup, ghost power timing, wave progression, mobile page width, typed game capabilities, native-font binary replacements, liquid damage/restoration, reduced-motion feedback, light/dark/mobile shooter HUDs, and real React StrictMode mount/update/unmount cleanup. Screenshots and sampled frame-work measurements are written to `artifacts/`.
 
 See [PERFORMANCE.md](PERFORMANCE.md) for limits and measurement scope, and [REFERENCES.md](REFERENCES.md) for the implementation study.
 

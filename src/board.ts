@@ -8,6 +8,7 @@ import type {
   Bounds,
   Rect,
 } from "./contracts.js";
+import { TargetEffects } from "./target-effects.js";
 import { MutationLedger } from "./ledger.js";
 import { SpatialGrid, inside, segmentHit } from "./math.js";
 
@@ -38,6 +39,8 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
   root.querySelectorAll(textSelector);
   root.querySelectorAll(targetSelector);
   root.matches(exclude);
+  const effects =
+    options.targetEffects === "liquid" ? new TargetEffects(win) : null;
   const ledger = new MutationLedger(),
     grid = new SpatialGrid<Glyph>();
   const records = new Map<Text, TextRecord>(),
@@ -180,6 +183,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     });
     for (const el of targetRecords.keys())
       if (!candidates.includes(el)) targetRecords.delete(el);
+    effects?.sync(targets);
   }
   function measure(now: number, force = false) {
     if (destroyed) return;
@@ -241,6 +245,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       };
     }
     const parents = new Map<Element, boolean>();
+    const typography = new Map<Element, NonNullable<Glyph["typography"]>>();
     for (const g of glyphs) {
       g.rect = null;
       const r = g.record,
@@ -249,6 +254,17 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       if (!parents.has(el)) {
         const box = el.getBoundingClientRect();
         const css = win.getComputedStyle(el);
+        if (options.binaryStyle === "native") {
+          const font = `${css.fontStyle} ${css.fontWeight} ${css.fontSize} ${css.fontFamily}`;
+          binaryCtx.font = font;
+          const metrics = binaryCtx.measureText("01");
+          typography.set(el, {
+            font,
+            color: css.color,
+            ascent: metrics.fontBoundingBoxAscent,
+            descent: metrics.fontBoundingBoxDescent,
+          });
+        }
         parents.set(
           el,
           visible(box) &&
@@ -258,6 +274,8 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
         );
       }
       if (!parents.get(el) || measurements >= 900) continue;
+      const face = typography.get(el);
+      if (face) g.typography = face;
       const range = g.range || doc.createRange();
       try {
         range.setStart(r.node, g.offset);
@@ -361,31 +379,36 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       })
       .filter((g) => !g.spent && g.rect && inside(g.rect, x, y, radius));
   }
-  function damage(target: BoardTarget, amount: number) {
+  function damage(target: BoardTarget, amount: number, impact?: Point) {
     if (!target.element.isConnected || target.health <= 0) return false;
     target.health = Math.max(0, target.health - amount);
-    ledger.writeStyle(
-      target.element,
-      "opacity",
-      String(0.3 + (0.7 * target.health) / target.maxHealth),
-    );
+    if (effects) effects.hit(target, impact);
+    else
+      ledger.writeStyle(
+        target.element,
+        "opacity",
+        String(0.3 + (0.7 * target.health) / target.maxHealth),
+      );
     return true;
   }
   function resetTargets(health = 100) {
     for (const t of targets) {
       t.health = t.maxHealth = health;
-      ledger.writeStyle(t.element, "opacity", "1");
+      if (!effects) ledger.writeStyle(t.element, "opacity", "1");
     }
   }
-  function draw(ctx: CanvasRenderingContext2D) {
+  function draw(ctx: CanvasRenderingContext2D, time = 0, reduced = false) {
+    effects?.draw(ctx, targets, time, reduced);
     if (!visual) return;
     if (!binaryDirty) {
-      ctx.drawImage(binaryCanvas, 0, 0);
+      ctx.drawImage(binaryCanvas, 0, 0, win.innerWidth, win.innerHeight);
       return;
     }
     binaryDirty = false;
-    binaryCanvas.width = win.innerWidth;
-    binaryCanvas.height = win.innerHeight;
+    const dpr = Math.min(win.devicePixelRatio || 1, 1.5);
+    binaryCanvas.width = Math.round(win.innerWidth * dpr);
+    binaryCanvas.height = Math.round(win.innerHeight * dpr);
+    binaryCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const output = ctx;
     ctx = binaryCtx;
     ctx.save();
@@ -394,6 +417,24 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     for (const g of visibleGlyphs)
       if (g.spent && g.effect === "binary" && g.rect) {
         const r = g.rect;
+        if (options.binaryStyle === "native" && g.typography) {
+          const face = g.typography;
+          ctx.save();
+          ctx.font = face.font;
+          ctx.fillStyle = face.color;
+          ctx.textBaseline = "alphabetic";
+          ctx.beginPath();
+          ctx.rect(r.left, r.top, r.width, r.height);
+          ctx.clip();
+          ctx.fillText(
+            g.bit,
+            (r.left + r.right) / 2,
+            (r.top + r.bottom + face.ascent - face.descent) / 2,
+            r.width,
+          );
+          ctx.restore();
+          continue;
+        }
         ctx.font = `${Math.min(22, Math.max(10, r.height * 0.72))}px monospace`;
         ctx.lineWidth = 3;
         ctx.strokeStyle = "#081012";
@@ -402,7 +443,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
         ctx.fillText(g.bit, (r.left + r.right) / 2, (r.top + r.bottom) / 2);
       }
     ctx.restore();
-    output.drawImage(binaryCanvas, 0, 0);
+    output.drawImage(binaryCanvas, 0, 0, win.innerWidth, win.innerHeight);
   }
   const invalidate = () => {
     dirty = true;
@@ -444,6 +485,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       win.CSS.highlights.delete(name);
     style?.remove();
     ledger.restore();
+    effects?.destroy();
     records.clear();
     targetRecords.clear();
     glyphs = [];

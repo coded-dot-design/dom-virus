@@ -45,6 +45,7 @@ export class MutationLedger {
     el: HTMLElement | SVGElement,
     key: string,
     value: string,
+    priority = "",
   ): boolean {
     if (!this.styles.has(el))
       this.styles.set(el, {
@@ -70,7 +71,8 @@ export class MutationLedger {
       r.abandoned = true;
       return false;
     }
-    el.style.setProperty(key, value);
+    if (r.latest === value && r.lastPriority === priority) return true;
+    el.style.setProperty(key, value, priority);
     r.latest = el.style.getPropertyValue(key);
     r.lastPriority = el.style.getPropertyPriority(key);
     return true;

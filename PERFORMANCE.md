@@ -16,6 +16,8 @@ These are implementation limits, not a promise of a particular frame rate on eve
 | Byte Runner ghosts | 40 |
 | Byte Runner uncollected pickups | 4 |
 | Decorative particles | 100 |
+| Score/upgrade popups | 24 (nearby scores coalesce) |
+| Liquid background paints | At most 12 Hz per visible factory, after impacts |
 | HUD updates | At most 10 per simulation second, plus lifecycle transitions |
 | Dirty geometry cadence | At most 12.5 Hz |
 | Stable geometry cadence | 2 Hz |
@@ -25,7 +27,7 @@ These are implementation limits, not a promise of a particular frame rate on eve
 
 One requestAnimationFrame chain runs while playing. Pause, loss, victory, Recall, and destroy stop scheduling. Visibility changes pause play. Motion is time-based, and the bounded delta intentionally drops excessive catch-up work after a long stall. Bullet sweeps and movement sampling prevent thin targets from being skipped at normal supported frame intervals.
 
-Enemies, bullets, pickups and particles use the same typed, bounded entity pool. Removal swaps with the last active item; wave resets recycle storage. The pool refuses new entities at its capacity. Gate selection and scroll translation avoid temporary filtered/concatenated entity arrays. Counts stay bounded. There is no large physics engine, sprite atlas, image decoder, or per-enemy DOM node. Static binary glyph painting is cached and composed as one image each frame. Collision queries use nearby spatial-grid cells before exact intersection tests.
+Enemies, bullets, pickups and particles use the same typed, bounded entity pool. Removal swaps with the last active item; wave resets recycle storage. The pool refuses new entities at its capacity. Gate selection and scroll translation avoid temporary filtered/concatenated entity arrays. Counts stay bounded. There is no large physics engine, external sprite sheet, image decoder, or per-enemy DOM node. Null Invaders bakes its original pixel art into tiny 15×16 canvas tiles, cached by character/frame/hit state and drawn with image smoothing disabled. Static binary glyph painting is cached and composed as one image each frame. Collision queries use nearby spatial-grid cells before exact intersection tests.
 
 Range geometry and computed styles can trigger browser layout. They are outside the per-projectile path, cached, and refreshed only at the bounded cadence. Scrolling invalidates geometry; nested overflow clips are respected. The cache intentionally limits the playable portion of exceptionally dense documents. Reaching a cap does not enlarge it automatically.
 
@@ -35,4 +37,4 @@ Run each game's `npm run size` to enforce the distribution budget. Development `
 
 Release check: run browser behavior tests, inspect dark/light/mobile screenshots, verify cleanup after repeated switching, build both games, run their rule tests and size checks, and build the hub playground.
 
-Type annotations are erased during builds; TypeScript is a correctness tool, not a frame-rate optimization. Strict checks and generated declarations keep game/engine interfaces aligned. Pool reuse and reduced temporary allocation are the runtime changes in 0.2.0. Compare real-device frame profiles before claiming an FPS improvement.
+Type annotations are erased during builds; TypeScript is a correctness tool, not a frame-rate optimization. Strict checks and generated declarations keep game/engine interfaces aligned. Pool reuse and reduced temporary allocation arrived in 0.2.0. The 0.3.0 shooter adds pooled score popups, cached pixel tiles and hit-driven liquid backgrounds; idle buttons do not repaint their backgrounds. Typography is sampled during geometry refresh, never per projectile. Removed targets release their effect records and restore owned styles. Compare real-device frame profiles before claiming an FPS improvement.

@@ -21,6 +21,9 @@ export interface BoardOptions {
   targetSelector?: string;
   excludeSelector?: string;
   domMode?: "visual" | "text";
+  /** Native typography keeps binary replacements in the page's visual language. */
+  binaryStyle?: "native" | "neon";
+  targetEffects?: "liquid" | "fade";
 }
 export interface RuntimeOptions extends BoardOptions {
   document?: Document;
@@ -40,6 +43,15 @@ export interface GameStats {
   lives?: number;
   wave?: number;
   detail?: string;
+  hud?: ArcadeHud;
+}
+export interface ArcadeHud {
+  kills: number;
+  alive: number;
+  combo: number;
+  label: string;
+  progress: number;
+  progressText: string;
 }
 export type GameStatus =
   | "idle"
@@ -92,6 +104,7 @@ export interface Glyph {
   spent: boolean;
   rect: Rect | null;
   range: Range | null;
+  typography?: { font: string; color: string; ascent: number; descent: number };
   bit: "0" | "1";
   effect?: "binary" | "erase";
 }
@@ -115,9 +128,13 @@ export interface Board {
   ): boolean;
   hitSegment(a: Point, b: Point): { glyph: Glyph; t: number } | null;
   near(x: number, y: number, radius?: number): Glyph[];
-  damage(target: BoardTarget, amount: number): boolean;
+  damage(target: BoardTarget, amount: number, impact?: Point): boolean;
   resetTargets(health?: number): void;
-  draw(context: CanvasRenderingContext2D): void;
+  draw(
+    context: CanvasRenderingContext2D,
+    time?: number,
+    reducedMotion?: boolean,
+  ): void;
   invalidate(): void;
   destroy(): void;
 }
@@ -141,6 +158,12 @@ export interface GameContext {
   emit(type: string, data?: Record<string, unknown>): void;
   move(player: Player, dt: number, speed?: number, cardinal?: boolean): void;
   burst(x: number, y: number, color: string, count?: number): void;
+  popup(
+    x: number,
+    y: number,
+    text: string,
+    tone?: "score" | "upgrade" | "hurt",
+  ): void;
   finish(won?: boolean): void;
 }
 export interface GameSimulation<S extends GameStats = GameStats> {
@@ -156,5 +179,6 @@ export interface GameDefinition<S extends GameStats = GameStats> {
   color: string;
   hint: string;
   capabilities?: { fire?: boolean };
+  hud?: "arcade";
   create(context: GameContext): GameSimulation<S>;
 }
