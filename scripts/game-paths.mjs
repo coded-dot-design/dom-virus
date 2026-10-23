@@ -3,7 +3,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const games = JSON.parse(
-  readFileSync(resolve(repoRoot, "games.json"), "utf8"),
+  process.env.DOM_VIRUS_GAME_PINS_JSON ||
+    readFileSync(resolve(repoRoot, "games.json"), "utf8"),
 );
 export const entryFile = (name) =>
   name === "swarm-protocol" ? "src/swarm-loader.js" : "src/index.ts";

@@ -3,6 +3,8 @@ import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { gzipSync } from "node:zlib";
 import { pathToFileURL } from "node:url";
+import { latestReleasePins } from "./latest.mjs";
+import { prepareArchives } from "./releases.mjs";
 const root = process.cwd();
 const config = JSON.parse(
   readFileSync(resolve(root, "site/config.json"), "utf8"),
@@ -12,6 +14,11 @@ const names =
     ? ["null-invaders", "byte-runner", "swarm-protocol"]
     : [config.id];
 let roots = {};
+const latest =
+  config.id === "dom-virus" && process.env.DOM_VIRUS_LATEST_RELEASES === "1"
+    ? latestReleasePins(root, names)
+    : null;
+if (latest) process.env.DOM_VIRUS_GAME_PINS_JSON = JSON.stringify(latest.pins);
 if (config.id === "dom-virus") {
   await import(
     pathToFileURL(resolve(root, "scripts/prepare-playground.mjs")).href
@@ -56,10 +63,22 @@ function swarmSize(gameRoot) {
     files: files.map((f) => f.slice(gameRoot.length + 1)),
   };
 }
+const archives = prepareArchives(root, names);
 const games = [];
 for (const name of names) {
   const gameRoot = roots[name];
   const pkg = read(resolve(gameRoot, "package.json"));
+  if (latest) {
+    const actual = execFileSync("git", ["rev-parse", "HEAD"], {
+      cwd: gameRoot,
+      encoding: "utf8",
+    }).trim();
+    if (
+      actual !== latest.commits[name] ||
+      `v${pkg.version}` !== latest.pins[name]
+    )
+      throw new Error(`Resolved release changed during build: ${name}`);
+  }
   if (!existsSync(resolve(gameRoot, "dist/index.js"))) {
     // Swarm's compiled output is intentionally untracked. Build its existing source.
     execFileSync("npm", ["ci", "--no-audit", "--no-fund"], {
@@ -96,7 +115,13 @@ for (const name of names) {
           ...size(resolve(gameRoot, "dist/index.js")),
           files: ["dist/index.js"],
         };
-  games.push({ ...content, version: pkg.version, package: pkg.name, metrics });
+  games.push({
+    ...content,
+    version: pkg.version,
+    package: pkg.name,
+    metrics,
+    archives: archives[name] || [],
+  });
 }
 const out = resolve(root, "site/generated");
 mkdirSync(out, { recursive: true });
@@ -113,6 +138,20 @@ writeFileSync(
   resolve(out, "registry.ts"),
   `export const registry = {\n${names.map((name) => `${JSON.stringify(name)}: async () => (await import(${JSON.stringify(resolve(roots[name], "dist/index.js"))})).${factories[name]}`).join(",\n")}\n};\n`,
 );
+const archiveEntries = names.flatMap((name) =>
+  (archives[name] || []).map(
+    (entry) =>
+      `${JSON.stringify(entry.key)}: async () => (await import(/* @vite-ignore */ import.meta.env.BASE_URL + ${JSON.stringify(entry.path)})).${factories[name]}`,
+  ),
+);
+if (archiveEntries.length) {
+  const registryPath = resolve(out, "registry.ts");
+  const registrySource = readFileSync(registryPath, "utf8");
+  writeFileSync(
+    registryPath,
+    registrySource.replace("\n};", ",\n" + archiveEntries.join(",\n") + "\n};"),
+  );
+}
 console.log(
   `Site ready: ${config.id}; ${games.length} game(s). Metrics measured from built distribution files.`,
 );

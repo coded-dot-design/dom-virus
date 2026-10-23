@@ -86,13 +86,19 @@ for (const button of document.querySelectorAll<HTMLButtonElement>(
     focused = button;
     const request = epoch;
     const id = button.dataset.launch!;
-    const load = registry[id as keyof typeof registry];
+    const select = document.querySelector<HTMLSelectElement>(
+      `[data-release="${id}"]`,
+    );
+    const key = select?.value || id;
+    const version = select?.selectedOptions[0]?.dataset.version;
+    const load = registry[key as keyof typeof registry];
     if (!load) return;
     nameLabel.textContent =
       button.textContent
         ?.replace("▶", "")
         .replace(/^\s*Play /, "")
         .trim() || id;
+    if (version) nameLabel.textContent += ` ${version}`;
     stateLabel.textContent = "loading";
     pause.disabled = true;
     bar.hidden = false;
