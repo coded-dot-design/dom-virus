@@ -1,11 +1,14 @@
 {
   "name": "@coded-design/dom-virus",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Small DOM arcade runtime and local playground by coded.design",
   "type": "module",
   "license": "MIT",
   "author": "Chris Cooley",
-  "sideEffects": false,
+  "sideEffects": [
+    "./site-kit/**",
+    "./site/**"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -23,14 +26,14 @@
     "README.md"
   ],
   "engines": {
-    "node": ">=22.12"
+    "node": ">=22.23.4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/coded-dot-design/dom-virus.git"
   },
   "scripts": {
-    "dev": "node scripts/prepare-playground.mjs && vite --config vite.config.js",
+    "dev": "node site-kit/scripts/prepare.mjs && astro dev --config site/astro.config.mjs",
     "build": "npm run build:engine && npm run build:playground",
     "preview": "vite preview --config vite.config.js",
     "test": "node --import tsx --test tests/*.test.mjs",
@@ -40,18 +43,25 @@
     "build:engine": "node scripts/build-engine.mjs",
     "build:playground": "node scripts/prepare-playground.mjs && vite build --config vite.config.js",
     "sync:games": "npm run build:engine && node scripts/sync-games.mjs",
-    "test:package": "tsc -p tsconfig.package.json"
+    "test:package": "tsc -p tsconfig.package.json",
+    "dev:playground": "node scripts/prepare-playground.mjs && vite --config vite.config.js",
+    "site:prepare": "node site-kit/scripts/prepare.mjs",
+    "site:build": "npm run site:typecheck && node site-kit/scripts/prepare.mjs && astro build --config site/astro.config.mjs && node site-kit/scripts/verify.mjs",
+    "site:preview": "astro preview --config site/astro.config.mjs",
+    "sync:sites": "node scripts/sync-sites.mjs",
+    "site:typecheck": "tsc -p site-kit/tsconfig.json"
   },
   "devDependencies": {
+    "@types/react": "19.3.0",
+    "astro": "7.4.2",
     "esbuild": "0.28.2",
     "playwright": "1.58.2",
     "prettier": "3.6.2",
-    "vite": "8.3.5",
-    "typescript": "7.0.2",
-    "tsx": "4.23.15",
-    "@types/react": "19.3.0",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
