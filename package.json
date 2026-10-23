@@ -1,0 +1,41 @@
+{
+  "name": "@coded-design/dom-virus",
+  "version": "0.1.0",
+  "description": "Small DOM arcade runtime and local playground by coded.design",
+  "type": "module",
+  "license": "MIT",
+  "author": "Chris Cooley",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coded-dot-design/dom-virus.git"
+  },
+  "scripts": {
+    "dev": "node scripts/prepare-playground.mjs && vite --config vite.config.js",
+    "build": "node scripts/prepare-playground.mjs && vite build --config vite.config.js",
+    "preview": "vite preview --config vite.config.js",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "check": "npm test && npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "playwright": "1.58.2",
+    "prettier": "3.6.2",
+    "vite": "8.3.5"
+  }
+}

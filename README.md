@@ -1,0 +1,98 @@
+# DOM VIRUS · coded.design
+
+**The page is the game board.** A local arcade playground and small shared runtime for three independently usable MIT-licensed games.
+
+| Game | Play |
+| --- | --- |
+| [Swarm Protocol](https://github.com/coded-dot-design/swarm-protocol) | Defend letters and buttons from an evolving bug swarm. |
+| [Null Invaders](https://github.com/coded-dot-design/null-invaders) | Fly through a webpage, corrupt letters into binary, and destroy alien factories. |
+| [Byte Runner](https://github.com/coded-dot-design/byte-runner) | Eat letters, collect power orbs, and turn the tables on button-spawned ghosts. |
+
+This first cut is a development playground. The public launcher and Chrome extension are future work. Swarm remains its existing v1.1.0 implementation and API.
+
+## Run all three games
+
+Use Node **22.12+** or Node 24, npm, and Git:
+
+```sh
+git clone https://github.com/coded-dot-design/dom-virus.git
+cd dom-virus
+npm ci
+npm run dev
+```
+
+Open the URL Vite prints, normally **http://127.0.0.1:5173**. Choose a cartridge and select **Launch game**. The default fictional page needs no target attributes: headings, paragraphs, list text, buttons, and button-style links are automatically selected within its board.
+
+On the first run, the setup script clones the game versions in `games.json` into `.games/`. It does not install their development dependencies or execute their install scripts. GitHub is accessed during setup; the running playground uses local files only.
+
+If sibling checkouts named `null-invaders`, `byte-runner`, or `swarm-protocol` are present, the playground uses those sources instead. This lets you iterate across separate repositories with Vite reloads. Existing `.games` checkouts stay pinned; remove the relevant cache directory to fetch a changed `games.json` version. Prefer sibling checkouts for ongoing game development.
+
+## Controls and scenarios
+
+- Null Invaders: mouse movement or arrows/WASD; hold click or Space to fire. Four waves upgrade the gun from one to four shots.
+- Byte Runner: arrows/WASD. Every six fresh letters spawns an orb nearby. Collect it to stop spawning and eat ghosts for six seconds; stacked power is capped at nine seconds. Glitch fruit appears periodically.
+- Swarm Protocol: click/tap bugs to defend the page. Its original behavior and controls remain intact.
+- New games: **P** pauses/resumes, **G** jumps to the next offscreen gate, **Escape** recalls the page. Coarse-pointer devices receive on-screen directional controls and an auto-fire toggle for the shooter.
+- Recall removes the game and restores its owned effects. Switching cartridges does the same before loading the next game.
+
+The scenario picker supports generic page detection, explicitly marked targets, letters only, and a nested scrolling room. The form is intentionally protected. The page and game HUD follow system light/dark preferences. Reduced-motion preference suppresses decorative particles and idle pulses without disabling essential gameplay movement.
+
+For local inspection, `window.playground.getSnapshot()` returns the current game's snapshot. This global exists only in the development playground; game packages add no globals.
+
+## Independent packages
+
+Each new game repository provides a separate npm-compatible package, a self-contained `dist/index.js`, an optional `/react` adapter, its own Vite page, MIT license, tests, and size check. The shared runtime is bundled into each built game, so a consumer needs only the selected game. No runtime download from this repository is required.
+
+The runtime source is maintained once in this repository. Games pin a generated runtime snapshot with a source fingerprint and bundle it during a release. Runtime changes do not silently change already released games.
+
+## Target configuration
+
+Both new factories accept these options. Passing no options uses the current document body and the defaults below:
+
+```js
+const game = createNullInvaders({
+  root: document.querySelector('main'), // Element or CSS selector
+  textSelector: 'h1,h2,h3,h4,h5,h6,p,li,blockquote,[data-virus-text]',
+  targetSelector: 'button,[role="button"],a.button,a.btn,[data-virus-target]',
+  excludeSelector: '[data-virus-ignore]',
+  domMode: 'visual', // default; 'text' opts static content into real text changes
+  theme: 'system',
+});
+game.start();
+```
+
+Explicit selectors replace their corresponding defaults. Forms, editable fields, code/preformatted text, live regions, dialogs, and game controls are protected by the engine. Protected areas remain excluded even if a broad selector matches them. Ordinary text links are excluded from text consumption. Hidden/clipped targets are not active spawn points. A page without buttons falls back to edge spawns so the letters-only scenario is playable.
+
+## How it works
+
+- One small host with Shadow DOM contains the canvas and HUD. The board adapter intentionally reads selected elements in the host document. Shadow DOM is style encapsulation, not a security sandbox.
+- Text is indexed as grapheme clusters with `Intl.Segmenter`, avoiding accidental splits in emoji and combining characters. Ranges supply positions without inserting a span around every letter.
+- Default visual effects use CSS Highlights to conceal consumed glyphs, with cached binary replacements painted on canvas. React retains ownership of its text nodes. The optional `text` mode edits selected static text directly and records originals.
+- The mutation ledger compares the current value with the last game-written value before restoration. A newer host update wins. Destroy never replaces a container's HTML or recreates a button.
+- Canvas characters are original procedural shapes. A small shared loop handles time, input, cleanup, and effects. Game simulations own enemy behavior, scoring, and win/loss rules.
+- Geometry refreshes are throttled and bounded. Glyph collision uses a spatial grid, and projectiles use swept tests to avoid skipping thin letters.
+
+## Validation
+
+```sh
+npm test
+npm run build
+npx playwright install chromium
+npm run test:browser
+```
+
+Browser tests start and stop their own Vite server. Set `CHROMIUM_PATH` if using an existing Chromium binary. They cover all three games, movement, pause, switching, generic exclusions, nested clipping, visual/direct text modes, host updates, repeated cleanup, ghost power timing, wave progression, and mobile page width. Screenshots and sampled frame-work measurements are written to `artifacts/`.
+
+See [PERFORMANCE.md](PERFORMANCE.md) for limits and measurement scope, and [REFERENCES.md](REFERENCES.md) for the implementation study.
+
+## First-cut boundaries
+
+The two new games target modern browsers with Canvas 2D, Shadow DOM, `Intl.Segmenter`, and CSS Highlights. The visual mode requires CSS Highlights; older browsers can explicitly use text mode on static opted-in content. This is not yet a cross-browser certification. Cross-origin frames and closed shadow roots are outside the board. Aggressively transforming pages, virtualized content, and hostile styles need additional fixtures before making broad compatibility claims.
+
+No external fonts, images, sound files, telemetry, account, or backend are required. Chrome extension permissions, store packaging, persistent settings, and a public launcher are deferred.
+
+MIT © 2026 Chris Cooley. Brand: coded.design.
+
+## Version tags
+
+After checks pass on `main`, CI creates the tag matching `package.json` (for example `v0.1.0`) if it does not already exist. Existing tags never move. Bump the package version for the next release.

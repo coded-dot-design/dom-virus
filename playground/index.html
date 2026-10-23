@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>DOM VIRUS — coded.design playground</title>
+  </head>
+  <body>
+    <div class="console" data-virus-ignore data-swarm-ignore>
+      <a class="brand" href="#"
+        ><span class="brand-icon">c.</span> coded.design
+        <span class="division">/ DOM VIRUS</span></a
+      >
+      <div class="console-title">
+        <span class="signal"></span> LOCAL ARCADE LAB
+        <span class="build">FIRST CUT / 0.1</span>
+      </div>
+      <h1>Your page.<br /><em>Our playground.</em></h1>
+      <p class="intro">
+        Three tiny games. One living webpage. Choose a cartridge, then turn the
+        content below into your game board.
+      </p>
+      <div class="games" role="group" aria-label="Choose a game">
+        <button data-game="null-invaders" aria-pressed="true">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 6 53 53 32 43 11 53Z" />
+            <path class="cut" d="m32 20 6 20H26Z" /></svg
+          ><span class="number">01 / SHOOTER</span><strong>Null Invaders</strong
+          ><small>Erase the signal.</small>
+        </button>
+        <button data-game="byte-runner" aria-pressed="false">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="m5 32 27-27 26 15-24 12 24 12-26 15Z" />
+            <circle class="cut" cx="30" cy="19" r="3" /></svg
+          ><span class="number">02 / CHASE</span><strong>Byte Runner</strong
+          ><small>Eat the page. Outrun the ghosts.</small>
+        </button>
+        <button data-game="swarm-protocol" aria-pressed="false">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M23 18h18v30H23Z" />
+            <path
+              class="legs"
+              d="m23 24-13-7m13 15H7m16 8L10 48m31-24 13-7M41 32h16M41 40l13 8M27 18l-5-9m15 9 5-9"
+            /></svg
+          ><span class="number">03 / DEFENSE</span
+          ><strong>Swarm Protocol</strong><small>Defend every last byte.</small>
+        </button>
+      </div>
+      <div class="toolbar">
+        <button class="launch" id="launch">Launch game <span>↗</span></button
+        ><button id="pause">Pause</button
+        ><button id="recall">Recall page</button
+        ><label
+          >Targets
+          <select id="scenario">
+            <option value="auto">Auto / generic page</option>
+            <option value="marked">Marked elements only</option>
+            <option value="letters">Letters only</option>
+            <option value="nested">Nested scroll room</option>
+          </select></label
+        >
+      </div>
+      <p id="instructions">
+        Mouse or WASD to fly · Click or Space to fire · G jumps to a factory.
+      </p>
+      <div class="statusbar">
+        <span id="telemetry" role="status">READY / SELECT A GAME</span
+        ><span>ESC TO RECALL</span>
+      </div>
+    </div>
+    <main id="board">
+      <header class="site-nav">
+        <b>FORM / FIELD</b><span>A fictional studio. A real game board.</span
+        ><a href="#contact" class="button">Contact studio ↗</a>
+      </header>
+      <section class="hero">
+        <div class="eyebrow">01 — EXPERIMENTAL DESIGN SYSTEMS</div>
+        <h1 data-virus-text>Good ideas<br />don't sit still.</h1>
+        <div class="hero-bottom">
+          <p data-virus-text>
+            We build spaces for ideas to become something unexpected. A
+            collection of playful experiments in form, motion, and the way we
+            experience the web.
+          </p>
+          <button data-virus-target>Explore the collection ↗</button>
+        </div>
+        <div class="orb-art" aria-hidden="true">
+          <div></div>
+          <div></div>
+          <div></div>
+          <span>F/F<br />2026</span>
+        </div>
+      </section>
+      <section class="work">
+        <div class="section-top">
+          <div class="eyebrow">02 — SELECTED EXPERIMENTS</div>
+          <h2 data-virus-text>
+            A little structure.<br />A lot of possibility.
+          </h2>
+        </div>
+        <div class="cards">
+          <article>
+            <span class="tile coral">01 <i>↗</i></span>
+            <h3 data-virus-text>Soft systems</h3>
+            <p>
+              Interfaces with enough room to breathe. Familiar patterns,
+              considered details, and a sense of possibility in every
+              interaction.
+            </p>
+            <button data-virus-target>Open experiment ↗</button>
+          </article>
+          <article>
+            <span class="tile lime">02 <i>✳</i></span>
+            <h3 data-virus-text>Living typography</h3>
+            <p>
+              Words that can become landscapes. Explore the relationship between
+              legibility, movement, and the smallest pieces of a page.
+            </p>
+            <button>See the study ↗</button>
+          </article>
+          <article>
+            <span class="tile lilac">03 <i>◉</i></span>
+            <h3 data-virus-text>Unexpected motion</h3>
+            <p>
+              A changing collection of small experiences. Each begins with a
+              simple question and ends somewhere a little less predictable.
+            </p>
+            <button data-virus-target>Enter the archive ↗</button>
+          </article>
+        </div>
+      </section>
+      <section class="reading">
+        <div class="eyebrow">03 — FIELD NOTES</div>
+        <h2>Everything starts<br />with a small experiment.</h2>
+        <div class="columns">
+          <p data-virus-text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at
+            sapien vitae augue tincidunt commodo. Quisque facilisis, libero a
+            interdum volutpat, justo lacus feugiat velit, ut pellentesque arcu
+            metus eu lorem. Every letter here is a real text target.
+          </p>
+          <p>
+            Curabitur tincidunt urna sed est pellentesque, nec varius enim
+            elementum. Nulla facilisi. Donec faucibus mauris eget risus
+            interdum, quis efficitur lorem bibendum. Scroll through the page
+            while a game runs to test the connection between the viewport and
+            the board.
+          </p>
+        </div>
+        <blockquote>
+          The most interesting ideas tend to happen somewhere between what a
+          thing is and what it could become.
+        </blockquote>
+      </section>
+      <section class="scroll-test">
+        <div>
+          <div class="eyebrow">04 — A ROOM INSIDE THE ROOM</div>
+          <h2>Keep exploring.</h2>
+          <p>
+            This panel scrolls independently. Letters and factories should stay
+            attached to their own content.
+          </p>
+        </div>
+        <div id="nested" tabindex="0" aria-label="Nested scroll test">
+          <h3 data-virus-text>A second perspective</h3>
+          <p data-virus-text>
+            Small observations become larger ideas. Follow the thread through
+            this space and notice how the landscape changes around you.
+          </p>
+          <button data-virus-target>Open a new window ↗</button>
+          <div class="scroll-spacer"><span>THERE'S MORE BELOW ↓</span></div>
+          <h3 data-virus-text>Another place to begin</h3>
+          <p data-virus-text>
+            Vivamus luctus, lectus sit amet tempus ultricies, quam nunc gravida
+            enim, ac dapibus mi metus vel nulla. Every section is another chance
+            to explore.
+          </p>
+          <button data-virus-target>Find the last signal ↗</button>
+        </div>
+      </section>
+      <section id="contact" class="contact">
+        <div>
+          <div class="eyebrow">05 — STAY CURIOUS</div>
+          <h2 data-virus-text>Something good<br />is taking shape.</h2>
+          <p data-virus-text>Make a little room for the unexpected.</p>
+          <button data-virus-target>Start a conversation ↗</button>
+        </div>
+        <form id="demo-form">
+          <label
+            >Your email<input
+              type="email"
+              placeholder="you@example.com"
+              required /></label
+          ><label
+            >A thought to keep<textarea
+              placeholder="Forms remain outside the game board."
+            ></textarea></label
+          ><button type="submit">Test this form</button
+          ><small id="form-result" role="status"
+            >This is a local demo. No data is sent.</small
+          >
+        </form>
+      </section>
+      <footer>
+        <b>FORM / FIELD</b>
+        <p>Built for curiosity. Reserved for play.</p>
+        <span>© 2026 / FICTIONAL STUDIO</span>
+      </footer>
+    </main>
+    <div
+      class="host-event"
+      data-virus-ignore
+      data-swarm-ignore
+      id="host-event"
+      aria-live="polite"
+    ></div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

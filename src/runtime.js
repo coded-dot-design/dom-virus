@@ -1,0 +1,534 @@
+import { createBoard } from "./board.js";
+import { clamp, seededRandom } from "./math.js";
+
+const editSelector =
+  'input,textarea,select,[contenteditable],form,dialog,[role="dialog"]';
+export function createArcade(definition, options = {}) {
+  const doc = options.document || globalThis.document;
+  if (!doc?.defaultView)
+    throw new Error("Create a DOM Virus game in the browser after mounting.");
+  const win = doc.defaultView;
+  let host,
+    shadow,
+    canvas,
+    ctx,
+    board,
+    game,
+    raf = 0,
+    last = 0,
+    time = 0,
+    notifyAt = -1,
+    destroyed = false,
+    pausedByVisibility = false;
+  let status = "idle",
+    width = 0,
+    height = 0,
+    dpr = 1,
+    sx = 0,
+    sy = 0,
+    frameMs = 0,
+    maxFrameMs = 0;
+  let listeners = [],
+    particles = [],
+    pool = [],
+    notice = "",
+    input,
+    ui = {},
+    lastStats = {},
+    autoFire = false;
+  const random =
+    options.seed === undefined ? Math.random : seededRandom(options.seed);
+  const darkQuery = win.matchMedia("(prefers-color-scheme: dark)"),
+    motionQuery = win.matchMedia("(prefers-reduced-motion: reduce)");
+  const theme = () =>
+    options.theme === "dark" || (options.theme !== "light" && darkQuery.matches)
+      ? "dark"
+      : "light";
+  const reduced = () => options.reducedMotion ?? motionQuery.matches;
+  function on(target, event, fn, settings) {
+    target.addEventListener(event, fn, settings);
+    listeners.push(() => target.removeEventListener(event, fn, settings));
+  }
+  function emit(type, data = {}) {
+    options.onEvent?.({ type, game: definition.id, ...data });
+  }
+  function getSnapshot() {
+    return {
+      id: definition.id,
+      status,
+      elapsed: time,
+      ...lastStats,
+      ...(game?.snapshot() || {}),
+      board: board?.stats || {
+        indexed: 0,
+        visible: 0,
+        spent: 0,
+        measurements: 0,
+      },
+      particles: particles.length,
+      frameMs,
+      maxFrameMs,
+      notice,
+    };
+  }
+  function notify(force = false) {
+    if (!force && time - notifyAt < 0.1) return;
+    notifyAt = time;
+    const snap = getSnapshot();
+    options.onState?.(snap);
+    if (!host) return;
+    const fields = {
+      score: String(snap.score || 0).padStart(5, "0"),
+      lives: `${snap.lives ?? 3} LIVES`,
+      wave: `WAVE ${snap.wave || 1}`,
+      status: status.toUpperCase(),
+      detail: notice || snap.detail || definition.hint,
+    };
+    for (const [key, value] of Object.entries(fields))
+      if (ui[key]?.textContent !== value) ui[key].textContent = value;
+    ui.pause.textContent = status === "paused" ? "Resume" : "Pause";
+    ui.pause.disabled = !["running", "paused"].includes(status);
+  }
+  function clearInput() {
+    input?.keys.clear();
+    if (input) {
+      input.fire = false;
+      input.pointer.active = false;
+    }
+  }
+  function resize() {
+    width = win.innerWidth;
+    height = win.innerHeight;
+    dpr = Math.min(win.devicePixelRatio || 1, 1.5);
+    if (canvas) {
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+  }
+  function mount() {
+    if (doc.querySelector("[data-dom-virus-root]"))
+      throw new Error(
+        "Recall the active DOM Virus game before starting another.",
+      );
+    board = createBoard(doc, options);
+    host = doc.createElement("div");
+    host.dataset.domVirusRoot = definition.id;
+    host.dataset.virusIgnore = "";
+    shadow = host.attachShadow({ mode: "open" });
+    shadow.innerHTML = `<style>
+      :host{all:initial!important;position:fixed!important;inset:0!important;display:block!important;z-index:2147483000!important;pointer-events:none!important;contain:layout style;--accent:${definition.color}}
+      *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;right:18px;top:18px;width:300px;color:#f4f7f7;background:#101718f2;border:1px solid #3b4b49;border-radius:16px;padding:15px;font:12px/1.5 ui-monospace,SFMono-Regular,monospace;box-shadow:0 12px 40px #0005;pointer-events:auto}
+      .hud[data-theme=light]{color:#152321;background:#f7fcfaf5;border-color:#a7bbb7}header{display:flex;justify-content:space-between;gap:8px}strong{letter-spacing:.08em;color:var(--accent);text-shadow:0 1px 2px #001b}small{opacity:.65}section{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0}b{font-size:27px;letter-spacing:.04em}p{margin:8px 0;min-height:36px;opacity:.8}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{opacity:.4}.touch{display:none;margin-top:8px;gap:7px}.touch button{min-width:42px;min-height:40px;touch-action:none}.touch button[data-k=ArrowLeft]{grid-column:1}.touch button[data-k=ArrowUp]{grid-column:2}.touch button[data-k=ArrowRight]{grid-column:3}.touch button[data-k=ArrowDown]{grid-column:2}.hud.folded section,.hud.folded p,.hud.folded nav,.hud.folded .touch{display:none}
+      @media(pointer:coarse){.touch{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.hud{top:10px;right:10px;width:240px;padding:10px}b{font-size:22px}}
+    </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${definition.id === "null-invaders" ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
+    doc.documentElement.append(host);
+    canvas = shadow.querySelector("canvas");
+    ctx = canvas.getContext("2d");
+    if (!ctx) {
+      teardown();
+      throw new Error("Canvas 2D is unavailable.");
+    }
+    ui = Object.fromEntries(
+      [...shadow.querySelectorAll("[data-field]")].map((el) => [
+        el.dataset.field,
+        el,
+      ]),
+    );
+    ui.pause = shadow.querySelector("[data-action=pause]");
+    const hud = shadow.querySelector(".hud");
+    const syncTheme = () => (hud.dataset.theme = theme());
+    syncTheme();
+    on(darkQuery, "change", syncTheme);
+    for (const el of shadow.querySelectorAll("[data-action]"))
+      on(el, "click", () => {
+        const action = el.dataset.action;
+        if (action === "pause") status === "paused" ? resume() : pause();
+        if (action === "exit") stop();
+        if (action === "restart") start();
+        if (action === "gate") nextGate();
+        if (action === "fold") {
+          hud.classList.toggle("folded");
+          el.textContent = hud.classList.contains("folded") ? "+" : "−";
+        }
+        if (action === "fire") {
+          autoFire = !autoFire;
+          el.textContent = autoFire ? "Fire: on" : "Auto fire";
+        }
+      });
+    input = {
+      keys: new Set(),
+      pointer: {
+        x: win.innerWidth / 2,
+        y: win.innerHeight * 0.65,
+        active: false,
+      },
+      fire: false,
+      mode: options.controls === "keyboard" ? "keyboard" : "mouse",
+    };
+    for (const el of shadow.querySelectorAll("[data-k]")) {
+      on(el, "pointerdown", (e) => {
+        e.preventDefault();
+        el.setPointerCapture(e.pointerId);
+        input.mode = "keyboard";
+        input.keys.add(el.dataset.k);
+      });
+      const release = () => input.keys.delete(el.dataset.k);
+      on(el, "pointerup", release);
+      on(el, "pointercancel", release);
+      on(el, "lostpointercapture", release);
+    }
+    function isProtected(e) {
+      return e
+        .composedPath()
+        .some(
+          (el) =>
+            el === host ||
+            el.matches?.(editSelector) ||
+            el.matches?.("[data-virus-ignore]"),
+        );
+    }
+    on(
+      doc,
+      "keydown",
+      (e) => {
+        if (e.code === "Escape") {
+          e.preventDefault();
+          stop();
+          return;
+        }
+        if (isProtected(e) || e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.code === "KeyP") {
+          e.preventDefault();
+          if (!e.repeat) status === "paused" ? resume() : pause();
+          return;
+        }
+        if (status !== "running") return;
+        if (e.code === "KeyG") {
+          e.preventDefault();
+          if (!e.repeat) nextGate();
+          return;
+        }
+        if (
+          [
+            "ArrowUp",
+            "ArrowDown",
+            "ArrowLeft",
+            "ArrowRight",
+            "KeyW",
+            "KeyA",
+            "KeyS",
+            "KeyD",
+            "Space",
+          ].includes(e.code)
+        ) {
+          e.preventDefault();
+          input.mode = "keyboard";
+          input.keys.add(e.code);
+        }
+      },
+      true,
+    );
+    on(doc, "keyup", (e) => input.keys.delete(e.code), true);
+    on(
+      doc,
+      "pointermove",
+      (e) => {
+        if (
+          status !== "running" ||
+          isProtected(e) ||
+          e.pointerType === "touch" ||
+          options.controls === "keyboard"
+        )
+          return;
+        input.pointer = { x: e.clientX, y: e.clientY, active: true };
+        input.mode = "mouse";
+      },
+      { passive: true },
+    );
+    on(
+      doc,
+      "pointerdown",
+      (e) => {
+        if (status !== "running" || isProtected(e) || e.button !== 0) return;
+        if (definition.id === "null-invaders") {
+          input.fire = true;
+          e.preventDefault();
+        }
+      },
+      true,
+    );
+    on(doc, "pointerup", () => (input.fire = false), true);
+    on(doc, "pointercancel", clearInput, true);
+    on(
+      doc,
+      "click",
+      (e) => {
+        if (
+          status === "running" &&
+          definition.id === "null-invaders" &&
+          !isProtected(e) &&
+          e.detail > 0
+        ) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      true,
+    );
+    on(doc, "focusin", (e) => {
+      if (e.target.matches?.(editSelector) && status === "running") pause();
+    });
+    on(win, "blur", () => {
+      if (status === "running") pause();
+      clearInput();
+    });
+    on(win, "pagehide", stop);
+    on(doc, "visibilitychange", () => {
+      if (doc.hidden && status === "running") {
+        pause();
+        pausedByVisibility = true;
+      } else if (!doc.hidden && pausedByVisibility) {
+        pausedByVisibility = false;
+        resume();
+      }
+    });
+    on(win, "resize", resize);
+    resize();
+    sx = win.scrollX;
+    sy = win.scrollY;
+    board.measure(0, true);
+    const api = {
+      board,
+      input,
+      random,
+      emit,
+      options,
+      get width() {
+        return width;
+      },
+      get height() {
+        return height;
+      },
+      get time() {
+        return time;
+      },
+      get firing() {
+        return input.fire || autoFire || input.keys.has("Space");
+      },
+      get reducedMotion() {
+        return reduced();
+      },
+      move(player, dt, speed = 300, cardinal = false) {
+        let x = 0,
+          y = 0;
+        const k = input.keys;
+        if (input.mode === "mouse" && input.pointer.active) {
+          x = input.pointer.x - player.x;
+          y = input.pointer.y - player.y;
+          const n = Math.hypot(x, y);
+          if (n > 4) {
+            const step = Math.min(speed * dt, n);
+            player.x += (x / n) * step;
+            player.y += (y / n) * step;
+            player.angle = Math.atan2(y, x);
+          }
+        } else {
+          x =
+            Number(k.has("ArrowRight") || k.has("KeyD")) -
+            Number(k.has("ArrowLeft") || k.has("KeyA"));
+          y =
+            Number(k.has("ArrowDown") || k.has("KeyS")) -
+            Number(k.has("ArrowUp") || k.has("KeyW"));
+          if (cardinal && x && y) {
+            const last = [...k]
+              .filter((key) => /^(Arrow|Key[WASD])/.test(key))
+              .at(-1);
+            if (["ArrowUp", "ArrowDown", "KeyW", "KeyS"].includes(last)) x = 0;
+            else y = 0;
+          }
+          const n = Math.hypot(x, y);
+          if (n) {
+            player.x += (x / n) * speed * dt;
+            player.y += (y / n) * speed * dt;
+            player.angle = Math.atan2(y, x);
+          }
+        }
+        player.x = clamp(player.x, 14, width - 14);
+        player.y = clamp(player.y, 14, height - 14);
+      },
+      burst(x, y, color, count = 9) {
+        if (reduced()) return;
+        for (let i = 0; i < count && particles.length < 100; i++) {
+          const p = pool.pop() || {};
+          const a = random() * Math.PI * 2,
+            s = 30 + random() * 100;
+          Object.assign(p, {
+            x,
+            y,
+            vx: Math.cos(a) * s,
+            vy: Math.sin(a) * s,
+            life: 0.3 + random() * 0.3,
+            color,
+          });
+          particles.push(p);
+        }
+      },
+      finish(won = false) {
+        status = won ? "won" : "gameover";
+        notice = won
+          ? "Page cleared. Restart for another run."
+          : "Signal lost. Restart or Recall to restore the page.";
+        clearInput();
+        emit(status);
+        notify(true);
+      },
+    };
+    game = definition.create(api);
+    game.reset();
+  }
+  function nextGate() {
+    const gates = board?.targets.filter((t) => t.health > 0) || [];
+    const t = gates.find((t) => !t.visible) || gates[0];
+    t?.element.scrollIntoView({ behavior: "instant", block: "center" });
+    board?.invalidate();
+    emit("jump", { target: t?.id });
+  }
+  function frame(now) {
+    raf = 0;
+    if (status !== "running") return;
+    const dt = Math.min((now - last) / 1000, 0.034);
+    last = now;
+    time += dt;
+    const workStart = win.performance.now();
+    try {
+      const dx = win.scrollX - sx,
+        dy = win.scrollY - sy;
+      sx = win.scrollX;
+      sy = win.scrollY;
+      if (dx || dy) {
+        game.scroll?.(dx, dy);
+        for (const p of particles) {
+          p.x -= dx;
+          p.y -= dy;
+        }
+      }
+      board.measure(time);
+      game.update(dt);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life -= dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          pool.push(p);
+        }
+      }
+      draw();
+      frameMs = win.performance.now() - workStart;
+      maxFrameMs = Math.max(maxFrameMs, frameMs);
+      notify();
+      if (status === "running") raf = win.requestAnimationFrame(frame);
+    } catch (error) {
+      notice = "The game stopped safely after an error.";
+      stop();
+      options.onError?.(error);
+    }
+  }
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, width, height);
+    board.draw(ctx);
+    game.draw(ctx);
+    for (const p of particles) {
+      ctx.globalAlpha = Math.min(1, p.life * 3);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x, p.y, 3, 3);
+    }
+    ctx.globalAlpha = 1;
+  }
+  function teardown() {
+    win.cancelAnimationFrame(raf);
+    raf = 0;
+    for (const off of listeners) off();
+    listeners = [];
+    board?.destroy();
+    board = null;
+    host?.remove();
+    host = null;
+    game = null;
+    particles = [];
+    pool = [];
+    ctx = null;
+    canvas = null;
+    autoFire = false;
+  }
+  function start() {
+    if (destroyed)
+      throw new Error(
+        "This game instance was destroyed. Create another instance.",
+      );
+    teardown();
+    time = 0;
+    notifyAt = -1;
+    frameMs = 0;
+    maxFrameMs = 0;
+    lastStats = {};
+    notice = "";
+    try {
+      mount();
+      status = "running";
+      last = win.performance.now();
+      draw();
+      notify(true);
+      emit("start");
+      raf = win.requestAnimationFrame(frame);
+    } catch (error) {
+      teardown();
+      status = "idle";
+      options.onError?.(error);
+      throw error;
+    }
+    return getSnapshot();
+  }
+  function pause() {
+    if (status !== "running") return;
+    status = "paused";
+    clearInput();
+    win.cancelAnimationFrame(raf);
+    raf = 0;
+    notify(true);
+    emit("pause");
+  }
+  function resume() {
+    if (status !== "paused" || doc.hidden) return;
+    status = "running";
+    notice = "";
+    board.invalidate();
+    last = win.performance.now();
+    notify(true);
+    raf = win.requestAnimationFrame(frame);
+    emit("resume");
+  }
+  function stop() {
+    if (destroyed) return;
+    lastStats = game?.snapshot() || lastStats;
+    clearInput();
+    teardown();
+    status = "idle";
+    notice = "";
+    notify(true);
+    emit("recall");
+  }
+  function destroy() {
+    if (destroyed) return;
+    stop();
+    destroyed = true;
+    status = "destroyed";
+    notify(true);
+  }
+  return { start, pause, resume, stop, destroy, getSnapshot };
+}

@@ -1,0 +1,308 @@
+import { createServer } from "vite";
+import { chromium } from "playwright";
+import { mkdirSync, existsSync, writeFileSync } from "node:fs";
+import assert from "node:assert/strict";
+import { resolve } from "node:path";
+const sourcePath = (name) =>
+  resolve(
+    existsSync("../" + name + "/src") ? "../" + name : ".games/" + name,
+    "src/simulation.js",
+  );
+const sourceURLs = {
+  board: "/@fs" + resolve("src/board.js"),
+  shooter: "/@fs" + sourcePath("null-invaders"),
+  runner: "/@fs" + sourcePath("byte-runner"),
+};
+mkdirSync("artifacts", { recursive: true });
+const server = await createServer({
+  configFile: "vite.config.js",
+  server: { port: 5199, host: "127.0.0.1" },
+});
+await server.listen();
+const executablePath =
+  process.env.CHROMIUM_PATH ||
+  (existsSync("/tmp/chromium") ? "/tmp/chromium" : undefined);
+const browser = await chromium.launch({
+  executablePath,
+  headless: true,
+  args: ["--no-sandbox"],
+});
+const page = await browser.newPage({
+  viewport: { width: 1440, height: 1000 },
+  colorScheme: "dark",
+});
+const errors = [];
+page.on("pageerror", (e) => errors.push(e.message));
+try {
+  await page.goto("http://127.0.0.1:5199");
+  await page.screenshot({
+    path: "artifacts/playground-dark.png",
+    fullPage: true,
+  });
+  await page.click("#launch");
+  await page.waitForTimeout(150);
+  assert.equal(
+    (await page.evaluate(() => window.playground.getSnapshot())).status,
+    "running",
+  );
+  await page.evaluate(() => document.querySelector(".hero").scrollIntoView());
+  await page.waitForTimeout(250);
+  await page.keyboard.down("Space");
+  await page.waitForTimeout(600);
+  await page.keyboard.up("Space");
+  console.log(
+    "shooter",
+    await page.evaluate(() => window.playground.getSnapshot()),
+  );
+  await page.screenshot({ path: "artifacts/null-invaders.png" });
+  await page.keyboard.press("KeyP");
+  const paused = await page.evaluate(
+    () => window.playground.getSnapshot().elapsed,
+  );
+  await page.waitForTimeout(150);
+  assert.equal(
+    await page.evaluate(() => window.playground.getSnapshot().elapsed),
+    paused,
+  );
+  await page.keyboard.press("Escape");
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.click('[data-game="byte-runner"]');
+  await page.click("#launch");
+  await page.waitForTimeout(100);
+  await page.evaluate(() => document.querySelector(".hero").scrollIntoView());
+  await page.waitForTimeout(150);
+  const before = await page.evaluate(
+    () => window.playground.getSnapshot().player.x,
+  );
+  await page.keyboard.down("ArrowRight");
+  await page.waitForTimeout(200);
+  await page.keyboard.up("ArrowRight");
+  const after = await page.evaluate(
+    () => window.playground.getSnapshot().player.x,
+  );
+  assert.ok(after > before);
+  await page.screenshot({ path: "artifacts/byte-runner.png" });
+  await page.keyboard.press("Escape");
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.click('[data-game="swarm-protocol"]');
+  await page.click("#launch");
+  await page.waitForTimeout(500);
+  assert.equal(
+    (await page.evaluate(() => window.playground.getSnapshot())).status,
+    "running",
+  );
+  await page.keyboard.press("Escape");
+  await page.evaluate(() => window.playground.recall());
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.screenshot({
+    path: "artifacts/playground-light.png",
+    fullPage: true,
+  });
+  const checks = await page.evaluate(async (urls) => {
+    const { createBoard } = await import(urls.board);
+    const root = document.createElement("div");
+    root.style.cssText =
+      "position:fixed;left:20px;top:20px;background:white;color:black;width:500px;z-index:100";
+    root.innerHTML =
+      '<h2>Alpha beta</h2><p>Gamma delta</p><button>Factory</button><form><p>Protected text</p><button>Protected control</button></form><p data-virus-ignore>Excluded</p><div id="clip" style="height:40px;overflow:hidden"><p style="margin-top:100px">Clipped text</p><button>Clipped gate</button></div>';
+    document.body.append(root);
+    const b = createBoard(document, { root });
+    b.measure(0, true);
+    const first = b.glyphs.find((g) => g.char === "A");
+    const original = root.querySelector("h2").textContent;
+    const node = root.querySelector("h2").firstChild;
+    const result = {
+      defaultTargets: b.targets.length,
+      protectedExcluded: !b.glyphs.some((g) =>
+        g.record.node.parentElement.closest("form,[data-virus-ignore]"),
+      ),
+      clippedExcluded: !b.glyphs.some((g) =>
+        g.record.node.parentElement.closest("#clip"),
+      ),
+      clippedGateHidden:
+        b.targets.find((t) => t.element.parentElement.id === "clip").visible ===
+        false,
+    };
+    result.firstConsume = b.consume(first);
+    result.repeatConsume = b.consume(first);
+    result.visualPreservesText = node.nodeValue === original;
+    result.hasHighlight = CSS.highlights.size > 0;
+    root.querySelector("button").style.opacity = ".8";
+    b.damage(b.targets[0], 50);
+    root.querySelector("button").style.opacity = ".95";
+    b.destroy();
+    result.stylePreserved =
+      Number(root.querySelector("button").style.opacity) === 0.95;
+    result.highlightsClean = CSS.highlights.size === 0;
+    const direct = createBoard(document, { root, domMode: "text" });
+    direct.measure(0, true);
+    direct.consume(direct.glyphs.find((g) => g.char === "A"));
+    result.directChanged = node.nodeValue !== original;
+    direct.destroy();
+    result.directRestored = node.nodeValue === original;
+    const host = createBoard(document, { root, domMode: "text" });
+    host.measure(0, true);
+    host.consume(host.glyphs.find((g) => g.char === "A"));
+    node.nodeValue = "Host owns the latest value";
+    host.destroy();
+    result.hostPreserved = node.nodeValue === "Host owns the latest value";
+    root.remove();
+    return result;
+  }, sourceURLs);
+  assert.equal(checks.defaultTargets, 2);
+  assert.equal(checks.repeatConsume, false);
+  for (const [key, value] of Object.entries(checks))
+    if (!["defaultTargets", "repeatConsume"].includes(key))
+      assert.equal(value, true, key);
+  console.log("DOM behavior", checks);
+  const simulation = await page.evaluate(async (urls) => {
+    const { createGame: createShooter } = await import(urls.shooter);
+    const { createGame: createRunner } = await import(urls.runner);
+    const make = () => ({
+      width: 1000,
+      height: 800,
+      time: 0,
+      options: {},
+      input: {},
+      random: () => 0,
+      reducedMotion: true,
+      firing: false,
+      emit() {},
+      burst() {},
+      move() {},
+      finish(won) {
+        this.finished = won ? "won" : "lost";
+      },
+      board: {
+        targets: [],
+        resetTargets(h) {
+          for (const t of this.targets) {
+            t.health = t.maxHealth = h;
+          }
+        },
+        hitSegment() {
+          return null;
+        },
+        near() {
+          return [];
+        },
+        consume(g) {
+          if (g.spent) return false;
+          g.spent = true;
+          return true;
+        },
+        damage(t, n) {
+          t.health = Math.max(0, t.health - n);
+        },
+      },
+    });
+    const a = make(),
+      s = createShooter(a);
+    s.reset();
+    for (let i = 0; i < 300; i++) {
+      a.time += 0.1;
+      s.update(0.1);
+    }
+    const enemyCap = s.snapshot().alive;
+    // A cleared button remains dead within its wave and reactivates for the next wave.
+    const c = make();
+    c.board.targets = [{ health: 1, maxHealth: 1, visible: false }];
+    const clear = createShooter(c);
+    clear.reset();
+    c.board.targets[0].health = 0;
+    clear.update(0.01);
+    clear.update(2.1);
+    const advanced =
+      clear.snapshot().wave === 2 && c.board.targets[0].health > 0;
+    for (let wave = 2; wave <= 4; wave++) {
+      c.board.targets[0].health = 0;
+      clear.update(0.01);
+      clear.update(2.1);
+    }
+    const victory = c.finished === "won";
+    const r = make(),
+      runner = createRunner(r);
+    runner.reset();
+    const glyphs = Array.from({ length: 6 }, () => ({
+      spent: false,
+      rect: { left: 0, top: 0, width: 10, height: 10 },
+    }));
+    r.board.near = () => glyphs;
+    runner.update(0.01);
+    const orb =
+      runner.snapshot().pickups === 1 && runner.snapshot().eaten === 6;
+    r.move = (p) => {
+      p.x = 520;
+      p.y = 360;
+    };
+    runner.update(0.01);
+    const powered = runner.snapshot().power > 0;
+    const count = runner.snapshot().alive;
+    for (let i = 0; i < 20; i++) runner.update(0.1);
+    const halted = runner.snapshot().alive === count;
+    r.move = () => {};
+    for (let i = 0; i < 50; i++) runner.update(0.1);
+    const resumed =
+      runner.snapshot().alive > 0 && runner.snapshot().power === 0;
+    return { enemyCap, advanced, victory, orb, powered, halted, resumed };
+  }, sourceURLs);
+  assert.ok(simulation.enemyCap <= 48);
+  for (const [key, value] of Object.entries(simulation))
+    if (key !== "enemyCap") assert.equal(value, true, key);
+  console.log("Game simulation", simulation);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.click('[data-game="null-invaders"]');
+  await page.click("#launch");
+  await page.evaluate(() => document.querySelector(".hero").scrollIntoView());
+  await page.keyboard.down("Space");
+  const perf = [];
+  for (let i = 0; i < 20; i++) {
+    await page.waitForTimeout(100);
+    perf.push(await page.evaluate(() => window.playground.getSnapshot()));
+  }
+  await page.keyboard.up("Space");
+  const frameTimes = perf.map((s) => s.frameMs).sort((a, b) => a - b);
+  const metrics = {
+    samples: frameTimes.length,
+    p50FrameWorkMs: frameTimes[Math.floor(frameTimes.length * 0.5)],
+    p95FrameWorkMs: frameTimes[Math.floor(frameTimes.length * 0.95)],
+    maxObservedFrameWorkMs: Math.max(...perf.map((s) => s.maxFrameMs)),
+    maxGlyphMeasurements: Math.max(...perf.map((s) => s.board.measurements)),
+    maxParticles: Math.max(...perf.map((s) => s.particles)),
+  };
+  assert.ok(metrics.maxGlyphMeasurements <= 900);
+  assert.ok(metrics.maxParticles <= 100);
+  writeFileSync(
+    "artifacts/browser-metrics.json",
+    JSON.stringify(metrics, null, 2),
+  );
+  console.log("Frame sample (headless, not a hardware guarantee)", metrics);
+  await page.keyboard.press("Escape");
+  // Repeated mount/recall should leave no overlay or global highlight entries.
+  for (let i = 0; i < 8; i++) {
+    await page.evaluate(() => window.playground.launch());
+    await page.keyboard.press("Escape");
+  }
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  assert.equal(await page.evaluate(() => CSS.highlights.size), 0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.screenshot({
+    path: "artifacts/playground-mobile.png",
+    fullPage: true,
+  });
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+    true,
+  );
+  assert.deepEqual(errors, []);
+  console.log("Browser smoke checks passed.");
+} finally {
+  await browser.close();
+  await server.close();
+}
