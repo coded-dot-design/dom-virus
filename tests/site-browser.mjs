@@ -369,6 +369,8 @@ try {
   assert.ok(await page.evaluate(() => window.battlefield.snapshot().units.filter(u => u.side === 0 && u.id !== 0).every(u => u.order === "follow")));
   await page.locator("#bf-pause").click();
   assert.ok(await page.evaluate(() => window.battlefield.paused));
+  // Narrow/touch layouts keep secondary actions in the slide-out panel.
+  if (await page.locator("#bf-squad").isVisible()) await page.locator("#bf-squad").click();
   await page.locator("#bf-restart").click();
   assert.equal(await page.evaluate(() => window.battlefield.playing), false);
   assert.deepEqual(errors, []);
