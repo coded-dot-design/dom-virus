@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.5
+
+- Serve DOM Battlefield 0.6.1. Site kit 1.15.2: the Open Battlefield button mark matches Battlefield's notched skull.
+
 ## 0.11.4
 
 - Serve DOM Battlefield 0.6.0 (analog thumbstick, follow camera, haptics, new skull-on-grid logo).
