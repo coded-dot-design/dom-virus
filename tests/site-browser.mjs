@@ -66,20 +66,33 @@ try {
     ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"],
   );
   const promo = page.locator(".hero-crossover");
-  assert.equal(await promo.locator(".promo-character,.character-icon").count(), 7);
+  // Tank + interceptor, four targets that explode, a bug and a reserve alien.
+  assert.equal(await promo.locator(".promo-character,.character-icon").count(), 8);
   assert.equal(await promo.locator(".promo-frog").count(), 0);
-  assert.equal(await promo.locator(".promo-fly").count(), 2);
-  assert.equal(await promo.locator(".ship-shot,.tank-shot").count(), 2);
+  assert.equal(await promo.locator(".shot").count(), 4);
+  assert.equal(await promo.locator(".boom").count(), 4);
+  // The shooters stay fully inside the browser card.
+  const card = await promo.locator(".promo-stage").boundingBox();
+  for (const sel of [".recoil-ship", ".recoil-tank"]) {
+    const r = await promo.locator(sel).boundingBox();
+    assert.ok(r.x >= card.x - 1 && r.y >= card.y - 1 && r.x + r.width <= card.x + card.width + 1 && r.y + r.height <= card.y + card.height + 1, `${sel} inside the card`);
+  }
   for (const selector of [".hero", ".engineering", ".embed-section"]) {
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
   }
   await promo.getByRole("button", { name: "Pause scene animation" }).click();
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
-  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>{a.currentTime=1550}));
-  assert.ok(Number(await promo.locator('.ship-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
-  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.currentTime=3700));
-  assert.ok(Number(await promo.locator('.tank-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
+  // Interceptor hit at 1.25s, tank hit at 2.75s: each target explodes and vanishes.
+  const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.pause(); a.currentTime = ms; }), ms);
+  const opacity = (loc) => loc.evaluate((el) => Number(getComputedStyle(el).opacity));
+  await at(1300);
+  assert.ok((await opacity(promo.locator(".boom").nth(0).locator(".boom-flash"))) > 0.5);
+  await at(1550);
+  assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
+  await at(2800);
+  assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
+  await promo.evaluate((el) => el.getAnimations({ subtree: true }).forEach((a) => a.play()));
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.3
+
+Site kit 1.15.0 (website only; game runtimes unchanged):
+- "Know your controls" renders outlined neon keycaps (WASD and arrow clusters, mouse, Space/Esc) with what each does.
+- Hero mash-up: tank and interceptor stay inside the browser card and blast flies and aliens that spill off its edges, with exaggerated CSS explosions and a hit shake.
+- File-size and fact cards use the hard-shadow card style instead of left borders.
+
 ## 0.11.2
 
 - Serve DOM Battlefield 0.2.0 (widescreen touch cockpit, Tron/cyberpunk skin, slower armor).
