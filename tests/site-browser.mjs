@@ -256,6 +256,89 @@ try {
   );
   await page.keyboard.press("Escape");
   assert.equal(await page.locator(".session-bar").isVisible(), false);
+  for (const width of [1200, 390])
+    for (const theme of ["light", "dark"]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.evaluate(() => scrollTo(0, 0));
+      if (width <= 760) await menu.click();
+      await page.getByRole("button", { name: `Use ${theme} theme` }).click();
+      if (width <= 760) await page.keyboard.press("Escape");
+      await page.locator('[data-launch="byte-runner"]').click();
+      await page.waitForFunction(
+        () =>
+          document.querySelector("#session-state")?.textContent === "running",
+      );
+      await page.waitForTimeout(1100);
+      await page.keyboard.press("KeyP");
+      await page.waitForFunction(
+        () =>
+          document.querySelector("#session-state")?.textContent === "paused",
+      );
+      const guide = page.locator("[data-byte-guides]");
+      assert.equal(await guide.count(), 1);
+      assert.ok(
+        (await guide.getAttribute("d")).length > 0,
+        "actual hub has whitespace routes",
+      );
+      assert.ok(
+        (await page.locator("[data-byte-pellet],[data-byte-power]").count()) >
+          12,
+        `usable food trail on hub ${width}/${theme}: ${await page.locator("[data-byte-pellet],[data-byte-power]").count()}`,
+      );
+      const clear = await guide.evaluate((path) => {
+        const root = path.getRootNode().host.parentElement,
+          matrix = path.getScreenCTM();
+        const bounds = [];
+        for (const el of root.querySelectorAll(
+          "button,a[href],input,select,textarea,summary,img,svg,canvas,video,iframe,pre,table,hr,figure,fieldset,details,[data-byte-obstacle]",
+        )) {
+          const r = el.getBoundingClientRect();
+          if (r.width && r.height) bounds.push(r);
+        }
+        const walker = document.createTreeWalker(root, 4),
+          range = document.createRange();
+        let node;
+        while ((node = walker.nextNode())) {
+          if (
+            !node.textContent.trim() ||
+            node.parentElement.closest(
+              "script,style,noscript,svg,button,a[href],textarea,pre,table",
+            )
+          )
+            continue;
+          range.selectNodeContents(node);
+          bounds.push(...range.getClientRects());
+        }
+        const collisions = [],
+          radius = Number(path.getAttribute("stroke-width")) / 2;
+        for (const segment of path.getAttribute("d").match(/M[^M]+/g) || []) {
+          const [x, y, bx, by] = segment.match(/[-\d.]+/g).map(Number),
+            a = new DOMPoint(x, y).matrixTransform(matrix),
+            b = new DOMPoint(bx, by).matrixTransform(matrix);
+          if (
+            bounds.some(
+              (r) =>
+                Math.max(a.x, b.x) + radius > r.left &&
+                Math.min(a.x, b.x) - radius < r.right &&
+                Math.max(a.y, b.y) + radius > r.top &&
+                Math.min(a.y, b.y) - radius < r.bottom,
+            )
+          )
+            collisions.push(segment);
+        }
+        return collisions;
+      });
+      assert.deepEqual(
+        clear,
+        [],
+        `hub ${width}/${theme} guide edges avoid native content`,
+      );
+      await page.screenshot({
+        path: `${output}/byte-trails-${width}-${theme}.png`,
+      });
+      await page.keyboard.press("Escape");
+      assert.equal(await page.locator("[data-byte-trails]").count(), 0);
+    }
   assert.deepEqual(errors, []);
   console.log(
     "Site: responsive navigation, both themes, SVG controls, syntax colors, exact clipboard, animation pause/visibility/reduced motion, and launcher passed.",
