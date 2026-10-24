@@ -717,6 +717,7 @@ export function createArcade<S extends GameStats>(
   function pause() {
     if (status !== "running") return;
     status = "paused";
+    board?.setActive?.(false);
     clearInput();
     win.cancelAnimationFrame(raf);
     raf = 0;
@@ -728,6 +729,7 @@ export function createArcade<S extends GameStats>(
     status = "running";
     notice = "";
     board?.invalidate();
+    board?.setActive?.(true);
     last = win.performance.now();
     notify(true);
     raf = win.requestAnimationFrame(frame);

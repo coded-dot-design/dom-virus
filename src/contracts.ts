@@ -138,6 +138,8 @@ export interface Board {
     reducedMotion?: boolean,
   ): void;
   invalidate(): void;
+  /** Pause owned native animations with the simulation. */
+  setActive?(active: boolean): void;
   destroy(): void;
 }
 export interface InputState {

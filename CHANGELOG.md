@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0 — 2026-10-24
+
+- Attach target beacons to their real elements with native transform/opacity animations; remove viewport-painted beacon copies.
+- Keep mobile/coarse-pointer fills stable, pause owned animations with the game, and cancel them on teardown.
+- Filter game-owned style writes from board rescans while detecting interleaved application style changes. Reuse one Range for collision measurements.
+- Add browser regressions for native nested scrolling, transforms, mobile, observer ownership and repeated cleanup. Document the DOM ownership boundary.
+
+
 ## 0.7.0 — 2026-10-24
 
 - Make real DOM text mutation the only consumption path. Remove canvas replacement glyphs and the visual-only mode.

@@ -13,7 +13,7 @@ import { MutationLedger } from "./ledger.js";
 import { SpatialGrid, inside, segmentHit } from "./math.js";
 
 export const PROTECTED =
-  'form,input,textarea,select,option,button,[contenteditable],script,style,noscript,pre,code,[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-swarm-ui]';
+  'form,input,textarea,select,option,button,[contenteditable],script,style,noscript,pre,code,[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-dom-virus-effect],[data-swarm-ui]';
 let sequence = 0;
 export function createBoard(doc: Document, options: BoardOptions = {}): Board {
   const view = doc.defaultView;
@@ -67,9 +67,10 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
   let targets: BoardTarget[] = [];
   let measurements = 0,
     spentCount = 0;
+  const measureRange = doc.createRange();
   const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
   const protectedTarget =
-    'form,input,textarea,select,[contenteditable],[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-swarm-ui]';
+    'form,input,textarea,select,[contenteditable],[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-dom-virus-effect],[data-swarm-ui]';
   const allowedTarget = (el: Element): el is HTMLElement | SVGElement =>
     (el instanceof win.HTMLElement || el instanceof win.SVGElement) &&
     !el.closest(
@@ -259,7 +260,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
         );
       }
       if (!parents.get(el) || measurements >= 900) continue;
-      const range = g.range || doc.createRange();
+      const range = measureRange;
       try {
         range.setStart(r.node, g.offset);
         range.setEnd(r.node, g.offset + g.length);
@@ -392,22 +393,40 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
   doc.addEventListener("scroll", invalidate, { capture: true, passive: true });
   win.addEventListener("resize", invalidate);
   const observer = new win.MutationObserver((changes) => {
-    if (
-      changes.some(
-        (c) =>
-          // Our text writes already invalidate geometry. Only external text
-          // changes require rebuilding the index and reconsidering ownership.
-          !(
-            c.type === "characterData" &&
-            records.get(c.target as Text)?.latest === c.target.nodeValue
-          ) &&
-          !c.target.parentElement?.closest("[data-dom-virus-root]") &&
-          !(
-            c.target instanceof win.Element &&
-            c.target.closest("[data-dom-virus-root]")
-          ),
+    const external = changes.some((c) => {
+      const element =
+        c.target instanceof win.Element ? c.target : c.target.parentElement;
+      if (element?.closest("[data-dom-virus-root],[data-dom-virus-effect]"))
+        return false;
+      if (
+        c.type === "childList" &&
+        [...c.addedNodes, ...c.removedNodes].every(
+          (n) =>
+            n instanceof win.Element && n.hasAttribute("data-dom-virus-effect"),
+        )
       )
-    ) {
+        return false;
+      if (
+        c.type === "characterData" &&
+        records.get(c.target as Text)?.latest === c.target.nodeValue
+      )
+        return false;
+      if (
+        c.type === "attributes" &&
+        c.attributeName === "style" &&
+        (c.target instanceof win.HTMLElement ||
+          c.target instanceof win.SVGElement)
+      ) {
+        const target = targetRecords.get(c.target);
+        if (
+          (target && effects?.ownsStyleMutation(target)) ||
+          ledger.ownsStyleMutation(c.target)
+        )
+          return false;
+      }
+      return true;
+    });
+    if (external) {
       dirty = true;
       scanDirty = true;
     }
@@ -450,6 +469,9 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     draw,
     destroy,
     invalidate,
+    setActive(active: boolean) {
+      effects?.setActive(active);
+    },
     get targets() {
       return targets;
     },

@@ -14,6 +14,8 @@ interface StyleWrite {
 interface StyleEntry {
   hadStyle: boolean;
   props: Map<string, StyleWrite>;
+  latestAttribute: string | null;
+  externalChange: boolean;
 }
 // Compare before writing and restoring: a newer host update always wins.
 export class MutationLedger {
@@ -51,8 +53,12 @@ export class MutationLedger {
       this.styles.set(el, {
         hadStyle: el.hasAttribute("style"),
         props: new Map(),
+        latestAttribute: el.getAttribute("style"),
+        externalChange: false,
       });
     const entry = this.styles.get(el)!;
+    if (el.getAttribute("style") !== entry.latestAttribute)
+      entry.externalChange = true;
     let r = entry.props.get(key);
     if (!r) {
       r = {
@@ -73,9 +79,20 @@ export class MutationLedger {
     }
     if (r.latest === value && r.lastPriority === priority) return true;
     el.style.setProperty(key, value, priority);
+    entry.latestAttribute = el.getAttribute("style");
     r.latest = el.style.getPropertyValue(key);
     r.lastPriority = el.style.getPropertyPriority(key);
     return true;
+  }
+  /** Observer filter: an unrelated host style change must still invalidate layout. */
+  ownsStyleMutation(el: HTMLElement | SVGElement): boolean {
+    const entry = this.styles.get(el);
+    if (!entry) return false;
+    const owned =
+      !entry.externalChange &&
+      el.getAttribute("style") === entry.latestAttribute;
+    entry.externalChange = false;
+    return owned;
   }
   restore() {
     for (const [node, r] of this.text)

@@ -3,6 +3,7 @@ import { chromium } from "playwright";
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
+import { checkAttachedEffects } from "./attached-effects.mjs";
 import { checkDomMutations } from "./dom-mutations.mjs";
 import { checkShooterFeedback } from "./shooter-feedback.mjs";
 import { gameRoot } from "../scripts/game-paths.mjs";
@@ -125,6 +126,7 @@ try {
   assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
   await checkShooterFeedback(page);
   await checkDomMutations(page);
+  await checkAttachedEffects(page);
   await page.emulateMedia({ colorScheme: "light" });
   await page.screenshot({
     path: "artifacts/playground-light.png",
@@ -257,7 +259,20 @@ try {
     const victory = c.finished === "won";
     const r = make();
     r.board.targets = [
-      { id: "runner-gate", health: 100, maxHealth: 100, visible: true, rect: {left:20,right:80,top:20,bottom:50,width:60,height:30} },
+      {
+        id: "runner-gate",
+        health: 100,
+        maxHealth: 100,
+        visible: true,
+        rect: {
+          left: 20,
+          right: 80,
+          top: 20,
+          bottom: 50,
+          width: 60,
+          height: 30,
+        },
+      },
     ];
     const runner = createRunner(r);
     runner.reset();

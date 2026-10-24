@@ -15,6 +15,11 @@ interface Surface {
   fill: number;
   lastPaint: number;
   animating: boolean;
+  beacon: HTMLElement | null;
+  animations: Animation[];
+  moving: boolean;
+  period: number;
+  beaconColor: string;
 }
 // Swarm's health colors and damped liquid surface, shared as presentation only.
 export function targetSignal(health: number, color = "#06c4ff") {
@@ -60,9 +65,12 @@ export function liquidFill(
 export class TargetEffects {
   private readonly surfaces = new Map<BoardTarget, Surface>();
   private time = 0;
+  private running = true;
+  private readonly quiet: MediaQueryList;
   private readonly win: Window;
   constructor(win: Window) {
     this.win = win;
+    this.quiet = win.matchMedia("(pointer: coarse), (max-width: 640px)");
   }
   hit(target: BoardTarget, impact?: Point) {
     const surface = this.surface(target);
@@ -107,29 +115,70 @@ export class TargetEffects {
         fill: -1,
         lastPaint: -100,
         animating: false,
+        beacon: null,
+        animations: [],
+        moving: false,
+        period: 0,
+        beaconColor: "",
       };
+      // An owned, empty child follows its button through native layout, nested
+      // scrolling and transforms. Never replace labels or host pseudo-elements.
+      if (
+        target.element instanceof this.win.document.defaultView!.HTMLElement &&
+        !/^(IMG|INPUT|BR|HR|CANVAS|VIDEO|IFRAME)$/.test(target.element.tagName)
+      ) {
+        if (css.position === "static")
+          s.ledger.writeStyle(target.element, "position", "relative");
+        const host = this.win.document.createElement("dom-virus-effect");
+        host.setAttribute("data-dom-virus-effect", "");
+        host.setAttribute("aria-hidden", "true");
+        host.style.cssText =
+          "all:initial!important;position:absolute!important;inset:-3px!important;display:block!important;border-radius:inherit!important;pointer-events:none!important;user-select:none!important;";
+        const shadow = host.attachShadow({ mode: "open" });
+        for (let i = 0; i < 2; i++) {
+          const ring = this.win.document.createElement("i");
+          ring.style.cssText =
+            "position:absolute;inset:0;border:1.5px solid currentColor;border-radius:inherit;box-sizing:border-box;pointer-events:none;opacity:.6";
+          shadow.append(ring);
+          const animation = ring.animate(
+            [
+              { transform: "scale(1)", opacity: 0.6 },
+              { transform: "scale(1.16)", opacity: 0 },
+            ],
+            { duration: 1000, delay: i * 500, iterations: Infinity },
+          );
+          animation.pause();
+          s.animations.push(animation);
+        }
+        target.element.append(host);
+        s.beacon = host;
+      }
       this.surfaces.set(target, s);
     }
     return s;
   }
   draw(
-    ctx: CanvasRenderingContext2D,
+    _ctx: CanvasRenderingContext2D,
     targets: readonly BoardTarget[],
     time: number,
     reduced: boolean,
   ) {
     this.time = time;
-    ctx.save();
+    const quiet = reduced || this.quiet.matches;
     for (const target of targets) {
-      if (!target.visible || !target.rect || !target.element.isConnected)
+      if (!target.element.isConnected) continue;
+      if (!target.visible || !target.rect) {
+        const existing = this.surfaces.get(target);
+        if (existing) this.motion(existing, false);
         continue;
+      }
       const s = this.surface(target);
       const signal = targetSignal(
         (target.health / target.maxHealth) * 100,
         s.color,
       );
       const elapsed = time - s.hitAt;
-      const energy = reduced ? 0 : clamp(1 - elapsed / 0.65, 0, 1);
+      const energy = quiet ? 0 : clamp(1 - elapsed / 0.65, 0, 1);
       // At most 12 DOM paints/sec per visible target, only while a hit ripples.
       if (
         (s.fill < 0 || time - s.lastPaint >= 1 / 12) &&
@@ -177,41 +226,61 @@ export class TargetEffects {
         s.lastPaint = time;
         s.animating = energy > 0;
       }
-      const r = target.rect;
-      const alive = target.health > 0;
-      ctx.strokeStyle = alive ? signal.color : "#74dfa1";
-      ctx.lineWidth = 1.5;
-      if (!alive || reduced) {
-        ctx.globalAlpha = 0.6;
-        ctx.strokeRect(r.left - 3, r.top - 3, r.width + 6, r.height + 6);
-      } else {
-        for (let band = 0; band < 2; band++) {
-          const phase = (time / signal.period + band * 0.5) % 1;
-          const spread = 2 + phase * 12;
-          ctx.globalAlpha = (1 - phase) ** 2 * 0.6;
-          ctx.beginPath();
-          ctx.roundRect(
-            r.left - spread,
-            r.top - spread,
-            r.width + spread * 2,
-            r.height + spread * 2,
-            7 + spread,
-          );
-          ctx.stroke();
+      if (s.beacon) {
+        const color = target.health > 0 ? signal.color : "#74dfa1";
+        if (s.beaconColor !== color) {
+          s.beacon.style.setProperty("color", color, "important");
+          s.beaconColor = color;
         }
+        const period = Math.round(signal.period * 5) / 5;
+        if (s.period !== period) {
+          for (let i = 0; i < s.animations.length; i++)
+            s.animations[i]!.effect?.updateTiming({
+              duration: period * 1000,
+              delay: i * period * 500,
+            });
+          s.period = period;
+        }
+        this.motion(s, this.running && !quiet && target.health > 0);
       }
     }
-    ctx.restore();
+  }
+  private motion(surface: Surface, moving: boolean) {
+    if (surface.moving === moving) return;
+    surface.moving = moving;
+    for (const animation of surface.animations) {
+      if (moving) animation.play();
+      else {
+        animation.pause();
+        animation.currentTime = 0;
+      }
+    }
+  }
+  setActive(active: boolean) {
+    this.running = active;
+    if (!active)
+      for (const surface of this.surfaces.values()) this.motion(surface, false);
+  }
+  ownsStyleMutation(target: BoardTarget) {
+    return (
+      this.surfaces.get(target)?.ledger.ownsStyleMutation(target.element) ??
+      false
+    );
+  }
+  private release(surface: Surface) {
+    for (const animation of surface.animations) animation.cancel();
+    surface.beacon?.remove();
+    surface.ledger.restore();
   }
   sync(targets: readonly BoardTarget[]) {
     for (const [target, surface] of this.surfaces)
       if (!targets.includes(target)) {
-        surface.ledger.restore();
+        this.release(surface);
         this.surfaces.delete(target);
       }
   }
   destroy() {
-    for (const surface of this.surfaces.values()) surface.ledger.restore();
+    for (const surface of this.surfaces.values()) this.release(surface);
     this.surfaces.clear();
   }
 }
