@@ -7,8 +7,8 @@ export async function checkMobileControls(page, runtimeURL) {
     const {createArcade}=await import(url);
     const duplicateBar=document.createElement("div");duplicateBar.className="session-bar";document.body.append(duplicateBar);
     const siteBarHidden=getComputedStyle(duplicateBar).display==="none";duplicateBar.remove();
-    let api;
-    const game=createArcade({id:'touch-regression',title:'Touch regression',color:'#6de',hint:'',hud:'arcade',capabilities:{fire:true},create(context){api=context;return{reset(){},update(){},draw(){},snapshot(){return {score:0,lives:3,wave:1};}}}}, {root:document.body});
+    let api, built=0;
+    const game=createArcade({id:'touch-regression',title:'Touch regression',color:'#6de',hint:'',hud:'arcade',capabilities:{fire:true},actions:[{id:'cover',key:'KeyB',label:'B · Cover 2'}],create(context){api=context;return{reset(){},update(){},draw(){},action(){built++;},snapshot(){return {score:0,lives:3,wave:1};}}}}, {root:document.body});
     game.start();
     const root=document.querySelector('[data-dom-virus-root]').shadowRoot;
     const hud=root.querySelector('.hud'), pad=root.querySelector('.touch'), up=pad.querySelector('[data-k=ArrowUp]'), fire=pad.querySelector('[data-k=Space]');
@@ -18,6 +18,10 @@ export async function checkMobileControls(page, runtimeURL) {
     const send=(el,type,id)=>el.dispatchEvent(new PointerEvent(type,{pointerId:id,pointerType:'touch',bubbles:true,composed:true,cancelable:true}));
     const zoomLocked=document.documentElement.style.touchAction==='pan-x pan-y';
     const compact=hud.classList.contains('compact')&&pad.parentNode===root&&getComputedStyle(pad).display==='flex';
+    const ability=pad.querySelector('[data-ability=cover]');
+    ability.click();
+    const mobileBuild=built===1 && getComputedStyle(ability).display!=='none';
+    const headerOrder=[...root.querySelectorAll('.game-actions [data-action]')].map(e=>e.dataset.action).join(',')==='sound,pause,fold,exit';
     send(up,'pointerdown',1);send(fire,'pointerdown',2);
     const simultaneous=api.input.keys.has('ArrowUp')&&api.firing;
     send(up,'pointerup',1);
@@ -31,7 +35,7 @@ export async function checkMobileControls(page, runtimeURL) {
     game.resume();api.finish();
     const ended=!hud.classList.contains('compact')&&pad.hidden&&root.querySelector('[data-action=fold]').getAttribute('aria-expanded')==='true';
     game.destroy();
-    return {siteBarHidden,zoomLocked,compact,simultaneous,independent,cancel,pauseClears,pausedIgnores,ended};
+    return {siteBarHidden,zoomLocked,compact,mobileBuild,headerOrder,simultaneous,independent,cancel,pauseClears,pausedIgnores,ended};
   },runtimeURL);
   for(const [name,value] of Object.entries(result))assert.equal(value,true,name);
   console.log('Mobile controls: independent held inputs, cancellation, pause and compact results verified.',result);

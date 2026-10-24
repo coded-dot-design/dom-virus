@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+Shared sound, persistent scoreboard controls, SVG touch icons, and mobile game abilities. Remove redundant HUD markup and avoid repeated pause-control writes.
+
 ## 0.10.2
 
 - Replace the DV letters in the header, footer and favicon with the supplied pixel skull as a small transparent SVG.

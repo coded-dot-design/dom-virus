@@ -1,3 +1,4 @@
+import { gameHeader } from "./game-controls.js";
 // Shared arcade presentation, based on coded.design's Swarm score panel.
 // Games provide data; this module contains no simulation or game-ID branches.
 export const arcadeStyles = `
@@ -7,6 +8,10 @@ export const arcadeStyles = `
 @media(max-width:600px){.hud.arcade{bottom:max(12px,env(safe-area-inset-bottom));right:12px;width:min(310px,calc(100% - 24px));padding:0}.arcade header{padding:8px 13px}.arcade .game{padding:10px 14px}.arcade .score{font-size:28px}.arcade .stats{margin:8px 0}.arcade p{min-height:40px;padding:9px 14px}.arcade nav{padding:0 13px 10px}.arcade nav button{min-height:34px}}
 @media(prefers-reduced-motion:reduce){.arcade .meter i{transition:none}}
 `;
-export function arcadeMarkup(title: string, fire: boolean): string {
-  return `<header><strong>${title}</strong><button data-action="fold" aria-label="Fold game controls" aria-expanded="true">−</button><button data-action="exit" aria-label="Recall game and restore page">×</button></header><div class="game"><section><div><div class="score-label">SCORE</div><div class="score" data-field="score">000000</div></div><div class="wave">WAVE<b data-field="wave">01</b></div></section><div class="stats"><span><b data-field="kills">0</b> down</span><span><b data-field="alive">0</b> active</span><b class="combo" data-field="combo">×1 combo</b></div><div class="meter-label"><span data-field="weaponLabel">PULSE / LV 1</span><span data-field="progressText"></span></div><div class="meter" role="progressbar" aria-label="Weapon upgrade progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-field="progress"></i></div><div class="flight"><span data-field="lives">3 SHIELDS</span><span data-field="status">RUNNING</span></div></div><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button>${fire ? '<button data-action="fire" aria-pressed="false">Auto fire</button>' : ""}</nav><div class="touch"><button data-k="ArrowUp" aria-label="Move up">↑</button><button data-k="ArrowLeft" aria-label="Move left">←</button><button data-k="ArrowRight" aria-label="Move right">→</button><button data-k="ArrowDown" aria-label="Move down">↓</button></div>`;
+export function arcadeMarkup(
+  title: string,
+  fire: boolean,
+  detailed = true,
+): string {
+  return `${gameHeader(title)}<div class="game"><section><div><div class="score-label">SCORE</div><div class="score" data-field="score">000000</div></div><div class="wave">WAVE<b data-field="wave">01</b></div></section>${detailed ? `<div class="stats"><span><b data-field="kills">0</b> down</span><span><b data-field="alive">0</b> active</span><b class="combo" data-field="combo">×1 combo</b></div><div class="meter-label"><span data-field="weaponLabel">PULSE / LV 1</span><span data-field="progressText"></span></div><div class="meter" role="progressbar" aria-label="Weapon upgrade progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-field="progress"></i></div>` : ""}<div class="flight"><span data-field="lives">3 SHIELDS</span><span data-field="resource"></span><span data-field="status">RUNNING</span></div></div><p data-field="detail"></p><nav><button data-action="gate">Next gate</button><button data-action="restart">Restart</button>${fire ? '<button data-action="fire" aria-pressed="false">Auto fire</button>' : ""}</nav><div class="touch"></div>`;
 }

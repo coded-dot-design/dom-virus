@@ -169,3 +169,7 @@ Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel
 ## Native DOM ownership
 
 See [the DOM ownership design](docs/dom-ownership.md) for native target attachments, mutation ownership, collision geometry, mobile rendering and cleanup guarantees.
+
+## Shared game controls and sound
+
+Games keep Sound, Pause/Resume, Minimize/Expand and Close/Recall in the same header order. Mobile abilities live beside the D-pad and Fire, outside the minimizable panel. `sound: false` starts a core game muted; otherwise its per-game preference is restored. Sounds are synthesized after user input with at most six simultaneous voices. Pause silences effects, and Recall releases the audio context. See [the performance audit](docs/performance-audit-2026-10.md).

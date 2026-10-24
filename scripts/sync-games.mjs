@@ -64,6 +64,7 @@ if (!count)
 const swarm = resolve("..", "swarm-protocol");
 if (existsSync(resolve(swarm, "src/dom-defender.ts"))) {
   mkdirSync(resolve(swarm, "shared"), {recursive:true});
+  copyFileSync("src/game-controls.ts", resolve(swarm, "shared/game-controls.ts"));
   copyFileSync("src/zoom-lock.ts", resolve(swarm, "shared/zoom-lock.ts"));
   copyFileSync("src/attachments.ts", resolve(swarm, "shared/attachments.ts"));
 }

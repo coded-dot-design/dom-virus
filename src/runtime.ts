@@ -1,3 +1,5 @@
+import { controlIcons, controlStyles } from "./game-controls.js";
+import { createGameAudio } from "./audio.js";
 import { createMobileZoomLock } from "./zoom-lock.js";
 import type {
   Board,
@@ -26,6 +28,7 @@ type ArcadeEvents = DocumentEventMap &
   HTMLElementEventMap &
   MediaQueryListEventMap;
 type Field =
+  | "resource"
   | "score"
   | "lives"
   | "wave"
@@ -58,6 +61,7 @@ export function createArcade<S extends GameStats>(
     throw new Error("Create a DOM Virus game in the browser after mounting.");
   const win = doc.defaultView;
   const zoomLock = createMobileZoomLock(doc, options.lockZoom !== false);
+  const audio = createGameAudio(doc, definition.id, options.sound);
   const supportsFire = definition.capabilities?.fire === true;
   let host: HTMLDivElement | null = null;
   let canvas: HTMLCanvasElement | null = null;
@@ -127,6 +131,7 @@ export function createArcade<S extends GameStats>(
     listeners.push(() => target.removeEventListener(event, listener, settings));
   }
   function emit(type: string, data: Record<string, unknown> = {}) {
+    audio.play(type);
     options.onEvent?.({ ...data, type, game: definition.id });
   }
   function getSnapshot(): GameSnapshot<S> {
@@ -156,12 +161,13 @@ export function createArcade<S extends GameStats>(
     if (!host) return;
     const arcade = definition.hud === "arcade";
     const fields: Partial<Record<Field, string>> = {
-      score: String(snap.score || 0).padStart(arcade ? 6 : 5, "0"),
-      lives: `${snap.lives ?? 3} ${arcade ? "SHIELDS" : "LIVES"}`,
-      wave: arcade
-        ? String(snap.wave || 1).padStart(2, "0")
-        : `WAVE ${snap.wave || 1}`,
+      score: String(snap.score || 0).padStart(6, "0"),
+      lives:
+        snap.hud?.health ??
+        `${snap.lives ?? 3} ${arcade ? "SHIELDS" : "LIVES"}`,
+      wave: String(snap.wave || 1).padStart(2, "0"),
       status: status.toUpperCase(),
+      resource: snap.hud?.resource ?? "",
       detail: notice || snap.detail || definition.hint,
     };
     if (snap.hud) {
@@ -184,8 +190,14 @@ export function createArcade<S extends GameStats>(
         element.textContent = fields[key] ?? "";
     }
     if (ui.pause) {
-      ui.pause.textContent = status === "paused" ? "Resume" : "Pause";
-      ui.pause.disabled = !["running", "paused"].includes(status);
+      const label = status === "paused" ? "Resume game" : "Pause game";
+      if (ui.pause.getAttribute("aria-label") !== label) {
+        ui.pause.innerHTML =
+          status === "paused" ? controlIcons.play : controlIcons.pause;
+        ui.pause.setAttribute("aria-label", label);
+      }
+      const disabled = status !== "running" && status !== "paused";
+      if (ui.pause.disabled !== disabled) ui.pause.disabled = disabled;
     }
   }
   const touchKeys = new Map<number, string>();
@@ -219,32 +231,30 @@ export function createArcade<S extends GameStats>(
       throw new Error(
         "Recall the active DOM Virus game before starting another.",
       );
-    board = createBoard(doc, { ...options, binaryColor: options.binaryColor ?? definition.color });
+    board = createBoard(doc, {
+      ...options,
+      binaryColor: options.binaryColor ?? definition.color,
+    });
     host = doc.createElement("div");
     host.dataset.domVirusRoot = definition.id;
     host.dataset.virusIgnore = "";
     const shadow = host.attachShadow({ mode: "open" });
     shadow.innerHTML = `<style>
       :host{all:initial!important;position:fixed!important;inset:0!important;display:block!important;z-index:2147483000!important;pointer-events:none!important;contain:layout style;--accent:${definition.color}}
-      *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;right:18px;top:18px;width:300px;color:#f4f7f7;background:#101718f2;border:1px solid #3b4b49;border-radius:16px;padding:15px;font:12px/1.5 ui-monospace,SFMono-Regular,monospace;pointer-events:auto}
-      .hud[data-theme=light]{color:#152321;background:#f7fcfaf5;border-color:#a7bbb7}header{display:flex;justify-content:space-between;gap:8px}strong{letter-spacing:.08em;color:var(--accent);text-shadow:0 1px 2px #001b}small{opacity:.65}section{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0}b{font-size:27px;letter-spacing:.04em}p{margin:8px 0;min-height:36px;opacity:.8}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{opacity:.4}.touch{display:none;margin-top:8px;gap:7px}.touch button{min-width:42px;min-height:40px;touch-action:none}.touch button[data-k=ArrowLeft]{grid-column:1}.touch button[data-k=ArrowUp]{grid-column:2}.touch button[data-k=ArrowRight]{grid-column:3}.touch button[data-k=ArrowDown]{grid-column:2}.hud.folded section,.hud.folded p,.hud.folded nav,.hud.folded .touch{display:none}
-      @media(pointer:coarse){.touch{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.hud{top:10px;right:10px;width:240px;padding:10px}b{font-size:22px}}
-      ${definition.hud === "arcade" ? arcadeStyles : ""}
+      *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;pointer-events:auto}section{display:flex;justify-content:space-between;align-items:baseline}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:disabled{opacity:.4}
+      ${arcadeStyles}
+      ${controlStyles}
       .touch{position:absolute;inset:auto max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:none;justify-content:space-between;align-items:end;pointer-events:none;margin:0}.touch[hidden]{display:none!important}.dpad{display:grid;grid-template:repeat(3,48px)/repeat(3,48px);gap:4px}.touch button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;color:#f5f7ff;background:#151b29ed;border:1px solid #8899ae;min-width:48px;min-height:48px;font-size:21px}.touch button:active{background:#405064}.touch button[data-k=ArrowUp]{grid-area:1/2}.touch button[data-k=ArrowLeft]{grid-area:2/1}.touch button[data-k=ArrowRight]{grid-area:2/3}.touch button[data-k=ArrowDown]{grid-area:3/2}.touch .fire-pad{width:76px;height:76px;border-radius:50%;font-size:14px;letter-spacing:.1em;border-color:var(--accent)}
+      .touch .abilities{display:flex;flex-direction:column;gap:6px;position:absolute;right:0;bottom:88px}.touch .abilities button{font-size:11px;min-height:44px;padding:8px 10px}.game-commands{padding:0 16px 12px}.touch svg{pointer-events:none}.hud[data-theme=light]~.touch button{color:#142629;background:#fbfcf9f5;border-color:#70867f;box-shadow:0 3px 0 #14262926}.hud[data-theme=light]~.touch button:active{background:#dce5df}
       .hud.compact p,.hud.compact nav,.hud.compact .stats,.hud.compact .meter-label,.hud.compact .meter{display:none}.hud.compact .game{padding:6px 12px}.hud.compact .score{font-size:22px}.hud.compact .wave{padding:2px 6px}.hud.compact .score-label{display:none}.hud.compact header{padding:5px 10px}.hud.compact .flight{margin-top:3px}
-      @media(pointer:coarse),(max-width:600px){.touch{display:flex}.hud,.hud.arcade{top:max(10px,env(safe-area-inset-top));bottom:auto;right:max(10px,env(safe-area-inset-right));width:min(310px,calc(100% - 20px));max-height:calc(100dvh - 190px);overflow:auto;backdrop-filter:none}.hud.compact{width:220px}.hud header button{min-width:44px;min-height:44px}.hud nav button{min-height:44px}}
+      @media(pointer:coarse),(max-width:600px){.touch{display:flex}.hud,.hud.arcade{top:max(10px,env(safe-area-inset-top));bottom:auto;right:max(10px,env(safe-area-inset-right));width:min(310px,calc(100% - 20px));max-height:calc(100dvh - 190px);overflow:auto;backdrop-filter:none}.hud.compact{width:240px}.hud header button{min-width:44px;min-height:44px}.hud nav button{min-height:44px}}
 
-    </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${supportsFire ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
-    if (definition.hud === "arcade") {
-      const panel = shadow.querySelector<HTMLElement>(".hud")!;
-      panel.classList.add("arcade");
-      panel.innerHTML = arcadeMarkup(definition.title, supportsFire);
-    }
+    </style><canvas aria-hidden="true"></canvas><aside class="hud arcade" aria-label="${definition.title} controls">${arcadeMarkup(definition.title, supportsFire, definition.hud === "arcade")}</aside>`;
     const touch = shadow.querySelector<HTMLElement>(".touch")!;
     // Controls are siblings of the scoreboard: minimizing it never hides play.
     touch.remove();
     touch.setAttribute("aria-label", "Game touch controls");
-    touch.innerHTML = `<div class="dpad"><button data-k="ArrowUp" aria-label="Move forward or up">↑</button><button data-k="ArrowLeft" aria-label="Turn or move left">←</button><button data-k="ArrowRight" aria-label="Turn or move right">→</button><button data-k="ArrowDown" aria-label="Move backward or down">↓</button></div>${supportsFire ? '<button class="fire-pad" data-k="Space" aria-label="Hold to fire">FIRE</button>' : ''}`;
+    touch.innerHTML = `<div class="dpad"><button data-k="ArrowUp" aria-label="Move forward or up">${controlIcons.up}</button><button data-k="ArrowLeft" aria-label="Turn or move left">${controlIcons.left}</button><button data-k="ArrowRight" aria-label="Turn or move right">${controlIcons.right}</button><button data-k="ArrowDown" aria-label="Move backward or down">${controlIcons.down}</button></div>${supportsFire ? '<button class="fire-pad" data-k="Space" aria-label="Hold to fire">FIRE</button>' : ""}`;
     shadow.append(touch);
     doc.documentElement.append(host);
     canvas = shadow.querySelector("canvas")!;
@@ -261,37 +271,79 @@ export function createArcade<S extends GameStats>(
     );
     ui.pause = shadow.querySelector<HTMLButtonElement>("[data-action=pause]")!;
     const hud = shadow.querySelector<HTMLElement>(".hud")!;
-    const fold = shadow.querySelector<HTMLButtonElement>('[data-action="fold"]')!;
+    const fold = shadow.querySelector<HTMLButtonElement>(
+      '[data-action="fold"]',
+    )!;
     const setCompact = (compact: boolean) => {
       hud.classList.toggle("compact", compact);
-      fold.textContent = compact ? "+" : "−";
+      fold.innerHTML = compact ? controlIcons.expand : controlIcons.minimize;
       fold.setAttribute("aria-expanded", String(!compact));
-      fold.setAttribute("aria-label", compact ? "Expand scoreboard" : "Minimize scoreboard");
+      fold.setAttribute(
+        "aria-label",
+        compact ? "Expand scoreboard" : "Minimize scoreboard",
+      );
     };
     setCompact(win.matchMedia("(pointer: coarse), (max-width: 600px)").matches);
+    const command = (id: string) => {
+      if (status !== "running") return;
+      game?.action?.(id);
+      notify(true);
+    };
     if (definition.actions?.length) {
-      const commands = doc.createElement("nav");
-      commands.className = "game-commands";
-      commands.setAttribute("aria-label", "Game abilities");
-      commands.style.cssText = "padding:10px 0 0;gap:5px";
-      for (const action of definition.actions) {
-        const button = doc.createElement("button");
-        button.textContent = action.label;
-        button.setAttribute(
-          "aria-keyshortcuts",
-          action.key.replace(/^Key/, ""),
-        );
-        on(button, "click", () => {
-          if (status === "running") {
-            game?.action?.(action.id);
-            notify(true);
-          }
-          button.blur();
-        });
-        commands.append(button);
+      for (const mobile of [false, true]) {
+        const commands = doc.createElement("nav");
+        commands.className = mobile ? "abilities" : "game-commands";
+        commands.setAttribute("aria-label", "Game abilities");
+        for (const action of definition.actions) {
+          const button = doc.createElement("button");
+          button.textContent = mobile
+            ? action.label.replace(/^[A-Z] · /, "")
+            : action.label;
+          button.dataset.ability = action.id;
+          button.setAttribute(
+            "aria-keyshortcuts",
+            action.key.replace(/^Key/, ""),
+          );
+          on(button, "click", () => {
+            command(action.id);
+            button.blur();
+          });
+          commands.append(button);
+        }
+        (mobile ? touch : hud).append(commands);
       }
-      hud.append(commands);
     }
+    const soundButton = shadow.querySelector<HTMLButtonElement>(
+      '[data-action="sound"]',
+    )!;
+    let soundState = "";
+    const syncSound = () => {
+      const next = `${audio.enabled}:${audio.available}`;
+      if (next === soundState) return;
+      soundState = next;
+      soundButton.innerHTML = audio.enabled
+        ? controlIcons.sound
+        : controlIcons.mute;
+      soundButton.setAttribute(
+        "aria-label",
+        audio.available
+          ? audio.enabled
+            ? "Mute game sound"
+            : "Enable game sound"
+          : "Game sound unavailable in this browser",
+      );
+      soundButton.setAttribute("aria-pressed", String(audio.enabled));
+      soundButton.disabled = !audio.available;
+    };
+    syncSound();
+    const unlockSound = (event: Event) => {
+      if (status !== "running" && status !== "paused") return;
+      if ((event as KeyboardEvent).code === "Escape") return;
+      audio.unlock(event);
+      syncSound();
+    };
+    on(win, "pointerdown", unlockSound, true);
+    on(win, "keydown", unlockSound, true);
     const syncTheme = () => {
       hud.dataset.theme = theme();
       board?.invalidate();
@@ -303,6 +355,12 @@ export function createArcade<S extends GameStats>(
     ))
       on(el, "click", () => {
         const action = el.dataset.action;
+        if (action === "sound") {
+          audio.toggle();
+          audio.unlock();
+          audio.play("preview");
+          syncSound();
+        }
         if (action === "pause") status === "paused" ? resume() : pause();
         if (action === "exit") stop();
         if (action === "restart") start();
@@ -342,7 +400,8 @@ export function createArcade<S extends GameStats>(
       const release = (e: PointerEvent) => {
         const key = touchKeys.get(e.pointerId);
         touchKeys.delete(e.pointerId);
-        if (key && ![...touchKeys.values()].includes(key)) input.keys.delete(key);
+        if (key && ![...touchKeys.values()].includes(key))
+          input.keys.delete(key);
       };
       on(el, "pointerup", release);
       on(el, "pointercancel", release);
@@ -372,14 +431,22 @@ export function createArcade<S extends GameStats>(
         // turn active game movement/fire into scrolling or a button click.
         // Editable fields and keyboard-operated HUD controls keep native input.
         const path = e.composedPath();
-        const editable = path.some(el => el instanceof win.Element && el.matches(editSelector));
-        const hudControl = path.includes(host!) && path.some(el => el instanceof win.Element && el.matches('button'));
+        const editable = path.some(
+          (el) => el instanceof win.Element && el.matches(editSelector),
+        );
+        const hudControl =
+          path.includes(host!) &&
+          path.some((el) => el instanceof win.Element && el.matches("button"));
         const movement = /^(Arrow(Up|Down|Left|Right)|Key[WASD])$/.test(e.code);
-        const fire = supportsFire && e.code === 'Space';
-        if (status === 'running' && !editable && (movement || (fire && !hudControl))) {
+        const fire = supportsFire && e.code === "Space";
+        if (
+          status === "running" &&
+          !editable &&
+          (movement || (fire && !hudControl))
+        ) {
           e.preventDefault();
           e.stopPropagation();
-          input.mode = 'keyboard';
+          input.mode = "keyboard";
           input.keys.add(e.code);
           return;
         }
@@ -426,10 +493,18 @@ export function createArcade<S extends GameStats>(
       },
       true,
     );
-    on(doc, "keyup", (e) => {
-      if (input.keys.has(e.code)) { e.preventDefault(); e.stopPropagation(); }
-      input.keys.delete(e.code);
-    }, true);
+    on(
+      doc,
+      "keyup",
+      (e) => {
+        if (input.keys.has(e.code)) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        input.keys.delete(e.code);
+      },
+      true,
+    );
     on(
       doc,
       "pointermove",
@@ -696,9 +771,10 @@ export function createArcade<S extends GameStats>(
     ctx.font = "700 16px ui-monospace, monospace";
     ctx.textAlign = "center";
     ctx.lineJoin = "round";
+    const popupEdge = theme() === "dark" ? "#101010" : "#ffffff";
     for (const p of popups) {
       ctx.globalAlpha = clamp(p.life / 0.4, 0, 1);
-      ctx.strokeStyle = theme() === "dark" ? "#101010" : "#ffffff";
+      ctx.strokeStyle = popupEdge;
       ctx.lineWidth = 6;
       ctx.strokeText(p.text, p.x, p.y);
       ctx.strokeStyle = "#101010";
@@ -716,6 +792,7 @@ export function createArcade<S extends GameStats>(
     ctx.globalAlpha = 1;
   }
   function teardown() {
+    audio.close();
     zoomLock.setActive(false);
     win.cancelAnimationFrame(raf);
     raf = 0;
@@ -725,6 +802,7 @@ export function createArcade<S extends GameStats>(
     board = null;
     host?.remove();
     host = null;
+    ui = {};
     game = null;
     particlePool.clear();
     popupPool.clear();
@@ -748,10 +826,11 @@ export function createArcade<S extends GameStats>(
     try {
       mount();
       status = "running";
-    zoomLock.setActive(true);
+      zoomLock.setActive(true);
       last = win.performance.now();
       draw();
       notify(true);
+      audio.unlock();
       emit("start");
       raf = win.requestAnimationFrame(frame);
     } catch (error) {
@@ -765,6 +844,7 @@ export function createArcade<S extends GameStats>(
   function pause() {
     if (status !== "running") return;
     status = "paused";
+    audio.silence();
     zoomLock.setActive(false);
     board?.setActive?.(false);
     clearInput();
