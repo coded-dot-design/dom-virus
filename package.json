@@ -1,6 +1,6 @@
 {
   "name": "@coded-design/dom-virus",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Small DOM arcade runtime and local playground by coded.design",
   "type": "module",
   "license": "MIT",

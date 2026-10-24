@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.4
+
+- Serve DOM Battlefield 0.6.0 (analog thumbstick, follow camera, haptics, new skull-on-grid logo).
+- Site kit 1.15.1: app icon in the Battlefield style (DOM Virus skull on a map grid) for the browser tab and Home Screen; the Open Battlefield button uses the Battlefield mark.
+
 ## 0.11.3
 
 Site kit 1.15.0 (website only; game runtimes unchanged):
