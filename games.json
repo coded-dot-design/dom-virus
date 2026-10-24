@@ -1,6 +1,6 @@
 {
-  "null-invaders": "eb790a03c1f17144c014e5cac2a41826545a7e81",
-  "byte-runner": "d93dda1be515b4c5915affb487a00bb345ab4e98",
-  "sherman-bytes": "cb21b7bab7d24acc53e7a4e5a4be535b75420ff6",
-  "swarm-protocol": "bae62cd9ada3345c1da0e46e7c0a370ffe25e53f"
+  "null-invaders": "v0.5.2",
+  "byte-runner": "v0.4.2",
+  "sherman-bytes": "v0.4.2",
+  "swarm-protocol": "v1.2.3"
 }

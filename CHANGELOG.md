@@ -2,7 +2,7 @@
 
 ## 0.10.0
 
-- Native target attachments, focused-control keyboard capture, neon binary highlights, per-game palette bars, and white browser panels in light mode.
+- Native target attachments, focused-control keyboard capture, neon binary highlights, per-game palette bars, white browser panels in light mode, and raised arcade styling across both themes.
 
 ## 0.9.0
 
