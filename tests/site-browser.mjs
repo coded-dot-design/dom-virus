@@ -66,11 +66,21 @@ try {
     ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"],
   );
   const promo = page.locator(".hero-crossover");
-  assert.ok((await promo.locator(".promo-character").count()) >= 12);
-  assert.equal(await promo.locator(".promo-stamp svg").count(), 1);
+  assert.equal(await promo.locator(".promo-character,.character-icon").count(), 7);
+  assert.equal(await promo.locator(".promo-frog").count(), 0);
+  assert.equal(await promo.locator(".promo-fly").count(), 2);
+  assert.equal(await promo.locator(".ship-shot,.tank-shot").count(), 2);
+  for (const selector of [".hero", ".engineering", ".embed-section"]) {
+    assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
+  }
   await promo.getByRole("button", { name: "Pause scene animation" }).click();
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
+  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>{a.pause();a.currentTime=1550}));
+  assert.ok(Number(await promo.locator('.ship-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
+  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.currentTime=3700));
+  assert.ok(Number(await promo.locator('.tank-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
+  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.play()));
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
