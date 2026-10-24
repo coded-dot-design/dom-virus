@@ -1,3 +1,4 @@
+import { checkMobileControls } from "./mobile-controls.mjs";
 import { createServer } from "vite";
 import { chromium } from "playwright";
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
@@ -126,6 +127,7 @@ try {
   assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
   await checkShooterFeedback(page);
   await checkDomMutations(page);
+  await checkMobileControls(page, "/@fs" + resolve("src/runtime.ts"));
   await checkAttachedEffects(page);
   await page.emulateMedia({ colorScheme: "light" });
   await page.screenshot({

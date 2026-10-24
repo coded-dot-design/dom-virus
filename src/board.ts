@@ -49,11 +49,11 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     throw new Error(
       "DOM Virus mutates real text. Remove the old visual mode option.",
     );
-  const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
+  const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 0.72));
   const name = `dom-virus-${++sequence}`;
   // Optional styling of the actual mutated text, never a canvas replacement.
   const highlight =
-    opacity < 1 && win.CSS?.highlights && win.Highlight
+    win.CSS?.highlights && win.Highlight
       ? new win.Highlight()
       : null;
   let style: HTMLStyleElement | null = null;
@@ -319,7 +319,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       if (!style) {
         style = doc.createElement("style");
         style.dataset.virusIgnore = "";
-        style.textContent = `::highlight(${name}){color:color-mix(in srgb,currentColor ${opacity * 100}%,transparent)}`;
+        style.textContent = `::highlight(${name}){color:rgb(0 110 150 / ${opacity})}@media(prefers-color-scheme:dark){::highlight(${name}){color:rgb(88 219 224 / ${opacity})}}`;
         (doc.head || doc.documentElement).append(style);
         win.CSS.highlights.set(name, highlight);
       }

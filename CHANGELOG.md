@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+- Independent touch D-pad and hold-to-fire controls, compact mobile scoreboard with expanded results, colored native bit highlights, and abstract site previews. Shared engine 0.9.0.
+
 ## 0.8.0 — 2026-10-24
 
 - Attach target beacons to their real elements with native transform/opacity animations; remove viewport-painted beacon copies.

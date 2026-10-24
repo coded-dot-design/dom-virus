@@ -21,3 +21,31 @@ Game-owned background writes do not rebuild the text index. The style ledger dis
 The existing 32-target cap also bounds attached hosts to 32 and their native animations to 64. Offscreen targets do not start new visuals. The shared engine reuses entity pools; Null Invaders and Sherman cache their sprite frames. Swarm keeps its established independent runtime. Repeated Recall must leave no owned hosts, live animations or style changes behind.
 
 Browser regression checks exercise native nested scrolling and transforms without another board draw, unchanged target dimensions and label identity, pause/mobile behavior, observer invalidation, repeated cleanup, real-text mutation, Unicode offsets and newer host edits.
+
+## Touch controls and text paint (0.9)
+
+Movement and fire controls are siblings of the scoreboard inside the shadow root.
+Each held touch owns its pointer ID and key; lifting one finger cannot release a
+second finger's fire button. Native pointer capture delivers releases outside the
+button. Cancellation, blur, pause and teardown clear input. Touch-sized buttons
+have `touch-action: none` locally; the rest of the document keeps native scrolling.
+Mobile starts with a compact score/health panel. Results expand automatically.
+
+Converted bits use CSS Custom Highlights with light/dark cyan colors and configured
+opacity. The underlying Text node still contains the literal digit. Highlights do
+not add layout boxes, rotate glyphs or replace font metrics. Browsers without the
+API keep the actual text mutation without decorative paint. Each changed node's
+range offsets are repaired on mutation, never by a per-character frame loop.
+
+Explosions remain independent, bounded transient particles (100 shared particles,
+24 score popups). Ships/tanks use cached pixel sprites; Swarm caches its Path2D body
+and leg geometry. Native target animations pause with the game, while entity motion
+and particle lifetimes share the existing animation loop. These bounds prevent
+unlimited effects growth; they do not guarantee a frame rate on every host page.
+
+Active mobile play temporarily sets the root's `touch-action` policy to allow
+panning without pinch/double-tap zoom. Existing stricter panning restrictions stay
+in place. Pause, game end and Recall conditionally restore the previous inline
+value; newer host edits win. No viewport meta tag is rewritten and an already
+zoomed page is not forcibly reset. Set `lockZoom: false` to retain normal zoom.
+The small helper is shared with Swarm without replacing Swarm's engine.

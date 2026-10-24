@@ -7,7 +7,7 @@ export const games = JSON.parse(
     readFileSync(resolve(repoRoot, "games.json"), "utf8"),
 );
 export const entryFile = (name) =>
-  name === "swarm-protocol" ? "src/swarm-loader.js" : "src/index.ts";
+  name === "swarm-protocol" ? "src/swarm-loader.ts" : "src/index.ts";
 export function gameRoot(name) {
   const ref = games[name];
   if (!ref || !/^[\w.-]+$/.test(ref))

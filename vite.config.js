@@ -29,7 +29,7 @@ export default defineConfig({
       ),
       "@games/swarm": resolve(
         gamePath("swarm-protocol"),
-        "src/swarm-loader.js",
+        "src/swarm-loader.ts",
       ),
     },
   },

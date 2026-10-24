@@ -1,3 +1,4 @@
+import { createMobileZoomLock } from "./zoom-lock.js";
 import type {
   Board,
   GameContext,
@@ -56,6 +57,7 @@ export function createArcade<S extends GameStats>(
   if (!doc?.defaultView)
     throw new Error("Create a DOM Virus game in the browser after mounting.");
   const win = doc.defaultView;
+  const zoomLock = createMobileZoomLock(doc, options.lockZoom !== false);
   const supportsFire = definition.capabilities?.fire === true;
   let host: HTMLDivElement | null = null;
   let canvas: HTMLCanvasElement | null = null;
@@ -186,7 +188,9 @@ export function createArcade<S extends GameStats>(
       ui.pause.disabled = !["running", "paused"].includes(status);
     }
   }
+  const touchKeys = new Map<number, string>();
   function clearInput() {
+    touchKeys.clear();
     input?.keys.clear();
     if (input) {
       input.fire = false;
@@ -226,12 +230,22 @@ export function createArcade<S extends GameStats>(
       .hud[data-theme=light]{color:#152321;background:#f7fcfaf5;border-color:#a7bbb7}header{display:flex;justify-content:space-between;gap:8px}strong{letter-spacing:.08em;color:var(--accent);text-shadow:0 1px 2px #001b}small{opacity:.65}section{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0}b{font-size:27px;letter-spacing:.04em}p{margin:8px 0;min-height:36px;opacity:.8}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:hover{border-color:var(--accent)}button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button:disabled{opacity:.4}.touch{display:none;margin-top:8px;gap:7px}.touch button{min-width:42px;min-height:40px;touch-action:none}.touch button[data-k=ArrowLeft]{grid-column:1}.touch button[data-k=ArrowUp]{grid-column:2}.touch button[data-k=ArrowRight]{grid-column:3}.touch button[data-k=ArrowDown]{grid-column:2}.hud.folded section,.hud.folded p,.hud.folded nav,.hud.folded .touch{display:none}
       @media(pointer:coarse){.touch{display:grid;grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.hud{top:10px;right:10px;width:240px;padding:10px}b{font-size:22px}}
       ${definition.hud === "arcade" ? arcadeStyles : ""}
+      .touch{position:absolute;inset:auto max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:none;justify-content:space-between;align-items:end;pointer-events:none;margin:0}.touch[hidden]{display:none!important}.dpad{display:grid;grid-template:repeat(3,48px)/repeat(3,48px);gap:4px}.touch button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;color:#f5f7ff;background:#151b29ed;border:1px solid #8899ae;min-width:48px;min-height:48px;font-size:21px}.touch button:active{background:#405064}.touch button[data-k=ArrowUp]{grid-area:1/2}.touch button[data-k=ArrowLeft]{grid-area:2/1}.touch button[data-k=ArrowRight]{grid-area:2/3}.touch button[data-k=ArrowDown]{grid-area:3/2}.touch .fire-pad{width:76px;height:76px;border-radius:50%;font-size:14px;letter-spacing:.1em;border-color:var(--accent)}
+      .hud.compact p,.hud.compact nav,.hud.compact .stats,.hud.compact .meter-label,.hud.compact .meter{display:none}.hud.compact .game{padding:6px 12px}.hud.compact .score{font-size:22px}.hud.compact .wave{padding:2px 6px}.hud.compact .score-label{display:none}.hud.compact header{padding:5px 10px}.hud.compact .flight{margin-top:3px}
+      @media(pointer:coarse),(max-width:600px){.touch{display:flex}.hud,.hud.arcade{top:max(10px,env(safe-area-inset-top));bottom:auto;right:max(10px,env(safe-area-inset-right));width:min(310px,calc(100% - 20px));max-height:calc(100dvh - 190px);overflow:auto;backdrop-filter:none}.hud.compact{width:220px}.hud header button{min-width:44px;min-height:44px}.hud nav button{min-height:44px}}
+
     </style><canvas aria-hidden="true"></canvas><aside class="hud" aria-label="${definition.title} controls"><header><strong>${definition.title}</strong><button data-action="fold" aria-label="Fold game controls">−</button></header><section><div><small>SCORE</small><br><b data-field="score">00000</b></div><div><span data-field="lives">3 LIVES</span><br><span data-field="wave">WAVE 1</span></div></section><small data-field="status">RUNNING</small><p data-field="detail"></p><nav><button data-action="pause">Pause</button><button data-action="gate">Next gate</button><button data-action="restart">Restart</button><button data-action="exit">Recall ↗</button></nav><div class="touch"><button data-k="ArrowUp">↑</button><button data-k="ArrowLeft">←</button><button data-k="ArrowRight">→</button><button data-k="ArrowDown">↓</button>${supportsFire ? '<button data-action="fire">Auto fire</button>' : ""}</div></aside>`;
     if (definition.hud === "arcade") {
       const panel = shadow.querySelector<HTMLElement>(".hud")!;
       panel.classList.add("arcade");
       panel.innerHTML = arcadeMarkup(definition.title, supportsFire);
     }
+    const touch = shadow.querySelector<HTMLElement>(".touch")!;
+    // Controls are siblings of the scoreboard: minimizing it never hides play.
+    touch.remove();
+    touch.setAttribute("aria-label", "Game touch controls");
+    touch.innerHTML = `<div class="dpad"><button data-k="ArrowUp" aria-label="Move forward or up">↑</button><button data-k="ArrowLeft" aria-label="Turn or move left">←</button><button data-k="ArrowRight" aria-label="Turn or move right">→</button><button data-k="ArrowDown" aria-label="Move backward or down">↓</button></div>${supportsFire ? '<button class="fire-pad" data-k="Space" aria-label="Hold to fire">FIRE</button>' : ''}`;
+    shadow.append(touch);
     doc.documentElement.append(host);
     canvas = shadow.querySelector("canvas")!;
     ctx = canvas.getContext("2d");
@@ -247,6 +261,14 @@ export function createArcade<S extends GameStats>(
     );
     ui.pause = shadow.querySelector<HTMLButtonElement>("[data-action=pause]")!;
     const hud = shadow.querySelector<HTMLElement>(".hud")!;
+    const fold = shadow.querySelector<HTMLButtonElement>('[data-action="fold"]')!;
+    const setCompact = (compact: boolean) => {
+      hud.classList.toggle("compact", compact);
+      fold.textContent = compact ? "+" : "−";
+      fold.setAttribute("aria-expanded", String(!compact));
+      fold.setAttribute("aria-label", compact ? "Expand scoreboard" : "Minimize scoreboard");
+    };
+    setCompact(win.matchMedia("(pointer: coarse), (max-width: 600px)").matches);
     if (definition.actions?.length) {
       const commands = doc.createElement("nav");
       commands.className = "game-commands";
@@ -286,12 +308,7 @@ export function createArcade<S extends GameStats>(
         if (action === "restart") start();
         if (action === "gate") nextGate();
         if (action === "fold") {
-          hud.classList.toggle("folded");
-          el.textContent = hud.classList.contains("folded") ? "+" : "−";
-          el.setAttribute(
-            "aria-expanded",
-            String(!hud.classList.contains("folded")),
-          );
+          setCompact(!hud.classList.contains("compact"));
         }
         if (action === "fire") {
           autoFire = !autoFire;
@@ -314,12 +331,19 @@ export function createArcade<S extends GameStats>(
     };
     for (const el of shadow.querySelectorAll<HTMLButtonElement>("[data-k]")) {
       on(el, "pointerdown", (e) => {
+        if (status !== "running") return;
         e.preventDefault();
         el.setPointerCapture(e.pointerId);
+        touchKeys.set(e.pointerId, el.dataset.k!);
+        input.pointer.active = false;
         input.mode = "keyboard";
         input.keys.add(el.dataset.k!);
       });
-      const release = () => input.keys.delete(el.dataset.k!);
+      const release = (e: PointerEvent) => {
+        const key = touchKeys.get(e.pointerId);
+        touchKeys.delete(e.pointerId);
+        if (key && ![...touchKeys.values()].includes(key)) input.keys.delete(key);
+      };
       on(el, "pointerup", release);
       on(el, "pointercancel", release);
       on(el, "lostpointercapture", release);
@@ -416,7 +440,7 @@ export function createArcade<S extends GameStats>(
       true,
     );
     on(doc, "pointerup", () => (input.fire = false), true);
-    on(doc, "pointercancel", clearInput, true);
+    on(doc, "pointercancel", () => (input.fire = false), true);
     on(
       doc,
       "click",
@@ -562,10 +586,13 @@ export function createArcade<S extends GameStats>(
       },
       finish(won = false) {
         status = won ? "won" : "gameover";
+        zoomLock.setActive(false);
         notice = won
           ? "Page cleared and restored. Restart for another run."
           : "Run ended. Page restored. Restart for another run.";
         clearInput();
+        setCompact(false);
+        touch.hidden = true;
         board?.destroy();
         ctx?.clearRect(0, 0, width, height);
         emit(status);
@@ -670,6 +697,7 @@ export function createArcade<S extends GameStats>(
     ctx.globalAlpha = 1;
   }
   function teardown() {
+    zoomLock.setActive(false);
     win.cancelAnimationFrame(raf);
     raf = 0;
     for (const off of listeners) off();
@@ -701,6 +729,7 @@ export function createArcade<S extends GameStats>(
     try {
       mount();
       status = "running";
+    zoomLock.setActive(true);
       last = win.performance.now();
       draw();
       notify(true);
@@ -717,6 +746,7 @@ export function createArcade<S extends GameStats>(
   function pause() {
     if (status !== "running") return;
     status = "paused";
+    zoomLock.setActive(false);
     board?.setActive?.(false);
     clearInput();
     win.cancelAnimationFrame(raf);
@@ -727,6 +757,7 @@ export function createArcade<S extends GameStats>(
   function resume() {
     if (status !== "paused" || doc.hidden) return;
     status = "running";
+    zoomLock.setActive(true);
     notice = "";
     board?.invalidate();
     board?.setActive?.(true);
