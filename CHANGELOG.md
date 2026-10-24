@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.2
+
+- Remove the dark background from native 0/1 highlights while retaining their game color.
+
+- Present the new Byte Runner maze release and matching pixel character guide.
+- Give real spawn buttons bright fills and subtle same-color hover/press states.
+- Enlarge the light/dark toggle with clear 22px SVG icons and 40px controls.
+
 ## 0.10.1
 
 - Soften the site and game graphics to a flat color palette while retaining native attachments, raised controls and press feedback. Remove the outer page/header side borders. Swarm colors remain unchanged.

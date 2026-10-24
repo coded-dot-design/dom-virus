@@ -1,3 +1,4 @@
+import { checkByteMaze } from './byte-maze.mjs';
 import { checkNativeOwnership } from './native-ownership.mjs';
 import { checkMobileControls } from "./mobile-controls.mjs";
 import { createServer } from "vite";
@@ -261,53 +262,13 @@ try {
       clear.update(2.1);
     }
     const victory = c.finished === "won";
-    const r = make();
-    r.board.targets = [
-      {
-        id: "runner-gate",
-        health: 100,
-        maxHealth: 100,
-        visible: true,
-        rect: {
-          left: 20,
-          right: 80,
-          top: 20,
-          bottom: 50,
-          width: 60,
-          height: 30,
-        },
-      },
-    ];
-    const runner = createRunner(r);
-    runner.reset();
-    const glyphs = Array.from({ length: 6 }, () => ({
-      spent: false,
-      rect: { left: 0, top: 0, width: 10, height: 10 },
-    }));
-    r.board.near = () => glyphs;
-    runner.update(0.01);
-    const orb =
-      runner.snapshot().pickups === 1 && runner.snapshot().eaten === 6;
-    r.move = (p) => {
-      p.x = 520;
-      p.y = 360;
-    };
-    runner.update(0.01);
-    const powered =
-      runner.snapshot().power > 0 && r.board.targets[0].health === 0;
-    const count = runner.snapshot().alive;
-    for (let i = 0; i < 20; i++) runner.update(0.1);
-    const halted = runner.snapshot().alive === count;
-    r.move = () => {};
-    for (let i = 0; i < 50; i++) runner.update(0.1);
-    const resumed =
-      runner.snapshot().alive > 0 && runner.snapshot().power === 0;
-    return { enemyCap, advanced, victory, orb, powered, halted, resumed };
+    return { enemyCap, advanced, victory };
   }, sourceURLs);
   assert.ok(simulation.enemyCap <= 48);
   for (const [key, value] of Object.entries(simulation))
     if (key !== "enemyCap") assert.equal(value, true, key);
   console.log("Game simulation", simulation);
+  await checkByteMaze(page, sourceURLs);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.click('[data-game="null-invaders"]');
   await page.click("#launch");

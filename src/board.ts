@@ -323,7 +323,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       if (!style) {
         style = doc.createElement("style");
         style.dataset.virusIgnore = "";
-        style.textContent = `::highlight(${name}){color:color-mix(in srgb,${binaryColor} ${opacity*100}%,transparent);background-color:#151020}`;
+        style.textContent = `::highlight(${name}){color:color-mix(in srgb,${binaryColor} ${opacity*100}%,transparent);background-color:transparent}`;
         (doc.head || doc.documentElement).append(style);
         win.CSS.highlights.set(name, highlight);
       }

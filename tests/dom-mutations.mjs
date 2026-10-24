@@ -168,6 +168,11 @@ export async function checkDomMutations(page) {
           }),
         };
         window.mutationProof.game.start();
+        if (runner) {
+          const player = window.mutationProof.game.getSnapshot().player;
+          p.style.left = `${player.x + 20}px`;
+          p.style.top = `${player.y - 20}px`;
+        }
       },
       {
         url: "/@fs" + resolve(gameRoot(name), "src/index.ts"),

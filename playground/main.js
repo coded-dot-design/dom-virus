@@ -8,7 +8,7 @@ const registry = {
   "byte-runner": {
     load: () => import("@games/byte-runner"),
     factory: "createByteRunner",
-    hint: "Arrows or WASD to move · Eat six letters, collect the orb, then hunt the ghosts.",
+    hint: "Arrows or WASD to move · Follow the pellet trails, collect power pellets, and clear each maze.",
   },
   "swarm-protocol": {
     load: () => import("@games/swarm"),
