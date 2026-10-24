@@ -201,6 +201,151 @@ try {
     window.fixtureGame.board.destroy();
     delete window.fixtureGame;
   });
+  const regrowth = await page.evaluate(async (u) => {
+    const { createGame } = await import(u.simulation),
+      { createBoard } = await import(u.board);
+    const root = document.querySelector("#fixture"),
+      board = createBoard(document, { root });
+    board.measure(0, true);
+    // Keep collection focused on food for this clock test; test text ownership separately below.
+    const api = {
+      board: { ...board, near: () => [] },
+      options: { root, document, theme: "light" },
+      input: {
+        keys: new Set(),
+        mode: "keyboard",
+        pointer: { active: false, x: 0, y: 0 },
+        fire: false,
+      },
+      width: 1100,
+      height: 760,
+      time: 0,
+      random: () => 0.42,
+      reducedMotion: false,
+      emit() {},
+      burst() {},
+      popup() {},
+      move() {},
+      finish() {},
+    };
+    const g = createGame(api);
+    g.reset();
+    g.draw();
+    const svg = root
+      .querySelector("dom-virus-attachment")
+      .shadowRoot.querySelector("[data-byte-trails]");
+    const point = (node) => {
+      const r = node.getBoundingClientRect();
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    };
+    const tick = (key = "", dt = 0.01) => {
+      api.input.keys = new Set(key ? [key] : []);
+      api.time += dt;
+      g.update(dt);
+      g.draw();
+    };
+    const moveTo = (p) => {
+      for (let i = 0; i < 1200; i++) {
+        const a = g.snapshot().player,
+          dx = p.x - a.x,
+          dy = p.y - a.y;
+        if (Math.hypot(dx, dy) < 2) return;
+        tick(
+          Math.abs(dx) > 2
+            ? dx > 0
+              ? "ArrowRight"
+              : "ArrowLeft"
+            : dy > 0
+              ? "ArrowDown"
+              : "ArrowUp",
+        );
+      }
+    };
+    const player = g.snapshot().player;
+    const pellet = [...svg.querySelectorAll("[data-byte-pellet]")].sort(
+      (a, b) =>
+        Math.hypot(point(a).x - player.x, point(a).y - player.y) -
+        Math.hypot(point(b).x - player.x, point(b).y - player.y),
+    )[0];
+    const at = point(pellet);
+    moveTo(at);
+    tick();
+    const grey =
+      pellet.dataset.eaten === "true" &&
+      pellet.getAttribute("fill") === "#8c929d";
+    const progress = g.snapshot().pelletsRemaining,
+      score = g.snapshot().score,
+      identity = pellet;
+    const nodeCount = svg.querySelectorAll("*").length;
+    // Repeated draws at the same simulation time cannot regenerate anything.
+    for (let i = 0; i < 50; i++) {
+      g.update(0);
+      g.draw();
+    }
+    const paused = pellet.dataset.eaten === "true";
+    api.time += 12.1;
+    g.update(0);
+    g.draw();
+    const returned =
+      pellet.dataset.eaten === "false" &&
+      pellet.getAttribute("fill") === "#6758bd";
+    const stable =
+      pellet === identity &&
+      pellet.isConnected &&
+      svg.querySelectorAll("*").length === nodeCount;
+    const progressStable =
+      g.snapshot().pelletsRemaining === progress &&
+      g.snapshot().score === score;
+    tick("ArrowUp");
+    tick("ArrowDown");
+    const bonus =
+      g.snapshot().score > score && g.snapshot().pelletsRemaining === progress;
+    const glyph = board.glyphs.find((g) => !g.consumed);
+    const original = glyph.record.node.data;
+    board.consume(glyph, "binary");
+    const mutation = glyph.record.node.data;
+    api.time += 60;
+    g.update(0);
+    g.draw();
+    const textPreserved =
+      mutation !== original && glyph.record.node.data === mutation;
+    const outlineFree = !svg.querySelector(
+      "[data-byte-rim],[data-byte-runner] circle,[data-byte-fly] [stroke]",
+    );
+    api.reducedMotion = true;
+    g.draw();
+    const foodOpacity = svg
+      .querySelector("[data-byte-food]")
+      .getAttribute("opacity");
+    api.time += 0.6;
+    g.draw();
+    const steadyFood =
+      foodOpacity ===
+      svg.querySelector("[data-byte-food]").getAttribute("opacity");
+    board.destroy();
+    return {
+      grey,
+      paused,
+      returned,
+      stable,
+      progressStable,
+      bonus,
+      textPreserved,
+      outlineFree,
+      steadyFood,
+      recall: glyph.record.node.data === original,
+    };
+  }, urls);
+  for (const [name, ok] of Object.entries(regrowth))
+    assert.equal(
+      ok,
+      true,
+      `food regrowth ${name}: ${JSON.stringify(regrowth)}`,
+    );
+  console.log(
+    "Food trails: grey breadcrumbs, timed return, stable nodes, one-time level progress, bonus collection, persistent text and Recall",
+    regrowth,
+  );
   const cache = await page.evaluate(async (u) => {
     const { drawShip, drawSprite, spriteCacheSize, SPRITE_CACHE_LIMIT } =
       await import(u.sprites);
@@ -241,27 +386,110 @@ try {
   assert.equal(cache.a, cache.limit);
   assert.equal(cache.a, cache.b);
   console.log("Finite canvas cache", cache);
-  const shipMotion=await page.evaluate(async u=>{
-    const {createGame}=await import(u.ship),{drawShip}=await import(u.sprites);
-    const canvas=document.createElement('canvas');canvas.width=1000;canvas.height=760;const ctx=canvas.getContext('2d');let drawn='';const original=ctx.drawImage.bind(ctx);
-    ctx.drawImage=(image,...args)=>{if(image.width===37)drawn=image.toDataURL();original(image,...args);};
-    let travel=0,angle=-Math.PI/2;const segments=[];
-    const api={width:1000,height:760,time:0,options:{document},input:{keys:new Set(['ArrowRight']),mode:'keyboard',pointer:{active:false,x:0,y:0}},random:()=>.5,reducedMotion:false,firing:false,emit(){},burst(){},popup(){},finish(){},move(p){p.x+=travel;p.angle=angle;},board:{targets:[{visible:false,health:80,maxHealth:80,rect:null}],resetTargets(){},hitSegment(a,b){segments.push({a:{...a},b:{...b}});return null;},damage(){},consume(){return false;}}};
-    const game=createGame(api);game.reset();
-    const step=()=>{api.time+=.025;game.update(.025);game.draw(ctx);return drawn;};
-    const idle=step();travel=3;const thrust=step();angle=-Math.PI;const left=step();angle=0;const right=step();travel=0;const stopped=step();
-    const poseDifferent=new Set([idle,thrust,left,right]).size===4,stops=stopped===idle;
-    api.firing=true;segments.length=0;step();const player=game.snapshot().player,first=segments[0];
-    const aligned=!!first&&Math.abs(first.a.x-player.x-16)<.001&&Math.abs(first.a.y-player.y)<.001&&first.b.x>first.a.x;
-    return {poseDifferent,stops,aligned};
-  },urls);
-  for(const [key,value] of Object.entries(shipMotion))assert.equal(value,true,key);
-  console.log('Ship idle, movement thrust, both banks, stopped engines and muzzle alignment',shipMotion);
-  await page.evaluate(()=>{
-    const pending=new Set(),request=window.requestAnimationFrame.bind(window),cancel=window.cancelAnimationFrame.bind(window);
-    window.pendingGameFrames=pending;
-    window.requestAnimationFrame=callback=>{const id=request(time=>{pending.delete(id);callback(time);});pending.add(id);return id;};
-    window.cancelAnimationFrame=id=>{pending.delete(id);cancel(id);};
+  const shipMotion = await page.evaluate(async (u) => {
+    const { createGame } = await import(u.ship),
+      { drawShip } = await import(u.sprites);
+    const canvas = document.createElement("canvas");
+    canvas.width = 1000;
+    canvas.height = 760;
+    const ctx = canvas.getContext("2d");
+    let drawn = "";
+    const original = ctx.drawImage.bind(ctx);
+    ctx.drawImage = (image, ...args) => {
+      if (image.width === 37) drawn = image.toDataURL();
+      original(image, ...args);
+    };
+    let travel = 0,
+      angle = -Math.PI / 2;
+    const segments = [];
+    const api = {
+      width: 1000,
+      height: 760,
+      time: 0,
+      options: { document },
+      input: {
+        keys: new Set(["ArrowRight"]),
+        mode: "keyboard",
+        pointer: { active: false, x: 0, y: 0 },
+      },
+      random: () => 0.5,
+      reducedMotion: false,
+      firing: false,
+      emit() {},
+      burst() {},
+      popup() {},
+      finish() {},
+      move(p) {
+        p.x += travel;
+        p.angle = angle;
+      },
+      board: {
+        targets: [{ visible: false, health: 80, maxHealth: 80, rect: null }],
+        resetTargets() {},
+        hitSegment(a, b) {
+          segments.push({ a: { ...a }, b: { ...b } });
+          return null;
+        },
+        damage() {},
+        consume() {
+          return false;
+        },
+      },
+    };
+    const game = createGame(api);
+    game.reset();
+    const step = () => {
+      api.time += 0.025;
+      game.update(0.025);
+      game.draw(ctx);
+      return drawn;
+    };
+    const idle = step();
+    travel = 3;
+    const thrust = step();
+    angle = -Math.PI;
+    const left = step();
+    angle = 0;
+    const right = step();
+    travel = 0;
+    const stopped = step();
+    const poseDifferent = new Set([idle, thrust, left, right]).size === 4,
+      stops = stopped === idle;
+    api.firing = true;
+    segments.length = 0;
+    step();
+    const player = game.snapshot().player,
+      first = segments[0];
+    const aligned =
+      !!first &&
+      Math.abs(first.a.x - player.x - 16) < 0.001 &&
+      Math.abs(first.a.y - player.y) < 0.001 &&
+      first.b.x > first.a.x;
+    return { poseDifferent, stops, aligned };
+  }, urls);
+  for (const [key, value] of Object.entries(shipMotion))
+    assert.equal(value, true, key);
+  console.log(
+    "Ship idle, movement thrust, both banks, stopped engines and muzzle alignment",
+    shipMotion,
+  );
+  await page.evaluate(() => {
+    const pending = new Set(),
+      request = window.requestAnimationFrame.bind(window),
+      cancel = window.cancelAnimationFrame.bind(window);
+    window.pendingGameFrames = pending;
+    window.requestAnimationFrame = (callback) => {
+      const id = request((time) => {
+        pending.delete(id);
+        callback(time);
+      });
+      pending.add(id);
+      return id;
+    };
+    window.cancelAnimationFrame = (id) => {
+      pending.delete(id);
+      cancel(id);
+    };
   });
   // Public runtime lifecycle and native scroll ownership in both themes.
   for (const theme of ["light", "dark"]) {
@@ -280,11 +508,26 @@ try {
       { u: urls, theme },
     );
     await page.waitForTimeout(100);
-    await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));});
-    assert.equal(await page.evaluate(()=>window.live.getSnapshot().status),'paused');
-    assert.equal(await page.evaluate(()=>window.pendingGameFrames.size),0);
-    await page.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event('visibilitychange'));});
-    assert.equal(await page.evaluate(()=>window.live.getSnapshot().status),'running');
+    await page.evaluate(() => {
+      Object.defineProperty(document, "hidden", {
+        configurable: true,
+        get: () => true,
+      });
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(
+      await page.evaluate(() => window.live.getSnapshot().status),
+      "paused",
+    );
+    assert.equal(await page.evaluate(() => window.pendingGameFrames.size), 0);
+    await page.evaluate(() => {
+      delete document.hidden;
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    assert.equal(
+      await page.evaluate(() => window.live.getSnapshot().status),
+      "running",
+    );
     const elapsed = await page.evaluate(
       () => window.live.getSnapshot().elapsed,
     );
@@ -343,7 +586,11 @@ try {
     counts,
   );
   assert.deepEqual(errors, []);
-  assert.equal(await page.evaluate(()=>window.pendingGameFrames.size),0,'Recall leaves no animation loop');
+  assert.equal(
+    await page.evaluate(() => window.pendingGameFrames.size),
+    0,
+    "Recall leaves no animation loop",
+  );
   writeFileSync(
     "artifacts/characters/checks.json",
     JSON.stringify({ proof, cache, shipMotion, counts, errors }, null, 2),
