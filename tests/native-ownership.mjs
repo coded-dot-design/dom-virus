@@ -43,6 +43,10 @@ export async function checkNativeOwnership(page) {
         Math.abs(after.left - before.left - 23) < 0.1;
       const capture =
         baseRoot.querySelector(".progress").style.transform === "scaleX(0.5)";
+      target.style.width = "280px";
+      const responsiveBase =
+        Math.abs(wall.getBoundingClientRect().width - after.width - 100) < 0.1;
+      target.style.width = "180px";
       target.style.removeProperty("transform");
       board.destroy();
       const baseClean =
@@ -94,6 +98,20 @@ export async function checkNativeOwnership(page) {
       const nativeRing =
         Math.abs(ringAfter.top - ringBefore.top + 31) < 0.1 &&
         Math.abs(ringAfter.left - ringBefore.left - 13) < 0.1;
+      const relativeBugX = () => {
+        const owner = target.getBoundingClientRect(),
+          canvas = sprite.getBoundingClientRect();
+        return (
+          (canvas.left + canvas.width / 2 - owner.left - target.clientLeft) /
+          target.clientWidth
+        );
+      };
+      const anchoredX = relativeBugX();
+      target.style.width = "280px";
+      const responsiveBug = Math.abs(relativeBugX() - anchoredX) < 0.001;
+      const responsiveRing =
+        Math.abs(signal.getBoundingClientRect().width - ringAfter.width - 100) <
+        0.1;
       const paused = root
         .getAnimations()
         .every((a) => a.playState === "paused");
@@ -102,10 +120,13 @@ export async function checkNativeOwnership(page) {
       scroller.remove();
       return {
         nativeBase,
+        responsiveBase,
         capture,
         baseClean,
         nativeBug,
         nativeRing,
+        responsiveBug,
+        responsiveRing,
         paused,
         swarmClean,
       };
