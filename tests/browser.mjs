@@ -257,7 +257,7 @@ try {
     const victory = c.finished === "won";
     const r = make();
     r.board.targets = [
-      { id: "runner-gate", health: 100, maxHealth: 100, visible: false },
+      { id: "runner-gate", health: 100, maxHealth: 100, visible: true, rect: {left:20,right:80,top:20,bottom:50,width:60,height:30} },
     ];
     const runner = createRunner(r);
     runner.reset();
