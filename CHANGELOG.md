@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+
+- Soften the site and game graphics to a flat color palette while retaining native attachments, raised controls and press feedback. Remove the outer page/header side borders. Swarm colors remain unchanged.
+
 ## 0.10.0
 
 - Native target attachments, focused-control keyboard capture, neon binary highlights, per-game palette bars, white browser panels in light mode, and raised arcade styling across both themes.

@@ -706,10 +706,10 @@ export function createArcade<S extends GameStats>(
       ctx.strokeText(p.text, p.x, p.y);
       ctx.fillStyle =
         p.tone === "upgrade"
-          ? "#00e5ff"
+          ? "#06c4ff"
           : p.tone === "hurt"
-            ? "#ff168f"
-            : "#65ff00";
+            ? "#f4457a"
+            : "#4bce82";
       ctx.fillText(p.text, p.x, p.y);
     }
     ctx.restore();

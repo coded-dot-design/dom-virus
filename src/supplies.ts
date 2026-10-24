@@ -63,10 +63,10 @@ export class SupplyDrops {
       const { x, y, kind } = item;
       ctx.strokeStyle =
         kind === "repair"
-          ? "#a6ef91"
+          ? "#4bce82"
           : kind === "charge"
-            ? "#76e2ff"
-            : "#f9bf62";
+            ? "#06c4ff"
+            : "#cdde00";
       ctx.fillStyle = "#14232c";
       ctx.fillRect(x - 10, y - 9, 20, 18);
       ctx.strokeRect(x - 10, y - 9, 20, 18);

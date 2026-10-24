@@ -22,11 +22,11 @@ interface Surface {
   beaconColor: string;
 }
 // Swarm's health colors and damped liquid surface, shared as presentation only.
-export function targetSignal(health: number, color = "#00e5ff") {
+export function targetSignal(health: number, color = "#06c4ff") {
   const fill = clamp(health, 0, 100);
   return {
     fill,
-    color: fill > 60 ? color : fill > 25 ? "#ffea00" : "#ff343b",
+    color: fill > 60 ? color : fill > 25 ? "#cdde00" : "#ee6875",
     period: 0.7 + 2.1 * (1 - fill / 100),
   };
 }
@@ -105,7 +105,7 @@ export class TargetEffects {
           custom ||
           (background !== "rgba(0, 0, 0, 0)" && background !== "transparent"
             ? background
-            : "#00e5ff"),
+            : "#06c4ff"),
         background: css.backgroundImage,
         size: css.backgroundSize,
         position: css.backgroundPosition,
@@ -227,7 +227,7 @@ export class TargetEffects {
         s.animating = energy > 0;
       }
       if (s.beacon) {
-        const color = target.health > 0 ? signal.color : "#65ff00";
+        const color = target.health > 0 ? signal.color : "#4bce82";
         if (s.beaconColor !== color) {
           s.beacon.style.setProperty("color", color, "important");
           s.beaconColor = color;

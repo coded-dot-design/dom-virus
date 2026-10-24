@@ -31,7 +31,7 @@ button. Cancellation, blur, pause and teardown clear input. Touch-sized buttons
 have `touch-action: none` locally; the rest of the document keeps native scrolling.
 Mobile starts with a compact score/health panel. Results expand automatically.
 
-Converted bits use CSS Custom Highlights with the active game’s neon accent at full
+Converted bits use CSS Custom Highlights with the active game’s palette color at full
 brightness by default and a dark native background. `binaryOpacity` remains opt-in. The underlying Text node still contains the literal digit. Highlights do
 not add layout boxes, rotate glyphs or replace font metrics. Browsers without the
 API keep the actual text mutation without decorative paint. Each changed node's

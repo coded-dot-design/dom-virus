@@ -52,8 +52,8 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       "DOM Virus mutates real text. Remove the old visual mode option.",
     );
   const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
-  const requestedColor = options.binaryColor ?? '#ff168f';
-  const binaryColor = /^#[a-f\d]{6}$/i.test(requestedColor) ? requestedColor : '#ff168f';
+  const requestedColor = options.binaryColor ?? '#f4457a';
+  const binaryColor = /^#[a-f\d]{6}$/i.test(requestedColor) ? requestedColor : '#f4457a';
   const name = `dom-virus-${++sequence}`;
   // Optional styling of the actual mutated text, never a canvas replacement.
   const highlight =
