@@ -50,7 +50,8 @@
     "site:preview": "astro preview --config site/astro.config.mjs",
     "sync:sites": "node scripts/sync-sites.mjs",
     "site:typecheck": "tsc -p site-kit/tsconfig.json",
-    "capture:characters": "node tests/capture-characters.mjs"
+    "capture:characters": "node tests/capture-characters.mjs",
+    "site:test:browser": "node tests/site-browser.mjs"
   },
   "devDependencies": {
     "@types/react": "19.3.0",
