@@ -631,7 +631,7 @@ export function createArcade<S extends GameStats>(
   function frame(now: number) {
     raf = 0;
     if (status !== "running" || !game || !board) return;
-    const dt = Math.min((now - last) / 1000, 0.034);
+    const dt = Math.max(0, Math.min((now - last) / 1000, 0.034));
     last = now;
     time += dt;
     const workStart = win.performance.now();

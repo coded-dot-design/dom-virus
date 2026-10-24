@@ -13,6 +13,12 @@ const kit = resolve(root, "site-kit");
 const { kitVersion } = JSON.parse(
   readFileSync(resolve(root, "site/config.json"), "utf8"),
 );
+const characterArt = {};
+for(const name of ['byte-runner','null-invaders']){
+  const art=JSON.parse(readFileSync(resolve(root,'..',name,'site/art.json'),'utf8'));
+  characterArt[name]=art;
+}
+writeFileSync(resolve(kit,'character-art.json'),JSON.stringify(characterArt,null,2)+'\n');
 const hash = createHash("sha256");
 function digest(dir) {
   for (const item of readdirSync(dir, { withFileTypes: true }).sort((a, b) =>

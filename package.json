@@ -1,6 +1,6 @@
 {
   "name": "@coded-design/dom-virus",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Small DOM arcade runtime and local playground by coded.design",
   "type": "module",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "build": "npm run build:engine && npm run build:playground",
     "preview": "vite preview --config vite.config.js",
     "test": "node --import tsx --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.mjs",
+    "test:browser": "node tests/browser.mjs && node tests/character-browser.mjs",
     "check": "npm run typecheck && npm test && npm run build && npm run test:package",
     "typecheck": "tsc --noEmit",
     "build:engine": "node scripts/build-engine.mjs",
@@ -49,7 +49,8 @@
     "site:build": "npm run site:typecheck && node site-kit/scripts/prepare.mjs && astro build --config site/astro.config.mjs && node site-kit/scripts/verify.mjs",
     "site:preview": "astro preview --config site/astro.config.mjs",
     "sync:sites": "node scripts/sync-sites.mjs",
-    "site:typecheck": "tsc -p site-kit/tsconfig.json"
+    "site:typecheck": "tsc -p site-kit/tsconfig.json",
+    "capture:characters": "node tests/capture-characters.mjs"
   },
   "devDependencies": {
     "@types/react": "19.3.0",

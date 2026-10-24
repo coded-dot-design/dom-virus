@@ -204,7 +204,7 @@ try {
       height: 800,
       time: 0,
       options: {},
-      input: {},
+      input: { keys: new Set(), mode: "keyboard", pointer: {active:false,x:0,y:0} },
       random: () => 0,
       reducedMotion: true,
       firing: false,

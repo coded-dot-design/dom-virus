@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 /** Deterministic real-DOM simulation: small clearable level, then a full viewport. */
 export async function checkByteMaze(page, sourceURL) {
   const results = await page.evaluate(async sourceURL => {
+    window.scrollTo(0,0);
     const {createGame}=await import(sourceURL.runner);
     const {createBoard}=await import(sourceURL.board);
     const root=document.createElement('section');root.style.cssText='position:absolute;left:20px;top:20px;width:900px;height:68px;';document.body.append(root);
@@ -20,7 +21,7 @@ export async function checkByteMaze(page, sourceURL) {
     return {levelClear,power,onlyCollected,cleaned,finished,events:events.filter(e=>e.type==='level-start'||e.type==='level-clear')};
   },sourceURL);
   assert.equal(results.levelClear,true,JSON.stringify(results));assert.equal(results.power,true);assert.equal(results.onlyCollected,true);assert.equal(results.cleaned,true);assert.equal(results.finished,false);
-  console.log('Byte Runner maze: pellets, power, full level progression and DOM cleanup',results.events);
+  console.log('Byte Runner food trails: pellets, power, full level progression and DOM cleanup',results.events);
   await page.evaluate(async urls=>{
     window.scrollTo(0,0);
     const {createByteRunner}=await import(urls.runner.replace('simulation.ts','index.ts'));
