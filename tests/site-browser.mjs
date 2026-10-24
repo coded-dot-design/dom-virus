@@ -390,6 +390,10 @@ try {
   console.log(
     "Site: responsive navigation, both themes, SVG controls, syntax colors, exact clipboard, animation pause/visibility/reduced motion, and launcher passed.",
   );
+} catch (e) {
+  // CI annotation: readable from the checks API even when log downloads are not.
+  console.log(`::error title=Site browser test::${String(e.stack || e).split("\n").slice(0, 5).join(" | ").slice(0, 900)}`);
+  throw e;
 } finally {
   await browser.close();
   server.close();
