@@ -37,7 +37,7 @@
     "build": "npm run build:engine && npm run build:playground",
     "preview": "vite preview --config vite.config.js",
     "test": "node --import tsx --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.mjs && node tests/character-browser.mjs && node tests/swarm-color-browser.mjs && node tests/byte-whitespace.mjs && node tests/controls-audio-browser.mjs",
+    "test:browser": "node tests/browser.mjs && node tests/character-browser.mjs && node tests/swarm-color-browser.mjs && node tests/byte-whitespace.mjs && node tests/controls-audio-browser.mjs && node tests/byte-pipes.mjs",
     "check": "npm run typecheck && npm test && npm run build && npm run test:package",
     "typecheck": "tsc --noEmit",
     "build:engine": "node scripts/build-engine.mjs",

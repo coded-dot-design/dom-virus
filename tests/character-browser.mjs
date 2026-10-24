@@ -70,6 +70,9 @@ try {
       .shadowRoot.querySelector("[data-byte-trails]");
     const tick = (key = "", dt = 0.025) => {
       api.input.keys = new Set(key ? [key] : []);
+      // Character poses are exercised off-pipe; pipe navigation has its own suite.
+      if (key) g.action("jump");
+      else api.time += 0.25;
       api.time += dt;
       g.update(dt);
       g.draw();
@@ -117,7 +120,8 @@ try {
     );
     let overclock = false,
       vulnerable = false,
-      capture = false;
+      capture = false,
+      tongue = false;
     if (power) {
       const r = power.getBoundingClientRect();
       moveTo(r.x + r.width / 2, r.y + r.height / 2);
@@ -144,15 +148,22 @@ try {
         );
         if (events.some((e) => e.type === "ghost-eaten")) {
           capture = true;
+          tongue =
+            svg
+              .querySelector("[data-byte-tongue]")
+              .getAttribute("visibility") === "visible";
           break;
         }
       }
     }
+    g.reset();
+    g.draw();
     const wings = svg.querySelector("[data-byte-fly] [data-wings]");
     let flap = false;
     if (wings) {
       const d = wings.getAttribute("d");
-      tick("", 0.14);
+      api.time += 0.13;
+      g.draw();
       flap = d !== wings.getAttribute("d");
     }
     api.reducedMotion = true;
@@ -176,6 +187,7 @@ try {
       overclock,
       vulnerable,
       capture,
+      tongue,
       flap,
       reduced,
       squares,
@@ -192,6 +204,8 @@ try {
     "overclock",
     "vulnerable",
     "capture",
+    "tongue",
+    "flap",
     "reduced",
     "squares",
   ])
@@ -240,6 +254,9 @@ try {
     };
     const tick = (key = "", dt = 0.01) => {
       api.input.keys = new Set(key ? [key] : []);
+      // Character poses are exercised off-pipe; pipe navigation has its own suite.
+      if (key) g.action("jump");
+      else api.time += 0.25;
       api.time += dt;
       g.update(dt);
       g.draw();

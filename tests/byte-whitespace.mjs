@@ -45,9 +45,7 @@ try {
         async ({ u, dark }) => {
           const { createBoard } = await import(u.board),
             { createPresentation } = await import(u.presentation),
-            { makeMaze, blocked, TRAIL_CLEARANCE, guideToTrail } = await import(
-              u.maze
-            ),
+            { makeMaze, blocked, TRAIL_CLEARANCE } = await import(u.maze),
             { createGame } = await import(u.simulation);
           const root = document.querySelector("main");
           let board = createBoard(document, { root, textSelector: "h1,h2,p" });
@@ -168,6 +166,8 @@ try {
             "ArrowUp",
             "ArrowLeft",
           ]) {
+            api.input.keys = new Set([key]);
+            game.action("jump");
             for (let i = 0; i < 20; i++) {
               tick(key);
               const [x, y] = runner
@@ -181,6 +181,8 @@ try {
           game.draw();
           const poses = [];
           for (const key of ["ArrowUp", "ArrowDown"]) {
+            api.input.keys = new Set([key]);
+            game.action("jump");
             const frames = new Set();
             for (let i = 0; i < 8; i++) {
               tick(key);
@@ -188,7 +190,7 @@ try {
             }
             poses.push(frames.size);
           }
-          tick();
+          tick("", 0.3);
           const stopped = feet.dataset.frame === "0";
           const guides = svg.querySelector("[data-byte-guides]"),
             mask = svg.querySelector("mask");
@@ -205,9 +207,11 @@ try {
           cover.setAttribute("role", "img");
           cover.style.cssText = "position:absolute;inset:0";
           root.append(cover);
+          game.action("refresh");
           for (let i = 0; i < 20; i++) tick();
           const hidden = svg.getAttribute("visibility") === "hidden";
           cover.remove();
+          game.action("refresh");
           for (let i = 0; i < 20; i++) tick();
           const recovered =
             svg.getAttribute("visibility") === "visible" &&
