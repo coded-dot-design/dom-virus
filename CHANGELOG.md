@@ -2,6 +2,10 @@
 
 ## 0.10.2
 
+- Replace the DV letters in the header, footer and favicon with the supplied pixel skull as a small transparent SVG.
+
+- Replace the game sections’ thick top stripes with thin outlines and matching offset arcade shadows.
+
 - Remove the dark background from native 0/1 highlights while retaining their game color.
 
 - Present the new Byte Runner maze release and matching pixel character guide.
