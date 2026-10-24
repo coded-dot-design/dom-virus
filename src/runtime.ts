@@ -563,9 +563,11 @@ export function createArcade<S extends GameStats>(
       finish(won = false) {
         status = won ? "won" : "gameover";
         notice = won
-          ? "Page cleared. Restart for another run."
-          : "Signal lost. Restart or Recall to restore the page.";
+          ? "Page cleared and restored. Restart for another run."
+          : "Run ended. Page restored. Restart for another run.";
         clearInput();
+        board?.destroy();
+        ctx?.clearRect(0, 0, width, height);
         emit(status);
         notify(true);
       },
@@ -599,6 +601,11 @@ export function createArcade<S extends GameStats>(
       }
       board.measure(time);
       game.update(dt);
+      if ((status as GameStatus) !== "running") {
+        ctx?.clearRect(0, 0, width, height);
+        notify(true);
+        return;
+      }
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i]!;
         p.life -= dt;
@@ -627,6 +634,10 @@ export function createArcade<S extends GameStats>(
   }
   function draw() {
     if (!ctx || !board || !game) return;
+    if (status === "won" || status === "gameover") {
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
     ctx.clearRect(0, 0, width, height);
     board.draw(ctx, time, reduced());
     game.draw(ctx);

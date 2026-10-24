@@ -35,10 +35,11 @@ export async function checkShooterFeedback(page) {
     canvas.height = 700;
     const ctx = canvas.getContext("2d");
     b.draw(ctx, 0.01, false);
+    const nativeStyle = getComputedStyle(node.parentElement);
     const fontMatches =
-      glyph.typography.font.includes("Georgia") &&
-      glyph.typography.font.includes("40px") &&
-      glyph.typography.color === "rgb(24, 49, 42)";
+      nativeStyle.fontFamily.includes("Georgia") &&
+      nativeStyle.fontSize === "40px" &&
+      nativeStyle.color === "rgb(24, 49, 42)";
     const initial = button.style.backgroundImage;
     b.damage(b.targets[0], 50, { x: 55, y: 100 });
     b.draw(ctx, 0.1, false);
@@ -48,7 +49,8 @@ export async function checkShooterFeedback(page) {
     button.click();
     const output = {
       fontMatches,
-      keepsText: node.data === text,
+      mutatesText: /^[01]ypography$/.test(node.data),
+      keepsTextNode: node === root.querySelector("h2").firstChild,
       spentOnce: b.consume(glyph) === false,
       keepsLabel: button.firstChild === label,
       keepsAction: clicks === 1,
@@ -59,6 +61,7 @@ export async function checkShooterFeedback(page) {
     };
     b.destroy();
     output.restoresStyle = button.style.cssText === original;
+    output.restoresText = node.data === text;
     output.restoresHighlights = CSS.highlights.size === 0;
     const c = createBoard(document, { root, targetEffects: "liquid" });
     c.measure(0, true);

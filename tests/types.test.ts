@@ -42,3 +42,8 @@ void badTheme;
 const pool = new EntityPool(2, () => ({ x: 0, y: 0 }));
 // @ts-expect-error Consumers cannot grow a pool beyond its capacity.
 pool.active.push({ x: 1, y: 1 });
+
+const visualOnly: import("../src/contracts.js").BoardOptions = {
+  // @ts-expect-error Visual-only text substitution is no longer supported.
+  domMode: "visual",
+};

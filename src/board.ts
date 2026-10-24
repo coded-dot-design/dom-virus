@@ -45,14 +45,17 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     grid = new SpatialGrid<Glyph>();
   const records = new Map<Text, TextRecord>(),
     targetRecords = new Map<HTMLElement | SVGElement, BoardTarget>();
-  const visual = options.domMode !== "text";
-  const canHighlight = Boolean(win.CSS?.highlights && win.Highlight);
-  if (visual && !canHighlight)
+  if (options.domMode && options.domMode !== "text")
     throw new Error(
-      'Visual text effects need CSS Highlights. Use domMode: "text" only on opted-in static content.',
+      "DOM Virus mutates real text. Remove the old visual mode option.",
     );
+  const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
   const name = `dom-virus-${++sequence}`;
-  const highlight = visual ? new win.Highlight() : null;
+  // Optional styling of the actual mutated text, never a canvas replacement.
+  const highlight =
+    opacity < 1 && win.CSS?.highlights && win.Highlight
+      ? new win.Highlight()
+      : null;
   let style: HTMLStyleElement | null = null;
   let dirty = true,
     scanDirty = true,
@@ -64,11 +67,6 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
   let targets: BoardTarget[] = [];
   let measurements = 0,
     spentCount = 0;
-  const binaryCanvas = doc.createElement("canvas"),
-    binaryContext = binaryCanvas.getContext("2d");
-  if (!binaryContext) throw new Error("Canvas 2D is unavailable.");
-  const binaryCtx = binaryContext;
-  let binaryDirty = true;
   const segmenter = new Intl.Segmenter(undefined, { granularity: "grapheme" });
   const protectedTarget =
     'form,input,textarea,select,[contenteditable],[aria-live],dialog,[role="dialog"],[data-virus-ignore],[data-dom-virus-root],[data-swarm-ui]';
@@ -92,7 +90,6 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       if (g.spent) spentCount--;
     }
     records.delete(r.node);
-    binaryDirty = true;
   };
   function scan() {
     scanDirty = false;
@@ -198,7 +195,6 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     measurements = 0;
     visibleGlyphs = [];
     grid.clear();
-    binaryDirty = true;
     const clipCache = new Map<Element, Bounds>();
     function clipped(rect: Rect, element: Element): Rect {
       let clip = clipCache.get(element);
@@ -245,26 +241,15 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       };
     }
     const parents = new Map<Element, boolean>();
-    const typography = new Map<Element, NonNullable<Glyph["typography"]>>();
     for (const g of glyphs) {
       g.rect = null;
+      if (g.spent) continue;
       const r = g.record,
         el = r.node.parentElement;
       if (!el || r.node.nodeValue !== r.latest || !el.isConnected) continue;
       if (!parents.has(el)) {
         const box = el.getBoundingClientRect();
         const css = win.getComputedStyle(el);
-        if (options.binaryStyle === "native") {
-          const font = `${css.fontStyle} ${css.fontWeight} ${css.fontSize} ${css.fontFamily}`;
-          binaryCtx.font = font;
-          const metrics = binaryCtx.measureText("01");
-          typography.set(el, {
-            font,
-            color: css.color,
-            ascent: metrics.fontBoundingBoxAscent,
-            descent: metrics.fontBoundingBoxDescent,
-          });
-        }
         parents.set(
           el,
           visible(box) &&
@@ -274,8 +259,6 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
         );
       }
       if (!parents.get(el) || measurements >= 900) continue;
-      const face = typography.get(el);
-      if (face) g.typography = face;
       const range = g.range || doc.createRange();
       try {
         range.setStart(r.node, g.offset);
@@ -309,6 +292,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     effect: "binary" | "erase" = "binary",
   ) {
     if (
+      destroyed ||
       !g ||
       g.spent ||
       !g.record.node.isConnected ||
@@ -317,37 +301,37 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       return false;
     g.bit = Math.random() < 0.5 ? "0" : "1";
     g.effect = effect;
-    if (visual && highlight) {
+    const r = g.record,
+      value = effect === "binary" ? g.bit : "\u00a0";
+    const next =
+      r.latest.slice(0, g.offset) + value + r.latest.slice(g.offset + g.length);
+    if (!ledger.writeText(r.node, next)) return false;
+    const delta = value.length - g.length;
+    for (const other of r.glyphs)
+      if (other.offset > g.offset) other.offset += delta;
+    g.length = value.length;
+    r.latest = next;
+    g.spent = true;
+    spentCount++;
+    dirty = true;
+    if (highlight) {
       if (!style) {
         style = doc.createElement("style");
         style.dataset.virusIgnore = "";
-        style.textContent = `::highlight(${name}){color:transparent;text-shadow:none}`;
+        style.textContent = `::highlight(${name}){color:color-mix(in srgb,currentColor ${opacity * 100}%,transparent)}`;
         (doc.head || doc.documentElement).append(style);
         win.CSS.highlights.set(name, highlight);
       }
-      const range = doc.createRange();
-      range.setStart(g.record.node, g.offset);
-      range.setEnd(g.record.node, g.offset + g.length);
-      g.range = range;
-      highlight.add(range);
-    } else {
-      const r = g.record,
-        value = effect === "binary" ? g.bit : "\u00a0";
-      const next =
-        r.latest.slice(0, g.offset) +
-        value +
-        r.latest.slice(g.offset + g.length);
-      if (!ledger.writeText(r.node, next)) return false;
-      const delta = value.length - g.length;
-      for (const other of r.glyphs)
-        if (other.offset > g.offset) other.offset += delta;
-      g.length = value.length;
-      r.latest = next;
-      dirty = true;
+      g.range = doc.createRange();
+      highlight.add(g.range);
+      // A Text.nodeValue write resets live Range offsets in this node.
+      // Restore all owned ranges after each write, including shorter graphemes.
+      for (const spent of r.glyphs)
+        if (spent.spent && spent.range) {
+          spent.range.setStart(r.node, spent.offset);
+          spent.range.setEnd(r.node, spent.offset + spent.length);
+        }
     }
-    g.spent = true;
-    spentCount++;
-    binaryDirty = true;
     return true;
   }
   function hitSegment(a: Point, b: Point) {
@@ -380,7 +364,8 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       .filter((g) => !g.spent && g.rect && inside(g.rect, x, y, radius));
   }
   function damage(target: BoardTarget, amount: number, impact?: Point) {
-    if (!target.element.isConnected || target.health <= 0) return false;
+    if (destroyed || !target.element.isConnected || target.health <= 0)
+      return false;
     target.health = Math.max(0, target.health - amount);
     if (effects) effects.hit(target, impact);
     else
@@ -392,59 +377,14 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     return true;
   }
   function resetTargets(health = 100) {
+    if (destroyed) return;
     for (const t of targets) {
       t.health = t.maxHealth = health;
       if (!effects) ledger.writeStyle(t.element, "opacity", "1");
     }
   }
   function draw(ctx: CanvasRenderingContext2D, time = 0, reduced = false) {
-    effects?.draw(ctx, targets, time, reduced);
-    if (!visual) return;
-    if (!binaryDirty) {
-      ctx.drawImage(binaryCanvas, 0, 0, win.innerWidth, win.innerHeight);
-      return;
-    }
-    binaryDirty = false;
-    const dpr = Math.min(win.devicePixelRatio || 1, 1.5);
-    binaryCanvas.width = Math.round(win.innerWidth * dpr);
-    binaryCanvas.height = Math.round(win.innerHeight * dpr);
-    binaryCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const output = ctx;
-    ctx = binaryCtx;
-    ctx.save();
-    ctx.globalAlpha = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    for (const g of visibleGlyphs)
-      if (g.spent && g.effect === "binary" && g.rect) {
-        const r = g.rect;
-        if (options.binaryStyle === "native" && g.typography) {
-          const face = g.typography;
-          ctx.save();
-          ctx.font = face.font;
-          ctx.fillStyle = face.color;
-          ctx.textBaseline = "alphabetic";
-          ctx.beginPath();
-          ctx.rect(r.left, r.top, r.width, r.height);
-          ctx.clip();
-          ctx.fillText(
-            g.bit,
-            (r.left + r.right) / 2,
-            (r.top + r.bottom + face.ascent - face.descent) / 2,
-            r.width,
-          );
-          ctx.restore();
-          continue;
-        }
-        ctx.font = `${Math.min(22, Math.max(10, r.height * 0.72))}px monospace`;
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "#081012";
-        ctx.fillStyle = "#63e6d4";
-        ctx.strokeText(g.bit, (r.left + r.right) / 2, (r.top + r.bottom) / 2);
-        ctx.fillText(g.bit, (r.left + r.right) / 2, (r.top + r.bottom) / 2);
-      }
-    ctx.restore();
-    output.drawImage(binaryCanvas, 0, 0, win.innerWidth, win.innerHeight);
+    if (!destroyed) effects?.draw(ctx, targets, time, reduced);
   }
   const invalidate = () => {
     dirty = true;
@@ -455,6 +395,12 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     if (
       changes.some(
         (c) =>
+          // Our text writes already invalidate geometry. Only external text
+          // changes require rebuilding the index and reconsidering ownership.
+          !(
+            c.type === "characterData" &&
+            records.get(c.target as Text)?.latest === c.target.nodeValue
+          ) &&
           !c.target.parentElement?.closest("[data-dom-virus-root]") &&
           !(
             c.target instanceof win.Element &&

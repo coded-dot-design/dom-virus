@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 — 2026-10-24
+
+- Make real DOM text mutation the only consumption path. Remove canvas replacement glyphs and the visual-only mode.
+- Keep node identity, track original/latest owned writes, and preserve newer host changes on Recall.
+- Exclude spent text from collision measurements; skip reindexing on game-owned text mutations. CSS Highlights only provide optional opacity on already-mutated text.
+- Release Null Invaders 0.4.0, Byte Runner 0.3.0 and Sherman Bytes 0.3.0. Add browser checks for real text mutation, Unicode offsets, missing Highlights support and Recall in all three games.
+- Site kit 1.4.0 documents the actual DOM pipeline. Swarm runtime remains unchanged.
+
 ## 0.6.0 — 2026-10-24
 
 - Add optional game actions with accessible HUD buttons and keyboard shortcuts, plus a shared bounded wave director.

@@ -3,6 +3,7 @@ import { chromium } from "playwright";
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
+import { checkDomMutations } from "./dom-mutations.mjs";
 import { checkShooterFeedback } from "./shooter-feedback.mjs";
 import { gameRoot } from "../scripts/game-paths.mjs";
 const sourcePath = (name) => resolve(gameRoot(name), "src/simulation.ts");
@@ -123,6 +124,7 @@ try {
   await page.evaluate(() => window.playground.recall());
   assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
   await checkShooterFeedback(page);
+  await checkDomMutations(page);
   await page.emulateMedia({ colorScheme: "light" });
   await page.screenshot({
     path: "artifacts/playground-light.png",
@@ -155,8 +157,9 @@ try {
     };
     result.firstConsume = b.consume(first);
     result.repeatConsume = b.consume(first);
-    result.visualPreservesText = node.nodeValue === original;
-    result.hasHighlight = CSS.highlights.size > 0;
+    result.actualTextChanged = /^[01]lpha beta$/.test(node.nodeValue);
+    result.sameTextNode = root.querySelector("h2").firstChild === node;
+    result.noReplacementOverlay = CSS.highlights.size === 0;
     root.querySelector("button").style.opacity = ".8";
     b.damage(b.targets[0], 50);
     root.querySelector("button").style.opacity = ".95";
@@ -164,6 +167,7 @@ try {
     result.stylePreserved =
       Number(root.querySelector("button").style.opacity) === 0.95;
     result.highlightsClean = CSS.highlights.size === 0;
+    result.defaultRestored = node.nodeValue === original;
     const direct = createBoard(document, { root, domMode: "text" });
     direct.measure(0, true);
     direct.consume(direct.glyphs.find((g) => g.char === "A"));
@@ -251,8 +255,11 @@ try {
       clear.update(2.1);
     }
     const victory = c.finished === "won";
-    const r = make(),
-      runner = createRunner(r);
+    const r = make();
+    r.board.targets = [
+      { id: "runner-gate", health: 100, maxHealth: 100, visible: false },
+    ];
+    const runner = createRunner(r);
     runner.reset();
     const glyphs = Array.from({ length: 6 }, () => ({
       spent: false,
@@ -267,7 +274,8 @@ try {
       p.y = 360;
     };
     runner.update(0.01);
-    const powered = runner.snapshot().power > 0;
+    const powered =
+      runner.snapshot().power > 0 && r.board.targets[0].health === 0;
     const count = runner.snapshot().alive;
     for (let i = 0; i < 20; i++) runner.update(0.1);
     const halted = runner.snapshot().alive === count;

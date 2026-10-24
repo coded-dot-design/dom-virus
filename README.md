@@ -121,8 +121,6 @@ const game = createNullInvaders({
   textSelector: 'h1,h2,h3,h4,h5,h6,p,li,blockquote,[data-virus-text]',
   targetSelector: 'button,[role="button"],a.button,a.btn,[data-virus-target]',
   excludeSelector: '[data-virus-ignore]',
-  domMode: 'visual', // default; 'text' opts static content into real text changes
-  binaryStyle: 'native', // Null Invaders default; 'neon' is also available
   targetEffects: 'liquid', // Null Invaders default; 'fade' is also available
   theme: 'system',
 });
@@ -135,7 +133,7 @@ Explicit selectors replace their corresponding defaults. Forms, editable fields,
 
 - One small host with Shadow DOM contains the canvas and HUD. The board adapter intentionally reads selected elements in the host document. Shadow DOM is style encapsulation, not a security sandbox.
 - Text is indexed as grapheme clusters with `Intl.Segmenter`, avoiding accidental splits in emoji and combining characters. Ranges supply positions without inserting a span around every letter.
-- Default visual effects use CSS Highlights to conceal consumed glyphs, with cached binary replacements painted on canvas. React retains ownership of its text nodes. The optional `text` mode edits selected static text directly and records originals.
+Hits replace characters in the existing DOM Text nodes with literal 0 or 1. There are no canvas replacement letters, cloned text, or per-letter wrappers. The ownership ledger records the original and latest game-written value per node. Recall restores only still-owned values; newer host edits win. Changing a proportional-font letter into a digit can reflow text, so the bounded geometry cache is invalidated and refreshed.
 - The mutation ledger compares the current value with the last game-written value before restoration. A newer host update wins. Destroy never replaces a container's HTML or recreates a button.
 - Canvas characters are original procedural shapes. A small shared loop handles time, input, cleanup, and effects. Game simulations own enemy behavior, scoring, and win/loss rules.
 - Geometry refreshes are throttled and bounded. Glyph collision uses a spatial grid, and projectiles use swept tests to avoid skipping thin letters.
@@ -150,13 +148,13 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Browser tests start and stop their own Vite server. Set `CHROMIUM_PATH` if using an existing Chromium binary. They cover all three games, movement, pause, switching, generic exclusions, nested clipping, visual/direct text modes, host updates, repeated cleanup, ghost power timing, wave progression, mobile page width, typed game capabilities, native-font binary replacements, liquid damage/restoration, reduced-motion feedback, light/dark/mobile shooter HUDs, and real React StrictMode mount/update/unmount cleanup. Screenshots and sampled frame-work measurements are written to `artifacts/`.
+Browser tests start and stop their own Vite server. Set `CHROMIUM_PATH` if using an existing Chromium binary. They cover all four games, movement, pause, switching, generic exclusions, nested clipping, actual DOM text mutation and Unicode offsets, host updates, repeated cleanup, ghost power timing, wave progression, mobile page width, typed game capabilities, native DOM binary text, liquid damage/restoration, reduced-motion feedback, light/dark/mobile shooter HUDs, and real React StrictMode mount/update/unmount cleanup. Screenshots and sampled frame-work measurements are written to `artifacts/`.
 
 See [PERFORMANCE.md](PERFORMANCE.md) for limits and measurement scope, and [REFERENCES.md](REFERENCES.md) for the implementation study.
 
 ## First-cut boundaries
 
-The two new games target modern browsers with Canvas 2D, Shadow DOM, `Intl.Segmenter`, and CSS Highlights. The visual mode requires CSS Highlights; older browsers can explicitly use text mode on static opted-in content. This is not yet a cross-browser certification. Cross-origin frames and closed shadow roots are outside the board. Aggressively transforming pages, virtualized content, and hostile styles need additional fixtures before making broad compatibility claims.
+Modern browsers with Canvas 2D, Shadow DOM and Intl.Segmenter. CSS Highlights are optional and only fade already-mutated digits. Text replacement and Recall work without that API. Cross-origin frames and closed shadow roots are outside the board. Choose a content root and exclusions carefully for framework-driven or frequently changing pages.
 
 No external fonts, images, sound files, telemetry, account, or backend are required. Chrome extension permissions, store packaging, persistent settings, and a public launcher are deferred.
 
@@ -166,4 +164,4 @@ MIT © 2026 Chris Cooley. Brand: coded.design.
 
 After checks pass on `main`, CI creates the tag matching `package.json` (for example `v0.2.0`) if it does not already exist. Existing tags never move. Bump the package version for the next release.
 
-Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel tank. Its engine snapshot adds opt-in `binaryOpacity`; other games keep their existing engine snapshots.
+Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel tank. The three shared-engine games use the same real-text mutation pipeline. Sherman’s opt-in `binaryOpacity` fades the actual mutated digits where CSS Highlights are available. Swarm retains its own established runtime.
