@@ -385,6 +385,7 @@ try {
     async (url) => {
       const { createArcade } = await import(url);
       const events = [];
+      let actions = 0;
       const make = (fire) =>
         createArcade(
           {
@@ -393,6 +394,7 @@ try {
             color: "#fff",
             hint: "Test",
             capabilities: { fire },
+            actions: [{ id: "build", key: "KeyB", label: "Build probe" }],
             create(api) {
               return {
                 reset() {
@@ -400,6 +402,9 @@ try {
                 },
                 update() {},
                 draw() {},
+                action(id) {
+                  if (id === "build") actions++;
+                },
                 snapshot: () => ({ score: 0, firing: api.firing }),
               };
             },
@@ -416,6 +421,42 @@ try {
         }),
       );
       const firing = shoot.getSnapshot().firing;
+      const host = document.querySelector("[data-dom-virus-root]");
+      const command = host.shadowRoot.querySelector(".game-commands button");
+      command.click();
+      const actionButton =
+        actions === 1 && document.activeElement === document.body;
+      document.body.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          code: "KeyB",
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      document.body.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          code: "KeyB",
+          repeat: true,
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      const actionKey = actions === 2;
+      const input = document.createElement("input");
+      document.body.append(input);
+      input.focus();
+      input.dispatchEvent(
+        new KeyboardEvent("keydown", { code: "KeyB", bubbles: true }),
+      );
+      const actionTyping = actions === 2;
+      input.remove();
+      shoot.pause();
+      command.click();
+      document.body.dispatchEvent(
+        new KeyboardEvent("keydown", { code: "KeyB", bubbles: true }),
+      );
+      const actionPause = actions === 2;
+      shoot.resume();
       const button = document.querySelector("#board button");
       const suppressed = !button.dispatchEvent(
         new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }),
@@ -439,6 +480,10 @@ try {
       return {
         firing,
         suppressed,
+        actionButton,
+        actionKey,
+        actionTyping,
+        actionPause,
         notFiring,
         pageClickable,
         eventIdentity: event?.game === "capability-probe",

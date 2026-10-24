@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 — 2026-10-24
+
+- Add optional game actions with accessible HUD buttons and keyboard shortcuts, plus a shared bounded wave director.
+- Upgrade Sherman Bytes to 0.2.0 and archive its original 0.1.0 release for comparison. Other game runtimes remain unchanged.
+- Site kit 1.3.0: game-derived character illustrations, neutral white/blue light surfaces, brighter dark surfaces, separated game sections and a dedicated engineering section.
+
 ## 0.5.0 — 2026-10-24
 
 - Add Sherman Bytes to the independent game catalog and Astro hub.

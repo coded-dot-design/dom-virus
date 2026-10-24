@@ -173,6 +173,8 @@ export interface GameSimulation<S extends GameStats = GameStats> {
   update(dt: number): void;
   draw(context: CanvasRenderingContext2D): void;
   scroll?(dx: number, dy: number): void;
+  /** Optional discrete commands; the runtime owns protected input and cleanup. */
+  action?(id: string): void;
   snapshot(): S;
 }
 export interface GameDefinition<S extends GameStats = GameStats> {
@@ -181,6 +183,7 @@ export interface GameDefinition<S extends GameStats = GameStats> {
   color: string;
   hint: string;
   capabilities?: { fire?: boolean };
+  actions?: readonly { id: string; key: string; label: string }[];
   hud?: "arcade";
   create(context: GameContext): GameSimulation<S>;
 }

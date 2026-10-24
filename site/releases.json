@@ -1,5 +1,26 @@
 {
-  "null-invaders": [{"version":"v0.3.0","commit":"4c7ca0aeef1aa065c078e7f370a7f46242f19c74"}],
-  "byte-runner": [{"version":"v0.2.0","commit":"6422cba3d26dbd44e0f74d705d43b0193b2e886f"}],
-  "swarm-protocol": [{"version":"v1.0.13","commit":"8471cdeec14cf66e0b81f9811b964fd9875c264c"}]
+  "null-invaders": [
+    {
+      "version": "v0.3.0",
+      "commit": "4c7ca0aeef1aa065c078e7f370a7f46242f19c74"
+    }
+  ],
+  "byte-runner": [
+    {
+      "version": "v0.2.0",
+      "commit": "6422cba3d26dbd44e0f74d705d43b0193b2e886f"
+    }
+  ],
+  "swarm-protocol": [
+    {
+      "version": "v1.0.13",
+      "commit": "8471cdeec14cf66e0b81f9811b964fd9875c264c"
+    }
+  ],
+  "sherman-bytes": [
+    {
+      "version": "v0.1.0",
+      "commit": "036f69f245d3e9f751322d112b1e6e9a4cd53d3f"
+    }
+  ]
 }

@@ -11,3 +11,5 @@ export {
 export { EntityPool, chooseSpawn, translateEntities } from "./entities.js";
 export type { SpawnPoint } from "./entities.js";
 export type * from "./contracts.js";
+export { WaveDirector } from "./waves.js";
+export type { WavePhase } from "./waves.js";

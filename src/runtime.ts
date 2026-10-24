@@ -247,6 +247,29 @@ export function createArcade<S extends GameStats>(
     );
     ui.pause = shadow.querySelector<HTMLButtonElement>("[data-action=pause]")!;
     const hud = shadow.querySelector<HTMLElement>(".hud")!;
+    if (definition.actions?.length) {
+      const commands = doc.createElement("nav");
+      commands.className = "game-commands";
+      commands.setAttribute("aria-label", "Game abilities");
+      commands.style.cssText = "padding:10px 0 0;gap:5px";
+      for (const action of definition.actions) {
+        const button = doc.createElement("button");
+        button.textContent = action.label;
+        button.setAttribute(
+          "aria-keyshortcuts",
+          action.key.replace(/^Key/, ""),
+        );
+        on(button, "click", () => {
+          if (status === "running") {
+            game?.action?.(action.id);
+            notify(true);
+          }
+          button.blur();
+        });
+        commands.append(button);
+      }
+      hud.append(commands);
+    }
     const syncTheme = () => {
       hud.dataset.theme = theme();
       board?.invalidate();
@@ -327,6 +350,17 @@ export function createArcade<S extends GameStats>(
           return;
         }
         if (status !== "running") return;
+        const command = definition.actions?.find(
+          (action) => action.key === e.code,
+        );
+        if (command) {
+          e.preventDefault();
+          if (!e.repeat) {
+            game?.action?.(command.id);
+            notify(true);
+          }
+          return;
+        }
         if (e.code === "KeyG") {
           e.preventDefault();
           if (!e.repeat) nextGate();
