@@ -53,6 +53,24 @@ try {
   await page.goto(base);
   const menu = page.getByRole("button", { name: /^(Open|Close) menu$/ });
   const system = page.locator(".system-map");
+  assert.deepEqual(
+    await page
+      .locator(".game-tab")
+      .evaluateAll((nodes) => nodes.map((n) => n.hash)),
+    ["#sherman-bytes", "#swarm-protocol", "#byte-runner", "#null-invaders"],
+  );
+  assert.deepEqual(
+    await page
+      .locator(".game-section")
+      .evaluateAll((nodes) => nodes.map((n) => n.id)),
+    ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"],
+  );
+  const promo = page.locator(".hero-crossover");
+  assert.ok((await promo.locator(".promo-character").count()) >= 12);
+  assert.equal(await promo.locator(".promo-stamp svg").count(), 1);
+  await promo.getByRole("button", { name: "Pause scene animation" }).click();
+  assert.equal(await promo.getAttribute("data-motion"), "false");
+  await promo.getByRole("button", { name: "Resume scene animation" }).click();
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
@@ -60,6 +78,13 @@ try {
 
   for (const theme of ["dark", "light"]) {
     await page.getByRole("button", { name: `Use ${theme} theme` }).click();
+    await promo.scrollIntoViewIfNeeded();
+    await page.waitForFunction(
+      () => document.querySelector(".hero-crossover").dataset.motion === "true",
+    );
+    await page
+      .locator(".hero-grid")
+      .screenshot({ path: `${output}/hero-${theme}.png` });
     await system.scrollIntoViewIfNeeded();
     await page.waitForFunction(
       () => document.querySelector(".system-map").dataset.motion === "true",
@@ -202,6 +227,9 @@ try {
         true,
         `${width}/${theme} overflows: ${overflow}`,
       );
+      await page
+        .locator(".hero-grid")
+        .screenshot({ path: `${output}/hero-${width}-${theme}.png` });
       await system.screenshot({
         path: `${output}/diagram-${width}-${theme}.png`,
       });
@@ -211,7 +239,7 @@ try {
   await system.scrollIntoViewIfNeeded();
   assert.equal(await system.locator(".motion-toggle").isVisible(), false);
   const running = await page
-    .locator(".system-map,.tick-map,.ownership-map")
+    .locator(".system-map,.tick-map,.ownership-map,.hero-crossover")
     .evaluateAll(
       (nodes) =>
         nodes.flatMap((el) => el.getAnimations({ subtree: true })).length,
