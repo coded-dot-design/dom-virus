@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.7
+
+- Serve DOM Battlefield 0.6.3. Site kit 1.15.4: Open Battlefield button mark shows the skull's pixel-sized hole.
+
 ## 0.11.6
 
 - Serve DOM Battlefield 0.6.2. Site kit 1.15.3: Open Battlefield button mark back to the solid skull on the grid.
