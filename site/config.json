@@ -1,4 +1,7 @@
 {
   "id": "dom-virus",
-  "kitVersion": "1.6.2"
+  "kitVersion": "1.6.3",
+  "contentRefs": {
+    "swarm-protocol": "18b767b1c5773c11937d84804f44b6d7f7eed0c1"
+  }
 }

@@ -504,25 +504,25 @@ footer span {
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f3f4ee;
-    --panel: #fcfdf8;
-    --ink: #17241e;
-    --muted: #667467;
-    --line: #d0d8c9;
-    --accent: #385c22;
-    --page: #e8ecdf;
-    --page-ink: #263326;
-    --page-muted: #64715e;
+    --bg: #faf9ff;
+    --panel: #fff;
+    --ink: #171022;
+    --muted: #574967;
+    --line: #d9cfe8;
+    --accent: #ff168f;
+    --page: #fff;
+    --page-ink: #171022;
+    --page-muted: #574967;
   }
-  .toolbar .launch {
-    color: #f4ffe9;
-  }
-  .games button {
-    --game: #44633b !important;
-  }
-  .orb-art span {
-    color: #75856b;
-  }
+  .console h1 em { color: #cf0068; }
+  .toolbar .launch { color: #21051a; }
+  .games button:first-child { --game: #00e5ff; }
+  .games button:nth-child(2) { --game: #65ff00; }
+  .games button:nth-child(3) { --game: #ff168f; }
+  .games button:nth-child(4) { --game: #ff343b; }
+  .games svg { background: #151020; border-radius: 5px; padding: 5px; }
+  .orb-art { background: radial-gradient(circle at 30% 30%, #ff168f25, transparent 60%); border-color: #ff168f; }
+  .orb-art span { color: #cf0068; }
 }
 @media (max-width: 800px) {
   .console {
