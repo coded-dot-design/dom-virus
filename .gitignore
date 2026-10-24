@@ -12,3 +12,5 @@ site/.astro/
 .astro/
 
 .site-releases/
+
+.apps/

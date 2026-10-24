@@ -13,7 +13,7 @@ for(const mobile of [false,true]) for(const theme of ['light','dark']) {
  const page=await browser.newPage({viewport:mobile?{width:390,height:844}:{width:1200,height:900},hasTouch:mobile,isMobile:mobile,colorScheme:theme});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:5227');
- await page.setContent(`<style>body{margin:0;padding:30px;font:18px/1.8 system-ui;background:${theme==='light'?'#f6f7f8':'#100b1d'};color:${theme==='light'?'#20192f':'#eee8ff'}}main{min-height:1800px}button{padding:15px;margin:20px}p{max-width:550px}</style><button id=test-start>Start test</button><main><h1>DOM Virus control lab</h1><p>Drive around real words. Bite the page and follow the maze through the whitespace. Every game keeps its own state.</p><button>Build a base</button><p>Scroll naturally. The page carries its own game objects.</p></main>`);
+ await page.setContent(`<style>body{margin:0;padding:30px;font:18px/1.8 system-ui;background:${theme==='light'?'#f6f7f8':'#100b1d'};color:${theme==='light'?'#20192f':'#eee8ff'}}main{min-height:1800px}button{padding:15px;margin:20px}p{max-width:550px}#selection-input,#selection-editor{position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}</style><button id=test-start>Start test</button><input id=selection-input value="Editable input"><span id=selection-editor contenteditable=true>Editable text</span><main><h1>DOM Virus control lab</h1><p>Drive around real words. Bite the page and follow the maze through the whitespace. Every game keeps its own state.</p><button>Build a base</button><p>Scroll naturally. The page carries its own game objects.</p></main>`);
  await page.evaluate(()=>{
   window.audioAudit={contexts:[],peak:0,active:0,notes:0,samples:[]};const Native=window.AudioContext;
   window.AudioContext=class extends Native{
@@ -30,7 +30,13 @@ for(const mobile of [false,true]) for(const theme of ['light','dark']) {
    else window.controller=module[{ 'byte-runner':'createByteRunner','null-invaders':'createNullInvaders','sherman-bytes':'createShermanBytes'}[name]]({root,theme,seed:12,onEvent:e=>window.events.push(e)});
    window.events=[];document.querySelector('#test-start').onclick=e=>window.controller.start(e);
   },{url:moduleURL,name,theme});
+  await page.evaluate(()=>document.body.style.userSelect='text');
   await page.locator('#test-start').click();await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).userSelect),mobile?'none':'text',`${name}: mobile body selection policy`);
+  if(mobile) {
+   assert.equal(await page.locator('#selection-input').evaluate(el=>getComputedStyle(el).userSelect),'text');
+   assert.equal(await page.locator('#selection-editor').evaluate(el=>getComputedStyle(el).userSelect),'text');
+  }
   const host=name==='swarm-protocol'?page.locator('[data-swarm-ui]'):page.locator('[data-dom-virus-root]');
   const action=kind=>host.locator(name==='swarm-protocol'?`#${({fold:'minimize',exit:'close'}[kind]||kind)}`:`[data-action=${kind}]`);
   assert.equal(await host.locator('.game-actions button').count(),4);
@@ -38,6 +44,7 @@ for(const mobile of [false,true]) for(const theme of ['light','dark']) {
   assert.match(labels[0],/sound/);assert.equal(labels[1],'Pause game');assert.match(labels[2],/scoreboard/);assert.match(labels[3],/Close game/);
   if((await action('fold').getAttribute('aria-expanded'))==='true')await action('fold').click();
   await action('pause').click();assert.equal(await page.evaluate(()=>controller.getSnapshot().status),'paused');assert.equal(await action('pause').getAttribute('aria-label'),'Resume game');
+  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).userSelect),'text','pause restores native selection');
   assert.equal(await action('exit').isVisible(),true);await action('pause').click();
   // Toggle twice; preview confirms native sound from a trusted action even on a quiet board.
   await action('sound').click();await action('sound').click();await page.waitForTimeout(50);
@@ -59,6 +66,8 @@ for(const mobile of [false,true]) for(const theme of ['light','dark']) {
   await action('exit').click();await page.evaluate(()=>{controller.destroy();window.swarmHost?.remove();window.swarmHost=null});await page.waitForTimeout(50);
   assert.equal(await page.locator('[data-dom-virus-root],[data-dom-virus-attachment]').count(),0);
   assert.ok(await page.evaluate(()=>audioAudit.contexts.every(c=>c.state==='closed')));
+  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).userSelect),'text','Recall restores selection');
+  assert.equal(await page.locator('[data-dom-virus-selection]').count(),0,'selection leases cleaned');
   reports.push({name,mobile,theme,sound,controls:labels});
  }
  assert.deepEqual(errors,[]);await page.close();

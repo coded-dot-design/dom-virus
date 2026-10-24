@@ -1,6 +1,7 @@
 import { controlIcons, controlStyles } from "./game-controls.js";
 import { createGameAudio } from "./audio.js";
 import { createMobileZoomLock } from "./zoom-lock.js";
+import { createMobileSelectionLock } from "./selection-lock.js";
 import type {
   Board,
   GameContext,
@@ -60,6 +61,7 @@ export function createArcade<S extends GameStats>(
   if (!doc?.defaultView)
     throw new Error("Create a DOM Virus game in the browser after mounting.");
   const win = doc.defaultView;
+  const selectionLock = createMobileSelectionLock(doc);
   const zoomLock = createMobileZoomLock(doc, options.lockZoom !== false);
   const audio = createGameAudio(doc, definition.id, options.sound);
   const supportsFire = definition.capabilities?.fire === true;
@@ -681,6 +683,7 @@ export function createArcade<S extends GameStats>(
       finish(won = false) {
         status = won ? "won" : "gameover";
         zoomLock.setActive(false);
+        selectionLock.setActive(false);
         notice = won
           ? "Page cleared and restored. Restart for another run."
           : "Run ended. Page restored. Restart for another run.";
@@ -794,6 +797,7 @@ export function createArcade<S extends GameStats>(
   function teardown() {
     audio.close();
     zoomLock.setActive(false);
+    selectionLock.setActive(false);
     win.cancelAnimationFrame(raf);
     raf = 0;
     for (const off of listeners) off();
@@ -827,6 +831,7 @@ export function createArcade<S extends GameStats>(
       mount();
       status = "running";
       zoomLock.setActive(true);
+      selectionLock.setActive(true);
       last = win.performance.now();
       draw();
       notify(true);
@@ -846,6 +851,7 @@ export function createArcade<S extends GameStats>(
     status = "paused";
     audio.silence();
     zoomLock.setActive(false);
+    selectionLock.setActive(false);
     board?.setActive?.(false);
     clearInput();
     win.cancelAnimationFrame(raf);
@@ -857,6 +863,7 @@ export function createArcade<S extends GameStats>(
     if (status !== "paused" || doc.hidden) return;
     status = "running";
     zoomLock.setActive(true);
+    selectionLock.setActive(true);
     notice = "";
     board?.invalidate();
     board?.setActive?.(true);

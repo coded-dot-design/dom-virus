@@ -271,7 +271,18 @@ try {
       await page.evaluate(() => scrollTo(0, 0));
       if (width <= 760) await menu.click();
       await page.getByRole("button", { name: `Use ${theme} theme` }).click();
-      if (width <= 760) await page.keyboard.press("Escape");
+      if (width <= 760) {
+        await page.keyboard.press("Escape");
+        assert.ok(
+          await page.locator(".game-section").evaluateAll((nodes) =>
+            nodes.every((node) => {
+              const r = node.getBoundingClientRect();
+              return r.left >= 24 && innerWidth - r.right >= 24;
+            }),
+          ),
+          "mobile cards retain useful page gutters",
+        );
+      }
       await page.locator('[data-launch="byte-runner"]').click();
       await page.waitForFunction(
         () =>
@@ -348,6 +359,18 @@ try {
       await page.keyboard.press("Escape");
       assert.equal(await page.locator("[data-byte-trails]").count(), 0);
     }
+  // The Battlefield is a separate static app under the hub, not a bundled game mode.
+  await page.goto(base + "battlefield/");
+  await page.waitForFunction(() => !!window.battlefield);
+  assert.equal(await page.locator(".bf-mission").count(), 4);
+  await page.locator("#bf-deploy").click();
+  assert.ok(await page.evaluate(() => window.battlefield.playing));
+  await page.locator("[data-order=follow]").click();
+  assert.ok(await page.evaluate(() => window.battlefield.snapshot().units.filter(u => u.side === 0 && u.id !== 0).every(u => u.order === "follow")));
+  await page.locator("#bf-pause").click();
+  assert.ok(await page.evaluate(() => window.battlefield.paused));
+  await page.locator("#bf-restart").click();
+  assert.equal(await page.evaluate(() => window.battlefield.playing), false);
   assert.deepEqual(errors, []);
   console.log(
     "Site: responsive navigation, both themes, SVG controls, syntax colors, exact clipboard, animation pause/visibility/reduced motion, and launcher passed.",
