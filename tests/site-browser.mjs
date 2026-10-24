@@ -76,11 +76,10 @@ try {
   await promo.getByRole("button", { name: "Pause scene animation" }).click();
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
-  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>{a.pause();a.currentTime=1550}));
+  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>{a.currentTime=1550}));
   assert.ok(Number(await promo.locator('.ship-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
   await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.currentTime=3700));
   assert.ok(Number(await promo.locator('.tank-impact').evaluate(el=>getComputedStyle(el).opacity))>.5);
-  await promo.evaluate(el=>el.getAnimations({subtree:true}).forEach(a=>a.play()));
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
