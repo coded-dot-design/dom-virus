@@ -84,7 +84,7 @@ try {
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
   // Interceptor hit at 1.25s, tank hit at 2.75s: each target explodes and vanishes.
-  const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.pause(); a.currentTime = ms; }), ms);
+  const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = ms; }), ms);
   const opacity = (loc) => loc.evaluate((el) => Number(getComputedStyle(el).opacity));
   await at(1300);
   assert.ok((await opacity(promo.locator(".boom").nth(0).locator(".boom-flash"))) > 0.5);
@@ -92,7 +92,6 @@ try {
   assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
   await at(2800);
   assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
-  await promo.evaluate((el) => el.getAnimations({ subtree: true }).forEach((a) => a.play()));
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
