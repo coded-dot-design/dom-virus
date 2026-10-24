@@ -74,11 +74,13 @@ try {
   await page.click("#launch");
   await page.waitForTimeout(100);
   await page.evaluate(() => document.querySelector(".hero").scrollIntoView());
-  await page.waitForTimeout(150);
+  // Let scroll reflow settle, then test free movement via the explicit jump.
+  await page.waitForTimeout(450);
   const before = await page.evaluate(
     () => window.playground.getSnapshot().player.x,
   );
   await page.keyboard.down("ArrowRight");
+  await page.keyboard.press("Space");
   await page.waitForTimeout(200);
   await page.keyboard.up("ArrowRight");
   const after = await page.evaluate(
