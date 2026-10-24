@@ -1,8 +1,12 @@
+import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 export async function checkMobileControls(page, runtimeURL) {
   await page.setViewportSize({width:390,height:844});
+  const siteStyle=await page.addStyleTag({content:readFileSync(new URL("../site-kit/style.css",import.meta.url),"utf8")});
   const result = await page.evaluate(async url => {
     const {createArcade}=await import(url);
+    const duplicateBar=document.createElement("div");duplicateBar.className="session-bar";document.body.append(duplicateBar);
+    const siteBarHidden=getComputedStyle(duplicateBar).display==="none";duplicateBar.remove();
     let api;
     const game=createArcade({id:'touch-regression',title:'Touch regression',color:'#6de',hint:'',hud:'arcade',capabilities:{fire:true},create(context){api=context;return{reset(){},update(){},draw(){},snapshot(){return {score:0,lives:3,wave:1};}}}}, {root:document.body});
     game.start();
@@ -27,7 +31,7 @@ export async function checkMobileControls(page, runtimeURL) {
     game.resume();api.finish();
     const ended=!hud.classList.contains('compact')&&pad.hidden&&root.querySelector('[data-action=fold]').getAttribute('aria-expanded')==='true';
     game.destroy();
-    return {zoomLocked,compact,simultaneous,independent,cancel,pauseClears,pausedIgnores,ended};
+    return {siteBarHidden,zoomLocked,compact,simultaneous,independent,cancel,pauseClears,pausedIgnores,ended};
   },runtimeURL);
   for(const [name,value] of Object.entries(result))assert.equal(value,true,name);
   console.log('Mobile controls: independent held inputs, cancellation, pause and compact results verified.',result);
@@ -46,5 +50,6 @@ export async function checkMobileControls(page, runtimeURL) {
   assert.equal(await page.evaluate(()=>window.__touchApi.input.keys.size===0&&!window.__touchApi.firing),true,'capture release clears held input');
   await page.evaluate(()=>{window.__touchTest.destroy();delete window.__touchTest;delete window.__touchApi;});
   await session.detach();
+  await siteStyle.evaluate(el=>el.remove());
   await page.setViewportSize({width:1440,height:1000});
 }

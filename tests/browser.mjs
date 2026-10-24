@@ -163,7 +163,8 @@ try {
     result.repeatConsume = b.consume(first);
     result.actualTextChanged = /^[01]lpha beta$/.test(node.nodeValue);
     result.sameTextNode = root.querySelector("h2").firstChild === node;
-    result.noReplacementOverlay = CSS.highlights.size === 0;
+    result.noReplacementOverlay = root.querySelector("h2").childElementCount === 0;
+    result.nativeBitPaint = CSS.highlights.size === 1 && [...[...CSS.highlights.values()][0]][0].startContainer === node;
     root.querySelector("button").style.opacity = ".8";
     b.damage(b.targets[0], 50);
     root.querySelector("button").style.opacity = ".95";
