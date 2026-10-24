@@ -129,7 +129,9 @@ export async function checkShooterFeedback(page) {
   assert.equal(await hud.getAttribute("data-theme"), "light");
   await page.screenshot({ path: "artifacts/shooter-light.png" });
   await hud.locator("[data-action=fold]").click();
-  assert.equal(await hud.locator(".game").isVisible(), false);
+  assert.equal(await hud.locator(".game").isVisible(), true, "Compact HUD keeps score visible");
+  assert.equal(await hud.locator(".meter").isVisible(), false);
+  assert.equal(await hud.locator("[data-action=fold]").getAttribute("aria-expanded"), "false");
   await hud.locator("[data-action=fold]").click();
   await hud.locator("[data-action=pause]").click();
   assert.equal(

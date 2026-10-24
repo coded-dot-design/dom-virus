@@ -40,7 +40,7 @@ export async function checkMobileControls(page, runtimeURL) {
   const session=await page.context().newCDPSession(page);
   await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points});
   assert.equal(await page.evaluate(()=>window.__touchApi.input.keys.has('ArrowUp')&&window.__touchApi.firing),true,'trusted two-finger movement + fire');
-  await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[points[1]]});
+  await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[points[1]]});
   assert.equal(await page.evaluate(()=>!window.__touchApi.input.keys.has('ArrowUp')&&window.__touchApi.firing),true,'lifting movement finger preserves held fire');
   await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   assert.equal(await page.evaluate(()=>window.__touchApi.input.keys.size===0&&!window.__touchApi.firing),true,'capture release clears held input');
