@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0
+
+- Native target attachments, focused-control keyboard capture, neon binary highlights, per-game palette bars, and white browser panels in light mode.
+
 ## 0.9.0
 
 - Independent touch D-pad and hold-to-fire controls, compact mobile scoreboard with expanded results, colored native bit highlights, and abstract site previews. Shared engine 0.9.0.

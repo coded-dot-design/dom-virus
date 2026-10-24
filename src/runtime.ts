@@ -219,7 +219,7 @@ export function createArcade<S extends GameStats>(
       throw new Error(
         "Recall the active DOM Virus game before starting another.",
       );
-    board = createBoard(doc, options);
+    board = createBoard(doc, { ...options, binaryColor: options.binaryColor ?? definition.color });
     host = doc.createElement("div");
     host.dataset.domVirusRoot = definition.id;
     host.dataset.virusIgnore = "";
@@ -367,7 +367,23 @@ export function createArcade<S extends GameStats>(
           stop();
           return;
         }
-        if (isProtected(e) || e.altKey || e.ctrlKey || e.metaKey) return;
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        // Page chrome may retain focus after a pointer interaction. It must not
+        // turn active game movement/fire into scrolling or a button click.
+        // Editable fields and keyboard-operated HUD controls keep native input.
+        const path = e.composedPath();
+        const editable = path.some(el => el instanceof win.Element && el.matches(editSelector));
+        const hudControl = path.includes(host!) && path.some(el => el instanceof win.Element && el.matches('button'));
+        const movement = /^(Arrow(Up|Down|Left|Right)|Key[WASD])$/.test(e.code);
+        const fire = supportsFire && e.code === 'Space';
+        if (status === 'running' && !editable && (movement || (fire && !hudControl))) {
+          e.preventDefault();
+          e.stopPropagation();
+          input.mode = 'keyboard';
+          input.keys.add(e.code);
+          return;
+        }
+        if (isProtected(e) || editable) return;
         if (e.code === "KeyP") {
           e.preventDefault();
           if (!e.repeat) status === "paused" ? resume() : pause();
@@ -410,7 +426,10 @@ export function createArcade<S extends GameStats>(
       },
       true,
     );
-    on(doc, "keyup", (e) => input.keys.delete(e.code), true);
+    on(doc, "keyup", (e) => {
+      if (input.keys.has(e.code)) { e.preventDefault(); e.stopPropagation(); }
+      input.keys.delete(e.code);
+    }, true);
     on(
       doc,
       "pointermove",
@@ -687,10 +706,10 @@ export function createArcade<S extends GameStats>(
       ctx.strokeText(p.text, p.x, p.y);
       ctx.fillStyle =
         p.tone === "upgrade"
-          ? "#06c4ff"
+          ? "#00e5ff"
           : p.tone === "hurt"
-            ? "#ffad80"
-            : "#74dfa1";
+            ? "#ff168f"
+            : "#65ff00";
       ctx.fillText(p.text, p.x, p.y);
     }
     ctx.restore();

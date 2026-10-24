@@ -9,6 +9,7 @@ import type {
   Rect,
 } from "./contracts.js";
 import { TargetEffects } from "./target-effects.js";
+import { ElementAttachments } from "./attachments.js";
 import { MutationLedger } from "./ledger.js";
 import { SpatialGrid, inside, segmentHit } from "./math.js";
 
@@ -43,13 +44,16 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     options.targetEffects === "liquid" ? new TargetEffects(win) : null;
   const ledger = new MutationLedger(),
     grid = new SpatialGrid<Glyph>();
+  const attachments = new ElementAttachments(doc, (el, property, value, priority) => ledger.writeStyle(el, property, value, priority));
   const records = new Map<Text, TextRecord>(),
     targetRecords = new Map<HTMLElement | SVGElement, BoardTarget>();
   if (options.domMode && options.domMode !== "text")
     throw new Error(
       "DOM Virus mutates real text. Remove the old visual mode option.",
     );
-  const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 0.72));
+  const opacity = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
+  const requestedColor = options.binaryColor ?? '#ff168f';
+  const binaryColor = /^#[a-f\d]{6}$/i.test(requestedColor) ? requestedColor : '#ff168f';
   const name = `dom-virus-${++sequence}`;
   // Optional styling of the actual mutated text, never a canvas replacement.
   const highlight =
@@ -319,7 +323,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
       if (!style) {
         style = doc.createElement("style");
         style.dataset.virusIgnore = "";
-        style.textContent = `::highlight(${name}){color:rgb(0 110 150 / ${opacity})}@media(prefers-color-scheme:dark){::highlight(${name}){color:rgb(88 219 224 / ${opacity})}}`;
+        style.textContent = `::highlight(${name}){color:color-mix(in srgb,${binaryColor} ${opacity*100}%,transparent);background-color:#151020}`;
         (doc.head || doc.documentElement).append(style);
         win.CSS.highlights.set(name, highlight);
       }
@@ -450,8 +454,9 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     if (win.CSS?.highlights?.get(name) === highlight)
       win.CSS.highlights.delete(name);
     style?.remove();
-    ledger.restore();
     effects?.destroy();
+    attachments.clear();
+    ledger.restore();
     records.clear();
     targetRecords.clear();
     glyphs = [];
@@ -460,6 +465,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     grid.clear();
   }
   return {
+    attach: (element: Element) => destroyed ? null : attachments.attach(element),
     measure,
     consume,
     hitSegment,

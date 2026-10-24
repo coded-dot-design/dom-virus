@@ -31,8 +31,8 @@ button. Cancellation, blur, pause and teardown clear input. Touch-sized buttons
 have `touch-action: none` locally; the rest of the document keeps native scrolling.
 Mobile starts with a compact score/health panel. Results expand automatically.
 
-Converted bits use CSS Custom Highlights with light/dark cyan colors and configured
-opacity. The underlying Text node still contains the literal digit. Highlights do
+Converted bits use CSS Custom Highlights with the active game’s neon accent at full
+brightness by default and a dark native background. `binaryOpacity` remains opt-in. The underlying Text node still contains the literal digit. Highlights do
 not add layout boxes, rotate glyphs or replace font metrics. Browsers without the
 API keep the actual text mutation without decorative paint. Each changed node's
 range offsets are repaired on mutation, never by a per-character frame loop.
@@ -49,3 +49,15 @@ in place. Pause, game end and Recall conditionally restore the previous inline
 value; newer host edits win. No viewport meta tag is rewritten and an already
 zoomed page is not forcibly reset. Set `lockZoom: false` to retain normal zoom.
 The small helper is shared with Swarm without replacing Swarm's engine.
+
+Swarm pulse rings and attached bug sprites live under the actual button, in an owned
+Shadow DOM child. Sherman base walls, capture status, progress and cover outlines
+use the same native attachment rule. They follow scrolling and ancestor transforms
+even while the simulation is paused. Recall removes attachments and conditionally
+restores owned positioning styles. Attached bugs reuse small bounded canvases;
+free actors and transient particles continue sharing the game loop.
+
+While a game is running, movement/fire keydown and keyup events are consumed even
+when page chrome retains focus. Typing fields, dialogs, modifier shortcuts and
+keyboard activation of HUD buttons retain their native behavior. Recall releases
+all game listeners.
