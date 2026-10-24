@@ -1,3 +1,4 @@
+import { checkNativeOwnership } from './native-ownership.mjs';
 import { checkMobileControls } from "./mobile-controls.mjs";
 import { createServer } from "vite";
 import { chromium } from "playwright";
@@ -520,6 +521,7 @@ try {
   for (const [key, value] of Object.entries(capabilityChecks))
     assert.equal(value, true, key);
   console.log("Game capabilities work without a game-specific ID.");
+  await checkNativeOwnership(page);
   assert.deepEqual(errors, []);
   console.log("Browser smoke checks passed.");
 } finally {
