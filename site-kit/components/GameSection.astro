@@ -17,6 +17,7 @@ const kb=(n)=> (n/1000).toFixed(1);
       <div class="display-bottom"><span>{game.versionNote}</span><span>↖ SHOOT / EAT / DEFEND</span></div>
     </div>
   </div>
+  {game.id === "sherman-bytes" && <aside data-sherman-wall>HARD COVER / Drive around this bunker. Shells stop here.</aside>}
   <div class="game-facts"><div><b>{kb(game.metrics.gzip)}<small> kB</small></b><span>gzip · {game.id === 'swarm-protocol' ? 'full immediate path' : 'complete game + engine'}</span></div>{game.facts.map(f=><div><b>{f.value}</b><span>{f.label}</span></div>)}</div>
   <div class="game-bottom">
     <div class="game-loop"><div class="eyebrow">THE LOOP</div><ol>{game.loop.map((step,i)=><li><span>0{i+1}</span>{step}</li>)}</ol><div class="controls" data-virus-ignore data-swarm-ignore><h3>Know your controls.</h3>{game.controls.map(control=><p>{control}</p>)}</div></div>

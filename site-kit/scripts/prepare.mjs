@@ -11,7 +11,7 @@ const config = JSON.parse(
 );
 const names =
   config.id === "dom-virus"
-    ? ["null-invaders", "byte-runner", "swarm-protocol"]
+    ? Object.keys(JSON.parse(readFileSync(resolve(root, "games.json"), "utf8")))
     : [config.id];
 let roots = {};
 const latest =
@@ -132,6 +132,7 @@ writeFileSync(
 const factories = {
   "null-invaders": "createNullInvaders",
   "byte-runner": "createByteRunner",
+  "sherman-bytes": "createShermanBytes",
   "swarm-protocol": "installSwarm",
 };
 writeFileSync(

@@ -275,6 +275,9 @@ export function createArcade<S extends GameStats>(
           el.textContent = autoFire ? "Fire: on" : "Auto fire";
           el.setAttribute("aria-pressed", String(autoFire));
         }
+        // Return keyboard control to the board after an in-game action.
+        // Otherwise the protected HUD keeps swallowing movement/fire keys.
+        if (status === "running") el.blur();
       });
     input = {
       keys: new Set(),

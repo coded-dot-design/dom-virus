@@ -23,6 +23,10 @@ export default defineConfig({
         "src/index.ts",
       ),
       "@games/byte-runner": resolve(gamePath("byte-runner"), "src/index.ts"),
+      "@games/sherman-bytes": resolve(
+        gamePath("sherman-bytes"),
+        "src/index.ts",
+      ),
       "@games/swarm": resolve(
         gamePath("swarm-protocol"),
         "src/swarm-loader.js",
@@ -37,6 +41,7 @@ export default defineConfig({
         gamePath("null-invaders"),
         gamePath("byte-runner"),
         gamePath("swarm-protocol"),
+        gamePath("sherman-bytes"),
       ],
     },
   },

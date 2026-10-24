@@ -74,7 +74,7 @@ function update(snapshot: Snapshot) {
   stateLabel.textContent = state;
   pause.textContent = state === "paused" ? "Resume" : "Pause";
   pause.disabled = !["running", "paused", "intermission"].includes(state);
-  if (state === "destroyed") {
+  if (state === "destroyed" || state === "idle") {
     bar.hidden = true;
   }
 }
@@ -131,6 +131,9 @@ for (const button of document.querySelectorAll<HTMLButtonElement>(
       const controller = current!;
       await controller.start();
       if (request !== epoch) return;
+      // Protected launcher controls must release focus so Space drives the game
+      // instead of activating Play again. Recall restores focus to this button.
+      button.blur();
       update(controller.getSnapshot());
       button.removeAttribute("aria-busy");
       announce(
@@ -148,6 +151,7 @@ pause.addEventListener("click", () => {
   if (current.getSnapshot().status === "paused") current.resume();
   else current.pause();
   update(current.getSnapshot());
+  pause.blur();
 });
 document.querySelector("#session-recall")!.addEventListener("click", () => {
   recall();

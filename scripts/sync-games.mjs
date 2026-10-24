@@ -16,10 +16,10 @@ for (const file of readdirSync("src").sort())
 const sourceSha256 = hash.digest("hex");
 const selected = process.argv.slice(2);
 for (const name of selected)
-  if (!["null-invaders", "byte-runner"].includes(name))
+  if (!["null-invaders", "byte-runner", "sherman-bytes"].includes(name))
     throw new Error(`Unknown game: ${name}`);
 let count = 0;
-for (const name of ["null-invaders", "byte-runner"]) {
+for (const name of ["null-invaders", "byte-runner", "sherman-bytes"]) {
   if (selected.length && !selected.includes(name)) continue;
   const repo = resolve("..", name);
   if (!existsSync(resolve(repo, "src/index.ts"))) continue;

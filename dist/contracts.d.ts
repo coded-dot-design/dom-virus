@@ -23,6 +23,8 @@ export interface BoardOptions {
     domMode?: "visual" | "text";
     /** Native typography keeps binary replacements in the page's visual language. */
     binaryStyle?: "native" | "neon";
+    /** Opacity of visual binary replacements; original text/layout stay intact. */
+    binaryOpacity?: number;
     targetEffects?: "liquid" | "fade";
 }
 export interface RuntimeOptions extends BoardOptions {

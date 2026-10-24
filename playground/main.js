@@ -15,6 +15,11 @@ const registry = {
     factory: "installSwarm",
     hint: "Click the bugs to defend the page · Scroll freely to follow attacks.",
   },
+  "sherman-bytes": {
+    load: () => import("@games/sherman-bytes"),
+    factory: "createShermanBytes",
+    hint: "WASD or arrows to drive · Mouse to aim · Click or Space to fire · Occupy disabled bases to capture.",
+  },
 };
 let game = null,
   revision = 0,
@@ -85,6 +90,7 @@ async function launch() {
     }
     game = module[entry.factory](options);
     await game.start();
+    $("#launch").blur();
     options.root.scrollIntoView({ behavior: "instant", block: "start" });
   } catch (error) {
     recall();
@@ -109,6 +115,7 @@ $("#pause").addEventListener("click", () => {
   const paused = game.getSnapshot()?.status === "paused";
   paused ? game.resume() : game.pause();
   $("#pause").textContent = paused ? "Pause" : "Resume";
+  $("#pause").blur();
 });
 $("#scenario").addEventListener("change", recall);
 $("#demo-form").addEventListener("submit", (e) => {

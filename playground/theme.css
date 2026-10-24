@@ -119,7 +119,7 @@ select:focus-visible {
 }
 .games {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 12px;
   margin: 30px 0 22px;
 }
@@ -144,6 +144,9 @@ select:focus-visible {
 }
 .games button:nth-child(3) {
   --game: #ff9a89;
+}
+.games button:nth-child(4) {
+  --game: #f9bf62;
 }
 .games button:first-child {
   --game: #78e5d6;

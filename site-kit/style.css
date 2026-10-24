@@ -444,7 +444,7 @@ section {
 }
 .game-tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   border-block: 1px solid var(--line);
   margin: 20px 0;
 }
@@ -1470,3 +1470,8 @@ pre {
   margin: 0;
   color: var(--faint);
 }
+
+.accent-amber, .amber { --accent: #f2bd68; --accent-ink: #292014; }
+html[data-theme="light"] .accent-amber { --accent: #945811; --accent-ink: #fff; }
+.art-character.amber { left: 38%; top: 65%; color: #f2bd68; }
+[data-sherman-wall] { border: 1px dashed var(--accent); padding: 16px; font: 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .08em; margin: 24px 0 24px 24%; max-width: 320px; }

@@ -25,7 +25,7 @@ The page defaults to your system color scheme, with persistent light/dark overri
 
 
 
-**The page is the game board.** A local arcade playground and small shared runtime for three independently usable MIT-licensed games.
+**The page is the game board.** A local arcade playground and small shared runtime for four independently usable MIT-licensed games.
 
 | Game | Play |
 | --- | --- |
@@ -35,7 +35,7 @@ The page defaults to your system color scheme, with persistent light/dark overri
 
 This first cut is a development playground. The public launcher and Chrome extension are future work. Swarm remains its existing v1.1.0 implementation and API.
 
-## Run all three games
+## Run all four games
 
 Use Node **22.12+** or Node 24, npm, and Git:
 
@@ -165,3 +165,5 @@ MIT © 2026 Chris Cooley. Brand: coded.design.
 ## Version tags
 
 After checks pass on `main`, CI creates the tag matching `package.json` (for example `v0.2.0`) if it does not already exist. Existing tags never move. Bump the package version for the next release.
+
+Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel tank. Its engine snapshot adds opt-in `binaryOpacity`; other games keep their existing engine snapshots.

@@ -25,7 +25,17 @@ function digest(dir) {
 }
 digest(kit);
 const sourceSha256 = hash.digest("hex");
-for (const name of ["null-invaders", "byte-runner", "swarm-protocol"]) {
+const names = [
+  "null-invaders",
+  "byte-runner",
+  "swarm-protocol",
+  "sherman-bytes",
+];
+const selected = process.argv.slice(2);
+for (const name of selected)
+  if (!names.includes(name)) throw new Error(`Unknown game: ${name}`);
+for (const name of names) {
+  if (selected.length && !selected.includes(name)) continue;
   const repo = resolve(root, "..", name);
   const dest = resolve(repo, "site/shared");
   rmSync(dest, { recursive: true, force: true });

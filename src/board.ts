@@ -412,6 +412,7 @@ export function createBoard(doc: Document, options: BoardOptions = {}): Board {
     const output = ctx;
     ctx = binaryCtx;
     ctx.save();
+    ctx.globalAlpha = Math.max(0, Math.min(1, options.binaryOpacity ?? 1));
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (const g of visibleGlyphs)

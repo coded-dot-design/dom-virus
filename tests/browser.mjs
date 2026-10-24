@@ -83,6 +83,35 @@ try {
   await page.screenshot({ path: "artifacts/byte-runner.png" });
   await page.keyboard.press("Escape");
   await page.evaluate(() => window.scrollTo(0, 0));
+  await page.click('[data-game="sherman-bytes"]');
+  await page.click("#launch");
+  await page.waitForTimeout(150);
+  assert.equal(
+    (await page.evaluate(() => window.playground.getSnapshot())).status,
+    "running",
+  );
+  // HUD actions must release focus so subsequent keys still drive the tank.
+  await page.locator('[data-dom-virus-root] [data-action="fire"]').click();
+  assert.equal(
+    await page.evaluate(() => document.activeElement === document.body),
+    true,
+  );
+  const tankBefore = await page.evaluate(
+    () => window.playground.getSnapshot().player,
+  );
+  await page.keyboard.down("ArrowRight");
+  await page.waitForTimeout(200);
+  await page.keyboard.up("ArrowRight");
+  const tankAfter = await page.evaluate(
+    () => window.playground.getSnapshot().player,
+  );
+  assert.ok(
+    tankAfter.angle > tankBefore.angle,
+    "Sherman responds to steering after using HUD auto fire",
+  );
+  await page.locator('[data-dom-virus-root] [data-action="exit"]').click();
+  assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.click('[data-game="swarm-protocol"]');
   await page.click("#launch");
   await page.waitForTimeout(500);
