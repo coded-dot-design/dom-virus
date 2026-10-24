@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.8
+
+- Serve DOM Battlefield 0.6.4 (final logo). Site kit 1.15.5: solid Battlefield mark on its button.
+
 ## 0.11.7
 
 - Serve DOM Battlefield 0.6.3. Site kit 1.15.4: Open Battlefield button mark shows the skull's pixel-sized hole.
