@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.4
+
+Site kit 1.24.4:
+- Pins wrap under the cartridge at the same 45° as the corner chamfer and mitre: the recess and each finger's underside are skewed through the bottom face.
+
 ## 0.19.3
 
 Site kit 1.24.3:
