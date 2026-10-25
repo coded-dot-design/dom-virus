@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.25.1
+
+Site kit 1.29.1:
+- The empty shelf spot left by a plugged-in cartridge shows a muted "cover": the game's icon, name and number (compact row on phones), above where the seated cartridge reaches.
+- Every cartridge carries a tiny DOM Virus skull sticker, stuck on like an afterthought: a different spot and tilt per cartridge, some peeling at a corner.
+
 ## 0.25.0
 
 Site kit 1.29.0:

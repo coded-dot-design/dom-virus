@@ -7,6 +7,18 @@
 // Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / client.ts.
 const { id, href, accent, index = 0, kind, name, tagline, actions } = Astro.props;
 const full = actions?.some((a) => a.launch === 'board');
+// The art is used twice: on the label and, muted, on the "cover" left behind in the empty bay.
+const art = await Astro.slots.render('default');
+// A tiny DOM Virus skull sticker slapped on every cartridge, like an afterthought: a different
+// spot and tilt per cartridge, some with a peeling corner.
+const STICKERS = [
+  { at: 'top:7px;left:12px', tilt: -9, peel: true },
+  { at: 'bottom:46px;left:6px', tilt: 7, peel: false },
+  { at: 'top:44%;right:3px', tilt: 13, peel: true },
+  { at: 'top:33px;right:20px', tilt: -5, peel: false },
+  { at: 'bottom:40px;left:12px', tilt: -15, peel: true },
+];
+const sticker = STICKERS[index % STICKERS.length];
 // Deterministic wear per cartridge: a few pins missing, worn short, or tarnished.
 const pins = Array.from({ length: 11 }, (_, p) => {
   const h = (index * 31 + p * 17 + index * p * 7 + 5) % 23;
@@ -15,16 +27,18 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 ---
 <div class="bay" data-bay={id} style={`--i:${index}`}>
   <svg class="ghost" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true"><path d="M13 1.5H178.5L198.5 21.5V248.5H8.7L1.5 241.3V13Q1.5 1.5 13 1.5Z"/></svg>
+  <span class="ghost-cover" aria-hidden="true"><span class="ghost-art"><Fragment set:html={art}/></span><b>{name}</b><small>0{index + 1} / {kind}</small></span>
   <a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
     <span class="shell" aria-hidden="true"></span>
     <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
     <span class="label">
-      <span class="art" aria-hidden="true"><slot/></span>
+      <span class="art" aria-hidden="true"><Fragment set:html={art}/></span>
       <small>0{index + 1} / {kind}</small>
       <strong>{name}</strong>
       <em>{tagline}</em>
     </span>
     {full && <span class="edition-tag" aria-hidden="true">SPECIAL EDITION</span>}
+    <span class:list={['skull-sticker', { peel: sticker.peel }]} style={`${sticker.at};--tilt:${sticker.tilt}deg`} aria-hidden="true"><svg viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d="M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z"/><path d="M54 0h9v9h-9z"/></svg></span>
     <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
   </a>
 </div>
@@ -34,7 +48,27 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 .bay{position:relative;display:grid}
 .ghost{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;opacity:0;transition:opacity .25s}
 .ghost path{vector-effect:non-scaling-stroke;fill:color-mix(in srgb,var(--ink) 3%,transparent);stroke:color-mix(in srgb,var(--ink) 28%,transparent);stroke-width:2;stroke-dasharray:7 6}
-.bay:has(:global(.plugging)) .ghost,.bay:global(.out) .ghost{opacity:1}
+/* The cover left behind: the game's icon and name, muted, inside the dashed outline (top half,
+   so it stays visible above a cartridge seated in the console). */
+.ghost-cover{position:absolute;inset:0;display:grid;align-content:start;justify-items:center;gap:5px;padding:26px 16px 0;text-align:center;pointer-events:none;opacity:0;transition:opacity .25s;color:color-mix(in srgb,var(--ink) 34%,transparent)}
+.ghost-art{display:grid;place-items:center;width:56px;height:56px;margin-bottom:2px;border:2px dashed color-mix(in srgb,var(--ink) 18%,transparent);border-radius:8px;filter:grayscale(1);opacity:.45}
+.ghost-art :global(svg){width:34px;height:34px}
+.ghost-cover b{font-size:14px;line-height:1.2}
+.ghost-cover small{font:9px/1.3 var(--mono);letter-spacing:.5px;color:inherit;opacity:.8}
+/* Phones: a seated cartridge covers more of the bay, so the cover is one compact row up top. */
+@media (max-width:860px){
+  .ghost-cover{grid-auto-flow:column;grid-template-rows:auto auto;justify-content:center;align-items:center;column-gap:8px;row-gap:0;padding-top:16px;text-align:left;justify-items:start}
+  .ghost-art{grid-row:1/span 2;width:34px;height:34px;margin:0;border-radius:6px}
+  .ghost-art :global(svg){width:22px;height:22px}
+  .ghost-cover b{font-size:12px}
+  .ghost-cover small{font-size:8px}
+}
+.bay:has(:global(.plugging)) :is(.ghost,.ghost-cover),.bay:global(.out) :is(.ghost,.ghost-cover){opacity:1}
+/* DOM Virus skull sticker: dark vinyl with a white edge, slightly crooked, some peeling. */
+.skull-sticker{position:absolute;z-index:2;display:grid;place-items:center;width:18px;height:18px;background:#14101f;border:2px solid #fff;border-radius:3px;box-shadow:0 0 0 1px var(--ink);rotate:var(--tilt)}
+.skull-sticker svg{width:11px;height:11px;fill:#f4457a}
+.skull-sticker.peel{clip-path:polygon(-2px -2px,calc(100% + 2px) -2px,calc(100% + 2px) 72%,72% calc(100% + 2px),-2px calc(100% + 2px))}
+.skull-sticker.peel::after{content:"";position:absolute;right:-2px;bottom:-2px;width:6px;height:6px;background:linear-gradient(135deg,#d9d3e6 50%,transparent 50%);filter:drop-shadow(-1px -1px 0 color-mix(in srgb,var(--ink) 35%,transparent))}
 
 /* Flat cartridge with a little depth: front face in the accent colour, a thick darker side face
    down the right and a bottom face, mitred at the corner. The notch and the bottom-left chamfer
