@@ -114,6 +114,15 @@ try {
   assert.equal(await page.locator(".game-section.standalone").count(), 1);
   assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");
   assert.equal(await page.locator('[data-launch="byte-runner"]').count(), 1);
+  // Going back ejects the cartridge from the console and returns it to the shelf.
+  await page.goBack();
+  await page.waitForFunction(() => document.querySelector('.cartridge[data-cart="byte-runner"]')?.classList.contains("plugging"));
+  await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && !document.querySelector(".console").classList.contains("booting"), null, { timeout: 5000 });
+  assert.equal(await page.evaluate(() => sessionStorage.getItem("dom-virus:plugged")), null);
+  // Every console button is clickable; idle presses never navigate.
+  for (const pad of ["up", "left", "right", "down", "select", "start", "b", "a"]) await page.locator(`[data-pad="${pad}"]`).click();
+  assert.match(page.url(), /\/dom-virus\/(#games)?$/);
+  await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
   // Battlefield has its own page and launches the app; Sherman Bytes can launch it too.

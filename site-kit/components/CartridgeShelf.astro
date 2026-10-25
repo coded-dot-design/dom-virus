@@ -26,19 +26,23 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
       <Fragment set:html={battlefieldIcon}/>
     </Cartridge>
   </div>
-  <div class="console" data-console aria-hidden="true">
-    <div class="slot"><i></i></div>
+  <div class="console" data-console>
+    <div class="slot" aria-hidden="true"><i></i></div>
     <div class="body">
-      <div class="screen" data-console-screen>
+      <div class="screen" data-console-screen aria-hidden="true">
         <span class="attract">{attract.map((kind, i) => <i style={`--d:${i * -1.6}s`}><Icon kind={kind} size={22}/></i>)}</span>
         <span class="boot">INSERT CARTRIDGE</span>
         <span class="name" data-console-name></span>
         <span class="start">PRESS START</span>
       </div>
-      <div class="controls"><i class="dpad"></i><i class="pill"></i><i class="pill"></i><i class="btn b"></i><i class="btn a" data-console-start></i></div>
-      <span class="led"></span>
+      <div class="controls" data-console-pad>
+        <span class="dpad"><button type="button" tabindex="-1" class="up" data-pad="up" aria-label="Up"></button><button type="button" tabindex="-1" class="left" data-pad="left" aria-label="Left"></button><button type="button" tabindex="-1" class="right" data-pad="right" aria-label="Right"></button><button type="button" tabindex="-1" class="down" data-pad="down" aria-label="Down"></button></span>
+        <button type="button" tabindex="-1" class="pill" data-pad="select" aria-label="Select"></button><button type="button" tabindex="-1" class="pill" data-pad="start" aria-label="Start"></button>
+        <button type="button" tabindex="-1" class="btn b" data-pad="b" aria-label="B"></button><button type="button" tabindex="-1" class="btn a" data-pad="a" data-console-start aria-label="A"></button>
+      </div>
+      <span class="led" aria-hidden="true"></span>
     </div>
-    <div class="drawer"></div>
+    <div class="drawer" aria-hidden="true"></div>
   </div>
 </section>
 <style>
@@ -68,12 +72,26 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console[data-motion="true"] .attract i{animation-play-state:running}
 @keyframes march{from{transform:translateX(-30px)}to{transform:translateX(380px)}}
 .controls{display:flex;align-items:center;gap:12px}
-.dpad{width:44px;height:44px;background:linear-gradient(var(--ink),var(--ink)) 50% 50%/14px 44px no-repeat,linear-gradient(var(--ink),var(--ink)) 50% 50%/44px 14px no-repeat}
-.pill{width:26px;height:8px;border-radius:4px;background:var(--line)}
+/* Every control clicks: springy press, D-pad tilts toward the pressed arm. */
+:where(.controls button){all:unset;display:inline-block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 220ms cubic-bezier(.34,1.7,.5,1),box-shadow 220ms}
+.controls button:active,.controls button:global(.down){transition-duration:50ms}
+.dpad{position:relative;width:46px;height:46px;transition:transform 200ms cubic-bezier(.34,1.7,.5,1)}
+.dpad button{position:absolute;width:15px;height:15px;background:var(--ink)}
+.dpad::after{content:"";position:absolute;left:15px;top:15px;width:16px;height:16px;background:var(--ink)}
+.dpad .up{left:15.5px;top:0;border-radius:3px 3px 0 0}.dpad .down{left:15.5px;bottom:0;border-radius:0 0 3px 3px}
+.dpad .left{left:0;top:15.5px;border-radius:3px 0 0 3px}.dpad .right{right:0;top:15.5px;border-radius:0 3px 3px 0}
+.dpad:has(.up:active){transform:perspective(120px) rotateX(14deg)}.dpad:has(.down:active){transform:perspective(120px) rotateX(-14deg)}
+.dpad:has(.left:active){transform:perspective(120px) rotateY(-14deg)}.dpad:has(.right:active){transform:perspective(120px) rotateY(14deg)}
+.pill{width:26px;height:8px;border-radius:4px;background:var(--line);box-shadow:0 2px 0 var(--ink)}
 .pill:first-of-type{margin-left:auto}
-.btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:0 3px 0 var(--ink)}
+.pill:active{transform:translateY(2px);box-shadow:0 0 0 var(--ink)}
+.btn{width:30px;height:30px;box-sizing:border-box;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:0 3px 0 var(--ink)}
+.btn:active{transform:translateY(3px) scale(.95);box-shadow:0 0 0 var(--ink)}
 .btn.a{background:#f4457a;margin-left:-2px}
 .btn.b{margin-left:14px}
+/* A/B make the attract characters hop. */
+.attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}
+.attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1)}
 .led{position:absolute;top:12px;right:18px;width:8px;height:8px;border-radius:50%;background:#5a2133}
 .drawer{position:relative;z-index:39;height:16px;margin:-8px 4% 0;background:var(--raised);border:2px solid var(--ink);border-top:0;border-radius:0 0 14px 14px}
 

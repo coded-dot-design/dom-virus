@@ -268,6 +268,10 @@ function plug(cart: HTMLAnchorElement, slot: HTMLElement, screen: HTMLElement) {
     dy = s.top - c.bottom + c.height * 0.42;
   const go = () => {
     screen.style.setProperty("view-transition-name", "game-screen");
+    // Remember the cartridge so coming back ejects it from the console.
+    try {
+      sessionStorage.setItem(PLUGGED, cart.dataset.cart!);
+    } catch {}
     location.href = cart.href;
   };
   const flight = cart.animate(
@@ -309,7 +313,35 @@ function plug(cart: HTMLAnchorElement, slot: HTMLElement, screen: HTMLElement) {
     screen.addEventListener("click", start, { once: true });
   };
 }
-// Back/forward from the game page restores the shelf to its resting state.
+// Coming back from a game page: the cartridge pops out of the console and flies home.
+const PLUGGED = "dom-virus:plugged";
+function slotOffset(cart: HTMLElement) {
+  const c = cart.getBoundingClientRect(),
+    s = consoleEl!.querySelector<HTMLElement>(".slot")!.getBoundingClientRect();
+  return { dx: s.left + s.width / 2 - (c.left + c.width / 2), dy: s.top - c.bottom + c.height * 0.42, h: c.height };
+}
+function eject(id: string) {
+  const cart = shelf?.querySelector<HTMLElement>(`.cartridge[data-cart="${id}"]`);
+  if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  shelf!.dataset.pop = "in";
+  cart.classList.add("plugging");
+  const { dx, dy, h } = slotOffset(cart);
+  consoleEl.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
+  consoleEl.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
+  consoleEl.classList.add("booting");
+  const out = cart.animate(
+    [
+      { transform: `translate(${dx}px, ${dy}px)` },
+      { transform: `translate(${dx}px, ${dy - h * 0.75}px) rotate(4deg)`, offset: 0.3 },
+      { transform: `translate(${dx * 0.4}px, ${(dy - h) * 0.5}px) rotate(-3deg) scale(1.04)`, offset: 0.65 },
+      { transform: "none" },
+    ],
+    { duration: 900, delay: 350, easing: "cubic-bezier(.3,.7,.3,1)" },
+  );
+  setTimeout(() => consoleEl.classList.remove("booting"), 650);
+  out.onfinish = () => cart.classList.remove("plugging");
+}
+// Back/forward (or the All games link) restores the shelf, then ejects the last cartridge.
 addEventListener("pageshow", () => {
   if (!shelf) return;
   delete shelf.dataset.plugging;
@@ -319,6 +351,25 @@ addEventListener("pageshow", () => {
   });
   consoleEl?.classList.remove("booting", "starting");
   consoleEl?.querySelector<HTMLElement>("[data-console-screen]")?.style.removeProperty("view-transition-name");
+  let id: string | null = null;
+  try {
+    id = sessionStorage.getItem(PLUGGED);
+    sessionStorage.removeItem(PLUGGED);
+  } catch {}
+  if (id) requestAnimationFrame(() => eject(id!));
+});
+// Console buttons: all clickable. A starts a plugged cartridge (handled above); idle A/B make
+// the attract characters hop; the D-pad tilts (CSS).
+consoleEl?.querySelector("[data-console-pad]")?.addEventListener("click", (event) => {
+  const pad = (event.target as HTMLElement).closest<HTMLElement>("[data-pad]")?.dataset.pad;
+  if (!pad || consoleEl.classList.contains("booting")) return;
+  if (pad === "a" || pad === "b" || pad === "start") {
+    const attract = consoleEl.querySelector(".attract")!;
+    attract.classList.remove("hop");
+    void (attract as HTMLElement).offsetWidth;
+    attract.classList.add("hop");
+    setTimeout(() => attract.classList.remove("hop"), 160);
+  }
 });
 // Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
 // tiny contained game (only then). Reduced-motion visitors keep the still poster.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.17.1
+
+Site kit 1.22.0:
+- Every console control is clickable with a springy press: the D-pad tilts toward the pressed arm, Select/Start click down, A/B make the attract characters hop (A still starts a plugged cartridge).
+- Cartridges use the site's hard-shadow language: a layered offset shadow that grows as they lift and collapses when pressed.
+- Eject: returning from a game page pops the cartridge out of the console and flies it back to its shelf spot.
+
 ## 0.17.0
 
 Site kit 1.21.0:
