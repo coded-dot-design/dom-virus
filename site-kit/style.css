@@ -971,10 +971,41 @@ pre {
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
+/* Phones: just the brand and two square 3D icon links, one row. */
+.footer-icons {
+  display: none;
+  gap: 12px;
+}
+.footer-icons a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.footer-icons a:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+  transition-duration: 55ms;
+}
 @media (max-width: 560px) {
+  .site-footer.site-footer {
+    flex-wrap: nowrap;
+    padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+    gap: 16px;
+  }
   .footer-meta {
-    flex-direction: column;
-    gap: 18px;
+    display: none;
+  }
+  .footer-icons {
+    display: flex;
   }
 }
 .footer-meta a:hover {

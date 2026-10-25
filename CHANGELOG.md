@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.2
+
+Site kit 1.28.2:
+- Phone footer: one short row — the brand plus two square 3D icon links (coded.design, GitHub). Desktop keeps the labelled groups.
+
 ## 0.24.1
 
 Site kit 1.28.1:
