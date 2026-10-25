@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.9
+
+- Serve DOM Battlefield 0.6.5. Site kit 1.15.6: borderless Home Screen icon so iOS corners never clip it.
+
 ## 0.11.8
 
 - Serve DOM Battlefield 0.6.4 (final logo). Site kit 1.15.5: solid Battlefield mark on its button.
