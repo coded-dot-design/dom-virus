@@ -130,7 +130,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .pill:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
 .ab{display:flex;gap:7px;margin-left:8px}
 .btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:3px 3px 0 var(--ink)}
-.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn:is(:active,:global(.press)){transform:translate(3px,3px);box-shadow:0 0 0 var(--ink);animation:none!important}
 .btn.a{background:#f4457a}
 /* A/B make the attract characters hop. */
 .attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}

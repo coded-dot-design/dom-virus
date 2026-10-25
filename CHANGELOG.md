@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.26.2
+
+Site kit 1.30.2:
+- Sherman Bytes' "Open Battlefield" is now "Swap to Battlefield": it goes home with ?play=sherman-bytes&next=battlefield, plays the normal return (screen morphs back, Sherman ejects to its spot), then plugs in DOM Battlefield; the console boots, presses A for you, shows LOADING GAME and the board folds open into the full game. Reduced motion: straight to the game. The archive keeps a direct link.
+
 ## 0.26.1
 
 Site kit 1.30.1:

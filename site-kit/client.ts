@@ -327,7 +327,7 @@ function slotOffset(cart: HTMLElement) {
     h: c.height,
   };
 }
-function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
+function plug(cart: HTMLAnchorElement, screen: HTMLElement, autoPad?: string) {
   if (!consoleEl) return;
   const { dx, dy, k, h } = slotOffset(cart);
   const full = cart.hasAttribute("data-full");
@@ -402,6 +402,18 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
     };
     const pad = consoleEl.querySelector("[data-console-pad]");
     const auto = actions.length > 1 ? 0 : setTimeout(() => start(actions[0]!), 1800);
+    // Cartridge swap (e.g. "Swap to Battlefield"): the console presses the button for you.
+    if (autoPad) {
+      const btn = consoleEl.querySelector<HTMLElement>(`[data-pad="${autoPad}"]`);
+      setTimeout(() => {
+        btn?.classList.add("press");
+        setTimeout(() => {
+          btn?.classList.remove("press");
+          const action = byPad(autoPad);
+          if (action) start(action);
+        }, 170);
+      }, 1100);
+    }
     addEventListener("keydown", onKey);
     pad?.addEventListener("click", onPad);
     screen.addEventListener("click", () => start(actions[0]!), { once: true });
@@ -535,15 +547,19 @@ function afterReveal(fresh: boolean, cb: () => void) {
   else addEventListener("pagereveal", (e) => use((e as Event & { viewTransition?: { finished: Promise<unknown> } }).viewTransition), { once: true });
   setTimeout(run, fresh ? 700 : 1500);
 }
+function centreBay(cart: HTMLElement) {
+  if (!scrollerShelf() || lifted(cart)) return;
+  const bay = cart.parentElement!.getBoundingClientRect(),
+    row = shelf!.getBoundingClientRect();
+  shelf!.scrollTo({ left: shelf!.scrollLeft + bay.left - row.left - (row.width - bay.width) / 2, behavior: "instant" });
+}
 function dock(cart: HTMLElement) {
   const full = cart.hasAttribute("data-full");
   cart.getAnimations().forEach((a) => a.cancel());
   // Swipe row (phones): bring the cartridge's spot to the middle first, so it flies home to a
   // place you can see, then lift it out of the row like a fresh plug-in.
   if (scrollerShelf() && !lifted(cart)) {
-    const bay = cart.parentElement!.getBoundingClientRect(),
-      row = shelf!.getBoundingClientRect();
-    shelf!.scrollTo({ left: shelf!.scrollLeft + bay.left - row.left - (row.width - bay.width) / 2, behavior: "instant" });
+    centreBay(cart);
     liftOut(cart);
   }
   shelf!.dataset.plugging = cart.dataset.cart!;
@@ -560,15 +576,32 @@ function dock(cart: HTMLElement) {
   consoleEl!.classList.add("booting");
   return seat;
 }
+// A swap (?next=<id>) chains a second cartridge after the eject: it flies in, boots and the
+// console presses its main button (A) for you, e.g. Sherman Bytes out, DOM Battlefield in.
+let chained: string | null = null;
+function swapIn(id: string) {
+  const cart = allCarts().find((n) => n.dataset.cart === id) as HTMLAnchorElement | undefined;
+  if (!cart || !consoleEl || !shelf) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return void (location.href = cart.href);
+  centreBay(cart);
+  liftOut(cart);
+  shelf.dataset.plugging = id;
+  cart.classList.add("plugging");
+  plug(cart, consoleEl.querySelector<HTMLElement>("[data-console-screen]")!, "a");
+}
 function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   const cart = allCarts().find((n) => n.dataset.cart === state.id);
+  const next = new URLSearchParams(location.search).get("next");
+  chained = next && /^[\w-]+$/.test(next) ? next : null;
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (cart) cart.getAnimations().forEach((a) => a.cancel()), putBack(cart);
     consoleEl?.classList.remove("booting", "starting", "is-loading", "full", "choice");
     shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
     if (shelf) delete shelf.dataset.plugging;
-    return settle();
+    settle();
+    if (chained) swapIn(chained);
+    return;
   }
   markReturn(state);
   const screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;
@@ -615,6 +648,9 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
     putBack(cart);
     if (shelf) delete shelf.dataset.plugging;
     settle();
+    const next = chained;
+    chained = null;
+    if (next) setTimeout(() => swapIn(next), 260);
   };
 }
 const initialReturn = shelf ? returnState() : null;
