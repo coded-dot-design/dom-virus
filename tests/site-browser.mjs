@@ -106,6 +106,11 @@ try {
   // The round resets to 0 (checked every frame: auto-play can score again right after).
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
+  // The hero's mock BUTTON_01 is a 3D button that nukes every bad guy and resets the round.
+  await page.locator(".promo-button").click();
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
+  await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   assert.equal(await page.locator(".site-header nav a").count(), 2, "header: Games + Under the hood");
   assert.equal(await page.locator(".site-footer a[href$='archive/']").count(), 0, "archive is kept but not linked");
 

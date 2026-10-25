@@ -1753,11 +1753,11 @@ html[data-theme="light"] :is(button, a, summary):focus-visible {
 /* 3D buttons (3px hard base): hover lifts only the top surface (-2px, shadow +2px, so the base
    stays put); press and the selected state sit exactly on the base. Flat icon buttons have no
    base, so they only change colour. */
-:root :is(button, .button)[aria-pressed="true"]:not(:disabled, .motion-toggle, .code-heading button, .art-button) {
+:root :is(button, .button)[aria-pressed="true"]:not(:disabled, .motion-toggle, .code-heading button, .art-button:not(.promo-button)) {
   transform: translate(3px, 3px);
   box-shadow: 0 0 0 var(--ink);
 }
-:root :is(.motion-toggle, .code-heading button, .art-button):not(:disabled):is(:hover, :active) {
+:root :is(.motion-toggle, .code-heading button, .art-button:not(.promo-button)):not(:disabled):is(:hover, :active) {
   transform: none;
   box-shadow: none;
 }

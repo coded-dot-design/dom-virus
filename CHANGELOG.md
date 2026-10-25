@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24.0
+
+Site kit 1.28.0 (DOM Virus hero only):
+- The tank drives up into the card nose-first (tracks facing up, treads rolling), then pivots to face across the card. Tread marks now stay inside the treads (intro and game).
+- The mock BUTTON_01 is a real 3D button again (hover lift, press onto its base) and clicking it nukes every bad guy and resets the round; the first click also starts the mini-game.
+
 ## 0.23.0
 
 Site kit 1.27.0:

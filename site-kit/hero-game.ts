@@ -298,7 +298,8 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
     tank.kick = Math.max(0, tank.kick - dt);
     (turret.firstElementChild as SVGGElement).style.transform = tank.kick ? `translateX(${(-tank.kick * 80).toFixed(1)}px)` : "";
     tankRoot.setAttribute("transform", `translate(${tank.x.toFixed(1)} ${tank.y})`);
-    treads.style.transform = `translateX(${(-(tank.tread % 14)).toFixed(1)}px)`;
+    // Marks repeat every 14px; offsets in (-4, 10] keep them inside the tread.
+    treads.style.transform = `translateX(${(10 - (((tank.tread % 14) + 14) % 14)).toFixed(1)}px)`;
   }
 
   function loop(now: number) {

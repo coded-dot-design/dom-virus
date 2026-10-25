@@ -596,9 +596,18 @@ hero?.querySelector(".promo-stage")?.addEventListener(
     void import("./hero-game").then(({ startHeroGame }) => {
       delete hero.dataset.play;
       startHeroGame(hero, event as PointerEvent);
+      if (hero.dataset.nukeOnStart) delete hero.dataset.nukeOnStart, heroGame()?.nuke();
     });
   },
 );
+// The mock BUTTON_01 is the big red button: clicking it nukes every bad guy and resets the round
+// (the same nuke the two-minute timer fires). The first click also starts the game.
+const heroGame = () => (hero as (HTMLElement & { heroGame?: { nuke(): void } }) | null)?.heroGame;
+hero?.querySelector(".promo-button")?.addEventListener("click", () => {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (heroGame()) heroGame()!.nuke();
+  else hero.dataset.nukeOnStart = "true";
+});
 // CSS owns the motion. Observe visibility once per illustration to avoid offscreen work.
 const diagrams = document.querySelectorAll<HTMLElement>(
   ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display",
