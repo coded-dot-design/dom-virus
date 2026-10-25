@@ -1,5 +1,6 @@
 ---
 import Icon from './AbstractIcon.astro';
+import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
 // Home-page game picker: cartridges pop up as the shelf scrolls in; picking one plugs it into
 // the console (client.ts) and the console screen morphs into the game page (View Transitions).
 const { games, base = '/' } = Astro.props;
@@ -21,6 +22,16 @@ const { games, base = '/' } = Astro.props;
         <span class="cart-pins" aria-hidden="true"></span>
       </a>
     ))}
+    <a class="cartridge accent-cyan cartridge-battlefield" href={`${base}games/battlefield/`} data-cart="battlefield" style={`--i:${games.length}`}>
+      <span class="cart-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="cart-label">
+        <span class="cart-art" aria-hidden="true"><Fragment set:html={battlefieldIcon}/></span>
+        <small>0{games.length + 1} / SQUAD TACTICS</small>
+        <strong>DOM Battlefield</strong>
+        <em>Sherman Bytes, a whole platoon.</em>
+      </span>
+      <span class="cart-pins" aria-hidden="true"></span>
+    </a>
   </div>
   <div class="console" data-console aria-hidden="true">
     <div class="console-slot"><i></i></div>

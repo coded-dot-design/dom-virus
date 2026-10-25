@@ -1,0 +1,50 @@
+---
+import UiIcon from './UiIcon.astro';
+import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
+// DOM Battlefield's page: how it is layered on Sherman Bytes, and how to launch it.
+const { base = '/', version, sherman } = Astro.props;
+const repo = 'https://github.com/coded-dot-design/dom-battlefield';
+const layers = [
+  { tag: 'MODEL', file: 'src/model.ts', title: 'Rules with no DOM', body: 'Maps, terrain health, squads, orders, pathfinding, aiming, combat, repairs and objectives are plain serializable data. Commands carry no elements, so the same state could one day sync over a network.' },
+  { tag: 'VIEW', file: 'src/view.ts', title: 'The grid is real DOM', body: 'Every square is an element in a CSS grid and every tank is a button. Destroyed cover changes a data attribute instead of rebuilding the board, and the camera is native scrolling.' },
+  { tag: 'ART', file: 'shared/sherman-sprites.ts', title: 'Sherman draws the tanks', body: "Each tank button holds a small cached canvas drawn by Sherman Bytes' own sprite code, snapshotted with its SHA-256 provenance. Battlefield adds zero bytes to the Sherman game." },
+  { tag: 'SHELL', file: 'src/client.ts', title: 'One loop, a mobile cockpit', body: 'Input, aim modes, the follow camera and the HUD share one fixed 60 Hz loop with bounded catch-up. On phones a gate holds the battle until landscape and full screen, with thumb rails clear of notches.' },
+];
+const facts = [
+  { value: '24', label: 'tanks on the field (12 a side)' },
+  { value: '48×30', label: 'largest battle grid' },
+  { value: '<30', small: 'kB', label: 'gzip for the whole app' },
+  { value: '0', label: 'bytes added to Sherman Bytes' },
+];
+---
+<section id="battlefield" class="game-section standalone accent-cyan battlefield-page" aria-labelledby="battlefield-title">
+  <a class="back-link" href={`${base}#games`} data-virus-ignore data-swarm-ignore><UiIcon name="arrow-up-right" size={16} class="back-arrow"/> All games</a>
+  <div class="section-heading"><span class="eyebrow"><span class="index">05</span> SQUAD TACTICS / SHERMAN EXPANSION</span><span class="version">{version ? `v${version} / ` : ''}MIT</span></div>
+  <div class="game-intro">
+    <div>
+      <h2 id="battlefield-title">DOM Battlefield<span>Sherman Bytes, a whole platoon.</span></h2>
+      <p class="lead">Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. Lock targets, send wingmen, breach cover and repair at HQ. It is a separate app layered on Sherman Bytes: same tanks, its own battlefield.</p>
+      <div class="actions" data-virus-ignore data-swarm-ignore>
+        <a class="button primary" href={`${base}battlefield/`}><UiIcon name="play" size={18}/> Launch Battlefield</a>
+        {sherman && <a class="button quiet" href={`${base}games/sherman-bytes/`}>Sherman Bytes</a>}
+        <a class="button quiet" href={`${repo}#readme`}>Read the source <UiIcon name="arrow-up-right" size={18}/></a>
+      </div>
+      <p class="credit">Created by <span>Chris Cooley</span> · coded.design</p>
+    </div>
+    <div data-byte-obstacle class="game-display battlefield-display" style="view-transition-name: game-screen" aria-label="DOM Battlefield: a squad of tanks on a grid">
+      <div class="display-top"><span class="led"></span> SQUAD TACTICS<span class="display-note">DOM / GRID BATTLE</span></div>
+      <div class="bf-art" aria-hidden="true">
+        <span class="bf-mark"><Fragment set:html={battlefieldIcon}/></span>
+        <i class="bf-tile a"></i><i class="bf-tile b"></i><i class="bf-tile c"></i><i class="bf-tile d"></i>
+      </div>
+      <div class="display-bottom"><span>Lock. Order. Breach.</span><span>FULL SCREEN / LANDSCAPE ON PHONES</span></div>
+    </div>
+  </div>
+  <div class="game-facts">{facts.map((f) => <div><b>{f.value}{f.small && <small> {f.small}</small>}</b><span>{f.label}</span></div>)}</div>
+  <div class="bf-layers">
+    <div class="eyebrow">HOW IT IS LAYERED</div>
+    <h3>Four layers. One borrowed tank.</h3>
+    <ol>{layers.map((l) => <li><span class="bf-layer-tag">{l.tag}</span><div><h4>{l.title}</h4><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="arrow-up-right" size={14}/></a></div></li>)}</ol>
+  </div>
+  <a class="nerd-link" href={`${repo}#readme`} data-virus-ignore data-swarm-ignore><span class="eyebrow">NERD NOTES · GITHUB</span><strong>How DOM Battlefield works under the hood</strong><span>Controls, boundaries, budgets and release notes in the README</span><UiIcon name="arrow-up-right" size={20}/></a>
+</section>

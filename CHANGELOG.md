@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.0
+
+Site kit 1.20.0 — one page per game, on DOM Virus only:
+- Game websites in the four game repos are retired (their Pages now redirect here). Each game page's nerd-notes card links to that game's GitHub README instead of a separate nerd page.
+- DOM Battlefield gets a fifth cartridge and its own page explaining how it is layered on Sherman Bytes (model, DOM grid view, borrowed Sherman sprites, mobile shell), with Launch Battlefield. Sherman Bytes' page still launches it too.
+- The original one-page layout is archived at `/archive/` (linked from the footer).
+- `sync:sites` only refreshes character art now.
+
 ## 0.15.0
 
 Site kit 1.19.0 — the hub becomes a small multi-page site:

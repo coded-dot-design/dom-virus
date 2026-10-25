@@ -57,7 +57,7 @@ try {
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
     await page.locator(".cartridge").evaluateAll((nodes) => nodes.map((n) => new URL(n.href).pathname)),
-    order.map((id) => `/dom-virus/games/${id}/`),
+    [...order, "battlefield"].map((id) => `/dom-virus/games/${id}/`),
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
   assert.equal(await page.locator(".console").count(), 1);
@@ -110,10 +110,17 @@ try {
   assert.equal(await page.locator(".game-section.standalone").count(), 1);
   assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");
   assert.equal(await page.locator('[data-launch="byte-runner"]').count(), 1);
-  await page.locator(".nerd-link").click();
-  await page.waitForURL(/\/games\/byte-runner\/nerd\/$/);
-  assert.ok((await page.locator(".nerd-chapters article").count()) >= 3);
-  assert.ok((await page.locator(".nerd-sources .source-links a").count()) >= 1);
+  // One page per game: deep details live in the game's GitHub README.
+  assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
+  // Battlefield has its own page and launches the app; Sherman Bytes can launch it too.
+  await page.goto(base + "games/battlefield/");
+  assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
+  assert.equal(await page.locator(".bf-layers li").count(), 4);
+  await page.goto(base + "games/sherman-bytes/");
+  assert.equal(new URL(await page.getByRole("link", { name: "Open Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
+  // The original one-page layout is archived.
+  await page.goto(base + "archive/");
+  assert.equal(await page.locator(".game-section").count(), 4);
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   for (const selector of [".engineering", ".embed-section"])
@@ -223,7 +230,7 @@ try {
     );
   }
 
-  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/sherman-bytes/nerd/"];
+  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/battlefield/", "archive/"];
   for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(base);

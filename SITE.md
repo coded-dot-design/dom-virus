@@ -2,7 +2,9 @@
 
 Created by Chris Cooley / coded.design. MIT licensed.
 
-The canonical kit is `site-kit/`, versioned by `site/config.json`. Run `npm run sync:sites` with the three sibling game repositories present to copy it into each repo's `site/shared/`. The generated `ORIGIN.json` records the kit version and source SHA-256. Commit those copies; game websites build independently and never fetch UI components at runtime. Keep the kit version in sync when publishing changes to its contract.
+The site kit (`site-kit/`) now serves only the DOM Virus hub. The individual game websites are retired: each game has one page on the hub (`/games/<id>/`), and its GitHub README holds the full technical details. Game repositories keep only their content (`site/game.json`, plus `site/art.json` for character art); their GitHub Pages address redirects to the hub page. `npm run sync:sites` now only refreshes the hub's character art from sibling checkouts.
+
+Hub pages: home (hero + cartridge shelf), `/games/<id>/` for each game, `/games/battlefield/` (how Battlefield is layered on Sherman Bytes; launches `/battlefield/`), `/under-the-hood/` (engine-wide engineering and embedding), and `/archive/` (the original one-page layout, kept for the record). Page changes use cross-document View Transitions.
 
 Each game owns `site/game.json`: gameplay facts, controls, source links and integration example. The hub resolves versions from `games.json`; local sibling checkouts take precedence to support coordinated development. A standalone clone fetches the pinned game tags or full commit SHAs under `.games/`. Swarm's ignored distribution is built on demand. Optional `contentRefs` in `site/config.json` pin a newer game description independently of the selected game release; an explicit content pin takes precedence over the bundled description. Fetching that JSON never changes the game checkout. The site records the versions actually measured, which may differ from the pins during local development.
 

@@ -1,76 +1,11 @@
-import {
-  cpSync,
-  readFileSync,
-  writeFileSync,
-  readdirSync,
-  rmSync,
-  mkdirSync,
-} from "node:fs";
-import { resolve, relative } from "node:path";
-import { createHash } from "node:crypto";
+// Game websites are retired: every game page now lives on the DOM Virus hub, and each game
+// repository keeps only its content (site/game.json, site/art.json). This script only refreshes
+// the hub's copy of the games' character art from sibling checkouts.
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 const root = process.cwd();
-const kit = resolve(root, "site-kit");
-const { kitVersion } = JSON.parse(
-  readFileSync(resolve(root, "site/config.json"), "utf8"),
-);
 const characterArt = {};
-for(const name of ['byte-runner','null-invaders']){
-  const art=JSON.parse(readFileSync(resolve(root,'..',name,'site/art.json'),'utf8'));
-  characterArt[name]=art;
-}
-writeFileSync(resolve(kit,'character-art.json'),JSON.stringify(characterArt,null,2)+'\n');
-const hash = createHash("sha256");
-function digest(dir) {
-  for (const item of readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
-    a.name.localeCompare(b.name),
-  )) {
-    const path = resolve(dir, item.name);
-    if (item.isDirectory()) digest(path);
-    else hash.update(relative(kit, path)).update(readFileSync(path));
-  }
-}
-digest(kit);
-const sourceSha256 = hash.digest("hex");
-const names = [
-  "null-invaders",
-  "byte-runner",
-  "swarm-protocol",
-  "sherman-bytes",
-];
-const selected = process.argv.slice(2);
-for (const name of selected)
-  if (!names.includes(name)) throw new Error(`Unknown game: ${name}`);
-for (const name of names) {
-  if (selected.length && !selected.includes(name)) continue;
-  const repo = resolve(root, "..", name);
-  const dest = resolve(repo, "site/shared");
-  rmSync(dest, { recursive: true, force: true });
-  cpSync(kit, dest, { recursive: true });
-  mkdirSync(resolve(repo, "site/src/pages"), { recursive: true });
-  cpSync(
-    resolve(root, "site/src/pages/index.astro"),
-    resolve(repo, "site/src/pages/index.astro"),
-  );
-  writeFileSync(
-    resolve(repo, "site/astro.config.mjs"),
-    `export { default } from './shared/config.mjs';\n`,
-  );
-  writeFileSync(
-    resolve(repo, "site/config.json"),
-    JSON.stringify({ id: name, kitVersion }, null, 2) + "\n",
-  );
-  writeFileSync(
-    resolve(dest, "ORIGIN.json"),
-    JSON.stringify(
-      {
-        project: "https://github.com/coded-dot-design/dom-virus",
-        version: kitVersion,
-        sourceSha256,
-        note: "Generated site kit. Edit dom-virus/site-kit, then run npm run sync:sites. Game content remains owned by site/game.json in this repository.",
-      },
-      null,
-      2,
-    ) + "\n",
-  );
-  console.log(`${name}: shared Astro site kit synchronized.`);
-}
+for (const name of ["byte-runner", "null-invaders"])
+  characterArt[name] = JSON.parse(readFileSync(resolve(root, "..", name, "site/art.json"), "utf8"));
+writeFileSync(resolve(root, "site-kit/character-art.json"), JSON.stringify(characterArt, null, 2) + "\n");
+console.log("Character art refreshed from byte-runner and null-invaders.");
