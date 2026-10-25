@@ -33,7 +33,7 @@ const parseControl = (line) => {
 const controls = game.controls.map(parseControl);
 ---
 <section id={game.id} class:list={['game-section', `accent-${game.accent}`, { standalone: page }]} aria-labelledby={`${game.id}-title`}>
-  {page && <a class="back-link" href={`${base}?play=${game.id}#console`} data-virus-ignore data-swarm-ignore><UiIcon name="eject" size={16} class="back-arrow"/> Eject cartridge</a>}
+  {page && <a class="back-link" href={`${base}?play=${game.id}#console`} data-virus-ignore data-swarm-ignore><span class="eject-key" aria-hidden="true"><UiIcon name="eject" size={16}/></span> Eject cartridge</a>}
   <div class="section-heading"><span class="eyebrow"><span class="index">0{index+1}</span> {game.kind}</span><span class="version">v{game.version} / MIT</span></div>
   <div class="game-intro">
     <div><h2 id={`${game.id}-title`}>{game.name}<span>{game.tagline}</span></h2><p class="lead">{game.description}</p><div class="actions" data-virus-ignore data-swarm-ignore><button class="button primary" data-launch={game.id}><UiIcon name="play" size={18}/> Play {game.name}</button>{game.id === "sherman-bytes" && (page

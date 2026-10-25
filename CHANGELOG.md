@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.26.4
+
+Site kit 1.30.4:
+- Eject cartridge: the eject icon is a small 3D key (2px base) that lifts with the link on hover and presses on its base.
+- Swarm Protocol's skull sticker moved off the side face onto the label corner.
+- Footer: the style guide icon shows on phones too; small screens read "By Chris Cooley" and "© <year> coded.design" (MIT drops). "Chris Cooley" links to LinkedIn.
+
 ## 0.26.3
 
 Site kit 1.30.3:

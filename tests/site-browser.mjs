@@ -200,7 +200,8 @@ try {
   assert.equal(new URL(await page.locator(".footer-style-guide").evaluate((a) => a.href)).pathname, "/dom-virus/style-guide/");
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
-  assert.equal(await page.locator(".footer-style-guide").isVisible(), false, "style guide link hidden on phones");
+  assert.equal(await page.locator(".footer-style-guide").isVisible(), true, "style guide link on phones too");
+  assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on small screens");
   await page.setViewportSize(footerWidth);
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);

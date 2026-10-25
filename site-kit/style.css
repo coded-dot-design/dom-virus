@@ -964,8 +964,22 @@ pre {
   letter-spacing: 0.04em;
   color: var(--faint, var(--muted));
 }
-.footer-legal span:first-child {
+.footer-legal > span:first-child {
   color: var(--muted);
+}
+.footer-legal > span:first-child a {
+  color: var(--ink);
+}
+.footer-legal > span:first-child a:hover {
+  color: var(--accent-text, var(--accent));
+}
+.footer-legal .by-short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .footer-legal .by-short {
+    display: inline;
+  }
 }
 .footer-legal a {
   color: var(--accent-text, var(--accent));
@@ -1025,15 +1039,15 @@ pre {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .footer-legal .oss {
+  .footer-legal :is(.oss, .mit, .by-long) {
     display: none;
+  }
+  .footer-icons {
+    gap: 10px;
   }
   .footer-icons {
     grid-column: 3;
     grid-row: 1;
-  }
-  .footer-style-guide {
-    display: none !important;
   }
 }
 .session-bar {
@@ -3366,11 +3380,41 @@ html[data-theme="light"] :is(.engineering,.embed-section){background:transparent
   color: var(--muted);
   text-decoration: none;
 }
-.back-link .back-arrow {
+/* Eject: a small 3D key (2px base, so it never competes with the number badge below). Hovering
+   the link lifts the key, pressing lands it on its base. */
+.back-link {
+  gap: 10px;
+}
+.eject-key {
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  transition:
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 140ms ease;
 }
 .back-link:hover {
   color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .back-link:hover .eject-key {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--ink);
+    color: var(--accent-text, var(--accent));
+  }
+}
+.back-link:active .eject-key {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+  transition-duration: 55ms;
 }
 .nerd-link {
   display: grid;

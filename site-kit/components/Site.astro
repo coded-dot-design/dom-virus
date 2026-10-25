@@ -119,7 +119,7 @@ const year=new Date().getFullYear();
   <footer class="site-footer" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
     <nav class="footer-icons" aria-label="Elsewhere">{hub && <a class="footer-style-guide" href={`${base}style-guide/`} aria-label="Style guide" title="Style guide"><UiIcon name="palette" size={20}/></a>}<a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
-    <div class="footer-legal"><span>Created by Chris Cooley</span><span>© {year} <a href="https://coded.design">coded.design</a> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></div>
+    <div class="footer-legal"><span><span class="by-long">Created by</span><span class="by-short">By</span> <a href="https://www.linkedin.com/in/chriscooleyme" rel="author">Chris Cooley</a></span><span>© {year} <a href="https://coded.design">coded.design</a><span class="mit"> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></span></div>
   </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
   <div data-byte-obstacle id="site-status" class="site-status" role="status" aria-live="polite" data-virus-ignore data-swarm-ignore></div>
