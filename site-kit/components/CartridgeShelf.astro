@@ -167,7 +167,10 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
   .shelf::-webkit-scrollbar{display:none}
   .shelf > :global(.bay){flex:0 0 var(--card);scroll-snap-align:center}
   .shelf :global(.cartridge){min-height:calc(var(--card) * 1.25)}
-  .console{margin-top:52px}
+  /* Tighter vertical rhythm on phones (sizes unchanged): a little less above the console than below. */
+  .shelf{padding-bottom:12px}
+  .console{margin-top:24px}
+  .cartridge-shelf{padding-bottom:58px}
 }
 @media (prefers-reduced-motion:reduce){
   .shelf[data-pop] :global(.cartridge){opacity:1;transform:none;animation:none}

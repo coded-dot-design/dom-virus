@@ -288,7 +288,10 @@ shelf?.addEventListener("click", (event) => {
   // Bring the console on screen first (phones), then fly.
   const below = consoleEl.getBoundingClientRect().bottom > innerHeight;
   if (below) consoleEl.scrollIntoView({ block: "end", behavior: "smooth" });
-  setTimeout(() => plug(cart, screen), below ? 380 : 0);
+  // Swipe row (phones): the cartridge rides along with the page, so it can fly while the page
+  // scrolls; no pause before the pick-up.
+  const row = scrollerShelf();
+  setTimeout(() => plug(cart, screen), below && !row ? 380 : 0);
 });
 // Where a plugged cartridge sits. The console's top face isn't visible from this angle (we see
 // its front plus the right/bottom sides, like the cartridges), so a cartridge simply slides down
@@ -319,16 +322,28 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
     screen.style.setProperty("view-transition-name", "game-screen");
     leaveTo(cart, false, href);
   };
-  const flight = cart.animate(
-    [
-      { transform: "none" },
-      { transform: `translateY(-28px) scale(1.06) rotate(-3deg)`, offset: 0.24 },
-      { transform: `translate(${dx}px, ${dy - h * 0.55}px) scale(${k})`, offset: 0.68 },
-      { transform: `translate(${dx}px, ${dy - h * 0.2}px) scale(${k})`, offset: 0.82 },
-      { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
-    ],
-    { duration: 820, easing: "cubic-bezier(.3,.7,.3,1)", fill: "forwards" },
-  );
+  // Phones (swipe row): the console sits right under the row, so a hop would look awkward: pick
+  // the cartridge up a touch, glide over the slot, slide straight down in. Desktop keeps its arc.
+  const flight = scrollerShelf()
+    ? cart.animate(
+        [
+          { transform: "none", easing: "cubic-bezier(.2,.7,.3,1)" },
+          { transform: "translateY(-14px) scale(1.03)", offset: 0.24, easing: "cubic-bezier(.4,0,.2,1)" },
+          { transform: `translate(${dx}px, -14px) scale(${k})`, offset: 0.5, easing: "cubic-bezier(.45,0,.25,1)" },
+          { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
+        ],
+        { duration: 760, fill: "forwards" },
+      )
+    : cart.animate(
+        [
+          { transform: "none" },
+          { transform: `translateY(-28px) scale(1.06) rotate(-3deg)`, offset: 0.24 },
+          { transform: `translate(${dx}px, ${dy - h * 0.55}px) scale(${k})`, offset: 0.68 },
+          { transform: `translate(${dx}px, ${dy - h * 0.2}px) scale(${k})`, offset: 0.82 },
+          { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
+        ],
+        { duration: 820, easing: "cubic-bezier(.3,.7,.3,1)", fill: "forwards" },
+      );
   // Seated: click, power LED (two for a full game), PRESS START; A, a tap or Enter starts (or wait).
   flight.onfinish = () => {
     sfx.click();
@@ -536,15 +551,26 @@ function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
 function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: number }) {
   const { dx, dy, k, h } = seat;
   cart.getAnimations().forEach((a) => a.cancel());
-  const out = cart.animate(
-    [
-      { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
-      { transform: `translate(${dx}px, ${dy - h * 0.75}px) scale(${k}) rotate(4deg)`, offset: 0.3 },
-      { transform: `translate(${dx * 0.4}px, ${(dy - h) * 0.5}px) rotate(-3deg) scale(1.04)`, offset: 0.65 },
-      { transform: "none" },
-    ],
-    { duration: 900, easing: "cubic-bezier(.3,.7,.3,1)", fill: "both" },
-  );
+  // Phones: the exact reverse of the phone insert (straight up out of the slot, glide, set down).
+  const out = lifted(cart)
+    ? cart.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px) scale(${k})`, easing: "cubic-bezier(.3,0,.2,1)" },
+          { transform: `translate(${dx}px, -14px) scale(${k})`, offset: 0.5, easing: "cubic-bezier(.45,0,.25,1)" },
+          { transform: "translateY(-14px) scale(1.03)", offset: 0.76, easing: "cubic-bezier(.3,.6,.3,1)" },
+          { transform: "none" },
+        ],
+        { duration: 800, fill: "both" },
+      )
+    : cart.animate(
+        [
+          { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
+          { transform: `translate(${dx}px, ${dy - h * 0.75}px) scale(${k}) rotate(4deg)`, offset: 0.3 },
+          { transform: `translate(${dx * 0.4}px, ${(dy - h) * 0.5}px) rotate(-3deg) scale(1.04)`, offset: 0.65 },
+          { transform: "none" },
+        ],
+        { duration: 900, easing: "cubic-bezier(.3,.7,.3,1)", fill: "both" },
+      );
   setTimeout(() => consoleEl!.classList.remove("booting", "full", "choice"), 300);
   out.onfinish = () => {
     out.cancel();

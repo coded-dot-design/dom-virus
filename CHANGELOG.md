@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.25.0
+
+Site kit 1.29.0:
+- Header nav is square 3D icon buttons (Games, Under the hood, theme) at every width, with tooltips; the current page stays pressed in.
+- Footer at every width: brand, coded.design + GitHub icon buttons, and one small attribution line "© <year> Chris Cooley · coded.design · MIT" (year stamped at build). Leftover bottom padding removed.
+- Phones: tighter vertical spacing around the console (36px above, 42px below; sizes unchanged), and a smoother pick-up: the cartridge lifts a touch, glides over the console and slides straight down (no hop, no wait for the scroll); the pull-out is its exact reverse. Desktop motion unchanged.
+
 ## 0.24.3
 
 Site kit 1.28.3:

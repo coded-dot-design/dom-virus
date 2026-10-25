@@ -22,6 +22,8 @@ const gameIndex=game?data.games.indexOf(game):0;
 const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
+// Stamped at build time; a fresh build (e.g. on January 1) rolls the copyright year.
+const year=new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">
@@ -44,7 +46,7 @@ const kb=(n)=>(n/1000).toFixed(1);
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
     <div class="header-panel">
-      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined}><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined}><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
+      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
   </header>
@@ -112,11 +114,8 @@ const kb=(n)=>(n/1000).toFixed(1);
   </main>
   <footer class="site-footer" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
-    <dl class="footer-meta">
-      <div><dt>Made by</dt><dd>Chris Cooley · <a href="https://coded.design">coded.design</a></dd></div>
-      <div><dt>Open source</dt><dd>MIT · <a href={repo}>Fork it. Break a page.</a></dd></div>
-    </dl>
     <nav class="footer-icons" aria-label="Elsewhere"><a href="https://coded.design" aria-label="coded.design, by Chris Cooley" title="coded.design"><UiIcon name="globe" size={20}/></a><a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
+    <p class="footer-legal">© {year} Chris Cooley · <a href="https://coded.design">coded.design</a> · MIT</p>
   </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
   <div data-byte-obstacle id="site-status" class="site-status" role="status" aria-live="polite" data-virus-ignore data-swarm-ignore></div>
