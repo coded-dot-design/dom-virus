@@ -1,5 +1,25 @@
 export { createArcade } from "./runtime.js";
 export {
+  bindPress,
+  bindStick,
+  createStickKeys,
+  fireButtonMarkup,
+  fireIcon,
+  primaryButtonMarkup,
+  secondaryButtonMarkup,
+  stickMarkup,
+  touchControlStyles,
+} from "./touch-controls.js";
+export type {
+  PressControl,
+  PressOptions,
+  StickControl,
+  StickKeyOptions,
+  StickKeys,
+  StickMode,
+  StickOptions,
+} from "./touch-controls.js";
+export {
   clamp,
   distance,
   inside,

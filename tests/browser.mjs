@@ -43,6 +43,10 @@ try {
     fullPage: true,
   });
   await page.click("#launch");
+  // The first launch compiles game modules on demand; wait for that, not a fixed delay.
+  await page.waitForFunction(() => window.playground.getSnapshot(), null, {
+    timeout: 10000,
+  });
   await page.waitForTimeout(150);
   assert.equal(
     (await page.evaluate(() => window.playground.getSnapshot())).status,

@@ -1,4 +1,12 @@
 import { controlIcons, controlStyles } from "./game-controls.js";
+import {
+  bindPress,
+  bindStick,
+  createStickKeys,
+  fireButtonMarkup,
+  stickMarkup,
+  touchControlStyles,
+} from "./touch-controls.js";
 import { createGameAudio } from "./audio.js";
 import { createMobileZoomLock } from "./zoom-lock.js";
 import { createMobileSelectionLock } from "./selection-lock.js";
@@ -65,6 +73,10 @@ export function createArcade<S extends GameStats>(
   const zoomLock = createMobileZoomLock(doc, options.lockZoom !== false);
   const audio = createGameAudio(doc, definition.id, options.sound);
   const supportsFire = definition.capabilities?.fire === true;
+  const stickMode = definition.touch?.stick === "4way" ? "4way" : "8way";
+  const primaryAction = supportsFire
+    ? undefined
+    : definition.actions?.find((a) => a.id === definition.touch?.primary);
   let host: HTMLDivElement | null = null;
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
@@ -203,7 +215,9 @@ export function createArcade<S extends GameStats>(
     }
   }
   const touchKeys = new Map<number, string>();
+  let releaseTouch: (() => void) | null = null;
   function clearInput() {
+    releaseTouch?.();
     touchKeys.clear();
     input?.keys.clear();
     if (input) {
@@ -246,8 +260,8 @@ export function createArcade<S extends GameStats>(
       *{box-sizing:border-box}canvas{position:absolute;inset:0;pointer-events:none}.hud{position:absolute;pointer-events:auto}section{display:flex;justify-content:space-between;align-items:baseline}nav{display:flex;gap:6px;flex-wrap:wrap}button{font:inherit;color:inherit;background:transparent;border:1px solid #73837c66;padding:6px 9px;border-radius:7px;cursor:pointer}button:disabled{opacity:.4}
       ${arcadeStyles}
       ${controlStyles}
-      .touch{position:absolute;inset:auto max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:none;justify-content:space-between;align-items:end;pointer-events:none;margin:0}.touch[hidden]{display:none!important}.dpad{display:grid;grid-template:repeat(3,48px)/repeat(3,48px);gap:4px}.touch button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;color:#f5f7ff;background:#151b29ed;border:1px solid #8899ae;min-width:48px;min-height:48px;font-size:21px}.touch button:active{background:#405064}.touch button[data-k=ArrowUp]{grid-area:1/2}.touch button[data-k=ArrowLeft]{grid-area:2/1}.touch button[data-k=ArrowRight]{grid-area:2/3}.touch button[data-k=ArrowDown]{grid-area:3/2}.touch .fire-pad{width:76px;height:76px;border-radius:50%;font-size:14px;letter-spacing:.1em;border-color:var(--accent)}
-      .touch .abilities{display:flex;flex-direction:column;gap:6px;position:absolute;right:0;bottom:88px}.touch .abilities button{font-size:11px;min-height:44px;padding:8px 10px}.game-commands{padding:0 16px 12px}.touch svg{pointer-events:none}.hud[data-theme=light]~.touch button{color:#142629;background:#fbfcf9f5;border-color:#70867f;box-shadow:0 3px 0 #14262926}.hud[data-theme=light]~.touch button:active{background:#dce5df}
+      ${touchControlStyles}
+      .game-commands{padding:0 16px 12px}
       .hud.compact p,.hud.compact nav,.hud.compact .stats,.hud.compact .meter-label,.hud.compact .meter{display:none}.hud.compact .game{padding:6px 12px}.hud.compact .score{font-size:22px}.hud.compact .wave{padding:2px 6px}.hud.compact .score-label{display:none}.hud.compact header{padding:5px 10px}.hud.compact .flight{margin-top:3px}
       @media(pointer:coarse),(max-width:600px){.touch{display:flex}.hud,.hud.arcade{top:max(10px,env(safe-area-inset-top));bottom:auto;right:max(10px,env(safe-area-inset-right));width:min(310px,calc(100% - 20px));max-height:calc(100dvh - 190px);overflow:auto;backdrop-filter:none}.hud.compact{width:240px}.hud header button{min-width:44px;min-height:44px}.hud nav button{min-height:44px}}
 
@@ -256,7 +270,12 @@ export function createArcade<S extends GameStats>(
     // Controls are siblings of the scoreboard: minimizing it never hides play.
     touch.remove();
     touch.setAttribute("aria-label", "Game touch controls");
-    touch.innerHTML = `<div class="dpad"><button data-k="ArrowUp" aria-label="Move forward or up">${controlIcons.up}</button><button data-k="ArrowLeft" aria-label="Turn or move left">${controlIcons.left}</button><button data-k="ArrowRight" aria-label="Turn or move right">${controlIcons.right}</button><button data-k="ArrowDown" aria-label="Move backward or down">${controlIcons.down}</button></div>${supportsFire ? '<button class="fire-pad" data-k="Space" aria-label="Hold to fire">FIRE</button>' : ""}`;
+    touch.dataset.motion = reduced() ? "reduce" : "full";
+    touch.innerHTML = `${stickMarkup(
+      stickMode === "4way"
+        ? "Move: drag up, down, left or right"
+        : "Move: drag in any direction",
+    )}<div class="tc-side">${supportsFire ? fireButtonMarkup("Hold to fire") : ""}</div>`;
     shadow.append(touch);
     doc.documentElement.append(host);
     canvas = shadow.querySelector("canvas")!;
@@ -286,6 +305,13 @@ export function createArcade<S extends GameStats>(
       );
     };
     setCompact(win.matchMedia("(pointer: coarse), (max-width: 600px)").matches);
+    const listen = (
+      target: EventTarget,
+      type: string,
+      fn: (event: PointerEvent) => void,
+    ) => on(target, type as "pointerdown", fn);
+    const touchSide = touch.querySelector<HTMLElement>(".tc-side")!;
+    const pressReleases: (() => void)[] = [];
     const command = (id: string) => {
       if (status !== "running") return;
       game?.action?.(id);
@@ -298,21 +324,48 @@ export function createArcade<S extends GameStats>(
         commands.setAttribute("aria-label", "Game abilities");
         for (const action of definition.actions) {
           const button = doc.createElement("button");
-          button.textContent = mobile
-            ? action.label.replace(/^[A-Z] · /, "")
+          const text = mobile
+            ? action.label.replace(/^[^·]*· /, "")
             : action.label;
           button.dataset.ability = action.id;
           button.setAttribute(
             "aria-keyshortcuts",
             action.key.replace(/^Key/, ""),
           );
+          if (mobile) {
+            button.type = "button";
+            const primary = action === primaryAction;
+            button.className = primary ? "tc-btn tc-primary" : "tc-btn";
+            if (primary) {
+              const label = doc.createElement("span");
+              label.textContent = text;
+              button.append(label);
+            } else button.textContent = text;
+            // Touch acts on press, like Fire; click remains for keyboard activation.
+            const press = bindPress(button, {
+              canPress: () => status === "running",
+              onPress: () => command(action.id),
+              listen,
+            });
+            pressReleases.push(press.release);
+            on(button, "click", (e) => {
+              if (e.detail === 0) command(action.id);
+              button.blur();
+            });
+            if (primary) touchSide.append(button);
+            else commands.append(button);
+            continue;
+          }
+          button.textContent = text;
           on(button, "click", () => {
             command(action.id);
             button.blur();
           });
           commands.append(button);
         }
-        (mobile ? touch : hud).append(commands);
+        if (mobile) {
+          if (commands.childElementCount) touchSide.prepend(commands);
+        } else hud.append(commands);
       }
     }
     const soundButton = shadow.querySelector<HTMLButtonElement>(
@@ -389,26 +442,48 @@ export function createArcade<S extends GameStats>(
       fire: false,
       mode: options.controls === "keyboard" ? "keyboard" : "mouse",
     };
-    for (const el of shadow.querySelectorAll<HTMLButtonElement>("[data-k]")) {
-      on(el, "pointerdown", (e) => {
-        if (status !== "running") return;
-        e.preventDefault();
-        el.setPointerCapture(e.pointerId);
-        touchKeys.set(e.pointerId, el.dataset.k!);
-        input.pointer.active = false;
-        input.mode = "keyboard";
-        input.keys.add(el.dataset.k!);
+    for (const el of touch.querySelectorAll<HTMLButtonElement>("[data-k]")) {
+      const key = el.dataset.k!;
+      const press = bindPress(el, {
+        canPress: () => status === "running",
+        onPress: (e) => {
+          touchKeys.set(e.pointerId, key);
+          input.pointer.active = false;
+          input.mode = "keyboard";
+          input.keys.add(key);
+        },
+        onRelease: (pointerId) => {
+          const held = touchKeys.get(pointerId);
+          touchKeys.delete(pointerId);
+          if (held && ![...touchKeys.values()].includes(held))
+            input.keys.delete(held);
+        },
+        listen,
       });
-      const release = (e: PointerEvent) => {
-        const key = touchKeys.get(e.pointerId);
-        touchKeys.delete(e.pointerId);
-        if (key && ![...touchKeys.values()].includes(key))
-          input.keys.delete(key);
-      };
-      on(el, "pointerup", release);
-      on(el, "pointercancel", release);
-      on(el, "lostpointercapture", release);
+      pressReleases.push(press.release);
     }
+    const stickKeys = createStickKeys(stickMode);
+    let stickHeld: readonly string[] = [];
+    const stick = bindStick(touch.querySelector<HTMLElement>(".tc-stick")!, {
+      canStart: () => status === "running",
+      onMove: (x, y) => {
+        if (!stickKeys.update(x, y)) return;
+        const next = stickKeys.keys;
+        for (const key of stickHeld)
+          if (!next.includes(key)) input.keys.delete(key);
+        for (const key of next) {
+          input.pointer.active = false;
+          input.mode = "keyboard";
+          input.keys.add(key);
+        }
+        stickHeld = next;
+      },
+      listen,
+    });
+    releaseTouch = () => {
+      stick.release();
+      for (const release of pressReleases) release();
+    };
     function isProtected(e: Event) {
       return e
         .composedPath()
@@ -802,6 +877,7 @@ export function createArcade<S extends GameStats>(
     raf = 0;
     for (const off of listeners) off();
     listeners = [];
+    releaseTouch = null;
     board?.destroy();
     board = null;
     host?.remove();

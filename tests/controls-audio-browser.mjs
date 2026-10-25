@@ -5,7 +5,7 @@ import {mkdirSync,writeFileSync,existsSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {gameRoot} from '../scripts/game-paths.mjs';
 const server=await createServer({configFile:'vite.config.js',server:{host:'127.0.0.1',port:5227}});await server.listen();
-const browser=await chromium.launch({executablePath:existsSync('/tmp/chromium')?'/tmp/chromium':undefined,args:['--no-sandbox']});
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||(existsSync('/tmp/chromium')?'/tmp/chromium':undefined),args:['--no-sandbox']});
 mkdirSync('artifacts/controls-audio',{recursive:true});
 const reports=[];
 try {
