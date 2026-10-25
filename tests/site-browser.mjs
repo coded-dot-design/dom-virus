@@ -97,8 +97,9 @@ try {
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score > 0, null, { timeout: 15000 });
   await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.nuke());
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"));
+  // The round resets to 0 (checked every frame: auto-play can score again right after).
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
-  assert.equal(await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.score), 0, "round resets");
   assert.equal(await menu.isVisible(), false);
   assert.equal(await page.locator(".site-header nav a").count(), 3);
 
