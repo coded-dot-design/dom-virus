@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.19.0
+
+Site kit 1.24.0:
+- Cartridges declare their actions (pad, label, link, launch style); the console maps them to its buttons. One action: PRESS START. Several: the screen shows a coloured chip per button and waits for a choice.
+- DOM Battlefield drops the sleeve: it boots both LEDs and shows RED ▶ LAUNCH (board folds open into the full game) and BLUE ▶ INFO (screen morphs into the details page).
+- Coming back is tracked in the URL (?play=<id> / ?board=<id>#console), read before first paint: the page arrives with the cartridge docked and the console in its drawer, the game screen morphs back, the console rises, then the cartridge pulls out and flies home. The full game returns through its board folding shut. Game pages' All games links use the same URL; the state is cleared once the cartridge is home.
+
 ## 0.18.0
 
 Site kit 1.23.0:

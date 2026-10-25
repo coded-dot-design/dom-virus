@@ -232,7 +232,8 @@ if (matchMedia("(pointer: coarse)").matches) {
 // morphs the console screen into the game page's display.
 const shelf = document.querySelector<HTMLElement>("[data-shelf]");
 const consoleEl = document.querySelector<HTMLElement>("[data-console]");
-if (shelf && "IntersectionObserver" in window) {
+// Returning from a game skips the pop-in: the shelf is already set up around the docked cartridge.
+if (shelf && "IntersectionObserver" in window && !returnState()) {
   shelf.dataset.pop = "wait";
   const io = new IntersectionObserver(
     (entries) => {
@@ -304,24 +305,14 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
   if (!consoleEl) return;
   const { dx, dy, k, h } = slotOffset(cart);
   const full = cart.hasAttribute("data-full");
-  const remember = () => {
-    // Remember the cartridge so coming back ejects it from the console.
-    try {
-      sessionStorage.setItem(PLUGGED, cart.dataset.cart!);
-    } catch {}
-  };
-  const go = () => {
+  const go = (href: string) => {
     screen.style.setProperty("view-transition-name", "game-screen");
-    remember();
-    location.href = cart.href;
+    leaveTo(cart, false, href);
   };
-  // A special edition first slides up out of its sleeve, then rises above it.
-  const lift = full ? -h * 0.62 : -28;
-  if (full) setTimeout(() => (cart.style.zIndex = "32"), 230);
   const flight = cart.animate(
     [
       { transform: "none" },
-      { transform: `translateY(${lift}px) scale(1.06) rotate(-3deg)`, offset: 0.24 },
+      { transform: `translateY(-28px) scale(1.06) rotate(-3deg)`, offset: 0.24 },
       { transform: `translate(${dx}px, ${dy - h * 0.55}px) scale(${k})`, offset: 0.68 },
       { transform: `translate(${dx}px, ${dy - h * 0.2}px) scale(${k})`, offset: 0.82 },
       { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
@@ -335,48 +326,75 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
     if (full) sfx.power(0.5);
     consoleEl.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
     consoleEl.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
-    consoleEl.querySelector("[data-console-press]")!.textContent = full ? "FULL GAME · PRESS START" : "PRESS START";
+    pressText(cart);
     consoleEl.classList.toggle("full", full);
     consoleEl.classList.add("booting");
+    // The cartridge declares what it can do; the console maps those actions onto its pads.
+    // One action: PRESS START (or wait). Several: the screen lists them and waits for a choice.
+    const actions = cartActions(cart);
     let started = false;
-    const start = () => {
+    const start = (action: CartAction) => {
       if (started) return;
       started = true;
       clearTimeout(auto);
       removeEventListener("keydown", onKey);
+      pad?.removeEventListener("click", onPad);
       consoleEl.classList.add("starting");
-      if (full) {
-        remember();
-        openBoard(screen, () => (location.href = cart.href));
+      if (action.launch === "board") {
+        consoleEl.classList.add("launching");
+        openBoard(screen, () => leaveTo(cart, true, action.href));
         return;
       }
       // The plugged cartridge rides down into the drawer with the console.
-      cart.animate([{ transform: "translateY(0)", opacity: 1 }, { transform: "translateY(34px)", opacity: 0.2 }], {
+      cart.animate([{ transform: "translateY(0)", opacity: 1 }, { transform: `translateY(${DROP}px)`, opacity: 0.2 }], {
         duration: 500,
         delay: 120,
         easing: "cubic-bezier(.6,0,.8,.4)",
         fill: "forwards",
         composite: "add",
       });
-      setTimeout(go, 320);
+      setTimeout(() => go(action.href), 320);
     };
+    const byPad = (p: string) =>
+      actions.find((a) => a.pad === p) ?? (actions.length === 1 && (p === "a" || p === "start") ? actions[0] : undefined);
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        start();
-      }
+      const k = e.key.toLowerCase();
+      const action = k === "enter" || k === " " ? actions[0] : byPad(k === "s" ? "start" : k);
+      if (!action) return;
+      e.preventDefault();
+      start(action);
     };
-    const auto = setTimeout(start, full ? 2200 : 1800);
+    const onPad = (e: Event) => {
+      const action = byPad((e.target as HTMLElement).closest<HTMLElement>("[data-pad]")?.dataset.pad ?? "");
+      if (action) start(action);
+    };
+    const pad = consoleEl.querySelector("[data-console-pad]");
+    const auto = actions.length > 1 ? 0 : setTimeout(() => start(actions[0]!), 1800);
     addEventListener("keydown", onKey);
-    consoleEl.querySelector("[data-console-start]")?.addEventListener("click", start, { once: true });
-    screen.addEventListener("click", start, { once: true });
+    pad?.addEventListener("click", onPad);
+    screen.addEventListener("click", () => start(actions[0]!), { once: true });
   };
 }
+type CartAction = { pad: "a" | "b" | "start"; label: string; href: string; launch?: "screen" | "board" };
+function cartActions(cart: HTMLElement): CartAction[] {
+  try {
+    const list = JSON.parse(cart.dataset.actions || "[]") as CartAction[];
+    if (list.length) return list;
+  } catch {}
+  return [{ pad: "a", label: "START", href: cart.getAttribute("href")!, launch: "screen" }];
+}
+const PAD_CHIP = { a: ["ka", "RED"], b: ["kb", "BLUE"], start: ["ks", "START"] } as const;
+function pressText(cart: HTMLElement) {
+  const press = consoleEl!.querySelector<HTMLElement>("[data-console-press]")!,
+    actions = cartActions(cart);
+  consoleEl!.classList.toggle("choice", actions.length > 1);
+  if (actions.length < 2) press.textContent = "PRESS START";
+  else press.innerHTML = actions.map((a) => `<b class="${PAD_CHIP[a.pad][0]}">${PAD_CHIP[a.pad][1]}</b> ${a.label}`).join(" ");
+}
 // Full game: the console screen grows to fill the viewport, then the board folds open.
-function openBoard(screen: HTMLElement, done: () => void) {
-  const r = screen.getBoundingClientRect(),
-    board = document.createElement("div");
-  board.className = "board-open";
+function buildBoard(closing: boolean) {
+  const board = document.createElement("div");
+  board.className = closing ? "board-open closing" : "board-open";
   board.setAttribute("aria-hidden", "true");
   const blocks = [
     [12, 22, 9, 6], [70, 18, 6, 12], [30, 64, 12, 5], [78, 70, 8, 8], [48, 38, 5, 14],
@@ -386,68 +404,169 @@ function openBoard(screen: HTMLElement, done: () => void) {
   ].map(([x, y, c], i) => `<em style="--x:${x}%;--y:${y}%;--c:${c};--d:${i * 70}ms"></em>`).join("");
   board.innerHTML = `${blocks}${tanks}<span>DEPLOYING SQUAD</span><i class="l"></i><i class="r"></i>`;
   document.body.append(board);
-  board.animate(
-    [
-      { clipPath: `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 10px)` },
-      { clipPath: "inset(0px 0px 0px 0px round 0px)" },
-    ],
-    { duration: 600, easing: "cubic-bezier(.7,0,.2,1)", fill: "forwards" },
-  );
+  return board;
+}
+const screenClip = (screen: HTMLElement) => {
+  const r = screen.getBoundingClientRect();
+  return `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 10px)`;
+};
+function openBoard(screen: HTMLElement, done: () => void) {
+  const board = buildBoard(false);
+  board.animate([{ clipPath: screenClip(screen) }, { clipPath: "inset(0px 0px 0px 0px round 0px)" }], {
+    duration: 600,
+    easing: "cubic-bezier(.7,0,.2,1)",
+    fill: "forwards",
+  });
   tone("sawtooth", 90, 360, 0.05, 0.55, 0.035);
   setTimeout(() => tone("square", 660, 990, 0, 0.09, 0.04), 640);
   setTimeout(done, 1300);
 }
-// Coming back from a game page: the cartridge pops out of the console and flies home.
-const PLUGGED = "dom-virus:plugged";
-function eject(id: string) {
-  const cart = shelf?.querySelector<HTMLElement>(`.cartridge[data-cart="${id}"]`);
-  if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  shelf!.dataset.pop = "in";
-  cart.classList.add("plugging");
+// The reverse: the covers fold shut over the board, then it shrinks back into the console screen.
+function closeBoard(board: HTMLElement, screen: HTMLElement, done: () => void) {
+  board.classList.add("closing");
+  setTimeout(() => {
+    board.animate([{ clipPath: "inset(0px 0px 0px 0px round 0px)" }, { clipPath: screenClip(screen) }], {
+      duration: 560,
+      easing: "cubic-bezier(.7,0,.2,1)",
+      fill: "forwards",
+    }).onfinish = () => {
+      board.remove();
+      done();
+    };
+  }, 760);
+}
+
+// Coming back from a game. Leaving rewrites the home URL to ?play=<id>#console (or ?board=<id>
+// for the full game); game pages link back the same way. An inline head script reads it before
+// first paint (html[data-return], cartridge hidden, console lowered, screen named for the View
+// Transition), so the page arrives in the state it left: game screen morphs back into the
+// console, the console rises out of its drawer, then the cartridge pulls out and flies home.
+function returnState() {
+  const q = new URLSearchParams(location.search),
+    id = q.get("play") || q.get("board");
+  return id && /^[\w-]+$/.test(id) ? { id, board: q.has("board") } : null;
+}
+function leaveTo(cart: HTMLAnchorElement, board: boolean, href = cart.href) {
+  history.replaceState(history.state, "", `${location.pathname}?${board ? "board" : "play"}=${cart.dataset.cart}#console`);
+  location.href = href;
+}
+function markReturn(state: { id: string; board: boolean }) {
+  const d = document.documentElement;
+  d.dataset.return = state.id;
+  d.dataset.returnMode = state.board ? "board" : "screen";
+}
+function clearReturn() {
+  const d = document.documentElement;
+  delete d.dataset.return;
+  delete d.dataset.returnMode;
+  document.getElementById("dv-return")?.remove();
+  consoleEl?.querySelector<HTMLElement>("[data-console-screen]")?.style.removeProperty("view-transition-name");
+}
+function settle() {
+  clearReturn();
+  history.replaceState(history.state, "", `${location.pathname}#games`);
+}
+// Run after the incoming View Transition (if any) has finished.
+function afterReveal(fresh: boolean, cb: () => void) {
+  let done = false;
+  const run = () => {
+    if (!done) (done = true), cb();
+  };
+  const use = (vt?: { finished: Promise<unknown> } | null) =>
+    vt ? vt.finished.then(run, run) : requestAnimationFrame(() => requestAnimationFrame(run));
+  const seen = (window as { __dvReveal?: { vt: { finished: Promise<unknown> } | null } }).__dvReveal;
+  if (seen && !fresh) use(seen.vt);
+  else addEventListener("pagereveal", (e) => use((e as Event & { viewTransition?: { finished: Promise<unknown> } }).viewTransition), { once: true });
+  setTimeout(run, fresh ? 700 : 1500);
+}
+const DROP = 34; // how far the console sinks into its drawer on start
+const consoleParts = () => consoleEl!.querySelectorAll<HTMLElement>(".slot,.lip,.body");
+function dock(cart: HTMLElement, lowered: boolean) {
   const full = cart.hasAttribute("data-full");
-  if (full) cart.style.zIndex = "32";
-  const { dx, dy, k, h } = slotOffset(cart);
-  consoleEl.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
-  consoleEl.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
-  consoleEl.querySelector("[data-console-press]")!.textContent = full ? "FULL GAME · PRESS START" : "PRESS START";
-  consoleEl.classList.toggle("full", full);
-  consoleEl.classList.add("booting");
+  cart.getAnimations().forEach((a) => a.cancel());
+  shelf!.dataset.plugging = cart.dataset.cart!;
+  cart.classList.add("plugging");
+  const seat = slotOffset(cart);
+  const at = `translate(${seat.dx}px, ${seat.dy + (lowered ? DROP : 0)}px) scale(${seat.k})`;
+  cart.animate([{ transform: at }, { transform: at }], { duration: 1, fill: "forwards" });
+  document.getElementById("dv-return")?.remove();
+  consoleEl!.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
+  consoleEl!.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
+  pressText(cart);
+  consoleEl!.classList.remove("starting", "launching");
+  consoleEl!.classList.toggle("full", full);
+  consoleEl!.classList.add("booting");
+  return seat;
+}
+function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
+  const cart = shelf?.querySelector<HTMLElement>(`.cartridge[data-cart="${state.id}"]`);
+  document.querySelectorAll(".board-open").forEach((n) => n.remove());
+  if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (cart) cart.getAnimations().forEach((a) => a.cancel());
+    consoleEl?.classList.remove("booting", "starting", "launching", "full", "choice");
+    shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
+    if (shelf) delete shelf.dataset.plugging;
+    return settle();
+  }
+  markReturn(state);
+  const screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;
+  const seat = dock(cart, !state.board);
+  // The full game comes back through its board; the board is up before the first frame.
+  const board = state.board ? buildBoard(false) : null;
+  board?.classList.add("shut");
+  if (board) clearReturn();
+  afterReveal(fresh, () => {
+    if (board) return closeBoard(board, screen, () => eject(cart, seat));
+    // Console rises out of the drawer with the cartridge in it.
+    const rise = { duration: 480, easing: "cubic-bezier(.2,.7,.3,1)", fill: "both" as const };
+    const parts = [...consoleParts()].map((el) => el.animate([{ transform: `translateY(${DROP}px)` }, { transform: "none" }], rise));
+    clearReturn();
+    cart.getAnimations().forEach((a) => a.cancel());
+    const at = (y: number) => `translate(${seat.dx}px, ${y}px) scale(${seat.k})`;
+    const up = cart.animate([{ transform: at(seat.dy + DROP) }, { transform: at(seat.dy) }], rise);
+    up.onfinish = () => {
+      parts.forEach((a) => a.cancel());
+      setTimeout(() => eject(cart, seat), 220);
+    };
+  });
+}
+// The cartridge pops out of the console and flies home.
+function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: number }) {
+  const { dx, dy, k, h } = seat;
+  cart.getAnimations().forEach((a) => a.cancel());
   const out = cart.animate(
     [
       { transform: `translate(${dx}px, ${dy}px) scale(${k})` },
       { transform: `translate(${dx}px, ${dy - h * 0.75}px) scale(${k}) rotate(4deg)`, offset: 0.3 },
       { transform: `translate(${dx * 0.4}px, ${(dy - h) * 0.5}px) rotate(-3deg) scale(1.04)`, offset: 0.65 },
-      { transform: full ? `translateY(${-h * 0.62}px)` : "none", offset: full ? 0.85 : 1 },
-      ...(full ? [{ transform: "none" }] : []),
+      { transform: "none" },
     ],
-    { duration: full ? 1100 : 900, delay: 350, easing: "cubic-bezier(.3,.7,.3,1)" },
+    { duration: 900, easing: "cubic-bezier(.3,.7,.3,1)", fill: "both" },
   );
-  // A special edition slides back down into its sleeve.
-  if (full) setTimeout(() => cart.style.removeProperty("z-index"), 350 + 1100 * 0.85);
-  setTimeout(() => consoleEl.classList.remove("booting", "full"), 650);
+  setTimeout(() => consoleEl!.classList.remove("booting", "full", "choice"), 300);
   out.onfinish = () => {
+    out.cancel();
     cart.classList.remove("plugging");
     cart.style.removeProperty("transform-origin");
+    if (shelf) delete shelf.dataset.plugging;
+    settle();
   };
 }
-// Back/forward (or the All games link) restores the shelf, then ejects the last cartridge.
-addEventListener("pageshow", () => {
-  if (!shelf) return;
+const initialReturn = shelf ? returnState() : null;
+if (initialReturn) returnHome(initialReturn, false);
+// Back/forward from the bfcache: the page is restored mid-launch; rewind it from there.
+addEventListener("pageshow", (event) => {
+  if (!shelf || !event.persisted) return;
+  const state = returnState();
+  if (state) return returnHome(state, true);
   delete shelf.dataset.plugging;
-  document.querySelectorAll(".board-open").forEach((n) => n.remove());
   shelf.querySelectorAll<HTMLElement>(".cartridge").forEach((n) => {
     n.classList.remove("plugging");
-    n.style.removeProperty("z-index");
     n.getAnimations().forEach((a) => a.cancel());
   });
-  consoleEl?.classList.remove("booting", "starting", "full");
-  consoleEl?.querySelector<HTMLElement>("[data-console-screen]")?.style.removeProperty("view-transition-name");
-  let id: string | null = null;
-  try {
-    id = sessionStorage.getItem(PLUGGED);
-    sessionStorage.removeItem(PLUGGED);
-  } catch {}
-  if (id) requestAnimationFrame(() => eject(id!));
+  document.querySelectorAll(".board-open").forEach((n) => n.remove());
+  consoleEl?.classList.remove("booting", "starting", "launching", "full", "choice");
+  clearReturn();
 });
 // Console buttons: all clickable. A starts a plugged cartridge (handled above); idle A/B make
 // the attract characters hop; the D-pad tilts (CSS).

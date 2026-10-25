@@ -118,20 +118,37 @@ try {
   await page.goBack();
   await page.waitForFunction(() => document.querySelector('.cartridge[data-cart="byte-runner"]')?.classList.contains("plugging"));
   await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && !document.querySelector(".console").classList.contains("booting"), null, { timeout: 5000 });
-  assert.equal(await page.evaluate(() => sessionStorage.getItem("dom-virus:plugged")), null);
+  assert.match(page.url(), /\/dom-virus\/#games$/, "return state is cleared from the URL once the cartridge is home");
   // Every console button is clickable; idle presses never navigate.
   for (const pad of ["up", "left", "right", "down", "select", "start", "b", "a"]) await page.locator(`[data-pad="${pad}"]`).click();
   assert.match(page.url(), /\/dom-virus\/(#games)?$/);
-  // Special edition: the sleeve opens the details; the cartridge boots two LEDs and folds the board open.
-  assert.equal(new URL(await page.locator("[data-sleeve]").evaluate((a) => a.href)).pathname, "/dom-virus/games/battlefield/");
-  await page.locator('.cartridge[data-cart="battlefield"]').scrollIntoViewIfNeeded();
-  await page.locator('.cartridge[data-cart="battlefield"]').click({ position: { x: 40, y: 40 } });
+  // Two-way special edition: the cartridge declares two actions; the screen asks RED to launch or BLUE for info.
+  const bf = page.locator('.cartridge[data-cart="battlefield"]');
+  assert.deepEqual(JSON.parse(await bf.getAttribute("data-actions")).map((a) => [a.pad, a.label, new URL(a.href, base).pathname]), [["a", "LAUNCH", "/dom-virus/battlefield/"], ["b", "INFO", "/dom-virus/games/battlefield/"]]);
+  await bf.scrollIntoViewIfNeeded();
+  await bf.click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   assert.ok(await page.evaluate(() => document.querySelector(".console").classList.contains("full")));
-  await page.keyboard.press("Enter");
+  assert.match(await page.locator("[data-console-press]").textContent(), /RED LAUNCH BLUE INFO/);
+  await page.waitForTimeout(2100);
+  assert.equal(await page.evaluate(() => document.querySelector(".console").classList.contains("starting")), false, "two-way cartridges wait for a choice");
+  await page.locator('[data-pad="a"]').dispatchEvent("click");
   await page.waitForFunction(() => !!document.querySelector(".board-open"));
   await page.waitForURL(/\/dom-virus\/battlefield\/$/);
-  await page.goto(base);
+  // Back from the full game: the board folds shut, shrinks into the console, the cartridge comes home.
+  await page.goBack();
+  await page.waitForFunction(() => !!document.querySelector(".board-open.shut"));
+  await page.waitForFunction(() => !document.querySelector(".board-open") && !document.querySelector(".cartridge.plugging") && location.hash === "#games", null, { timeout: 6000 });
+  // BLUE opens the info page; its All games link plays the reverse from the docked state.
+  await bf.scrollIntoViewIfNeeded();
+  await bf.click();
+  await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
+  await page.locator('[data-pad="b"]').dispatchEvent("click");
+  await page.waitForURL(/\/games\/battlefield\/$/);
+  await page.locator(".back-link").click();
+  await page.waitForURL(/\?play=battlefield#console$/);
+  assert.equal(await page.evaluate(() => document.documentElement.dataset.return), "battlefield", "marked before first paint");
+  await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games" && !location.search, null, { timeout: 6000 });
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");

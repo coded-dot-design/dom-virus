@@ -328,6 +328,7 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
     for (const [type, fn] of handlers) stage.removeEventListener(type, fn as EventListener);
     foeLayer.remove();
     layer.remove();
+    stage.getAnimations().forEach((a) => a.cancel());
     hero.classList.remove("hx-alarm", "hx-nuke");
     for (const el of [planeAim, planeKick, turret, turret.firstElementChild as SVGGElement, treads]) el.style.transform = "";
     planeAim.style.transform = `rotate(${(base.plane * 180) / Math.PI}deg)`;

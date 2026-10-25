@@ -44,7 +44,7 @@ const shots = [
 const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180) / Math.PI);
 ---
 <section id="battlefield" class="game-section standalone accent-cyan battlefield-page" aria-labelledby="battlefield-title">
-  <a class="back-link" href={`${base}#games`} data-virus-ignore data-swarm-ignore><UiIcon name="arrow-up-right" size={16} class="back-arrow"/> All games</a>
+  <a class="back-link" href={`${base}?play=battlefield#console`} data-virus-ignore data-swarm-ignore><UiIcon name="arrow-up-right" size={16} class="back-arrow"/> All games</a>
   <div class="section-heading"><span class="eyebrow"><span class="index">05</span> SQUAD TACTICS / SHERMAN EXPANSION</span><span class="version">{version ? `v${version} / ` : ''}MIT</span></div>
   <div class="game-intro">
     <div>
