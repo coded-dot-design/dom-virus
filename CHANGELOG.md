@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.25.6
+
+- Battlefield 0.6.8 pinned: Eject is a 3D panel button like Sound and Theme (icon-only on phones).
+
 ## 0.25.5
 
 Site kit 1.29.5:
