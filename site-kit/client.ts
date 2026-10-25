@@ -540,6 +540,7 @@ function clearReturn() {
 function settle() {
   clearReturn();
   history.replaceState(history.state, "", `${location.pathname}#games`);
+  document.querySelector("[data-games-link]")?.setAttribute("aria-current", "page");
 }
 // Run after the incoming View Transition (if any) has finished.
 function afterReveal(fresh: boolean, cb: () => void) {
@@ -754,6 +755,22 @@ consoleEl?.querySelector("[data-console-screen]")?.addEventListener("click", () 
   unlockAudio();
   idleJump();
 });
+// Header Games key on the home page: it toggles. At the shelf (#games) it's pressed in; clicking
+// it again goes back to the top (and drops the hash); clicking once more jumps back to the games.
+const gamesLink = document.querySelector<HTMLAnchorElement>("[data-games-link]");
+if (gamesLink && shelf) {
+  const sync = () => (location.hash === "#games" ? gamesLink.setAttribute("aria-current", "page") : gamesLink.removeAttribute("aria-current"));
+  sync();
+  addEventListener("hashchange", sync);
+  addEventListener("popstate", sync);
+  gamesLink.addEventListener("click", (event) => {
+    if (location.hash !== "#games") return requestAnimationFrame(sync);
+    event.preventDefault();
+    history.pushState(history.state, "", location.pathname);
+    scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    sync();
+  });
+}
 // Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
 // tiny contained game (only then). Reduced-motion visitors keep the still poster.
 const hero = document.querySelector<HTMLElement>(".hero-crossover");

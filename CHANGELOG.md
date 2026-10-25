@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.27.0 — Phase one
+
+Site kit 1.31.0:
+- Games key: a gold count badge (05) rides on the cartridge key; on the home page the key toggles — to the shelf (#games, pressed in) and back to the top (hash dropped).
+- The style guide footer key stays pressed in on the style guide.
+- Battlefield info page: "Swap to Sherman Bytes" carries the Sherman tank icon; the long "/ SHERMAN EXPANSION" eyebrow drops on phones.
+- Detail-page credit lines link Chris Cooley (LinkedIn) and coded.design.
+
 ## 0.26.5
 
 Site kit 1.30.5:

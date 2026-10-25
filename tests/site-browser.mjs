@@ -113,6 +113,14 @@ try {
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.resets > 1, null, { timeout: 6000 });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   assert.equal(await page.locator(".site-header nav a").count(), 2, "header: Games + Under the hood");
+  // Games key: count badge, and it toggles between the shelf (#games, pressed) and the top.
+  assert.equal(await page.locator("[data-games-link] .nav-count").textContent(), "05");
+  await page.evaluate(() => scrollTo(0, 0));
+  if (await page.evaluate(() => location.hash === "#games")) await page.locator("[data-games-link]").click();
+  await page.locator("[data-games-link]").click();
+  await page.waitForFunction(() => location.hash === "#games" && document.querySelector("[data-games-link]").getAttribute("aria-current") === "page");
+  await page.locator("[data-games-link]").click();
+  await page.waitForFunction(() => !location.hash && !document.querySelector("[data-games-link]").hasAttribute("aria-current"));
   assert.equal(await page.locator(".site-footer a[href$='archive/']").count(), 0, "archive is kept but not linked");
 
 
@@ -200,6 +208,7 @@ try {
   assert.equal(new URL(await page.locator("#case-study a.sg-archive").evaluate((a) => a.href)).pathname, "/dom-virus/archive/");
   assert.equal(await page.locator(".style-guide .cartridge").count(), 2);
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true);
+  assert.equal(await page.locator(".footer-style-guide").getAttribute("aria-current"), "page", "style guide key is pressed on its page");
   assert.equal(new URL(await page.locator(".footer-style-guide").evaluate((a) => a.href)).pathname, "/dom-virus/style-guide/");
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
