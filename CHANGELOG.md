@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.1
+
+Site kit 1.28.1:
+- Phone swipe row: cartridges are sized from the console (half its width, desktop proportions), so a cartridge keeps its size when it plugs in, and they're taller (no squat cards). The console sits a little closer to the row.
+
 ## 0.24.0
 
 Site kit 1.28.0 (DOM Virus hero only):
