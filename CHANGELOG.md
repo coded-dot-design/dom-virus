@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.26.3
+
+Site kit 1.30.3:
+- Phones: the hero card sits closer under the intro (gap 80px → 50px), so the whole interactive hero fits in the first screen; the "try me" bubble still clears the text above.
+
 ## 0.26.2
 
 Site kit 1.30.2:
