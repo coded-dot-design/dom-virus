@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.22.0
+
+Engine:
+- Shared touch controls (src/touch-controls.ts): Battlefield-style analog joystick (8-way, or 4-way for grid games), round Fire button and arcade secondary buttons, with exact 3D press states. Replaces the arrow D-pad in every engine game; games opt into 4-way / a primary action via `GameDefinition.touch`.
+- Pins: Null Invaders 0.7.2, Byte Runner 0.10.2 (4-way stick, Jump), Sherman Bytes 0.5.2 — all ship the new controls (their engine snapshots were synced at 0.21.0 + these engine commits).
+
 ## 0.21.0
 
 Site kit 1.26.0:

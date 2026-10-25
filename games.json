@@ -1,6 +1,6 @@
 {
-  "sherman-bytes": "v0.5.1",
+  "sherman-bytes": "v0.5.2",
   "swarm-protocol": "v1.3.1",
-  "byte-runner": "v0.10.1",
-  "null-invaders": "v0.7.1"
+  "byte-runner": "v0.10.2",
+  "null-invaders": "v0.7.2"
 }
