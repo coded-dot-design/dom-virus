@@ -63,9 +63,11 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 
 /* Unbranded handheld-style console, drawn with the same 3D rules as the cartridges: front face and
    a hard pink right/bottom side; the top face isn't visible, so the cartridge slides in behind the
-   flat top edge (cartridge z 30 under body z 40). Pink shadow: offset + spread for a rounder corner. */
-.console{position:relative;width:min(400px,100%);margin:244px auto 0;scroll-margin-top:256px}
-.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 3px var(--accent,#f4457a)}
+   flat top edge (cartridge z 30 under body z 40). The pink side is a solid 14px 45° extrusion
+   (twice the cartridge's 7px) built from 1px layers; two darker layers give it ridged texture,
+   and an ink rim outlines it like the cartridge outline. */
+.console{position:relative;width:min(400px,100%);margin:72px auto 0;scroll-margin-top:256px}
+.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:1px 1px 0 var(--accent,#f4457a),2px 2px 0 var(--accent,#f4457a),3px 3px 0 var(--accent,#f4457a),4px 4px 0 var(--accent,#f4457a),5px 5px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),6px 6px 0 var(--accent,#f4457a),7px 7px 0 var(--accent,#f4457a),8px 8px 0 var(--accent,#f4457a),9px 9px 0 var(--accent,#f4457a),10px 10px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),11px 11px 0 var(--accent,#f4457a),12px 12px 0 var(--accent,#f4457a),13px 13px 0 var(--accent,#f4457a),14px 14px 0 var(--accent,#f4457a),16px 16px 0 var(--ink)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
 .boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}

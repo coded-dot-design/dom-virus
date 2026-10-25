@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.21.0
+
+Site kit 1.26.0:
+- Header: brand left; Games, Under the hood and one light/dark toggle right. No menu on phones: the two links sit on a second row. GitHub moved to the footer.
+- Footer: brand left; labelled Made by / Open source groups; plain links, no arrows; the one-page archive is kept but no longer linked.
+- 3D buttons measured in the browser and made exact: hover lifts only the top surface (base never moves), press and selected (aria-pressed) sit exactly on the base, no overshoot easing. Flat icon buttons (copy, pause, theme was flat) no longer jump; the theme toggle is now a proper 3D button; nerd-notes cards press onto their shadow.
+- Console: a solid 14px 45° pink extrusion (twice the cartridge's side) with ridge texture and an ink rim; sits close under the shelf again.
+- A soft dashed outline (cartridge shape) marks a cartridge's shelf spot while it's plugged in.
+- Battlefield 0.6.6 pinned (exact 3D button press states in the app).
+
 ## 0.20.0
 
 Site kit 1.25.0:

@@ -51,7 +51,12 @@ try {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(base);
-  const menu = page.getByRole("button", { name: /^(Open|Close) menu$/ });
+  // One light/dark toggle in the header; flip it until the page is in the wanted theme.
+  const setTheme = async (theme) => {
+    if ((await page.evaluate(() => document.documentElement.dataset.theme)) !== theme)
+      await page.getByRole("button", { name: /^Switch to (light|dark) theme$/ }).click();
+    assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), theme);
+  };
   const system = page.locator(".system-map");
   // Home is the DOM Virus hero plus a cartridge shelf; each game lives on its own page.
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
@@ -100,8 +105,9 @@ try {
   // The round resets to 0 (checked every frame: auto-play can score again right after).
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
-  assert.equal(await menu.isVisible(), false);
-  assert.equal(await page.locator(".site-header nav a").count(), 3);
+  assert.equal(await page.locator(".site-header nav a").count(), 2, "header: Games + Under the hood");
+  assert.equal(await page.locator(".site-footer a[href$='archive/']").count(), 0, "archive is kept but not linked");
+
 
   // Picking a cartridge plugs it into the console, boots the screen, then opens the game page.
   await page.locator('.cartridge[data-cart="byte-runner"]').scrollIntoViewIfNeeded();
@@ -170,7 +176,7 @@ try {
 
   for (const theme of ["dark", "light"]) {
     await page.goto(base);
-    await page.getByRole("button", { name: `Use ${theme} theme` }).click();
+    await setTheme(theme);
     await promo.scrollIntoViewIfNeeded();
     await page.waitForFunction(
       () => document.querySelector(".hero-crossover").dataset.motion === "true",
@@ -276,35 +282,12 @@ try {
   for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(base);
-    if (width <= 760) {
-      assert.equal(await menu.isVisible(), true);
-      assert.equal(await page.locator(".header-panel").isVisible(), false);
-      await menu.click();
-      assert.equal(await menu.getAttribute("aria-expanded"), "true");
-      assert.equal(
-        await page.getByRole("link", { name: "Under the hood" }).isVisible(),
-        true,
-      );
-      await page.keyboard.press("Escape");
-      assert.equal(await menu.getAttribute("aria-expanded"), "false");
-      assert.equal(
-        await menu.evaluate((el) => el === document.activeElement),
-        true,
-      );
-      await menu.click();
-      await page.getByRole("link", { name: "Under the hood" }).click();
-      await page.waitForURL(/under-the-hood\/$/);
-    }
+    // No menu to open: both links stay visible at every width.
+    assert.equal(await page.getByRole("link", { name: "Under the hood" }).isVisible(), true);
     for (const theme of ["light", "dark"]) {
       await page.goto(base);
-      if (width <= 760) await menu.click();
-      await page.getByRole("button", { name: `Use ${theme} theme` }).click();
-      if (width <= 760) {
-        await page
-          .locator(".site-header")
-          .screenshot({ path: `${output}/menu-${width}-${theme}.png` });
-        await page.keyboard.press("Escape");
-      }
+      await setTheme(theme);
+      await page.locator(".site-header").screenshot({ path: `${output}/header-${width}-${theme}.png` });
       for (const path of pages) {
         if (path) await page.goto(base + path);
         const overflow = await page.evaluate(() =>
@@ -373,10 +356,8 @@ try {
     for (const theme of ["light", "dark"]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(base + "games/byte-runner/");
-      if (width <= 760) await menu.click();
-      await page.getByRole("button", { name: `Use ${theme} theme` }).click();
+      await setTheme(theme);
       if (width <= 760) {
-        await page.keyboard.press("Escape");
         assert.ok(
           await page.locator(".game-section").evaluateAll((nodes) =>
             nodes.every((node) => {

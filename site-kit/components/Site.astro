@@ -43,10 +43,9 @@ const kb=(n)=>(n/1000).toFixed(1);
   <a class="skip" href="#board" data-virus-ignore data-swarm-ignore>Skip to games</a>
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
-    <button class="menu-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu"><UiIcon name="menu" class="menu-open-icon"/><UiIcon name="close" class="menu-close-icon"/></button>
-    <div class="header-panel" id="site-menu">
-      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'?'page':undefined}>Games <span>{data.games.length.toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined}>Under the hood</a><a href={`${repo}#readme`}>GitHub <UiIcon name="arrow-up-right" size={17}/></a></nav>
-      <div class="theme-switch" role="group" aria-label="Color theme"><button data-theme-choice="system" aria-label="Use system theme" title="System theme"><UiIcon name="system" size={22}/></button><button data-theme-choice="light" aria-label="Use light theme" title="Light theme"><UiIcon name="sun" size={22}/></button><button data-theme-choice="dark" aria-label="Use dark theme" title="Dark theme"><UiIcon name="moon" size={22}/></button></div>
+    <div class="header-panel">
+      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined}>Games <span>{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined}>Under the hood</a></nav>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
   </header>
   <main id="board" data-page={page}>
@@ -111,7 +110,13 @@ const kb=(n)=>(n/1000).toFixed(1);
     <section class="embed-section" id="embed"><div class="section-heading"><span class="eyebrow"><span class="index">DEV</span> BRING YOUR OWN PLAYGROUND</span><span class="version">MIT LICENSED</span></div><h2>Your page is next.</h2><p class="embed-lead">Import a game, choose the targets, and start a session. The launcher is optional. React adapters are separate exports so plain JavaScript consumers do not pay for React.</p>{data.games.map(game=><article class={`embed-game accent-${game.accent}`}><div><h3>{game.name}</h3><p>{game.engine}</p><a href={`https://github.com/coded-dot-design/${game.id}#readme`} class="text-link" data-virus-ignore data-swarm-ignore>Install + integration guide <UiIcon name="arrow-up-right" size={17}/></a></div><CodePreview game={game}/></article>)}<p class="install-note">Package names show the import after installation. Use each repository’s README for its available install or release route; registry publication is separate from this demo. Start with a static content container and exclude application controls you want to preserve.</p></section>
     </>}
   </main>
-  <footer class="site-footer" data-virus-ignore data-swarm-ignore><a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a><div>Created by <strong>Chris Cooley</strong><br/><a href="https://coded.design">coded.design <UiIcon name="arrow-up-right" size={17}/></a> · Open source, MIT</div><a href={repo}>Fork it. Break a page. <UiIcon name="arrow-up-right" size={17}/></a>{hub && <a class="archive-link" href={`${base}archive/`}>One-page archive</a>}</footer>
+  <footer class="site-footer" data-virus-ignore data-swarm-ignore>
+    <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
+    <dl class="footer-meta">
+      <div><dt>Made by</dt><dd>Chris Cooley · <a href="https://coded.design">coded.design</a></dd></div>
+      <div><dt>Open source</dt><dd>MIT · <a href={repo}>Fork it. Break a page.</a></dd></div>
+    </dl>
+  </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
   <div data-byte-obstacle id="site-status" class="site-status" role="status" aria-live="polite" data-virus-ignore data-swarm-ignore></div>
 

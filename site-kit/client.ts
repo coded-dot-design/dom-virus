@@ -9,9 +9,8 @@ type Controller = {
 };
 const html = document.documentElement;
 const media = matchMedia("(prefers-color-scheme: dark)");
-const themeButtons = document.querySelectorAll<HTMLButtonElement>(
-  "[data-theme-choice]",
-);
+// One light/dark toggle. Until the visitor picks, the system theme is used.
+const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
 function applyTheme(preference: string) {
   html.dataset.preference = preference;
   html.dataset.theme =
@@ -22,26 +21,22 @@ function applyTheme(preference: string) {
       "content",
       html.dataset.theme === "dark" ? "#100a1b" : "#f6f7f8",
     );
-  themeButtons.forEach((button) =>
-    button.setAttribute(
-      "aria-pressed",
-      String(button.dataset.themeChoice === preference),
-    ),
+  themeToggle?.setAttribute(
+    "aria-label",
+    html.dataset.theme === "dark" ? "Switch to light theme" : "Switch to dark theme",
   );
 }
 applyTheme(html.dataset.preference || "system");
 media.addEventListener("change", () =>
   applyTheme(html.dataset.preference || "system"),
 );
-themeButtons.forEach((button) =>
-  button.addEventListener("click", () => {
-    const choice = button.dataset.themeChoice!;
-    try {
-      localStorage.setItem("dom-virus:theme", choice);
-    } catch {}
-    applyTheme(choice);
-  }),
-);
+themeToggle?.addEventListener("click", () => {
+  const choice = html.dataset.theme === "dark" ? "light" : "dark";
+  try {
+    localStorage.setItem("dom-virus:theme", choice);
+  } catch {}
+  applyTheme(choice);
+});
 const status = document.querySelector<HTMLElement>("#site-status")!;
 const bar = document.querySelector<HTMLElement>(".session-bar")!;
 const stateLabel = document.querySelector<HTMLElement>("#session-state")!;
@@ -185,35 +180,6 @@ for (const button of document.querySelectorAll<HTMLButtonElement>(
     }
   });
 
-// Expand navigation without squeezing the brand or hiding links on small screens.
-const header = document.querySelector<HTMLElement>(".site-header")!;
-const menu = document.querySelector<HTMLButtonElement>(".menu-toggle")!;
-const mobile = matchMedia("(max-width: 760px)");
-function closeMenu(restoreFocus = false) {
-  header.dataset.menuOpen = "false";
-  menu.setAttribute("aria-expanded", "false");
-  menu.setAttribute("aria-label", "Open menu");
-  if (restoreFocus) menu.focus();
-}
-header.dataset.navReady = "true";
-closeMenu();
-menu.addEventListener("click", () => {
-  const open = menu.getAttribute("aria-expanded") !== "true";
-  header.dataset.menuOpen = String(open);
-  menu.setAttribute("aria-expanded", String(open));
-  menu.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-});
-header
-  .querySelectorAll("nav a")
-  .forEach((link) => link.addEventListener("click", () => closeMenu()));
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && header.dataset.menuOpen === "true")
-    closeMenu(true);
-});
-document.addEventListener("pointerdown", (event) => {
-  if (mobile.matches && !header.contains(event.target as Node)) closeMenu();
-});
-mobile.addEventListener("change", () => closeMenu());
 
 // Touch devices: the page is a game board, so no pinch/double-tap zoom and no text selection
 // or copy callouts (CSS handles touch-action and selection; Safari also needs its gesture events).

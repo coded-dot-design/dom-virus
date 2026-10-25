@@ -13,19 +13,29 @@ const pins = Array.from({ length: 11 }, (_, p) => {
   return h < 2 ? 'gone' : h < 6 ? 'short' : h < 9 ? 'dim' : '';
 });
 ---
-<a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
-  <span class="shell" aria-hidden="true"></span>
-  <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-  <span class="label">
-    <span class="art" aria-hidden="true"><slot/></span>
-    <small>0{index + 1} / {kind}</small>
-    <strong>{name}</strong>
-    <em>{tagline}</em>
-  </span>
-  {full && <span class="edition-tag" aria-hidden="true">SPECIAL EDITION</span>}
-  <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
-</a>
+<div class="bay" style={`--i:${index}`}>
+  <svg class="ghost" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true"><path d="M13 1.5H178.5L198.5 21.5V248.5H8.7L1.5 241.3V13Q1.5 1.5 13 1.5Z"/></svg>
+  <a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
+    <span class="shell" aria-hidden="true"></span>
+    <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    <span class="label">
+      <span class="art" aria-hidden="true"><slot/></span>
+      <small>0{index + 1} / {kind}</small>
+      <strong>{name}</strong>
+      <em>{tagline}</em>
+    </span>
+    {full && <span class="edition-tag" aria-hidden="true">SPECIAL EDITION</span>}
+    <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
+  </a>
+</div>
 <style>
+/* The cartridge's spot on the shelf. While it's out (plugged in), a soft dashed outline marks
+   where it comes back to. */
+.bay{position:relative;display:grid}
+.ghost{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;opacity:0;transition:opacity .25s}
+.ghost path{vector-effect:non-scaling-stroke;fill:color-mix(in srgb,var(--ink) 3%,transparent);stroke:color-mix(in srgb,var(--ink) 28%,transparent);stroke-width:2;stroke-dasharray:7 6}
+.bay:has(:global(.plugging)) .ghost{opacity:1}
+
 /* Flat cartridge with a little depth: front face in the accent colour, a thick darker side face
    down the right and a bottom face, mitred at the corner. The notch and the bottom-left chamfer
    are the same 45° as the depth, so the silhouette reads as one solid block. No drop shadow. */
