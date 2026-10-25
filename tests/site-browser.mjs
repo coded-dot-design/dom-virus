@@ -178,6 +178,8 @@ try {
   // Battlefield has its own page and launches the app; Sherman Bytes can launch it too.
   await page.goto(base + "games/battlefield/");
   assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
+  // Cross-links between games are cartridge swaps (shared rule): Battlefield -> Sherman Bytes.
+  assert.match(await page.getByRole("link", { name: "Swap to Sherman Bytes" }).getAttribute("href"), /\?play=battlefield&next=sherman-bytes#console$/);
   assert.equal(await page.locator(".layers li").count(), 4);
   assert.equal(await page.locator(".battlefield-display .tank").count(), 4, "battlefield scene has two tanks a side");
   // Sherman Bytes can swap to Battlefield: home ejects Sherman, plugs Battlefield in, presses A,
@@ -202,7 +204,10 @@ try {
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true, "style guide link on phones too");
-  assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on small screens");
+  assert.equal(await page.locator(".footer-legal .mit").isVisible(), true, "normal phones keep MIT");
+  assert.ok(await page.locator(".footer-legal").evaluate((el) => [...el.children].every((c) => c.scrollWidth <= c.clientWidth + 1)), "footer lines fit on a normal phone");
+  await page.setViewportSize({ width: 320, height: 700 });
+  assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
   await page.setViewportSize(footerWidth);
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);

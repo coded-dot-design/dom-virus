@@ -295,6 +295,13 @@ shelf?.addEventListener("click", (event) => {
   event.preventDefault();
   unlockAudio();
   liftOut(cart);
+  // Swipe row (phones): a cartridge tapped half off-screen pulls its spot to the middle while it
+  // flies in, so the empty spot ends up right behind the console (as it is on the way back).
+  if (lifted(cart)) {
+    const bay = cart.dataset.cart && document.querySelector<HTMLElement>(`[data-bay="${cart.dataset.cart}"]`)!.getBoundingClientRect(),
+      row = shelf.getBoundingClientRect();
+    if (bay) shelf.scrollTo({ left: shelf.scrollLeft + bay.left - row.left - (row.width - bay.width) / 2, behavior: "smooth" });
+  }
   shelf.dataset.plugging = cart.dataset.cart!;
   cart.classList.add("plugging");
   const screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;

@@ -976,9 +976,13 @@ pre {
 .footer-legal .by-short {
   display: none;
 }
-@media (max-width: 560px) {
+/* Very small phones only: "By", no MIT (lines still truncate if needed). */
+@media (max-width: 360px) {
   .footer-legal .by-short {
     display: inline;
+  }
+  .footer-legal :is(.mit, .by-long) {
+    display: none;
   }
 }
 .footer-legal a {
@@ -1039,7 +1043,7 @@ pre {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .footer-legal :is(.oss, .mit, .by-long) {
+  .footer-legal .oss {
     display: none;
   }
   .footer-icons {

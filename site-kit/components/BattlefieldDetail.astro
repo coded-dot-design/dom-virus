@@ -1,4 +1,5 @@
 ---
+import { swapHref } from '../swap';
 import UiIcon from './UiIcon.astro';
 import PixelTank from './PixelTank.astro';
 // DOM Battlefield's page: how it is layered on Sherman Bytes, and how to launch it.
@@ -52,7 +53,7 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
       <p class="lead">Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. Lock targets, send wingmen, breach cover and repair at HQ. It is a separate app layered on Sherman Bytes: same tanks, its own battlefield.</p>
       <div class="actions" data-virus-ignore data-swarm-ignore>
         <a class="button primary" href={`${base}battlefield/`}><UiIcon name="play" size={18}/> Launch Battlefield</a>
-        {sherman && <a class="button quiet" href={`${base}games/sherman-bytes/`}>Sherman Bytes</a>}
+        {sherman && <a class="button quiet" href={swapHref(base, 'battlefield', 'sherman-bytes')} title="Ejects DOM Battlefield and plugs in Sherman Bytes">Swap to Sherman Bytes</a>}
         <a class="button quiet" href={`${repo}#readme`}>Read the source <UiIcon name="arrow-up-right" size={18}/></a>
       </div>
       <p class="credit">Created by <span>Chris Cooley</span> · coded.design</p>

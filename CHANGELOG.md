@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.26.5
+
+Site kit 1.30.5:
+- Phone swipe row: tapping a cartridge that's partly off-screen glides the row so its spot is centred behind the console while the cartridge flies in (matching the way back).
+- Cartridge swaps are a shared rule (site-kit/swap.ts `swapHref`): Battlefield's "Swap to Sherman Bytes" ejects Battlefield and plugs in Sherman, like Sherman → Battlefield. Documented in the style guide's motion rules.
+- Footer: normal phones show "Created by Chris Cooley" and "© <year> coded.design · MIT"; only very small screens (≤360px) switch to "By" and drop MIT.
+
 ## 0.26.4
 
 Site kit 1.30.4:

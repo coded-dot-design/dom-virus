@@ -41,6 +41,7 @@ const motion = [
   ['Hover / press', '140ms cubic-bezier(.2,.8,.2,1) · press 55ms', 'Transform + shadow share one curve. No overshoot.'],
   ['Cartridge flight', '820ms desktop · 760ms phone', 'Lift, glide, slide in. One rect read per flight.'],
   ['Eject', '900ms desktop · 800ms phone', 'The exact reverse of the flight, from the same seat.'],
+  ['Cartridge swap', 'Eject, then plug in · A pressed after 1.1s', 'A link from one game to another ejects the current cartridge and plugs in the next.'],
   ['Screen → page', 'View Transition 600ms cubic-bezier(.2,.8,.2,1)', 'The console screen morphs into the game display.'],
   ['Full game', 'Board 600ms clip + 550ms fold', 'The screen grows to the viewport; the board folds open.'],
   ['Idle loops', 'CSS steps(), paused offscreen', 'data-motion pauses anything you can’t see.'],
@@ -190,6 +191,9 @@ const motion = [
       <li><b>Reduced motion</b> Every loop stops; navigation becomes a plain link.</li>
       <li><b>Offscreen pause</b> Illustrations sleep when you scroll away.</li>
       <li><b>State in the URL</b> The page knows where you’re returning from before its first frame.</li>
+      <li><b>Swaps, not jumps</b> Game-to-game links never skip the console: they eject one cartridge and plug in the other (<code>swapHref(base, from, to)</code>).</li>
+      <li><b>One spot, one cartridge</b> On phones the row centres a cartridge’s spot as it flies in and before it flies home.</li>
+      <li><b>Never move the console</b> Launch and return start from the same seat, so the way back is an exact reverse.</li>
     </ul>
   </section>
 
