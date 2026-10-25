@@ -290,14 +290,22 @@ shelf?.addEventListener("click", (event) => {
 });
 // Where a plugged cartridge sits: bottom-centre anchored, pins down in the groove behind the lip,
 // scaled so it fits the hole.
+// Every cartridge goes in the same amount: just past its pins, so the bottom of the label meets
+// the slit. Measured without any hover lift so the depth never varies.
 function slotOffset(cart: HTMLElement) {
   cart.style.transformOrigin = "50% 100%";
+  cart.style.setProperty("transition", "none");
+  cart.style.setProperty("transform", "none", "important");
   const c = cart.getBoundingClientRect(),
+    label = cart.querySelector<HTMLElement>(".label")!.getBoundingClientRect(),
     hole = consoleEl!.querySelector<HTMLElement>(".hole")!.getBoundingClientRect();
+  cart.style.removeProperty("transform");
+  cart.style.removeProperty("transition");
+  const k = Math.min(1, (hole.width * 0.96) / c.width);
   return {
     dx: hole.left + hole.width / 2 - (c.left + c.width / 2),
-    dy: hole.bottom + c.height * 0.4 - c.bottom,
-    k: Math.min(1, (hole.width * 0.96) / c.width),
+    dy: hole.bottom + (c.bottom - label.bottom) * k - c.bottom,
+    k,
     h: c.height,
   };
 }

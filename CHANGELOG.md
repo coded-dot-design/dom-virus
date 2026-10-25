@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.3
+
+Site kit 1.24.3:
+- Pins: the dark connector recess cuts through the bottom face to the edge and the gold fingers wrap around the bottom.
+- Every cartridge goes into the console the same depth: just past its pins, so the label's bottom meets the slit (measured without any hover lift).
+
 ## 0.19.2
 
 Site kit 1.24.2:

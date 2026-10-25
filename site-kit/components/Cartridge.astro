@@ -48,12 +48,14 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 small{font:9px/1.3 var(--mono);letter-spacing:.5px;color:var(--faint)}
 strong{font-size:18px;line-height:1.15}
 em{font-style:normal;font-size:12px;color:var(--muted)}
-/* Edge connector: gold fingers in a dark recess, a few worn short, tarnished or missing. */
-.pins{display:flex;align-items:flex-end;gap:3px;margin:8px 4px 8px;padding:0 5px;background:#0b0a1a;border-radius:3px 3px 0 0}
-.pins i{flex:1;height:calc(100% - 3px);background:linear-gradient(#ffe7a6 0 3px,#ffc94a 3px);border-radius:2px 2px 0 0}
-.pins i.short{height:50%}
-.pins i.dim{background:linear-gradient(#cfae63 0 3px,#9a7a38 3px)}
-.pins i.gone{height:3px;background:#3a3350}
+/* Edge connector: a dark recess cut through the bottom face to the edge; gold fingers run down
+   it and wrap around the bottom (the darker gold in the bottom-face band). A few are worn short,
+   tarnished or missing. */
+.pins{--wrap:8px;display:flex;align-items:flex-end;gap:3px;margin:8px 4px 0;padding:0 5px;background:#0b0a1a;border-radius:3px 3px 0 0}
+.pins i{flex:1;height:calc(100% - 3px);background:linear-gradient(to top,#a8771d 0 var(--wrap),#ffc94a var(--wrap) calc(100% - 3px),#ffe7a6 calc(100% - 3px));border-radius:2px 2px 0 0}
+.pins i.short{height:55%}
+.pins i.dim{background:linear-gradient(to top,#6f5524 0 var(--wrap),#9a7a38 var(--wrap) calc(100% - 3px),#cfae63 calc(100% - 3px))}
+.pins i.gone{height:var(--wrap);background:#3a3350}
 /* Special edition: just the sticker. */
 .edition-tag{position:absolute;right:18px;bottom:46px;padding:3px 6px;font:700 8px/1 var(--mono);letter-spacing:1px;color:#07060f;background:#f4457a;border:2px solid var(--ink);border-radius:3px;rotate:-4deg}
 @media (max-width:420px){.cartridge{min-height:220px;padding:0 13px 0 9px}strong{font-size:15px}}
