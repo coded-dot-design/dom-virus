@@ -57,7 +57,7 @@ try {
       await page.getByRole("button", { name: /^Switch to (light|dark) theme$/ }).click();
     assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), theme);
   };
-  const system = page.locator(".system-map");
+  const uth = page.locator("[data-lab-page]");
   // Home is the DOM Virus hero plus a cartridge shelf; each game lives on its own page.
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
@@ -220,8 +220,64 @@ try {
   await page.setViewportSize(footerWidth);
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
-  for (const selector of [".engineering", ".embed-section"])
+  for (const selector of [".uth", ".embed-section"])
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
+  // Under the hood is a lab: one shared engine loop runs the labs on screen and sleeps the rest.
+  assert.equal(await uth.locator("[data-lab]").count(), 5);
+  assert.match(await uth.locator("#origin-title").textContent(), /Bolo/);
+  const hud = uth.locator("[data-engine-hud]");
+  const duelLab = uth.locator('[data-lab="duel"]');
+  await duelLab.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => window.__lab?.running());
+  await duelLab.locator('[data-fire="0"]').click();
+  await page.waitForFunction(() => document.querySelector('[data-score="0"]').textContent !== "00");
+  assert.notEqual(await hud.locator("[data-hud-fps]").textContent(), "--", "HUD shows live FPS");
+  // Board: X-ray draws what the game reads; the factory spawns bugs up to the cap; bugs move.
+  const boardLab = uth.locator('[data-lab="board"]');
+  await boardLab.scrollIntoViewIfNeeded();
+  await boardLab.locator("[data-xray]").click();
+  assert.equal(await boardLab.locator("[data-xray]").getAttribute("aria-pressed"), "true");
+  assert.equal(await boardLab.locator(".xray b").count(), 4);
+  assert.equal(await boardLab.locator(".xray b span").first().evaluate((el) => el.children.length), 0, "labels are text, not tags");
+  for (let i = 0; i < 8; i++) await boardLab.locator("[data-factory]").click();
+  assert.equal(await boardLab.locator("[data-bug-count]").textContent(), "BUGS 6 / 6 · CAP");
+  const bugAt = () => boardLab.locator(".bugs i").first().evaluate((el) => el.style.transform);
+  const firstBug = await bugAt();
+  await page.waitForTimeout(200);
+  assert.notEqual(await bugAt(), firstBug, "bugs walk");
+  // Pool: 32 slots, the cap rejects, nothing is allocated after start.
+  const poolLab = uth.locator('[data-lab="pool"]');
+  await poolLab.scrollIntoViewIfNeeded();
+  const sparks = await poolLab.locator(".arena i").count();
+  for (let i = 0; i < 6; i++) await poolLab.locator("[data-spawn]").click();
+  assert.equal(sparks, 32);
+  assert.equal(await poolLab.locator(".arena i").count(), 32, "no new nodes");
+  assert.match(await poolLab.locator("[data-pool-readout]").textContent(), /ACTIVE 32 \/ 32 · REJECTED [1-9]\d* · ALLOCATIONS 0/);
+  // Recall: the game owns its digits; the app's edit wins; Recall restores only the game's.
+  const recallLab = uth.locator('[data-lab="recall"]');
+  await recallLab.scrollIntoViewIfNeeded();
+  const victim = recallLab.locator("[data-victim]");
+  const original = await victim.textContent();
+  for (let i = 0; i < 3; i++) await recallLab.locator("[data-hit]").click();
+  const hitText = await victim.textContent();
+  assert.equal(hitText.length, original.length);
+  assert.equal([...hitText].filter((c, i) => c !== original[i] && /[01]/.test(c)).length, 3);
+  assert.equal(await victim.evaluate((el) => el.childNodes.length), 1, "still one text node");
+  await recallLab.locator("[data-app-edit]").click();
+  await recallLab.locator("[data-recall]").click();
+  const after = await victim.textContent();
+  assert.equal([...after].filter((c, i) => c !== original[i]).length, 1, "only the app's edit is left");
+  assert.ok(after.includes("*"));
+  await recallLab.locator("[data-recall]").click();
+  assert.equal(await victim.textContent(), original, "second Recall reloads the page text");
+  // Pipeline ships itself once when it comes into view.
+  const shipLab = uth.locator('[data-lab="pipeline"]');
+  await shipLab.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => document.querySelector("[data-ship-readout]").textContent.startsWith("LIVE"), null, { timeout: 8000 });
+  assert.equal(await shipLab.locator(".stages li.lit").count(), 5);
+  // Scroll away: every lab sleeps and the loop stops.
+  await page.locator(".site-footer").scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => !window.__lab.running());
 
   for (const theme of ["dark", "light"]) {
     await page.goto(base);
@@ -238,50 +294,12 @@ try {
     await page.waitForTimeout(900);
     await page.locator(".cartridge-shelf").screenshot({ path: `${output}/shelf-${theme}.png` });
     await page.goto(base + "under-the-hood/");
-    await system.scrollIntoViewIfNeeded();
-    await page.waitForFunction(
-      () => document.querySelector(".system-map").dataset.motion === "true",
-    );
-    const arrow = system.locator(".map-exchange .ui-icon").first();
-    assert.equal(
-      await arrow.evaluate((el) => getComputedStyle(el).animationPlayState),
-      "running",
-    );
-    const animation = await arrow.evaluate(
-      (el) => el.getAnimations()[0].currentTime,
-    );
-    await page.waitForTimeout(120);
-    assert.ok(
-      (await arrow.evaluate((el) => el.getAnimations()[0].currentTime)) >
-        animation,
-    );
-    await system
-      .getByRole("button", { name: "Pause diagram animation" })
-      .click();
-    assert.equal(
-      await arrow.evaluate((el) => getComputedStyle(el).animationPlayState),
-      "paused",
-    );
-    const stopped = await arrow.evaluate(
-      (el) => el.getAnimations()[0].currentTime,
-    );
-    await page.waitForTimeout(80);
-    assert.ok(
-      Math.abs(
-        (await arrow.evaluate((el) => el.getAnimations()[0].currentTime)) -
-          stopped,
-      ) < 20,
-    );
-    await system
-      .getByRole("button", { name: "Resume diagram animation" })
-      .click();
-    await system.screenshot({ path: `${output}/diagram-${theme}.png` });
-    await page
-      .locator(".tick-map")
-      .screenshot({ path: `${output}/loop-${theme}.png` });
-    await page
-      .locator(".ownership-map")
-      .screenshot({ path: `${output}/recall-${theme}.png` });
+    for (const lab of ["duel", "board", "pool", "recall", "pipeline"]) {
+      const el = uth.locator(`[data-lab="${lab}"]`);
+      await el.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(lab === "pipeline" ? 3600 : 400);
+      await el.screenshot({ path: `${output}/lab-${lab}-${theme}.png` });
+    }
     const code = page.locator(".code-example").first();
     await code.scrollIntoViewIfNeeded();
     const colors = await code
@@ -302,29 +320,11 @@ try {
     assert.equal(await code.locator(".copied-icon").isVisible(), true);
     assert.equal(await code.locator(".copy-icon").count(), 1);
     await code.screenshot({ path: `${output}/code-${theme}.png` });
-    await page
-      .locator(".technical-grid")
-      .first()
-      .screenshot({ path: `${output}/engineering-${theme}.png` });
-    await page
-      .locator(".deep-dive")
-      .first()
-      .screenshot({ path: `${output}/budgets-${theme}.png` });
-    const sizes = page.locator(".deep-dive").nth(1);
-    await sizes.locator("summary").click();
-    await sizes.screenshot({ path: `${output}/sizes-${theme}.png` });
-    await sizes.locator("summary").click();
+    await uth.locator(".spec").screenshot({ path: `${output}/spec-${theme}.png` });
     await page
       .locator(".embed-game")
       .first()
       .screenshot({ path: `${output}/embed-${theme}.png` });
-    await page.waitForFunction(
-      () => document.querySelector(".system-map").dataset.motion === "false",
-    );
-    assert.equal(
-      await arrow.evaluate((el) => getComputedStyle(el).animationPlayState),
-      "paused",
-    );
   }
 
   const pages = ["", "under-the-hood/", "games/byte-runner/", "games/battlefield/", "archive/", "style-guide/"];
@@ -365,8 +365,8 @@ try {
             .locator(".hero-grid")
             .screenshot({ path: `${output}/hero-${width}-${theme}.png` });
         if (path === "under-the-hood/")
-          await system.screenshot({
-            path: `${output}/diagram-${width}-${theme}.png`,
+          await uth.locator('[data-lab="duel"]').screenshot({
+            path: `${output}/duel-${width}-${theme}.png`,
           });
       }
     }
@@ -401,15 +401,15 @@ try {
   assert.equal(await page.locator(".hx-layer,.hx-foes").count(), 0, "reduced motion restores the poster");
   assert.equal(await promo.evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
   await page.goto(base + "under-the-hood/");
-  await system.scrollIntoViewIfNeeded();
-  assert.equal(await system.locator(".motion-toggle").isVisible(), false);
-  const running = await page
-    .locator(".system-map,.tick-map,.ownership-map,.hero-crossover")
-    .evaluateAll(
-      (nodes) =>
-        nodes.flatMap((el) => el.getAnimations({ subtree: true })).length,
-    );
-  assert.equal(running, 0);
+  // Reduced motion: no attract modes; the buttons still work and land instantly.
+  await uth.locator('[data-lab="duel"]').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1800);
+  assert.equal(await page.locator('[data-score="1"]').textContent(), "00", "no auto duel");
+  await page.locator('[data-fire="1"]').click();
+  assert.equal(await page.locator('[data-score="1"]').textContent(), "01");
+  const bugBefore = await uth.locator(".bugs i").first().evaluate((el) => el.style.transform);
+  await page.waitForTimeout(200);
+  assert.equal(await uth.locator(".bugs i").first().evaluate((el) => el.style.transform), bugBefore, "bugs stay put");
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto(base + "games/byte-runner/");
   await page.locator('[data-launch="byte-runner"]').click();

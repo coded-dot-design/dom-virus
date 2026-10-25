@@ -23,6 +23,7 @@ full of easter eggs, and high-performance on phones. Not "vibe-coded".
 | Hero art / hero mini-game | `site-kit/components/HeroScene.astro`, `site-kit/hero-game.ts` |
 | Game pages / Battlefield info page | `site-kit/components/GameSection.astro`, `BattlefieldDetail.astro` |
 | Style guide + case study | `site-kit/components/StyleGuide.astro` |
+| Under the hood page (live labs + engine HUD) | `site-kit/components/UnderTheHood.astro`, `site-kit/lab.ts` |
 | Shared tokens, global buttons, layout | `site-kit/style.css` |
 | Engine runtime, touch controls | `src/runtime.ts`, `src/touch-controls.ts` (then `npm run sync:games`) |
 | Which game versions the hub ships | `games.json`, `battlefield.json` |
@@ -72,6 +73,15 @@ DOM VIRUS is a set of tiny arcade games that play on the page you are reading. H
 and paragraphs become terrain, food, enemies and cover. The hub site is itself the showcase: navigation
 is a game (cartridges, a console), every surface obeys one 3D press rule, and motion is cheap
 (CSS + WAAPI transforms) so it stays smooth on phones.
+
+**Where it comes from (the "why" behind every game):** Bolo. In an early-90s middle-school
+engineering tech class in the Bay Area, the lesson was how computers talk to each other, and the
+reward for finishing your work was a networked game of Bolo across the classroom. Hitting a tank that
+someone else was driving from the other side of the room felt close to magic in 1990. The creator
+now builds enterprise software, and DOM VIRUS is a small tribute to that feeling: real machines,
+real elements, real play. Keep that tone when writing copy: warm, specific, a little nerdy, never
+nostalgic for its own sake. It is told on the Under the hood page (lab 00). That's also why
+multiplayer is on the roadmap (see FUTURE.md).
 
 ## 2. Repositories
 

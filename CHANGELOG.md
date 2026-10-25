@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.28.0 — Under the hood, rebuilt as a lab
+
+Site kit 1.32.0:
+- Under the hood is now a set of live labs on one tiny engine loop (site-kit/lab.ts), with an engine HUD (FPS, entities, labs awake). Labs off screen sleep; with reduced motion nothing plays on its own.
+- 00 Insert coin · 1990: where DOM VIRUS comes from. Bolo across a Bay Area classroom, as a two-Mac duel you can play (packets cross the cable).
+- 01 The board: X-ray shows the rectangles a game reads; bugs walk around real elements; the button is a factory; tap a bug to squash it.
+- 02 One loop: a 32-slot pool with a hard cap, a frame meter and ALLOCATIONS 0.
+- 03 Recall: hits rewrite one Text node; the app's edit wins; Recall restores only the game's letters.
+- 04 Spec sheet cards and live package sizes; 05 a release pipeline you can ship.
+- Style guide case study: "Where it started". Docs: Bolo origin in HANDOFF; multiplayer plan in FUTURE.
+
 ## 0.27.0 — Phase one
 
 Site kit 1.31.0:

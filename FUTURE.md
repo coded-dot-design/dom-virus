@@ -79,6 +79,25 @@ a consistent adapter.
 - Content Security Policy for the static site (no inline JS beyond the two documented head scripts,
   or hash them).
 
+### Multiplayer: two players, two pages, one battle (the Bolo promise)
+
+The whole project started with Bolo: two people, two machines, one network, a tank on the other side
+of the room. Single-player DOM games prove the board; multiplayer is what made it feel like magic,
+so it's the headline feature for a later version.
+
+- **Why:** it closes the loop on the origin story, it's the most shareable thing a DOM game can do
+  ("my page vs. your page"), and it stresses the engine in honest ways (determinism, input latency,
+  bandwidth).
+- **First cut:** 2-player Sherman Bytes or Battlefield. Peer to peer over WebRTC data channels, with a
+  tiny signalling step (share a link or a short code). No game server; the static-site rule holds.
+- **Model:** lockstep or rollback on inputs only (the sim is already fixed-step and pooled), so a
+  packet is a few bytes per tick. Each player's own page is their board; the opponent appears as a
+  ghost tank. A shared "arena page" mode for when both should fight on the same document.
+- **Couch mode:** two players on one keyboard/pad as the zero-network fallback, which is also how to
+  test the rules first.
+- **Under the hood:** lab 00 already shows the idea (two Macs, packets on a cable). Once it ships,
+  that lab becomes a real link-up demo.
+
 ### Product
 
 - More cartridges: the shelf, the count badge and the swipe row are data-driven, so adding a game is

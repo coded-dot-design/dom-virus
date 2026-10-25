@@ -231,6 +231,8 @@ const motion = [
     <div class="sg-head"><span class="eyebrow"><span class="index">10</span> CASE STUDY</span><h2>From one long page to a cartridge console.</h2></div>
     <div class="sg-case-body">
       <div class="sg-case-col">
+        <h3>Where it started</h3>
+        <p>Bolo, a networked tank game, played across a middle-school engineering tech class in the early-90s Bay Area. The brief hasn’t changed since: make the machines talk, and make it feel like magic. <a class="sg-inline" href={`${base}under-the-hood/`}>The story is under the hood.</a></p>
         <h3>The problem</h3>
         <p>The first DOM VIRUS site said everything at once. Four games, the engineering story, performance budgets and embed docs lived in one long scroll. Every game competed for the same attention, the page was hard to scan, and there was no sense of where you were or how to get back.</p>
         <h3>The idea</h3>
@@ -380,6 +382,8 @@ code{font:11px var(--mono);color:var(--faint)}
 .sg-quote cite{font-style:normal;font-size:12px;color:var(--muted)}
 
 /* Case study */
+.sg-inline{color:var(--accent-text,var(--accent));font-weight:700;text-decoration:none}
+.sg-inline:hover{text-decoration:underline;text-underline-offset:3px}
 .sg-case .sg-head{max-width:none}
 .sg-case-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 48px;padding:30px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);box-shadow:7px 7px 0 var(--accent)}
 .sg-case-col p{margin:0 0 22px;color:var(--muted);font-size:15px}

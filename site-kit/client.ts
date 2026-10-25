@@ -771,6 +771,9 @@ if (gamesLink && shelf) {
     sync();
   });
 }
+// Under the hood: the labs load their tiny engine only on that page.
+const labPage = document.querySelector<HTMLElement>("[data-lab-page]");
+if (labPage) void import("./lab").then(({ startLabs }) => startLabs(labPage));
 // Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
 // tiny contained game (only then). Reduced-motion visitors keep the still poster.
 const hero = document.querySelector<HTMLElement>(".hero-crossover");
