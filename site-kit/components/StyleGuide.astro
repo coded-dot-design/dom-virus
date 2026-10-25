@@ -1,0 +1,410 @@
+---
+// The DOM VIRUS style guide: brand, colour, type, the 3D rule, components, motion, icons, voice,
+// the cartridge line-up, and a short case study of the navigation redesign. Everything shown is
+// the real thing (real tokens, real components) so the guide can't drift from the site.
+import Cartridge from './Cartridge.astro';
+import Icon from './AbstractIcon.astro';
+import UiIcon from './UiIcon.astro';
+import markSvg from '../assets/dom-virus-icon.svg?raw';
+import appIcon from '../assets/dom-virus-app-icon.svg?raw';
+import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
+const { games = [], base = '/' } = Astro.props;
+
+const sections = [
+  ['brand', 'Brand'], ['colour', 'Colour'], ['type', 'Type'], ['depth', '3D rule'], ['components', 'Components'],
+  ['motion', 'Motion'], ['icons', 'Icons'], ['voice', 'Voice'], ['line-up', 'Line-up'], ['case-study', 'Case study'],
+];
+const dark = [
+  ['bg', '#100a1b'], ['surface', '#1a112b'], ['raised', '#281b40'], ['line', '#49345e'],
+  ['faint', '#b39acd'], ['muted', '#cec0e0'], ['ink', '#fff4ff'], ['accent', '#f4457a'],
+];
+const light = [
+  ['bg', '#f6f7f8'], ['surface', '#ffffff'], ['raised', '#edf0f2'], ['line', '#d1d7de'],
+  ['faint', '#586577'], ['muted', '#4d5866'], ['ink', '#171022'], ['accent-text', '#bf2d5b'],
+];
+const accents = [
+  ['Sherman Bytes', 'amber', '#ee6875'], ['DOM Battlefield', 'cyan', '#06c4ff'], ['Swarm Protocol', 'violet', '#8573ee'],
+  ['Byte Runner', 'lime', '#4bce82'], ['Null Invaders', 'cyan', '#06c4ff'], ['Console / brand', 'pink', '#f4457a'],
+  ['Contact gold', 'pins', '#ffc94a'], ['Screen black', 'console', '#07060f'],
+];
+const uiIcons = ['cartridge', 'chip', 'eject', 'github', 'globe', 'palette', 'sun', 'moon', 'play', 'pause', 'copy', 'check', 'code', 'browser', 'layers', 'target', 'clock', 'recall', 'arrow-up-right', 'chevron-down'];
+const pixel = ['tank', 'ship', 'runner', 'bug', 'fly-chaser', 'fly-interceptor'];
+const g = (id) => games.find((x) => x.id === id) || {};
+const lineUp = [
+  ['01', 'Sherman Bytes', 'DOM TANK TACTICS', 'amber', 'PRESS START → game page'],
+  ['02', 'DOM Battlefield', 'SQUAD TACTICS · special edition', 'cyan', 'BLUE INFO → detail page · RED LAUNCH → full game'],
+  ['03', 'Swarm Protocol', 'DOM DEFENSE', 'violet', 'PRESS START → game page'],
+  ['04', 'Byte Runner', 'DOM CHASE', 'lime', 'PRESS START → game page'],
+  ['05', 'Null Invaders', 'DOM SHOOTER', 'cyan', 'PRESS START → game page'],
+];
+const motion = [
+  ['Hover / press', '140ms cubic-bezier(.2,.8,.2,1) · press 55ms', 'Transform + shadow share one curve. No overshoot.'],
+  ['Cartridge flight', '820ms desktop · 760ms phone', 'Lift, glide, slide in. One rect read per flight.'],
+  ['Eject', '900ms desktop · 800ms phone', 'The exact reverse of the flight, from the same seat.'],
+  ['Screen → page', 'View Transition 600ms cubic-bezier(.2,.8,.2,1)', 'The console screen morphs into the game display.'],
+  ['Full game', 'Board 600ms clip + 550ms fold', 'The screen grows to the viewport; the board folds open.'],
+  ['Idle loops', 'CSS steps(), paused offscreen', 'data-motion pauses anything you can’t see.'],
+];
+---
+<section class="style-guide" aria-labelledby="sg-title">
+  <header class="sg-hero">
+    <div class="eyebrow"><span class="index">SYS</span> BRAND / STYLE GUIDE</div>
+    <h1 id="sg-title">The DOM is<br/><em>the game board.</em></h1>
+    <p class="lead">How DOM VIRUS looks, moves and talks: a flat, neon, hard-shadow world where every surface is something you can press, and every game ships as a cartridge.</p>
+    <nav class="sg-toc" aria-label="Style guide sections">{sections.map(([id, label], i) => <a href={`#${id}`}><b>{String(i + 1).padStart(2, '0')}</b>{label}</a>)}</nav>
+  </header>
+
+  <!-- 01 BRAND -->
+  <section id="brand" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">01</span> BRAND</span><h2>One skull. Many games.</h2></div>
+    <div class="sg-grid two">
+      <figure class="card sg-mark-card">
+        <div class="sg-mark-stage"><span class="sg-mark" set:html={markSvg}></span><span class="sg-clear" aria-hidden="true"></span></div>
+        <figcaption><strong>The mark</strong> A 64-unit pixel skull with a single offset pixel: the virus "infecting" the grid. Clear space = one eye width on every side. Always crisp-edged; never smoothed, outlined or rotated.</figcaption>
+      </figure>
+      <div class="sg-stack">
+        <div class="card sg-lockup">
+          <span class="sg-lock-mark" set:html={markSvg}></span><span><b>DOM VIRUS</b><small>The DOM is the game board.</small></span>
+        </div>
+        <div class="sg-grid three sg-minis">
+          <figure class="card sg-mini"><span class="sg-app" set:html={appIcon}></span><figcaption>App icon<br/><small>full-bleed, no border (iOS)</small></figcaption></figure>
+          <figure class="card sg-mini"><span class="sg-app" set:html={battlefieldIcon}></span><figcaption>Battlefield<br/><small>skull on the grid</small></figcaption></figure>
+          <figure class="card sg-mini"><span class="sg-sticker"><span set:html={markSvg}></span></span><figcaption>Sticker<br/><small>on every cartridge</small></figcaption></figure>
+        </div>
+        <ul class="sg-dos card">
+          <li class="do">Pink mark on dark or light ground</li>
+          <li class="do">Mono wordmark, wide tracking</li>
+          <li class="dont">No gradients, glows or bevels on the mark</li>
+          <li class="dont">Don’t recolour per game: games carry the accent, the mark stays pink</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 COLOUR -->
+  <section id="colour" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">02</span> COLOUR</span><h2>Night first. Neon on purpose.</h2><p>Two themes share one set of tokens. Dark is home; light is the same world at noon. Each game owns one accent, used for its cartridge, its hard shadows and its screen.</p></div>
+    <div class="sg-palettes">
+      <div><h3>Dark tokens</h3><ul class="sg-swatches">{dark.map(([n, hex]) => <li><i style={`background:${hex}`}></i><b>--{n}</b><code>{hex}</code></li>)}</ul></div>
+      <div><h3>Light tokens</h3><ul class="sg-swatches">{light.map(([n, hex]) => <li><i style={`background:${hex}`}></i><b>--{n}</b><code>{hex}</code></li>)}</ul></div>
+    </div>
+    <h3>Game accents</h3>
+    <ul class="sg-accents">{accents.map(([name, key, hex]) => <li><i style={`background:${hex}`}></i><span><b>{name}</b><code>{key} · {hex}</code></span></li>)}</ul>
+  </section>
+
+  <!-- 03 TYPE -->
+  <section id="type" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">03</span> TYPE</span><h2>Plain sans. Machine mono.</h2><p>No web fonts, no downloads: a system sans for reading and the platform monospace for everything the machine says.</p></div>
+    <div class="sg-grid two">
+      <div class="card sg-type">
+        <span class="sg-tag">SANS · Inter, Arial, Helvetica, sans-serif</span>
+        <p class="t-h1">Pick a cartridge.</p>
+        <p class="t-h2">Small games. Serious engineering.</p>
+        <p class="t-lead">Each game plays across the page you are reading.</p>
+        <p class="t-body">Body copy is short, plain and friendly. One idea per paragraph; the page should feel quick to read.</p>
+      </div>
+      <div class="card sg-type mono">
+        <span class="sg-tag">MONO · ui-monospace, SFMono-Regular, Consolas</span>
+        <p class="t-screen">INSERT CARTRIDGE</p>
+        <p class="t-eyebrow">INSERT CURIOSITY. PRESS PLAY.</p>
+        <p class="t-label">01 / DOM TANK TACTICS</p>
+        <p class="t-label">© 2026 coded.design · MIT</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 3D RULE -->
+  <section id="depth" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">04</span> THE 3D RULE</span><h2>Every surface can be pressed.</h2><p>Objects are flat faces over a hard, offset base. Depth always falls down and to the right.</p></div>
+    <div class="sg-grid two">
+      <ol class="sg-rules card">
+        <li><b>Rest</b> The top surface sits over its base, offset (S, S).</li>
+        <li><b>Hover</b> Only the top lifts. The shadow grows by the same amount, so the base never moves.</li>
+        <li><b>Press</b> The top lands exactly on the base: translate(S, S), shadow 0.</li>
+        <li><b>Selected</b> Stays pressed in, so state is visible without colour alone.</li>
+        <li><b>Easing</b> Transform and shadow share one curve. No overshoot: a bounce would push the top through its base.</li>
+      </ol>
+      <div class="card sg-demo">
+        <p class="sg-tag">LIVE: hover and press these</p>
+        <div class="sg-demo-row">
+          <a class="button primary" href="#depth">Primary</a>
+          <a class="button quiet" href="#depth">Quiet</a>
+          <button class="sg-square" type="button" aria-label="Icon button"><UiIcon name="cartridge" size={20}/></button>
+          <button class="sg-square" type="button" aria-pressed="true" aria-label="Selected icon button"><UiIcon name="chip" size={20}/></button>
+        </div>
+        <div class="sg-depth" aria-hidden="true"><span class="top">TOP</span><span class="base">BASE</span></div>
+        <p class="sg-note">The console and the cartridges follow the same rule as solid 45° extrusions: the cartridge side is 7px, the console 14px.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 COMPONENTS -->
+  <section id="components" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">05</span> COMPONENTS</span><h2>Cartridges, console, controls.</h2></div>
+    <div class="sg-grid sg-carts">
+      <div class="sg-cart-wrap">
+        <Cartridge id="sg-runner" href="#components" accent="lime" index={3} kind="DOM CHASE" name="Byte Runner" tagline="Follow the bites. Eat the page."><Icon kind="runner" size={44}/></Cartridge>
+        <p class="sg-cap"><b>Standard</b> One action: PRESS START.</p>
+      </div>
+      <div class="sg-cart-wrap">
+        <Cartridge id="sg-battlefield" href="#components" accent="cyan" index={1} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon." actions={[{ pad: 'a', label: 'LAUNCH', href: '#components', launch: 'board' }, { pad: 'b', label: 'INFO', href: '#components', launch: 'screen' }]}><Fragment set:html={battlefieldIcon}/></Cartridge>
+        <p class="sg-cap"><b>Special edition</b> A full game: two actions and a sticker.</p>
+      </div>
+      <ul class="sg-anatomy card">
+        <li><b>Shell</b> Accent front face, 2px ink outline.</li>
+        <li><b>Notch</b> 22px, 45°, the same angle as the depth.</li>
+        <li><b>Side + bottom faces</b> Darker accent, mitred at the corner.</li>
+        <li><b>Grip</b> Five ridges along the top.</li>
+        <li><b>Label</b> Art, number / kind, name, tagline.</li>
+        <li><b>Pins</b> Gold fingers that wrap under the edge; a few worn, tarnished or missing.</li>
+        <li><b>Sticker</b> A skull slapped on as an afterthought; some peel.</li>
+      </ul>
+    </div>
+    <div class="sg-grid two">
+      <figure class="card sg-console-fig">
+        <div class="sg-console" aria-hidden="true">
+          <div class="sg-screen"><span>INSERT CARTRIDGE</span></div>
+          <div class="sg-pad"><i class="dpad"></i><i class="pill"></i><i class="pill"></i><i class="b"></i><i class="a"></i></div>
+          <i class="led"></i><i class="led two"></i>
+        </div>
+        <figcaption><strong>The console</strong> The navigation. A cartridge slides in behind the flat top edge; the screen boots in the game’s accent; BLUE and RED map to the cartridge’s actions. The console never moves, so leaving and coming back are exact mirrors.</figcaption>
+      </figure>
+      <figure class="card sg-touch-fig">
+        <div class="sg-touch" aria-hidden="true">
+          <span class="stick"><i></i></span>
+          <span class="side"><span class="sec">PILLBOX</span><span class="fire"><svg viewBox="0 0 20 20"><path d="M10 1v5M10 14v5M1 10h5M14 10h5"/><circle cx="10" cy="10" r="5"/></svg></span></span>
+        </div>
+        <figcaption><strong>Touch controls</strong> One shared kit for every game: an analog stick (8-way, or 4-way for mazes), a round pink Fire and cyan secondary buttons, all on the same press rule.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 06 MOTION -->
+  <section id="motion" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">06</span> MOTION</span><h2>Alive, cheap, reversible.</h2><p>Motion is the map: it tells you where you came from and how to get back. It is also cheap: CSS and WAAPI transforms only, no layout in animation frames, no framework, mini-games loaded on the first tap.</p></div>
+    <div class="sg-table card"><table>
+      <thead><tr><th>Moment</th><th>Timing</th><th>Why</th></tr></thead>
+      <tbody>{motion.map(([a, b, c]) => <tr><td>{a}</td><td><code>{b}</code></td><td>{c}</td></tr>)}</tbody>
+    </table></div>
+    <ul class="sg-principles">
+      <li><b>Reduced motion</b> Every loop stops; navigation becomes a plain link.</li>
+      <li><b>Offscreen pause</b> Illustrations sleep when you scroll away.</li>
+      <li><b>State in the URL</b> The page knows where you’re returning from before its first frame.</li>
+    </ul>
+  </section>
+
+  <!-- 07 ICONS -->
+  <section id="icons" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">07</span> ICONS</span><h2>Line for UI. Pixels for play.</h2><p>Interface icons are 24-unit, 1.8 stroke, round caps. Game art is crisp-edged pixels. Never mix the two in one control.</p></div>
+    <ul class="sg-icons">{uiIcons.map((n) => <li><UiIcon name={n} size={22}/><code>{n}</code></li>)}</ul>
+    <ul class="sg-icons pixel">{pixel.map((k) => <li><Icon kind={k} size={36}/><code>{k}</code></li>)}<li><span class="sg-px-mark" set:html={markSvg}></span><code>skull</code></li></ul>
+  </section>
+
+  <!-- 08 VOICE -->
+  <section id="voice" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">08</span> VOICE</span><h2>Short. Playful. Arcade.</h2></div>
+    <div class="sg-grid three">
+      <blockquote class="card sg-quote"><p>Pick a cartridge.</p><cite>Headlines are commands, not descriptions.</cite></blockquote>
+      <blockquote class="card sg-quote mono"><p>INSERT CARTRIDGE</p><cite>The machine speaks in caps, in mono.</cite></blockquote>
+      <blockquote class="card sg-quote"><p>Eject cartridge</p><cite>Name the action by what the world does.</cite></blockquote>
+      <blockquote class="card sg-quote"><p>Same page. Different rules.</p><cite>Two beats, full stops, no hype.</cite></blockquote>
+      <blockquote class="card sg-quote mono"><p>BLUE INFO · RED LAUNCH</p><cite>Controls are named by colour and verb.</cite></blockquote>
+      <blockquote class="card sg-quote"><p>Hit Recall to give the page back.</p><cite>Always tell people how to undo.</cite></blockquote>
+    </div>
+  </section>
+
+  <!-- 09 LINE-UP -->
+  <section id="line-up" class="sg-block">
+    <div class="sg-head"><span class="eyebrow"><span class="index">09</span> LINE-UP</span><h2>Five cartridges.</h2></div>
+    <div class="sg-table card"><table>
+      <thead><tr><th>#</th><th>Cartridge</th><th class="sg-kind">Kind</th><th>Accent</th><th>On the console</th></tr></thead>
+      <tbody>{lineUp.map(([n, name, kind, acc, does]) => <tr><td><code>{n}</code></td><td><b>{name}</b></td><td class="sg-kind"><code>{kind}</code></td><td><span class={`sg-dot ${acc}`}></span>{acc}</td><td>{does}</td></tr>)}</tbody>
+    </table></div>
+  </section>
+
+  <!-- 10 CASE STUDY -->
+  <section id="case-study" class="sg-block sg-case">
+    <div class="sg-head"><span class="eyebrow"><span class="index">10</span> CASE STUDY</span><h2>From one long page to a cartridge console.</h2></div>
+    <div class="sg-case-body">
+      <div class="sg-case-col">
+        <h3>The problem</h3>
+        <p>The first DOM VIRUS site said everything at once. Four games, the engineering story, performance budgets and embed docs lived in one long scroll. Every game competed for the same attention, the page was hard to scan, and there was no sense of where you were or how to get back.</p>
+        <h3>The idea</h3>
+        <p>Make navigation the first game. Each game became a physical cartridge on a shelf, and a console became the menu. Plug one in, it boots in the game’s colour, press start, and the console screen morphs into the game’s own page. The full game, DOM Battlefield, is a special edition with two actions on the console: BLUE for info, RED to launch.</p>
+      </div>
+      <div class="sg-case-col">
+        <h3>Orientation through motion</h3>
+        <p>Coming back plays the exact reverse: the page morphs back into the screen, the cartridge pops out and flies home. While it’s out, its empty slot shows a faded cover, so the shelf remembers. The return state lives in the URL, so the page arrives already docked, with no flash and no guessing.</p>
+        <h3>The result</h3>
+        <p>Fewer things on screen at once, and a home page that is fun to use. Deep details moved to one page per game and to each game’s README; the engineering moved under the hood. It stays fast: CSS and WAAPI transforms, no framework, mini-games that load only on the first tap.</p>
+        <a class="button primary sg-archive" href={`${base}archive/`}>See the original one-page site <UiIcon name="arrow-up-right" size={16}/></a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<style>
+.style-guide{max-width:1200px;margin:0 auto;padding:56px 30px 90px}
+.sg-hero{padding-bottom:28px;border-bottom:1px solid var(--line)}
+.sg-hero h1{margin:14px 0 12px;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.03em}
+.sg-hero h1 em{font-style:normal;color:var(--accent-text,var(--accent))}
+.sg-hero .lead{max-width:620px;color:var(--muted);font-size:17px}
+.sg-toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.sg-toc a{display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border:2px solid var(--ink);border-radius:6px;background:var(--surface);color:var(--ink);font:12px var(--mono);text-decoration:none;box-shadow:3px 3px 0 var(--ink);transition:transform 140ms cubic-bezier(.2,.8,.2,1),box-shadow 140ms cubic-bezier(.2,.8,.2,1)}
+.sg-toc a b{color:var(--accent-text,var(--accent));font-weight:600}
+@media (hover:hover) and (pointer:fine){.sg-toc a:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}}
+.sg-toc a:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink);transition-duration:55ms}
+.sg-block{padding:64px 0 0;scroll-margin-top:20px}
+.sg-head{margin-bottom:26px;max-width:720px}
+.sg-head h2{margin:10px 0 8px;font-size:clamp(28px,3.6vw,42px);line-height:1.05}
+.sg-head p{margin:0;color:var(--muted)}
+.sg-block h3{margin:0 0 12px;font-size:15px}
+.sg-grid{display:grid;gap:22px}
+.sg-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sg-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sg-stack{display:grid;gap:22px;align-content:start}
+.card{padding:22px}
+figure{margin:0}
+figcaption{font-size:13px;color:var(--muted)}
+figcaption strong{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+.sg-tag{display:block;margin:0 0 14px;font:10px/1.4 var(--mono);letter-spacing:.1em;color:var(--faint)}
+.sg-note{margin:16px 0 0;font-size:12px;color:var(--muted)}
+
+/* Brand */
+.sg-mark-card{display:grid;gap:18px}
+.sg-mark-stage{position:relative;display:grid;place-items:center;aspect-ratio:16/10;background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px;background-color:var(--bg);border-radius:6px;overflow:hidden}
+.sg-mark{position:relative;z-index:1;width:min(42%,170px);color:var(--accent)}
+.sg-mark :global(svg),.sg-lock-mark :global(svg),.sg-app :global(svg),.sg-sticker :global(svg),.sg-px-mark :global(svg){display:block;width:100%;height:auto}
+.sg-clear{position:absolute;width:min(56%,226px);aspect-ratio:1;border:2px dashed color-mix(in srgb,var(--accent) 55%,transparent)}
+.sg-lockup{display:flex;align-items:center;gap:16px;font:700 20px/1.3 var(--mono);letter-spacing:.06em}
+.sg-lockup small{display:block;font:12px var(--mono);letter-spacing:0;color:var(--muted)}
+.sg-lock-mark{width:54px;padding:8px;border:1px solid var(--line)}
+.sg-mini{display:grid;justify-items:center;gap:10px;text-align:center;padding:18px 10px}
+.sg-mini small{color:var(--faint)}
+.sg-app{width:64px}
+.sg-sticker{display:grid;place-items:center;width:64px;height:64px}
+.sg-sticker > span{display:grid;place-items:center;width:44px;height:44px;background:#14101f;border:4px solid #fff;border-radius:7px;box-shadow:0 0 0 2px var(--ink);rotate:-8deg}
+.sg-sticker > span :global(svg){width:26px;fill:#f4457a}
+.sg-dos{margin:0;list-style:none;display:grid;gap:8px;font-size:13px}
+.sg-dos li{display:flex;gap:10px;align-items:baseline}
+.sg-dos li::before{flex:none;width:18px;font:700 12px var(--mono)}
+.sg-dos .do::before{content:"✓";color:#4bce82}
+.sg-dos .dont::before{content:"✕";color:var(--accent)}
+
+/* Colour */
+.sg-palettes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:30px}
+.sg-swatches{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sg-swatches li,.sg-accents li{display:grid;gap:4px;font-size:12px}
+.sg-swatches i{display:block;aspect-ratio:1.4;border:2px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink)}
+.sg-swatches b{margin-top:6px;font:600 11px var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+code{font:11px var(--mono);color:var(--faint)}
+.sg-accents{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.sg-accents li{grid-template-columns:auto 1fr;align-items:center;gap:12px;padding:12px;border:2px solid var(--ink);border-radius:8px;background:var(--surface);box-shadow:4px 4px 0 var(--ink)}
+.sg-accents i{width:38px;height:38px;border-radius:6px;border:2px solid var(--ink)}
+.sg-accents span{display:grid;min-width:0}
+.sg-accents b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Type */
+.sg-type p{margin:0 0 12px}
+.t-h1{color:var(--ink);font-size:clamp(30px,4vw,44px);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+.t-h2{color:var(--ink);font-size:24px;font-weight:700;line-height:1.15}
+.t-lead{font-size:17px;color:var(--muted)}
+.t-body{font-size:14px;color:var(--muted)}
+.t-screen{font:700 22px var(--mono);letter-spacing:.14em;padding:18px;border-radius:8px;background:#07060f;color:#8f86b8;text-align:center}
+.t-eyebrow{font:11px var(--mono);letter-spacing:.12em}
+.t-label{font:12px var(--mono);color:var(--muted)}
+
+/* 3D rule */
+.sg-rules{margin:0;padding:22px 22px 22px 44px;display:grid;gap:12px;font-size:14px;color:var(--muted)}
+.sg-rules b{display:block;color:var(--ink);font-size:13px;font-family:var(--mono)}
+.sg-demo-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.sg-square{display:grid;place-items:center;width:42px;height:42px;padding:0;border:2px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.sg-square[aria-pressed="true"]{background:var(--accent);color:#171022}
+.sg-depth{position:relative;height:84px;margin-top:24px}
+.sg-depth span{position:absolute;display:grid;place-items:center;width:150px;height:50px;border:2px solid var(--ink);border-radius:8px;font:11px var(--mono);letter-spacing:.1em}
+.sg-depth .base{left:14px;top:14px;background:var(--ink);color:var(--bg)}
+.sg-depth .top{left:0;top:0;z-index:1;background:var(--surface);animation:sg-press 2.4s cubic-bezier(.2,.8,.2,1) infinite}
+@keyframes sg-press{0%,30%{transform:none}45%,55%{transform:translate(-4px,-4px)}70%,85%{transform:translate(14px,14px)}100%{transform:none}}
+
+/* Components */
+.sg-carts{grid-template-columns:minmax(0,220px) minmax(0,220px) minmax(0,1fr);margin-bottom:22px;align-items:start}
+.sg-cap{margin:14px 0 0;font-size:12px;color:var(--muted)}
+.sg-cap b{display:block;color:var(--ink);font-size:13px}
+.sg-anatomy{margin:0;list-style:none;display:grid;gap:10px;font-size:13px;color:var(--muted)}
+.sg-anatomy b{color:var(--ink);font-family:var(--mono);font-size:12px;margin-right:6px}
+.sg-console{position:relative;width:min(100%,300px);margin:6px auto 22px;padding:16px 16px 14px;background:var(--surface);border:2px solid var(--ink);border-radius:14px;box-shadow:1px 1px 0 #f4457a,2px 2px 0 #f4457a,3px 3px 0 #f4457a,4px 4px 0 #f4457a,5px 5px 0 #c9375f,6px 6px 0 #f4457a,7px 7px 0 #f4457a,8px 8px 0 #f4457a,9px 9px 0 #f4457a,10px 10px 0 #c9375f,11px 11px 0 #f4457a,12px 12px 0 var(--ink)}
+.sg-screen{display:grid;place-items:center;aspect-ratio:16/7;border:2px solid var(--ink);border-radius:8px;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;font:700 11px var(--mono);letter-spacing:.14em;color:#8f86b8}
+.sg-screen span{animation:sg-blink 1.2s steps(2) infinite}
+@keyframes sg-blink{50%{opacity:.25}}
+.sg-pad{display:flex;align-items:center;gap:8px;margin-top:14px}
+.sg-pad i{display:block}
+.sg-pad .dpad{width:34px;height:34px;margin-right:auto;background:linear-gradient(var(--ink),var(--ink)) center/12px 100% no-repeat,linear-gradient(var(--ink),var(--ink)) center/100% 12px no-repeat}
+.sg-pad .pill{width:20px;height:7px;border-radius:4px;background:var(--line);border:1px solid var(--ink)}
+.sg-pad .a,.sg-pad .b{width:24px;height:24px;border-radius:50%;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.sg-pad .b{background:#06c4ff;margin-left:6px}.sg-pad .a{background:#f4457a}
+.sg-console .led{position:absolute;top:6px;right:10px;width:7px;height:7px;border-radius:50%;background:#4bce82;box-shadow:0 0 8px #4bce82}
+.sg-console .led.two{right:22px;background:#f4457a;box-shadow:0 0 8px #f4457a}
+.sg-touch{display:flex;justify-content:space-between;align-items:flex-end;margin:6px 0 22px;padding:18px;border-radius:10px;background:#100a1b}
+.sg-touch .stick{position:relative;display:grid;place-items:center;width:110px;height:110px;border-radius:50%;border:3px solid #4bce82;background:color-mix(in srgb,#4bce82 14%,#100a1b);box-shadow:4px 4px 0 color-mix(in srgb,#4bce82 40%,#07060f)}
+.sg-touch .stick i{width:44px;height:44px;border-radius:50%;background:#4bce82;border:3px solid #07060f;translate:18px -18px}
+.sg-touch .side{display:grid;justify-items:end;gap:12px}
+.sg-touch .sec{padding:9px 14px;border:2px solid #07060f;border-radius:8px;background:#19f0ff;color:#07060f;font:700 11px var(--mono);box-shadow:0 4px 0 color-mix(in srgb,#19f0ff 45%,#07060f)}
+.sg-touch .fire{display:grid;place-items:center;width:70px;height:70px;border-radius:50%;border:3px solid #07060f;background:#ff2e88;box-shadow:0 4px 0 color-mix(in srgb,#ff2e88 45%,#07060f),0 0 16px #ff2e8877}
+.sg-touch .fire svg{width:30px;fill:none;stroke:#07060f;stroke-width:2.4;stroke-linecap:round}
+
+/* Tables */
+.sg-table{padding:0;overflow-x:auto}
+.sg-table table{width:100%;border-collapse:collapse;font-size:13px}
+.sg-table th,.sg-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.sg-table th{font:10px var(--mono);letter-spacing:.1em;color:var(--faint);text-transform:uppercase}
+.sg-table tr:last-child td{border-bottom:0}
+.sg-dot{display:inline-block;width:10px;height:10px;margin-right:8px;border-radius:2px;border:1px solid var(--ink);background:var(--accent)}
+.sg-principles{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;font-size:13px;color:var(--muted)}
+.sg-principles b{display:block;color:var(--ink);font:600 12px var(--mono);margin-bottom:4px}
+
+/* Icons */
+.sg-icons{margin:0 0 16px;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.sg-icons li{display:grid;justify-items:center;gap:8px;padding:16px 6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.sg-icons code{font-size:10px}
+.sg-icons.pixel li{color:var(--accent-text,var(--accent))}
+.sg-px-mark{width:36px;color:var(--accent)}
+
+/* Voice */
+.sg-quote{margin:0}
+.sg-quote p{margin:0 0 10px;font-size:20px;font-weight:700;line-height:1.2}
+.sg-quote.mono p{font:700 15px var(--mono);letter-spacing:.08em}
+.sg-quote cite{font-style:normal;font-size:12px;color:var(--muted)}
+
+/* Case study */
+.sg-case .sg-head{max-width:none}
+.sg-case-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 48px;padding:30px;border:2px solid var(--ink);border-radius:10px;background:var(--surface);box-shadow:7px 7px 0 var(--accent)}
+.sg-case-col p{margin:0 0 22px;color:var(--muted);font-size:15px}
+.sg-case-col h3{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text,var(--accent))}
+.sg-archive{margin-top:4px}
+
+@media (max-width:960px){
+  .sg-accents{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sg-carts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sg-anatomy{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .style-guide{padding:36px 20px 60px}
+  .sg-grid.two,.sg-palettes,.sg-case-body,.sg-principles{grid-template-columns:1fr}
+  .sg-grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sg-swatches{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .sg-block{padding-top:48px}
+  .sg-case-body{padding:22px}
+}
+@media (max-width:560px){.sg-kind{display:none}}
+@media (max-width:480px){
+  .sg-grid.three,.sg-accents{grid-template-columns:1fr}
+  .sg-grid.sg-minis{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .sg-mini{padding:12px 6px;font-size:11px}.sg-mini small{display:none}.sg-app,.sg-sticker{width:48px}.sg-sticker{height:48px}
+  .sg-swatches{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .sg-swatches i{aspect-ratio:1;box-shadow:2px 2px 0 var(--ink)}
+  .sg-swatches b{font-size:9px}.sg-swatches code{font-size:9px}
+  .sg-carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .sg-touch .stick{width:88px;height:88px}.sg-touch .stick i{width:36px;height:36px}
+}
+@media (prefers-reduced-motion:reduce){.sg-depth .top,.sg-screen span{animation:none}}
+</style>

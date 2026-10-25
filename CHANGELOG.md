@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.26.0
+
+Site kit 1.30.0:
+- Console loading screen: after start it says LOADING GAME / LOADING INFO; about one time in three the cartridge is "stubborn" and the screen flips to an old-console fix (BLOWING ON PINS, JIGGLE CARTRIDGE…) before loading.
+- Idle console mini-game: eight good and bad guys roll by; A (red) fires from the bottom at a crosshair (HITS counter, or OOPS! on a friendly), B (blue) or a tap on the screen makes the middle one jump, Start makes them all hop. Tiny WebAudio blips.
+- Hero "try me" bubble: shows only if someone looks at the hero for a few seconds without touching it; leaves on its own or on the first touch.
+- New style guide page (/style-guide/): brand, colour tokens, type, the 3D press rule with live demos, components (real cartridges, console, touch controls), motion, icons, voice, the cartridge line-up, and a short case study on turning the original one-page site into the cartridge console (links to the archive). Linked from a footer icon on desktop.
+
 ## 0.25.6
 
 - Battlefield 0.6.8 pinned: Eject is a 3D panel button like Sound and Theme (icon-only on phones).

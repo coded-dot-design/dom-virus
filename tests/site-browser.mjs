@@ -123,6 +123,8 @@ try {
   // PRESS START: Enter (or A, a tap, or a short wait) flashes the screen and morphs it into the page.
   await page.keyboard.press("Enter");
   await page.waitForFunction(() => document.querySelector(".console").classList.contains("starting"));
+  // After start the screen says it is loading (and now and then needs a blow on the pins).
+  assert.match(await page.locator("[data-console-loading]").textContent(), /^LOADING GAME$/);
   await page.waitForURL(/\/games\/byte-runner\/$/);
   assert.equal(await page.locator(".game-section.standalone").count(), 1);
   assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");
@@ -134,6 +136,10 @@ try {
   assert.match(page.url(), /\/dom-virus\/#games$/, "return state is cleared from the URL once the cartridge is home");
   // Every console button is clickable; idle presses never navigate.
   for (const pad of ["up", "left", "right", "down", "select", "start", "b", "a"]) await page.locator(`[data-pad="${pad}"]`).click();
+  // Idle console mini-game: A fires at the crosshair (score or OOPS), B makes the middle one jump.
+  await page.locator('[data-pad="a"]').click();
+  await page.waitForFunction(() => document.querySelector("[data-console-hits]").textContent !== "" || document.querySelector(".attract .bolt"), null, { timeout: 3000 });
+  assert.equal(await page.locator(".console .screen .attract i").count(), 8, "good and bad guys roll by");
   assert.match(page.url(), /\/dom-virus\/(#games)?$/);
   // Two-way special edition: the cartridge declares two actions; the screen asks RED to launch or BLUE for info.
   const bf = page.locator('.cartridge[data-cart="battlefield"]');
@@ -176,6 +182,17 @@ try {
   // The original one-page layout is archived.
   await page.goto(base + "archive/");
   assert.equal(await page.locator(".game-section").count(), 4);
+  // Style guide: brand system + the case study, linked from the footer (desktop only).
+  await page.goto(base + "style-guide/");
+  assert.equal(await page.locator("#case-study h2").textContent(), "From one long page to a cartridge console.");
+  assert.equal(new URL(await page.locator("#case-study a.sg-archive").evaluate((a) => a.href)).pathname, "/dom-virus/archive/");
+  assert.equal(await page.locator(".style-guide .cartridge").count(), 2);
+  assert.equal(await page.locator(".footer-style-guide").isVisible(), true);
+  assert.equal(new URL(await page.locator(".footer-style-guide").evaluate((a) => a.href)).pathname, "/dom-virus/style-guide/");
+  const footerWidth = page.viewportSize();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await page.locator(".footer-style-guide").isVisible(), false, "style guide link hidden on phones");
+  await page.setViewportSize(footerWidth);
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   for (const selector of [".engineering", ".embed-section"])
@@ -285,7 +302,7 @@ try {
     );
   }
 
-  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/battlefield/", "archive/"];
+  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/battlefield/", "archive/", "style-guide/"];
   for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(base);

@@ -7,6 +7,7 @@ import UiIcon from './UiIcon.astro';
 import CodePreview from './CodePreview.astro';
 import CartridgeShelf from './CartridgeShelf.astro';
 import BattlefieldDetail from './BattlefieldDetail.astro';
+import StyleGuide from './StyleGuide.astro';
 import brandIcon from '../assets/dom-virus-icon.svg?raw';
 import appIcon from '../assets/dom-virus-app-icon.svg?raw';
 // Home Screen icons must be PNG on iOS; Vite inlines the tiny 180px render as a data URL.
@@ -21,7 +22,7 @@ const game=gameId?data.games.find((g)=>g.id===gameId):null;
 const gameIndex=game?data.games.indexOf(game):0;
 // Game pages use the home shelf's numbering, where DOM Battlefield sits in slot 02.
 const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
-const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':hub?'DOM VIRUS':data.games[0].name;
+const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
 // Stamped at build time; a fresh build (e.g. on January 1) rolls the copyright year.
@@ -48,7 +49,7 @@ const year=new Date().getFullYear();
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
     <div class="header-panel">
-      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
+      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'&&page!=='styleguide'?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
   </header>
@@ -98,6 +99,7 @@ const year=new Date().getFullYear();
     </section>
     <section class="embed-section" id="embed"><div class="section-heading"><span class="eyebrow"><span class="index">DEV</span> BRING YOUR OWN PLAYGROUND</span><span class="version">MIT LICENSED</span></div><h2>Your page is next.</h2><p class="embed-lead">Import a game, choose the targets, and start a session. The launcher is optional. React adapters are separate exports so plain JavaScript consumers do not pay for React.</p>{data.games.map(game=><article class={`embed-game accent-${game.accent}`}><div><h3>{game.name}</h3><p>{game.engine}</p><a href={`https://github.com/coded-dot-design/${game.id}#readme`} class="text-link" data-virus-ignore data-swarm-ignore>Install + integration guide <UiIcon name="arrow-up-right" size={17}/></a></div><CodePreview game={game}/></article>)}<p class="install-note">Package names show the import after installation. Use each repository’s README for its available install or release route; registry publication is separate from this demo. Start with a static content container and exclude application controls you want to preserve.</p></section>
     </>}
+    {page==='styleguide' && <StyleGuide games={data.games} base={base}/>}
     {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games}/>}
     {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}
     {page==='engineering' && <>
@@ -116,7 +118,7 @@ const year=new Date().getFullYear();
   </main>
   <footer class="site-footer" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
-    <nav class="footer-icons" aria-label="Elsewhere"><a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
+    <nav class="footer-icons" aria-label="Elsewhere">{hub && <a class="footer-style-guide" href={`${base}style-guide/`} aria-label="Style guide" title="Style guide"><UiIcon name="palette" size={20}/></a>}<a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
     <div class="footer-legal"><span>Created by Chris Cooley</span><span>© {year} <a href="https://coded.design">coded.design</a> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></div>
   </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
