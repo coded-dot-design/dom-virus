@@ -1,0 +1,11 @@
+---
+import Site from '@site-kit/components/Site.astro';
+import data from '@site-data';
+export function getStaticPaths() {
+  return data.games.map((game) => ({ params: { id: game.id } }));
+}
+const { id } = Astro.params;
+---
+<Site data={data} page="game" gameId={id} />
+
+<script>import "@site-kit/client.ts";</script>

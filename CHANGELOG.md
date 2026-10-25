@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.0
+
+Site kit 1.19.0 — the hub becomes a small multi-page site:
+- Home is the DOM Virus hero plus a cartridge shelf. Cartridges pop up from the bottom as the shelf scrolls in; picking one lifts it out, plugs it into a retro console, boots the screen and opens the game page.
+- Each game has its own page (`/games/<id>/`, no outer border) with a "why it's cool" teaser that links to its own nerd-notes page (`/games/<id>/nerd/`: every engineering note, sizes, source files).
+- The engine-wide engineering and embedding sections move to `/under-the-hood/`.
+- Page changes use cross-document View Transitions (no client router, so the launcher and hero game are untouched); the console screen morphs into the game display. Browsers without support simply navigate. Reduced motion disables the transitions and cartridge flight.
+- Single-game sites keep their one-page layout.
+
 ## 0.14.0
 
 Site kit 1.18.0 — demo pages behave like a game on touch devices:

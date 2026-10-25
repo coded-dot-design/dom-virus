@@ -53,18 +53,14 @@ try {
   await page.goto(base);
   const menu = page.getByRole("button", { name: /^(Open|Close) menu$/ });
   const system = page.locator(".system-map");
+  // Home is the DOM Virus hero plus a cartridge shelf; each game lives on its own page.
+  const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
-    await page
-      .locator(".game-tab")
-      .evaluateAll((nodes) => nodes.map((n) => n.hash)),
-    ["#sherman-bytes", "#swarm-protocol", "#byte-runner", "#null-invaders"],
+    await page.locator(".cartridge").evaluateAll((nodes) => nodes.map((n) => new URL(n.href).pathname)),
+    order.map((id) => `/dom-virus/games/${id}/`),
   );
-  assert.deepEqual(
-    await page
-      .locator(".game-section")
-      .evaluateAll((nodes) => nodes.map((n) => n.id)),
-    ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"],
-  );
+  assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
+  assert.equal(await page.locator(".console").count(), 1);
   const promo = page.locator(".hero-crossover");
   // Mash-up: DOM Virus skulls and bad guys from every game, an interceptor, and a turreted tank.
   assert.equal(await promo.locator(".promo-character,.character-icon").count(), 9);
@@ -78,7 +74,7 @@ try {
     const r = await promo.locator(sel).boundingBox();
     assert.ok(r.x >= card.x - 2 && r.y >= card.y - 2 && r.x + r.width <= card.x + card.width + 2 && r.y + r.height <= card.y + card.height + 2, `${sel} inside the card`);
   }
-  for (const selector of [".hero", ".engineering", ".embed-section"]) {
+  for (const selector of [".hero"]) {
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
   }
   await promo.getByRole("button", { name: "Pause scene animation" }).click();
@@ -103,12 +99,28 @@ try {
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"));
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   assert.equal(await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.score), 0, "round resets");
-  assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
-  assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
   assert.equal(await page.locator(".site-header nav a").count(), 3);
 
+  // Picking a cartridge plugs it into the console, boots the screen, then opens the game page.
+  await page.locator('.cartridge[data-cart="byte-runner"]').scrollIntoViewIfNeeded();
+  await page.locator('.cartridge[data-cart="byte-runner"]').click();
+  await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
+  await page.waitForURL(/\/games\/byte-runner\/$/);
+  assert.equal(await page.locator(".game-section.standalone").count(), 1);
+  assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");
+  assert.equal(await page.locator('[data-launch="byte-runner"]').count(), 1);
+  await page.locator(".nerd-link").click();
+  await page.waitForURL(/\/games\/byte-runner\/nerd\/$/);
+  assert.ok((await page.locator(".nerd-chapters article").count()) >= 3);
+  assert.ok((await page.locator(".nerd-sources .source-links a").count()) >= 1);
+  await page.goto(base + "under-the-hood/");
+  assert.equal(await page.locator(".code-example .astro-code").count(), 4);
+  for (const selector of [".engineering", ".embed-section"])
+    assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
+
   for (const theme of ["dark", "light"]) {
+    await page.goto(base);
     await page.getByRole("button", { name: `Use ${theme} theme` }).click();
     await promo.scrollIntoViewIfNeeded();
     await page.waitForFunction(
@@ -117,6 +129,11 @@ try {
     await page
       .locator(".hero-grid")
       .screenshot({ path: `${output}/hero-${theme}.png` });
+    await page.locator(".cartridge-shelf").scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => document.querySelector("[data-shelf]").dataset.pop === "in");
+    await page.waitForTimeout(900);
+    await page.locator(".cartridge-shelf").screenshot({ path: `${output}/shelf-${theme}.png` });
+    await page.goto(base + "under-the-hood/");
     await system.scrollIntoViewIfNeeded();
     await page.waitForFunction(
       () => document.querySelector(".system-map").dataset.motion === "true",
@@ -206,9 +223,10 @@ try {
     );
   }
 
+  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/sherman-bytes/nerd/"];
   for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    await page.evaluate(() => scrollTo(0, 0));
+    await page.goto(base);
     if (width <= 760) {
       assert.equal(await menu.isVisible(), true);
       assert.equal(await page.locator(".header-panel").isVisible(), false);
@@ -226,10 +244,10 @@ try {
       );
       await menu.click();
       await page.getByRole("link", { name: "Under the hood" }).click();
-      assert.equal(await menu.getAttribute("aria-expanded"), "false");
+      await page.waitForURL(/under-the-hood\/$/);
     }
     for (const theme of ["light", "dark"]) {
-      await page.evaluate(() => scrollTo(0, 0));
+      await page.goto(base);
       if (width <= 760) await menu.click();
       await page.getByRole("button", { name: `Use ${theme} theme` }).click();
       if (width <= 760) {
@@ -238,38 +256,49 @@ try {
           .screenshot({ path: `${output}/menu-${width}-${theme}.png` });
         await page.keyboard.press("Escape");
       }
-      const overflow = await page.evaluate(() =>
-        [...document.querySelectorAll("body *")]
-          .filter((el) => {
-            const r = el.getBoundingClientRect();
-            return (
-              r.right > innerWidth + 1 &&
-              r.width > 0 &&
-              getComputedStyle(el).position !== "fixed" &&
-              !el.closest("pre,.budget-wrap")
-            );
-          })
-          .map((el) => el.className)
-          .filter((x) => typeof x === "string"),
-      );
-      assert.equal(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth <= innerWidth,
-        ),
-        true,
-        `${width}/${theme} overflows: ${overflow}`,
-      );
-      await page
-        .locator(".hero-grid")
-        .screenshot({ path: `${output}/hero-${width}-${theme}.png` });
-      await system.screenshot({
-        path: `${output}/diagram-${width}-${theme}.png`,
-      });
+      for (const path of pages) {
+        if (path) await page.goto(base + path);
+        const overflow = await page.evaluate(() =>
+          [...document.querySelectorAll("body *")]
+            .filter((el) => {
+              const r = el.getBoundingClientRect();
+              return (
+                r.right > innerWidth + 1 &&
+                r.width > 0 &&
+                getComputedStyle(el).position !== "fixed" &&
+                !el.closest("pre,.budget-wrap")
+              );
+            })
+            .map((el) => el.className)
+            .filter((x) => typeof x === "string"),
+        );
+        assert.equal(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+          true,
+          `${width}/${theme}/${path || "home"} overflows: ${overflow}`,
+        );
+        if (!path)
+          await page
+            .locator(".hero-grid")
+            .screenshot({ path: `${output}/hero-${width}-${theme}.png` });
+        if (path === "under-the-hood/")
+          await system.screenshot({
+            path: `${output}/diagram-${width}-${theme}.png`,
+          });
+      }
     }
   }
+  // Reduced motion: the hero game ends and the poster returns; diagrams stop.
+  await page.goto(base);
+  await promo.locator(".promo-stage").click({ position: { x: 240, y: 200 } });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").dataset.play === "true");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").dataset.play);
   assert.equal(await page.locator(".hx-layer,.hx-foes").count(), 0, "reduced motion restores the poster");
+  assert.equal(await promo.evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
+  await page.goto(base + "under-the-hood/");
   await system.scrollIntoViewIfNeeded();
   assert.equal(await system.locator(".motion-toggle").isVisible(), false);
   const running = await page
@@ -280,6 +309,7 @@ try {
     );
   assert.equal(running, 0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto(base + "games/byte-runner/");
   await page.locator('[data-launch="byte-runner"]').click();
   await page.waitForFunction(
     () => document.querySelector("#session-state")?.textContent === "running",
@@ -293,7 +323,7 @@ try {
   for (const width of [1200, 390])
     for (const theme of ["light", "dark"]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.evaluate(() => scrollTo(0, 0));
+      await page.goto(base + "games/byte-runner/");
       if (width <= 760) await menu.click();
       await page.getByRole("button", { name: `Use ${theme} theme` }).click();
       if (width <= 760) {
