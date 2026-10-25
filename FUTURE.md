@@ -3,6 +3,24 @@
 A running list. Phase 1 (the hub, five games, the cartridge console) is tagged `phase-1`; see
 [HANDOFF.md](HANDOFF.md). Add items as they come up; move them to a CHANGELOG when shipped.
 
+## Cleanup carried over from Phase 1 (small, do first)
+
+- **Swarm Protocol releases:** CI tags are created with the workflow token, so they don't trigger
+  `release.yml`. The last GitHub release (zip + npm tarball) is v1.2.3; v1.2.4–v1.3.1 are tags only.
+  Fix with a PAT/App token or by having `release.yml` run on `workflow_run`. Also: add the missing
+  CHANGELOG 1.3.1 entry, align Node 22 → 24 in `release.yml`, and add `shared/ORIGIN.json`.
+- **Game READMEs** (Sherman, Null, Byte Runner, Swarm) still describe the retired per-game Astro
+  sites (`site:build`, `site:preview`, `npm run dev`) and the old size budgets; refresh them.
+- **Stale "D-pad" copy** in Sherman and Byte Runner `site/game.json` and in the Byte Runner and Null READMEs; the
+  controls are a joystick now.
+- **Null Invaders:** the in-game hint says "G: next gate", but the game page says "G — next factory". Pick one.
+- **CHANGELOG order** in Null and Byte Runner: a stray version heading sits above `# Changelog`.
+- **Byte Runner:** the CHANGELOG says flies cap at 8, but the code (`MAX_GHOSTS`) caps at 12. Byte Runner is
+  also the only engine game without a simulation test. Its size headroom is under 1 KB (29.2 of 30 KB).
+- **Battlefield:** `shared/ORIGIN.json` version labels are stale (the hashes match); re-run `node scripts/sync-shared.mjs`.
+- **Hub pins:** the hourly hub build already follows the newest tag in each pinned major line (all v0),
+  so a new game tag reaches the hub before `games.json` is bumped. Decide whether pins should be exact.
+
 ## Phase 2: one controls layer, optimisation, hardening
 
 ### Controls as a layer (top priority)
