@@ -22,18 +22,25 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
   <h2 id="games-title">Pick a cartridge.</h2>
   <p class="lead">Each game plays across the page you are reading. Plug one in, press Start, then press Play on its page.</p>
   <div class="shelf" data-shelf data-virus-ignore data-swarm-ignore>
-    {games.map((game, i) => (
-      <Cartridge id={game.id} href={`${base}games/${game.id}/`} accent={game.accent} index={i} kind={game.kind} name={game.name} tagline={game.tagline}>
+    {/* Battlefield (the full game) takes slot 2; the rest follow in order. */}
+    {games.slice(0, 1).map((game) => (
+      <Cartridge id={game.id} href={`${base}games/${game.id}/`} accent={game.accent} index={0} kind={game.kind} name={game.name} tagline={game.tagline}>
         <Icon kind={game.icon} size={44}/>
       </Cartridge>
     ))}
     <Cartridge id="battlefield" href={`${base}battlefield/`} actions={[
       { pad: 'a', label: 'LAUNCH', href: `${base}battlefield/`, launch: 'board' },
       { pad: 'b', label: 'INFO', href: `${base}games/battlefield/`, launch: 'screen' },
-    ]} accent="cyan" index={games.length} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon.">
+    ]} accent="cyan" index={1} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon.">
       <Fragment set:html={battlefieldIcon}/>
     </Cartridge>
+    {games.slice(1).map((game, i) => (
+      <Cartridge id={game.id} href={`${base}games/${game.id}/`} accent={game.accent} index={i + 2} kind={game.kind} name={game.name} tagline={game.tagline}>
+        <Icon kind={game.icon} size={44}/>
+      </Cartridge>
+    ))}
   </div>
+  <div class="flight-deck" data-flight-deck></div>
   <div class="console" id="console" data-console>
     <div class="body">
       <div class="screen" data-console-screen aria-hidden="true">
@@ -52,7 +59,7 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
   </div>
 </section>
 <style>
-.cartridge-shelf{padding:56px 24px 80px;text-align:center}
+.cartridge-shelf{position:relative;padding:56px 24px 80px;text-align:center}
 h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
 .shelf{display:grid;grid-template-columns:repeat(5,minmax(0,200px));justify-content:center;gap:24px}
@@ -149,8 +156,15 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 @keyframes board-text{to{opacity:1}}
 
 @media (max-width:1180px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
-@media (max-width:860px){.shelf{grid-template-columns:repeat(2,minmax(0,210px));gap:20px}}
-@media (max-width:420px){.shelf{gap:14px}}
+/* Phones / small tablets: one horizontal row you swipe through, snapping a cartridge to the
+   middle with its neighbours peeking in. It runs edge to edge; the padding lets the first and last
+   cartridge centre. A scroller clips its content, so client.ts lifts a cartridge out of the row
+   (into .flight-deck, same spot) before it flies to the console, and puts it back after. */
+@media (max-width:860px){
+  .shelf{--card:min(62vw,230px);display:flex;justify-content:flex-start;gap:18px;margin-inline:-24px;padding:16px calc(50vw - var(--card) / 2) 30px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .shelf::-webkit-scrollbar{display:none}
+  .shelf > :global(.bay){flex:0 0 var(--card);scroll-snap-align:center}
+}
 @media (prefers-reduced-motion:reduce){
   .shelf[data-pop] :global(.cartridge){opacity:1;transform:none;animation:none}
   .attract i,.boot,.console :global(*){animation:none!important}

@@ -13,7 +13,7 @@ const pins = Array.from({ length: 11 }, (_, p) => {
   return h < 2 ? 'gone' : h < 6 ? 'short' : h < 9 ? 'dim' : '';
 });
 ---
-<div class="bay" style={`--i:${index}`}>
+<div class="bay" data-bay={id} style={`--i:${index}`}>
   <svg class="ghost" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true"><path d="M13 1.5H178.5L198.5 21.5V248.5H8.7L1.5 241.3V13Q1.5 1.5 13 1.5Z"/></svg>
   <a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
     <span class="shell" aria-hidden="true"></span>
@@ -34,7 +34,7 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 .bay{position:relative;display:grid}
 .ghost{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;opacity:0;transition:opacity .25s}
 .ghost path{vector-effect:non-scaling-stroke;fill:color-mix(in srgb,var(--ink) 3%,transparent);stroke:color-mix(in srgb,var(--ink) 28%,transparent);stroke-width:2;stroke-dasharray:7 6}
-.bay:has(:global(.plugging)) .ghost{opacity:1}
+.bay:has(:global(.plugging)) .ghost,.bay:global(.out) .ghost{opacity:1}
 
 /* Flat cartridge with a little depth: front face in the accent colour, a thick darker side face
    down the right and a bottom face, mitred at the corner. The notch and the bottom-left chamfer

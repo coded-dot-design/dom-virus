@@ -62,7 +62,8 @@ try {
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
     await page.locator(".cartridge").evaluateAll((nodes) => nodes.map((n) => new URL(n.href).pathname)),
-    [...order.map((id) => `/dom-virus/games/${id}/`), "/dom-virus/battlefield/"],
+    // Battlefield (the full game) sits in slot 2.
+    [`/dom-virus/games/${order[0]}/`, "/dom-virus/battlefield/", ...order.slice(1).map((id) => `/dom-virus/games/${id}/`)],
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
   assert.equal(await page.locator(".console").count(), 1);
@@ -298,7 +299,7 @@ try {
                 r.right > innerWidth + 1 &&
                 r.width > 0 &&
                 getComputedStyle(el).position !== "fixed" &&
-                !el.closest("pre,.budget-wrap")
+                !el.closest("pre,.budget-wrap,.shelf")
               );
             })
             .map((el) => el.className)
@@ -322,6 +323,27 @@ try {
       }
     }
   }
+  // Phones: the shelf is a horizontal swipe row. A cartridge lifts out of the row to fly to the
+  // console, and on the way back the row centres its spot and it slides back into its bay.
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(base + "#games");
+  const row = page.locator(".shelf");
+  assert.equal(await row.evaluate((el) => getComputedStyle(el).overflowX), "auto");
+  assert.ok(await row.evaluate((el) => el.scrollWidth > el.clientWidth + 200), "cartridges continue off to the side");
+  const last = page.locator('.cartridge[data-cart="null-invaders"]');
+  await last.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await last.click();
+  assert.equal(await last.evaluate((el) => el.parentElement.hasAttribute("data-flight-deck")), true, "lifted out of the row to fly");
+  await page.waitForFunction(() => document.querySelector(".console").classList.contains("booting"));
+  await page.keyboard.press("Enter");
+  await page.waitForURL(/\/games\/null-invaders\/$/);
+  await page.goBack();
+  await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games", null, { timeout: 6000 });
+  assert.equal(await last.evaluate((el) => el.parentElement.dataset.bay), "null-invaders", "back in its bay");
+  assert.ok(await page.locator('[data-bay="null-invaders"]').evaluate((bay) => { const r = bay.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth; }), "its spot is on screen");
+  await page.setViewportSize({ width: 1280, height: 900 });
+
   // Reduced motion: the hero game ends and the poster returns; diagrams stop.
   await page.goto(base);
   await promo.locator(".promo-stage").click({ position: { x: 240, y: 200 } });

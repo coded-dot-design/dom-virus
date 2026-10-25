@@ -212,6 +212,41 @@ if (shelf && "IntersectionObserver" in window && !returnState()) {
   );
   io.observe(shelf);
 }
+// Phones show the shelf as a horizontal swipe row (overflow scroller), which would clip a
+// cartridge flying to the console. So a cartridge is lifted out into .flight-deck at exactly the
+// spot it occupied (its bay keeps the space and shows the dashed outline), and put back after it
+// ejects. On desktop the shelf is a plain grid and nothing moves in the DOM.
+const deck = document.querySelector<HTMLElement>("[data-flight-deck]");
+const scrollerShelf = () => !!shelf && getComputedStyle(shelf).overflowX !== "visible";
+const lifted = (cart: HTMLElement) => cart.parentElement === deck;
+const allCarts = () => [...document.querySelectorAll<HTMLElement>(".cartridge-shelf .cartridge")];
+function liftOut(cart: HTMLElement) {
+  if (!deck || !scrollerShelf() || lifted(cart)) return;
+  const bay = cart.parentElement!,
+    host = deck.offsetParent!.getBoundingClientRect();
+  cart.style.setProperty("transform", "none", "important");
+  const r = cart.getBoundingClientRect();
+  cart.style.removeProperty("transform");
+  bay.classList.add("out");
+  bay.style.minHeight = `${r.height}px`;
+  deck.append(cart);
+  Object.assign(cart.style, {
+    position: "absolute",
+    margin: "0",
+    left: `${r.left - host.left}px`,
+    top: `${r.top - host.top}px`,
+    width: `${r.width}px`,
+    height: `${r.height}px`,
+  });
+}
+function putBack(cart: HTMLElement) {
+  if (!lifted(cart)) return;
+  const bay = document.querySelector<HTMLElement>(`[data-bay="${cart.dataset.cart}"]`)!;
+  for (const k of ["position", "margin", "left", "top", "width", "height"]) cart.style.removeProperty(k);
+  bay.append(cart);
+  bay.classList.remove("out");
+  bay.style.removeProperty("min-height");
+}
 // Tiny synth for the console: a cartridge click on insert, a power-on chirp per LED.
 let audio: AudioContext | undefined;
 function unlockAudio() {
@@ -246,6 +281,7 @@ shelf?.addEventListener("click", (event) => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || shelf.dataset.plugging) return;
   event.preventDefault();
   unlockAudio();
+  liftOut(cart);
   shelf.dataset.plugging = cart.dataset.cart!;
   cart.classList.add("plugging");
   const screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;
@@ -451,6 +487,14 @@ function afterReveal(fresh: boolean, cb: () => void) {
 function dock(cart: HTMLElement) {
   const full = cart.hasAttribute("data-full");
   cart.getAnimations().forEach((a) => a.cancel());
+  // Swipe row (phones): bring the cartridge's spot to the middle first, so it flies home to a
+  // place you can see, then lift it out of the row like a fresh plug-in.
+  if (scrollerShelf() && !lifted(cart)) {
+    const bay = cart.parentElement!.getBoundingClientRect(),
+      row = shelf!.getBoundingClientRect();
+    shelf!.scrollTo({ left: shelf!.scrollLeft + bay.left - row.left - (row.width - bay.width) / 2, behavior: "instant" });
+    liftOut(cart);
+  }
   shelf!.dataset.plugging = cart.dataset.cart!;
   cart.classList.add("plugging");
   const seat = slotOffset(cart);
@@ -466,10 +510,10 @@ function dock(cart: HTMLElement) {
   return seat;
 }
 function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
-  const cart = shelf?.querySelector<HTMLElement>(`.cartridge[data-cart="${state.id}"]`);
+  const cart = allCarts().find((n) => n.dataset.cart === state.id);
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    if (cart) cart.getAnimations().forEach((a) => a.cancel());
+    if (cart) cart.getAnimations().forEach((a) => a.cancel()), putBack(cart);
     consoleEl?.classList.remove("booting", "starting", "full", "choice");
     shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
     if (shelf) delete shelf.dataset.plugging;
@@ -506,6 +550,7 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
     out.cancel();
     cart.classList.remove("plugging");
     cart.style.removeProperty("transform-origin");
+    putBack(cart);
     if (shelf) delete shelf.dataset.plugging;
     settle();
   };
@@ -518,9 +563,10 @@ addEventListener("pageshow", (event) => {
   const state = returnState();
   if (state) return returnHome(state, true);
   delete shelf.dataset.plugging;
-  shelf.querySelectorAll<HTMLElement>(".cartridge").forEach((n) => {
+  allCarts().forEach((n) => {
     n.classList.remove("plugging");
     n.getAnimations().forEach((a) => a.cancel());
+    putBack(n);
   });
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   consoleEl?.classList.remove("booting", "starting", "full", "choice");

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.23.0
+
+Site kit 1.27.0:
+- Phones / small tablets (≤860px): the cartridge shelf is a horizontal swipe row that snaps a cartridge to the middle with its neighbours peeking in, so the shelf and console read as one unit. Desktop is unchanged.
+- In the swipe row a cartridge lifts out of the row (same spot) to fly to the console and slides back into its bay after ejecting; on return the row centres that cartridge's spot first.
+- DOM Battlefield moves to slot 2.
+
 ## 0.22.0
 
 Engine:
