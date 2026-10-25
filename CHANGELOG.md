@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.0
+
+Site kit 1.16.0 — hero mash-up, choreographed (CSS only, paused until the scene toggle runs it):
+- Intro: the DOM Virus skull spawns into the browser card first, then more skulls, aliens, flies and a bug pop in. The interceptor flies in from off screen; the tank drives up from the bottom.
+- Loop (8s): the interceptor turns on its centre and the tank's turret rotates to face each target before firing; seven kills alternate between them, each with a big CSS explosion and a hit shake, and targets respawn. Near-miss spray shots streak off screen.
+- New abstract tank in the game-card style (treads, hull, separate rotating turret).
+
 ## 0.11.9
 
 - Serve DOM Battlefield 0.6.5. Site kit 1.15.6: borderless Home Screen icon so iOS corners never clip it.

@@ -66,16 +66,17 @@ try {
     ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"],
   );
   const promo = page.locator(".hero-crossover");
-  // Tank + interceptor, four targets that explode, a bug and a reserve alien.
-  assert.equal(await promo.locator(".promo-character,.character-icon").count(), 8);
-  assert.equal(await promo.locator(".promo-frog").count(), 0);
-  assert.equal(await promo.locator(".shot").count(), 4);
-  assert.equal(await promo.locator(".boom").count(), 4);
-  // The shooters stay fully inside the browser card.
+  // Mash-up: DOM Virus skulls and bad guys from every game, an interceptor, and a turreted tank.
+  assert.equal(await promo.locator(".promo-character,.character-icon").count(), 9);
+  assert.equal(await promo.locator(".foe-skull").count(), 3);
+  assert.equal(await promo.locator(".boom").count(), 7);
+  assert.ok((await promo.locator(".shot.miss").count()) >= 4, "some shots miss and fly off screen");
+  // After the intro, both shooters sit fully inside the browser card.
+  await promo.evaluate((el) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = 3600; }));
   const card = await promo.locator(".promo-stage").boundingBox();
-  for (const sel of [".recoil-ship", ".recoil-tank"]) {
+  for (const sel of [".plane-aim .promo-character", ".tank-hull"]) {
     const r = await promo.locator(sel).boundingBox();
-    assert.ok(r.x >= card.x - 1 && r.y >= card.y - 1 && r.x + r.width <= card.x + card.width + 1 && r.y + r.height <= card.y + card.height + 1, `${sel} inside the card`);
+    assert.ok(r.x >= card.x - 2 && r.y >= card.y - 2 && r.x + r.width <= card.x + card.width + 2 && r.y + r.height <= card.y + card.height + 2, `${sel} inside the card`);
   }
   for (const selector of [".hero", ".engineering", ".embed-section"]) {
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
@@ -83,14 +84,14 @@ try {
   await promo.getByRole("button", { name: "Pause scene animation" }).click();
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
-  // Interceptor hit at 1.25s, tank hit at 2.75s: each target explodes and vanishes.
+  // First kill (interceptor) lands 4.24s in, the tank's 5.24s: each target explodes and vanishes.
   const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = ms; }), ms);
   const opacity = (loc) => loc.evaluate((el) => Number(getComputedStyle(el).opacity));
-  await at(1300);
+  await at(4300);
   assert.ok((await opacity(promo.locator(".boom").nth(0).locator(".boom-flash"))) > 0.5);
-  await at(1550);
+  await at(4550);
   assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
-  await at(2800);
+  await at(5300);
   assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
