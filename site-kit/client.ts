@@ -287,12 +287,29 @@ const sfx = {
   click: () => (tone("square", 2400, 500, 0, 0.03, 0.05), tone("square", 1400, 260, 0.05, 0.045, 0.06)),
   power: (at = 0) => (tone("triangle", 220, 880, at, 0.16, 0.07), tone("sine", 1320, 1320, at + 0.17, 0.07, 0.04)),
 };
-shelf?.addEventListener("click", (event) => {
+// One cartridge at a time. While one is flying, loading, launching or coming home, the others
+// say "not now" (a quick wiggle and a buzz) instead of following their links. While the console
+// waits for you (PRESS START, or Battlefield's RED/BLUE choice), tapping the seated cartridge
+// (or Esc) pulls it back out: the eject button is the cartridge itself.
+let waiting: { cart: HTMLElement; pull: () => void } | null = null;
+function refuse(cart: HTMLElement) {
+  tone("square", 140, 110, 0, 0.09, 0.03);
+  cart.animate([{ transform: "translateX(0)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(-3px)" }, { transform: "translateX(0)" }], { duration: 260, easing: "steps(5)", composite: "add" });
+  // Hint: the seated cartridge hops, so you know which one is in the way.
+  if (waiting && waiting.cart !== cart)
+    waiting.cart.animate([{ transform: "translateY(0)" }, { transform: "translateY(-7px)" }, { transform: "translateY(0)" }], { duration: 300, easing: "cubic-bezier(.3,.7,.3,1)", composite: "add" });
+}
+const onCartClick = (event: Event) => {
   const cart = (event.target as Element).closest<HTMLAnchorElement>("a.cartridge");
   const mouse = event as MouseEvent;
-  if (!cart || !consoleEl || mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.button) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || shelf.dataset.plugging) return;
+  if (!cart || !consoleEl || !shelf || mouse.metaKey || mouse.ctrlKey || mouse.shiftKey || mouse.button) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   event.preventDefault();
+  if (shelf.dataset.plugging) {
+    // detail is 0 for keyboard clicks: Enter is START on the console, never eject.
+    if (waiting?.cart === cart && mouse.detail) return waiting.pull();
+    return refuse(cart);
+  }
   unlockAudio();
   liftOut(cart);
   // Swipe row (phones): a cartridge tapped half off-screen pulls its spot to the middle while it
@@ -312,7 +329,9 @@ shelf?.addEventListener("click", (event) => {
   // scrolls; no pause before the pick-up.
   const row = scrollerShelf();
   setTimeout(() => plug(cart, screen), below && !row ? 380 : 0);
-});
+};
+shelf?.addEventListener("click", onCartClick);
+deck?.addEventListener("click", onCartClick);
 // Where a plugged cartridge sits. The console's top face isn't visible from this angle (we see
 // its front plus the right/bottom sides, like the cartridges), so a cartridge simply slides down
 // behind the top edge. Every cartridge goes in the same amount: just past its pins, so the bottom
@@ -378,12 +397,18 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement, autoPad?: string) {
     // One action: PRESS START (or wait). Several: the screen lists them and waits for a choice.
     const actions = cartActions(cart);
     let started = false;
-    const start = (action: CartAction) => {
-      if (started) return;
+    const stop = () => {
       started = true;
+      waiting = null;
       clearTimeout(auto);
+      clearTimeout(pressTimer);
       removeEventListener("keydown", onKey);
       pad?.removeEventListener("click", onPad);
+      screen.removeEventListener("click", onScreen);
+    };
+    const start = (action: CartAction) => {
+      if (started) return;
+      stop();
       // Both launches leave the console exactly where it is (so coming back is the same exact
       // reverse): the screen flashes, then it morphs into the page or opens into the board.
       consoleEl.classList.add("starting");
@@ -398,6 +423,7 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement, autoPad?: string) {
       actions.find((a) => a.pad === p) ?? (actions.length === 1 && (p === "a" || p === "start") ? actions[0] : undefined);
     const onKey = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase();
+      if (k === "escape") return e.preventDefault(), pull();
       const action = k === "enter" || k === " " ? actions[0] : byPad(k === "s" ? "start" : k);
       if (!action) return;
       e.preventDefault();
@@ -410,9 +436,10 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement, autoPad?: string) {
     const pad = consoleEl.querySelector("[data-console-pad]");
     const auto = actions.length > 1 ? 0 : setTimeout(() => start(actions[0]!), 1800);
     // Cartridge swap (e.g. "Swap to Battlefield"): the console presses the button for you.
+    let pressTimer = 0;
     if (autoPad) {
       const btn = consoleEl.querySelector<HTMLElement>(`[data-pad="${autoPad}"]`);
-      setTimeout(() => {
+      pressTimer = window.setTimeout(() => {
         btn?.classList.add("press");
         setTimeout(() => {
           btn?.classList.remove("press");
@@ -421,9 +448,18 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement, autoPad?: string) {
         }, 170);
       }, 1100);
     }
+    const onScreen = () => start(actions[0]!);
+    // Changed your mind? Pull the cartridge back out: the exact reverse of the insert.
+    const pull = () => {
+      if (started) return;
+      stop();
+      sfx.click();
+      eject(cart, { dx, dy, k, h });
+    };
+    waiting = { cart, pull };
     addEventListener("keydown", onKey);
     pad?.addEventListener("click", onPad);
-    screen.addEventListener("click", () => start(actions[0]!), { once: true });
+    screen.addEventListener("click", onScreen);
   };
 }
 // After start the screen says LOADING GAME / LOADING INFO. Now and then the cartridge is

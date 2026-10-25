@@ -162,6 +162,20 @@ try {
   assert.match(await page.locator("[data-console-press]").textContent(), /BLUE INFO RED LAUNCH/);
   await page.waitForTimeout(2100);
   assert.equal(await page.evaluate(() => document.querySelector(".console").classList.contains("starting")), false, "two-way cartridges wait for a choice");
+  // One cartridge at a time: another cartridge says "not now" instead of opening its page.
+  const homeUrl = page.url();
+  await page.locator('.cartridge[data-cart="byte-runner"]').click();
+  await page.waitForTimeout(300);
+  assert.equal(page.url(), homeUrl, "a second cartridge doesn't navigate");
+  assert.equal(await page.locator('.cartridge[data-cart="byte-runner"]').evaluate((el) => el.classList.contains("plugging")), false);
+  // Changed your mind: tap the seated cartridge and it ejects back to its bay.
+  const seatBox = await bf.boundingBox();
+  await page.mouse.click(seatBox.x + seatBox.width / 2, seatBox.y + 8);
+  await page.waitForFunction(() => !document.querySelector("[data-shelf]").dataset.plugging, null, { timeout: 4000 });
+  assert.equal(await page.evaluate(() => document.querySelector(".console").classList.contains("booting")), false, "console back to idle");
+  assert.equal(page.url(), homeUrl.replace(/#.*$/, "") + "#games");
+  await bf.click();
+  await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   await page.locator('[data-pad="a"]').dispatchEvent("click");
   await page.waitForFunction(() => !!document.querySelector(".board-open"));
   await page.waitForURL(/\/dom-virus\/battlefield\/$/);

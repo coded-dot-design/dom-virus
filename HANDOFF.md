@@ -34,6 +34,9 @@ full of easter eggs, and high-performance on phones. Not "vibe-coded".
 - Return state lives in the URL (`?play=` / `?board=` / `?next=` + `#console`) and is read before first
   paint by the inline head script in `Site.astro`.
 - Cross-game links are swaps (`swapHref`), never plain jumps.
+- One cartridge at a time. While one is busy (flying, loading, launching, ejecting), other cartridges
+  refuse with a wiggle (`refuse()`) and never follow their links. While the console waits for input,
+  tapping the seated cartridge (or Esc) ejects it (`waiting.pull()`). Keyboard Enter is never eject.
 - The 3D press rule (section 4) holds for every 3D control: the base never moves, the press lands
   exactly, selected stays pressed, and there's no overshoot easing.
 - Only transforms and opacity move in hot paths. One layout read per gesture. Pause offscreen

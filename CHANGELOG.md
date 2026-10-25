@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.28.1
+
+Site kit 1.32.1:
+- One cartridge at a time: while a cartridge is flying in, loading, launching or ejecting, tapping another one no longer opens its page. It wiggles "not now" with a low buzz, and the seated cartridge hops to show what's in the way.
+- Changed your mind? While the console waits (PRESS START, or Battlefield's RED/BLUE choice), tap the seated cartridge or press Esc to eject it back to the shelf.
+
 ## 0.28.0 — Under the hood, rebuilt as a lab
 
 Site kit 1.32.0:
