@@ -99,6 +99,7 @@ const loopDelay = (t) => `animation-delay:${(INTRO + t).toFixed(2)}s`;
 ---
 <div data-byte-obstacle class="hero-art hero-crossover" role="group" aria-label="DOM Virus skulls and bad guys from every game spawn into a browser window; a tank and an interceptor arrive and blast them.">
   <div class="code-chrome"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>your.page / under attack</span><MotionToggle label="scene"/></div>
+  <p class="try-me" data-try-me role="status" hidden><svg aria-hidden="true" viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d={SKULL}/></svg>Psst. Tap the bad guys. Drag the tank. Hit <span>BUTTON_01</span>.</p>
   <div class="promo-stage promo-motion" style={`animation-delay:${INTRO}s`}>
     <div class="promo-page"><div class="promo-title">HELLO,<br/><span>WORL<span class="binary">01</span></span></div><div class="promo-lines" aria-hidden="true"><i></i><i></i></div><button class="art-button promo-button" data-arcade-target data-virus-target data-swarm-target>BUTTON_01 <UiIcon name="arrow-up-right" size={14}/></button></div>
     <svg class="promo-action" viewBox="0 0 500 360" fill="none" aria-hidden="true">
@@ -164,6 +165,12 @@ const loopDelay = (t) => `animation-delay:${(INTRO + t).toFixed(2)}s`;
 <style is:inline set:html={css}></style>
 <style>
 .hero-crossover{width:calc(100% - 48px);margin:42px 24px 24px;overflow:visible;isolation:isolate;transform:rotate(-2deg)}
+/* "Try me" bubble: shows only if someone lingers without touching the card (client.ts). */
+.try-me{position:absolute;z-index:6;top:-22px;right:18px;max-width:min(270px,70%);margin:0;padding:9px 12px 9px 34px;font:600 11px/1.35 var(--mono);color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink);rotate:3deg;pointer-events:none;opacity:0;translate:0 8px;transition:opacity .25s ease,translate .3s cubic-bezier(.2,.8,.2,1)}
+.try-me:global(.show){opacity:1;translate:0 0}
+.try-me span{color:var(--accent-text,var(--accent))}
+.try-me svg{position:absolute;left:10px;top:50%;width:16px;height:16px;margin-top:-8px;fill:#f4457a}
+.try-me::after{content:"";position:absolute;left:26px;bottom:-9px;width:14px;height:14px;background:var(--surface);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);rotate:45deg}
 .hero-crossover .code-chrome{padding:9px 14px;min-height:44px}.hero-crossover .code-chrome>:nth-child(2){margin-inline:auto;font-size:9px}
 .promo-stage{position:relative;aspect-ratio:500/360;container-type:inline-size}.promo-page{position:absolute;inset:0;padding:12% 10%}
 .promo-title{font:700 10cqw/1.08 var(--mono);letter-spacing:-.5cqw;color:var(--ink)}.promo-title>span{color:var(--faint)}.promo-title .binary{color:var(--accent-text,var(--accent));display:inline-block;transform:rotate(-7deg)}

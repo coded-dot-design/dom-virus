@@ -380,11 +380,12 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
       // Both launches leave the console exactly where it is (so coming back is the same exact
       // reverse): the screen flashes, then it morphs into the page or opens into the board.
       consoleEl.classList.add("starting");
+      const wait = loadingScreen(action.launch === "board" || !/info/i.test(action.label) ? "GAME" : "INFO");
       if (action.launch === "board") {
-        openBoard(screen, () => leaveTo(cart, true, action.href));
+        setTimeout(() => openBoard(screen, () => leaveTo(cart, true, action.href)), wait);
         return;
       }
-      setTimeout(() => go(action.href), 320);
+      setTimeout(() => go(action.href), wait);
     };
     const byPad = (p: string) =>
       actions.find((a) => a.pad === p) ?? (actions.length === 1 && (p === "a" || p === "start") ? actions[0] : undefined);
@@ -405,6 +406,28 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
     pad?.addEventListener("click", onPad);
     screen.addEventListener("click", () => start(actions[0]!), { once: true });
   };
+}
+// After start the screen says LOADING GAME / LOADING INFO. Now and then the cartridge is
+// "stubborn" and the screen flips to an old-console fix before it loads (a little longer).
+const LOAD_JOKES = [
+  "BLOWING ON PINS",
+  "JIGGLE CARTRIDGE",
+  "DUST IN THE SLOT",
+  "RESEATING PINS",
+  "ADJUST TRACKING",
+  "PFFFT. TRY AGAIN",
+  "HOLD RESET. KIDDING",
+];
+function loadingScreen(what: string) {
+  const el = consoleEl!.querySelector<HTMLElement>("[data-console-loading]")!;
+  el.textContent = `LOADING ${what}`;
+  consoleEl!.classList.add("loading");
+  if (Math.random() > 0.3) return 700;
+  setTimeout(() => {
+    el.textContent = LOAD_JOKES[Math.floor(Math.random() * LOAD_JOKES.length)]!;
+    tone("square", 180, 120, 0, 0.12, 0.03);
+  }, 650);
+  return 1750;
 }
 type CartAction = { pad: "a" | "b" | "start"; label: string; href: string; launch?: "screen" | "board" };
 function cartActions(cart: HTMLElement): CartAction[] {
@@ -532,7 +555,7 @@ function dock(cart: HTMLElement) {
   consoleEl!.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
   consoleEl!.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
   pressText(cart);
-  consoleEl!.classList.remove("starting");
+  consoleEl!.classList.remove("starting", "loading");
   consoleEl!.classList.toggle("full", full);
   consoleEl!.classList.add("booting");
   return seat;
@@ -542,7 +565,7 @@ function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (cart) cart.getAnimations().forEach((a) => a.cancel()), putBack(cart);
-    consoleEl?.classList.remove("booting", "starting", "full", "choice");
+    consoleEl?.classList.remove("booting", "starting", "loading", "full", "choice");
     shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
     if (shelf) delete shelf.dataset.plugging;
     return settle();
@@ -584,7 +607,7 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
         ],
         { duration: 900, easing: "cubic-bezier(.3,.7,.3,1)", fill: "both" },
       );
-  setTimeout(() => consoleEl!.classList.remove("booting", "full", "choice"), 300);
+  setTimeout(() => consoleEl!.classList.remove("booting", "loading", "full", "choice"), 300);
   out.onfinish = () => {
     out.cancel();
     cart.classList.remove("plugging");
@@ -608,21 +631,85 @@ addEventListener("pageshow", (event) => {
     putBack(n);
   });
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
-  consoleEl?.classList.remove("booting", "starting", "full", "choice");
+  consoleEl?.classList.remove("booting", "starting", "loading", "full", "choice");
   clearReturn();
 });
-// Console buttons: all clickable. A starts a plugged cartridge (handled above); idle A/B make
-// the attract characters hop; the D-pad tilts (CSS).
+// Console buttons: all clickable. With a cartridge in, they follow its actions (above). With
+// nothing plugged in the idle screen is a tiny game: A (red) fires from the bottom at the
+// crosshair in the middle (bad guys score, good guys are "OOPS"), B (blue) or a tap on the screen
+// makes the middle character jump, Start makes them all hop. The D-pad tilts (CSS).
+const attractRow = consoleEl?.querySelector<HTMLElement>("[data-attract]");
+const hitsEl = consoleEl?.querySelector<HTMLElement>("[data-console-hits]");
+let hits = 0,
+  aimTimer = 0;
+function middleOne(reach: number) {
+  const row = attractRow!.getBoundingClientRect(),
+    cx = row.left + row.width / 2;
+  let best: HTMLElement | null = null;
+  for (const i of attractRow!.querySelectorAll<HTMLElement>("i:not(.zapped)")) {
+    const r = i.getBoundingClientRect(),
+      d = Math.abs(r.left + r.width / 2 - cx);
+    if (d < reach) (reach = d), (best = i);
+  }
+  return best;
+}
+function idleShoot() {
+  const row = attractRow!,
+    screen = consoleEl!.querySelector<HTMLElement>(".screen")!.getBoundingClientRect(),
+    from = screen.bottom - row.getBoundingClientRect().top;
+  row.classList.add("aiming");
+  clearTimeout(aimTimer);
+  aimTimer = window.setTimeout(() => row.classList.remove("aiming"), 900);
+  const bolt = document.createElement("b");
+  bolt.className = "bolt";
+  row.append(bolt);
+  tone("square", 1400, 320, 0, 0.07, 0.03);
+  bolt.animate([{ transform: `translateY(${from}px)` }, { transform: "translateY(6px)" }], { duration: 170, easing: "linear" }).onfinish = () => {
+    const target = middleOne(16);
+    if (!target) {
+      bolt.animate([{ transform: "translateY(6px)", opacity: 1 }, { transform: "translateY(-60px)", opacity: 0 }], 160).onfinish = () => bolt.remove();
+      return;
+    }
+    bolt.remove();
+    target.classList.add("zapped");
+    setTimeout(() => target.classList.remove("zapped"), 900);
+    const burst = document.createElement("b");
+    burst.className = "burst";
+    row.append(burst);
+    burst.animate([{ transform: "scale(.3)", opacity: 1 }, { transform: "scale(1.4)", opacity: 0 }], { duration: 320, easing: "ease-out" }).onfinish = () => burst.remove();
+    tone("sawtooth", 260, 60, 0, 0.16, 0.04);
+    const friendly = target.dataset.side === "good";
+    if (!friendly) hits++;
+    hitsEl!.textContent = friendly ? "OOPS! FRIENDLY" : `HITS ${String(hits).padStart(2, "0")}`;
+    hitsEl!.classList.add("on");
+    consoleEl!.querySelector(".screen")!.classList.toggle("oops", friendly);
+  };
+}
+function idleJump() {
+  const one = middleOne(40);
+  if (!one || one.classList.contains("jump")) return;
+  one.classList.add("jump");
+  tone("sine", 330, 660, 0, 0.12, 0.03);
+  setTimeout(() => one.classList.remove("jump"), 240);
+}
 consoleEl?.querySelector("[data-console-pad]")?.addEventListener("click", (event) => {
   const pad = (event.target as HTMLElement).closest<HTMLElement>("[data-pad]")?.dataset.pad;
   if (!pad || consoleEl.classList.contains("booting")) return;
-  if (pad === "a" || pad === "b" || pad === "start") {
+  unlockAudio();
+  if (pad === "a") idleShoot();
+  else if (pad === "b") idleJump();
+  else if (pad === "start") {
     const attract = consoleEl.querySelector(".attract")!;
     attract.classList.remove("hop");
     void (attract as HTMLElement).offsetWidth;
     attract.classList.add("hop");
     setTimeout(() => attract.classList.remove("hop"), 160);
   }
+});
+consoleEl?.querySelector("[data-console-screen]")?.addEventListener("click", () => {
+  if (consoleEl.classList.contains("booting")) return;
+  unlockAudio();
+  idleJump();
 });
 // Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
 // tiny contained game (only then). Reduced-motion visitors keep the still poster.
@@ -639,6 +726,34 @@ hero?.querySelector(".promo-stage")?.addEventListener(
     });
   },
 );
+// "Try me" bubble: if someone looks at the hero for a few seconds without touching it, a small
+// hint pops up by the card, then leaves on its own (or on the first touch). Once per visit.
+const tryMe = hero?.querySelector<HTMLElement>("[data-try-me]");
+if (hero && tryMe && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  let shown = false,
+    timer = 0;
+  const touched = () => {
+    shown = true;
+    clearTimeout(timer);
+    tryMe.classList.remove("show");
+  };
+  hero.addEventListener("pointerdown", touched, { once: true });
+  const watch = new IntersectionObserver(
+    ([entry]) => {
+      clearTimeout(timer);
+      if (shown || !entry!.isIntersecting) return;
+      timer = window.setTimeout(() => {
+        if (shown || heroGame() || hero.dataset.play) return;
+        shown = true;
+        tryMe.hidden = false;
+        requestAnimationFrame(() => tryMe.classList.add("show"));
+        setTimeout(() => tryMe.classList.remove("show"), 5200);
+      }, 4200);
+    },
+    { threshold: 0.6 },
+  );
+  watch.observe(hero);
+}
 // The mock BUTTON_01 is the big red button: clicking it nukes every bad guy and resets the round
 // (the same nuke the two-minute timer fires). The first click also starts the game.
 const heroGame = () => (hero as (HTMLElement & { heroGame?: { nuke(): void } }) | null)?.heroGame;

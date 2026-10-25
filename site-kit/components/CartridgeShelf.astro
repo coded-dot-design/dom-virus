@@ -15,7 +15,20 @@ import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
   While idle the screen runs an attract loop of characters from the games.
 */
 const { games, base = '/' } = Astro.props;
-const attract = ['ship', 'runner', 'bug', 'tank'];
+// Idle screen roster: good guys and bad guys from the games roll by on a loop. With nothing
+// plugged in the console is a tiny game: red (A) fires at the crosshair, blue (B) or a tap on the
+// screen makes the middle character jump (client.ts).
+const attract = [
+  { kind: 'ship', color: '#06c4ff', side: 'good' },
+  { kind: 'bug', color: '#8573ee', side: 'bad' },
+  { kind: 'runner', color: '#4bce82', side: 'good' },
+  { kind: 'skull', color: '#f4457a', side: 'bad' },
+  { kind: 'tank', color: '#ffb547', side: 'good' },
+  { kind: 'fly-chaser', color: '#ff6b6b', side: 'bad' },
+  { kind: 'ship-twin', color: '#19f0ff', side: 'good' },
+  { kind: 'fly-roamer', color: '#d984ff', side: 'bad' },
+];
+const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z';
 ---
 <section class="cartridge-shelf" id="games" aria-labelledby="games-title">
   <div class="eyebrow">INSERT CURIOSITY. PRESS PLAY.</div>
@@ -44,10 +57,12 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
   <div class="console" id="console" data-console>
     <div class="body">
       <div class="screen" data-console-screen aria-hidden="true">
-        <span class="attract">{attract.map((kind, i) => <i style={`--d:${i * -1.6}s`}><Icon kind={kind} size={22}/></i>)}</span>
+        <span class="attract" data-attract>{attract.map((a, i) => <i data-side={a.side} style={`--d:${(i * -0.8).toFixed(1)}s;color:${a.color}`}>{a.kind === 'skull' ? <svg width="22" height="22" viewBox="0 0 64 64" fill="currentColor" shape-rendering="crispEdges"><path fill-rule="evenodd" d={SKULL}/></svg> : <Icon kind={a.kind} size={22}/>}</i>)}<b class="sight" aria-hidden="true"></b></span>
         <span class="boot">INSERT CARTRIDGE</span>
+        <span class="hits" data-console-hits></span>
         <span class="name" data-console-name></span>
         <span class="start" data-console-press>PRESS START</span>
+        <span class="loading" data-console-loading></span>
       </div>
       <div class="controls" data-console-pad aria-hidden="true">
         <span class="dpad"><span role="button" class="up" data-pad="up" aria-label="Up"></span><span role="button" class="left" data-pad="left" aria-label="Left"></span><span role="button" class="right" data-pad="right" aria-label="Right"></span><span role="button" class="down" data-pad="down" aria-label="Down"></span></span>
@@ -81,8 +96,21 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .name,.start{display:none}
 /* Attract loop: game characters march across the idle screen (paused offscreen). */
 .attract{align-self:start;width:100%;height:40%;position:relative;margin-top:10%}
-.attract i{position:absolute;left:0;top:0;color:#f4457a;animation:march 6.4s steps(32) var(--d) infinite;animation-play-state:paused}
-.attract i:nth-child(2){color:#4bce82}.attract i:nth-child(3){color:#8573ee}.attract i:nth-child(4){color:#06c4ff}
+.attract i{position:absolute;left:0;top:0;animation:march 6.4s steps(32) var(--d) infinite;animation-play-state:paused}
+.attract i :global(svg){display:block}
+/* Idle mini-game: crosshair at the middle, bullets from the bottom, hit flash, jump. */
+.sight{position:absolute;left:50%;top:11px;width:30px;height:30px;translate:-50% -50%;border:2px solid #f4457a;border-radius:50%;opacity:0;transition:opacity .2s;pointer-events:none}
+.sight::before,.sight::after{content:"";position:absolute;background:#f4457a}
+.sight::before{left:50%;top:-6px;bottom:-6px;width:2px;translate:-50% 0}
+.sight::after{top:50%;left:-6px;right:-6px;height:2px;translate:0 -50%}
+.attract:global(.aiming) .sight{opacity:.9}
+.attract :global(.bolt){position:absolute;left:50%;width:3px;height:10px;margin-left:-1.5px;background:#ffe14d;box-shadow:0 0 8px #ffe14d;border-radius:2px}
+.attract :global(.burst){position:absolute;left:50%;top:11px;width:34px;height:34px;translate:-50% -50%;border-radius:50%;border:3px solid #ffe14d;pointer-events:none}
+.attract i:global(.zapped){opacity:0;transition:opacity .08s}
+.attract i:global(.jump){translate:0 -16px;transition:translate 140ms ease-out}
+.hits{position:absolute;top:8px;left:10px;font-size:9px;letter-spacing:1.5px;color:#ffe14d;opacity:0}
+.hits:global(.on){opacity:.9}
+.screen:global(.oops) .hits{color:#f4457a}
 .console[data-motion="true"] .attract i{animation-play-state:running}
 @keyframes march{from{transform:translateX(-30px)}to{transform:translateX(380px)}}
 /* Every control clicks. Plain spans (not buttons) so the site's button styles never leak in;
@@ -106,14 +134,20 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .btn.a{background:#f4457a}
 /* A/B make the attract characters hop. */
 .attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}
-.attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1)}
+.attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1),opacity .3s}
 .led{position:absolute;top:7px;right:12px;width:8px;height:8px;border-radius:50%;background:#5a2133;border:1px solid var(--ink);transition:background .1s,box-shadow .1s}
 .led.two{right:26px}
 
 /* Booted: power on, cartridge name, PRESS START, A pulses. */
 .console:global(.booting) .screen{background-color:var(--boot);color:#07060f;box-shadow:inset 0 0 40px #0006,0 0 30px var(--boot)}
-.console:global(.booting) :is(.boot,.attract){display:none}
+.console:global(.booting) :is(.boot,.attract,.hits){display:none}
 .console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px;animation:boot .42s steps(3) both}
+/* Loading: after start, PRESS START gives way to LOADING… (and sometimes a cartridge joke). */
+.loading{display:none}
+.console:global(.loading) .start{display:none!important}
+.console:global(.loading) .loading{display:block;align-self:end;margin-bottom:12%;font-size:11px;letter-spacing:2px}
+.console:global(.loading) .loading::after{content:"";display:inline-block;width:3ch;text-align:left;animation:dots 1s steps(4) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
 .console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
 /* Multi-action cartridges: one dark chip per pad, in the pad's colour; no blink, the chips pulse. */
 .start:has(b){animation:none}
