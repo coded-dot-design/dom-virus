@@ -1,8 +1,64 @@
-# DOM VIRUS: Phase 1 handoff
+# DOM VIRUS: agent handoff (hub + engine)
 
-Phase 1 is done. This document is the map: what exists, how it fits together, why it works the
-way it does, and the lessons that cost real time to learn. Read it before you change anything
-that moves. The forward-looking list lives in [FUTURE.md](FUTURE.md).
+This is the first file any agent or model should read in this repo. Every repo in the ecosystem
+keeps a `HANDOFF.md` (how it works, why, and what must not break) and a `FUTURE.md` (what's next).
+The rest of this file is the map: what exists, how it fits together, why it works the way it does,
+and the lessons that cost real time to learn. Phase 1 is done and tagged `phase-1`.
+
+## Start here (for agents)
+
+**What/why:** the hub site is the showcase for DOM games. Navigation is a game: cartridges, a
+console, exact-reverse transitions. It is also a portfolio piece for coded.design: polished, fun,
+full of easter eggs, and high-performance on phones. Not "vibe-coded".
+
+**Where to change what**
+
+| Task | Go to |
+|---|---|
+| Page layout, header, footer, page routing | `site-kit/components/Site.astro`, `site/src/pages/*` |
+| Cartridge look (shell, pins, sticker, ghost cover) | `site-kit/components/Cartridge.astro` |
+| Shelf, console, idle mini-game, board overlay CSS | `site-kit/components/CartridgeShelf.astro` |
+| Plug/boot/launch/return/swap/eject logic, idle game, hero hooks | `site-kit/client.ts` |
+| Cross-game links (swaps) | `site-kit/swap.ts` (`swapHref`) |
+| Hero art / hero mini-game | `site-kit/components/HeroScene.astro`, `site-kit/hero-game.ts` |
+| Game pages / Battlefield info page | `site-kit/components/GameSection.astro`, `BattlefieldDetail.astro` |
+| Style guide + case study | `site-kit/components/StyleGuide.astro` |
+| Shared tokens, global buttons, layout | `site-kit/style.css` |
+| Engine runtime, touch controls | `src/runtime.ts`, `src/touch-controls.ts` (then `npm run sync:games`) |
+| Which game versions the hub ships | `games.json`, `battlefield.json` |
+
+**Invariants: don't break these**
+
+- The console never moves on launch. Launch and return start from the same seat (exact reverse).
+- Return state lives in the URL (`?play=` / `?board=` / `?next=` + `#console`) and is read before first
+  paint by the inline head script in `Site.astro`.
+- Cross-game links are swaps (`swapHref`), never plain jumps.
+- The 3D press rule (section 4) holds for every 3D control: the base never moves, the press lands
+  exactly, selected stays pressed, and there's no overshoot easing.
+- Only transforms and opacity move in hot paths. One layout read per gesture. Pause offscreen
+  (`data-motion`). Respect `prefers-reduced-motion` (navigation becomes plain links).
+- Name JS state classes distinctly (`is-…`) so scoped component rules can't match them.
+- Never edit a game's `shared/` by hand. Change the owner (`src/` here), then sync.
+- A release is package.json + both top-level lock fields + CHANGELOG + `site/config.json` `kitVersion`
+  in one commit. CI tags `v<version>`. Pin a game or Battlefield only after its tag exists.
+
+**Verify before you push**
+
+```bash
+export CHROMIUM_PATH=/path/to/chromium   # if Playwright's bundled browser isn't available
+npx tsc --noEmit
+npm run site:build && npm run site:test:browser     # Node 24
+npm run check && npm run test:browser               # when src/ (engine) changed
+```
+
+When you touch motion or buttons, also measure in a browser. A screenshot isn't proof: check rects
+and shadows at rest, on hover and on press, and watch transitions frame by frame on desktop and on
+a 390px phone viewport.
+
+**Keeping this file current:** update `HANDOFF.md` and `FUTURE.md` in the same change whenever
+behaviour, architecture or workflow changes. Every repo keeps both files.
+
+---
 
 - **Live hub:** https://coded-dot-design.github.io/dom-virus/
 - **Full game:** https://coded-dot-design.github.io/dom-virus/battlefield/
