@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.0
+
+Site kit 1.21.0:
+- The start screen is a tiny game: a plugged cartridge powers the console (LED, the game's name, PRESS START, pulsing A). A, a tap on the screen, Enter or a short wait starts it; the screen flashes and the console slides into its drawer while the page morphs in.
+- Attract mode: characters from the games march across the idle console screen (paused offscreen).
+- DOM Battlefield's display is a live battlefield: cover blocks, HQs, and two tanks a side patrolling, sweeping turrets, trading shots (some miss) with blasts.
+- Reusable components: `Cartridge`, `PixelTank` (shared by the hero and Battlefield), shelf/console and Battlefield styles scoped to their components, and one shared `.card` surface.
+
 ## 0.16.0
 
 Site kit 1.20.0 — one page per game, on DOM Virus only:

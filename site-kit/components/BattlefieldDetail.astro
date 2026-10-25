@@ -1,6 +1,6 @@
 ---
 import UiIcon from './UiIcon.astro';
-import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
+import PixelTank from './PixelTank.astro';
 // DOM Battlefield's page: how it is layered on Sherman Bytes, and how to launch it.
 const { base = '/', version, sherman } = Astro.props;
 const repo = 'https://github.com/coded-dot-design/dom-battlefield';
@@ -16,6 +16,32 @@ const facts = [
   { value: '<30', small: 'kB', label: 'gzip for the whole app' },
   { value: '0', label: 'bytes added to Sherman Bytes' },
 ];
+// The display card is a live mini battlefield: obstacles, two tanks a side, aimed shots and blasts.
+const S = 0.36; // tank scale inside the scene
+const teams = {
+  a: { body: '#2f9a5e', tread: '#1d6a40', top: '#5ff09a', ink: '#123d27' },
+  b: { body: '#b02a5c', tread: '#741a3d', top: '#ff7aa8', ink: '#3d0a1f' },
+};
+const tanks = [
+  { id: 'a1', team: 'a', x: 62, y: 70, drive: 'patrol-x', face: 0 },
+  { id: 'a2', team: 'a', x: 92, y: 178, drive: 'patrol-y', face: 0 },
+  { id: 'b1', team: 'b', x: 352, y: 62, drive: 'patrol-y', face: 180 },
+  { id: 'b2', team: 'b', x: 330, y: 176, drive: 'patrol-x', face: 180 },
+];
+const at = Object.fromEntries(tanks.map((t) => [t.id, t]));
+// Shots (seconds into a 6s loop): from shooter to target; `miss` flies past into cover.
+const shots = [
+  { from: 'a1', to: 'b1', t: 0.6 },
+  { from: 'b2', to: 'a2', t: 1.8, miss: true },
+  { from: 'a2', to: 'b2', t: 3.0 },
+  { from: 'b1', to: 'a1', t: 4.2, miss: true },
+].map((s) => {
+  const a = at[s.from], b = at[s.to];
+  const ang = Math.atan2(b.y - a.y, b.x - a.x), m = 22;
+  const end = s.miss ? { x: b.x - Math.cos(ang) * 46, y: b.y - Math.sin(ang) * 46 + 18 } : b;
+  return { ...s, ang, mx: a.x + Math.cos(ang) * m, my: a.y + Math.sin(ang) * m, ex: end.x, ey: end.y };
+});
+const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180) / Math.PI);
 ---
 <section id="battlefield" class="game-section standalone accent-cyan battlefield-page" aria-labelledby="battlefield-title">
   <a class="back-link" href={`${base}#games`} data-virus-ignore data-swarm-ignore><UiIcon name="arrow-up-right" size={16} class="back-arrow"/> All games</a>
@@ -31,20 +57,86 @@ const facts = [
       </div>
       <p class="credit">Created by <span>Chris Cooley</span> · coded.design</p>
     </div>
-    <div data-byte-obstacle class="game-display battlefield-display" style="view-transition-name: game-screen" aria-label="DOM Battlefield: a squad of tanks on a grid">
+    <div data-byte-obstacle class="game-display battlefield-display" style="view-transition-name: game-screen" role="img" aria-label="DOM Battlefield: two squads of tanks trade fire across a grid of cover">
       <div class="display-top"><span class="led"></span> SQUAD TACTICS<span class="display-note">DOM / GRID BATTLE</span></div>
-      <div class="bf-art" aria-hidden="true">
-        <span class="bf-mark"><Fragment set:html={battlefieldIcon}/></span>
-        <i class="bf-tile a"></i><i class="bf-tile b"></i><i class="bf-tile c"></i><i class="bf-tile d"></i>
-      </div>
+      <svg class="field" viewBox="0 0 420 240" aria-hidden="true">
+        <defs><pattern id="bf-grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#06c4ff" stroke-opacity=".14"/></pattern></defs>
+        <rect width="420" height="240" fill="url(#bf-grid)"/>
+        <rect class="road" x="0" y="112" width="420" height="22"/>
+        <g class="cover">
+          <rect class="wall" x="150" y="30" width="30" height="30"/><rect class="wall" x="150" y="60" width="30" height="30"/>
+          <rect class="wall" x="240" y="150" width="30" height="30"/><rect class="wall" x="240" y="180" width="30" height="30"/>
+          <rect class="tower" x="196" y="40" width="28" height="28"/><rect class="window" x="205" y="49" width="10" height="10"/>
+          <polygon class="crystal" points="210,170 222,177 222,191 210,198 198,191 198,177"/>
+          <line class="fence" x1="120" y1="200" x2="176" y2="200"/>
+        </g>
+        <g class="hq a"><rect x="14" y="98" width="44" height="44"/></g>
+        <g class="hq b"><rect x="362" y="98" width="44" height="44"/></g>
+        {tanks.map((t) => (
+          <g transform={`translate(${t.x} ${t.y})`}>
+            <g class={`tank ${t.drive} ${t.id}`}>
+              <g transform={`scale(${S}) rotate(${t.face})`}>
+                <PixelTank {...teams[t.team]} turretClass={`aim aim-${t.id}`} turretStyle={`--a0:${(aimOf(t.id)[0] ?? 0) - t.face}deg`}/>
+              </g>
+            </g>
+          </g>
+        ))}
+        {shots.map((s) => (
+          <line class="shell" x1={s.mx} y1={s.my} x2={s.mx + Math.cos(s.ang) * 8} y2={s.my + Math.sin(s.ang) * 8} stroke={at[s.from].team === 'a' ? '#5ff09a' : '#ff7aa8'} style={`--tx:${(s.ex - s.mx).toFixed(1)}px;--ty:${(s.ey - s.my).toFixed(1)}px;animation-delay:${s.t}s`}/>
+        ))}
+        {shots.map((s) => (
+          <g transform={`translate(${s.ex.toFixed(1)} ${s.ey.toFixed(1)})`}>
+            <g class="blast" style={`animation-delay:${(s.t + 0.32).toFixed(2)}s`}>
+              <circle r="9" fill="#ffe14d"/><circle r="14" fill="none" stroke="#f4457a" stroke-width="3"/>
+              <rect x="-14" y="-3" width="5" height="5" fill="#06c4ff"/><rect x="10" y="-6" width="5" height="5" fill="#fff4ff"/><rect x="-2" y="10" width="5" height="5" fill="#ffe14d"/>
+            </g>
+          </g>
+        ))}
+      </svg>
       <div class="display-bottom"><span>Lock. Order. Breach.</span><span>FULL SCREEN / LANDSCAPE ON PHONES</span></div>
     </div>
   </div>
   <div class="game-facts">{facts.map((f) => <div><b>{f.value}{f.small && <small> {f.small}</small>}</b><span>{f.label}</span></div>)}</div>
-  <div class="bf-layers">
+  <div class="layers">
     <div class="eyebrow">HOW IT IS LAYERED</div>
     <h3>Four layers. One borrowed tank.</h3>
-    <ol>{layers.map((l) => <li><span class="bf-layer-tag">{l.tag}</span><div><h4>{l.title}</h4><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="arrow-up-right" size={14}/></a></div></li>)}</ol>
+    <ol>{layers.map((l) => <li class="card"><span class="tag">{l.tag}</span><div><h4>{l.title}</h4><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="arrow-up-right" size={14}/></a></div></li>)}</ol>
   </div>
-  <a class="nerd-link" href={`${repo}#readme`} data-virus-ignore data-swarm-ignore><span class="eyebrow">NERD NOTES · GITHUB</span><strong>How DOM Battlefield works under the hood</strong><span>Controls, boundaries, budgets and release notes in the README</span><UiIcon name="arrow-up-right" size={20}/></a>
+  <a class="nerd-link card" href={`${repo}#readme`} data-virus-ignore data-swarm-ignore><span class="eyebrow">NERD NOTES · GITHUB</span><strong>How DOM Battlefield works under the hood</strong><span>Controls, boundaries, budgets and release notes in the README</span><UiIcon name="arrow-up-right" size={20}/></a>
 </section>
+<style>
+/* Scene: cover sits back, tanks pop. All motion pauses offscreen (data-motion from client.ts). */
+.field{display:block;width:calc(100% - 36px);margin:6px 18px;aspect-ratio:420/240;height:auto}
+.road{fill:#06c4ff0d}
+.wall{fill:#0f1d2b;stroke:#22465a;stroke-width:1.5}
+.tower{fill:#1a1430;stroke:#3c2b55;stroke-width:1.5}.window{fill:#3c2b55}
+.crystal{fill:#231c40}
+.fence{stroke:#6b5f2a;stroke-width:3;stroke-dasharray:6 5}
+.hq rect{fill:none;stroke-width:2;stroke-dasharray:5 4}
+.hq.a rect{stroke:#39ffb0}.hq.b rect{stroke:#ff5c8f}
+.field :global(*){animation-play-state:paused}
+.battlefield-display[data-motion="true"] .field :global(*){animation-play-state:running}
+.tank{transform-box:fill-box;transform-origin:center}
+.patrol-x{animation:patrol-x 6s ease-in-out infinite}
+.patrol-y{animation:patrol-y 6s ease-in-out infinite}
+.b1,.b2{animation-delay:-3s}
+@keyframes patrol-x{50%{transform:translateX(26px)}}
+@keyframes patrol-y{50%{transform:translateY(-22px)}}
+.field :global(.aim){transform:rotate(var(--a0));transform-box:fill-box;transform-origin:center;animation:sweep 6s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:rotate(var(--a0))}40%{transform:rotate(calc(var(--a0) + 24deg))}70%{transform:rotate(calc(var(--a0) - 18deg))}}
+.shell{stroke-width:4;stroke-linecap:square;opacity:0;animation:shell 6s linear infinite}
+@keyframes shell{0%{opacity:1;transform:translate(0,0)}5.3%{opacity:1;transform:translate(var(--tx),var(--ty))}5.4%,100%{opacity:0}}
+.blast{opacity:0;transform-box:fill-box;transform-origin:center;animation:blast 6s ease-out infinite}
+@keyframes blast{0%{opacity:1;transform:scale(.3)}5%{opacity:1;transform:scale(1.6)}10%,100%{opacity:0;transform:scale(2.2)}}
+/* Layer cards share the site's .card style. */
+.layers{margin-top:42px}
+.layers h3{margin:8px 0 18px;font-size:22px}
+.layers ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.layers li{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:18px}
+.tag{align-self:start;padding:4px 8px;font:700 10px var(--mono);letter-spacing:1px;color:var(--accent-ink);background:var(--accent);border:2px solid var(--ink);border-radius:4px}
+h4{margin:0 0 6px;font-size:16px}
+.layers p{margin:0 0 8px;font-size:13px;line-height:1.6;color:var(--muted)}
+.layers a{font:11px var(--mono);color:var(--accent-text,var(--accent))}
+@media (max-width:760px){.layers ol{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.field :global(*){animation:none!important}.shell,.blast{opacity:0}}
+</style>

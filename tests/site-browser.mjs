@@ -106,6 +106,10 @@ try {
   await page.locator('.cartridge[data-cart="byte-runner"]').scrollIntoViewIfNeeded();
   await page.locator('.cartridge[data-cart="byte-runner"]').click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
+  assert.equal(await page.locator("[data-console-name]").textContent(), "Byte Runner");
+  // PRESS START: Enter (or A, a tap, or a short wait) slides the console into its drawer.
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() => document.querySelector(".console").classList.contains("starting"));
   await page.waitForURL(/\/games\/byte-runner\/$/);
   assert.equal(await page.locator(".game-section.standalone").count(), 1);
   assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");
@@ -115,7 +119,8 @@ try {
   // Battlefield has its own page and launches the app; Sherman Bytes can launch it too.
   await page.goto(base + "games/battlefield/");
   assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
-  assert.equal(await page.locator(".bf-layers li").count(), 4);
+  assert.equal(await page.locator(".layers li").count(), 4);
+  assert.equal(await page.locator(".battlefield-display .tank").count(), 4, "battlefield scene has two tanks a side");
   await page.goto(base + "games/sherman-bytes/");
   assert.equal(new URL(await page.getByRole("link", { name: "Open Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
   // The original one-page layout is archived.

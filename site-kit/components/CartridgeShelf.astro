@@ -1,44 +1,104 @@
 ---
 import Icon from './AbstractIcon.astro';
+import Cartridge from './Cartridge.astro';
 import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
-// Home-page game picker: cartridges pop up as the shelf scrolls in; picking one plugs it into
-// the console (client.ts) and the console screen morphs into the game page (View Transitions).
+/*
+  Home-page game picker, played like a tiny game (logic in client.ts):
+  cartridges pop up as the shelf scrolls in → pick one → it flies into the console slot →
+  power LED, PRESS START, A pulses → press A / tap the screen / Enter (or wait) → the console
+  slides down into its drawer and the screen morphs into the game page (View Transitions).
+  While idle the screen runs an attract loop of characters from the games.
+*/
 const { games, base = '/' } = Astro.props;
+const attract = ['ship', 'runner', 'bug', 'tank'];
 ---
-<section class="game-directory cartridge-shelf" id="games" aria-labelledby="games-title">
+<section class="cartridge-shelf" id="games" aria-labelledby="games-title">
   <div class="eyebrow">INSERT CURIOSITY. PRESS PLAY.</div>
   <h2 id="games-title">Pick a cartridge.</h2>
-  <p class="shelf-lead">Each game plays across the page you are reading. Pick one to open its page, then press Play.</p>
+  <p class="lead">Each game plays across the page you are reading. Plug one in, press Start, then press Play on its page.</p>
   <div class="shelf" data-shelf data-virus-ignore data-swarm-ignore>
     {games.map((game, i) => (
-      <a class:list={['cartridge', `accent-${game.accent}`]} href={`${base}games/${game.id}/`} data-cart={game.id} style={`--i:${i}`}>
-        <span class="cart-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="cart-label">
-          <span class="cart-art" aria-hidden="true"><Icon kind={game.icon} size={44}/></span>
-          <small>0{i + 1} / {game.kind}</small>
-          <strong>{game.name}</strong>
-          <em>{game.tagline}</em>
-        </span>
-        <span class="cart-pins" aria-hidden="true"></span>
-      </a>
+      <Cartridge id={game.id} href={`${base}games/${game.id}/`} accent={game.accent} index={i} kind={game.kind} name={game.name} tagline={game.tagline}>
+        <Icon kind={game.icon} size={44}/>
+      </Cartridge>
     ))}
-    <a class="cartridge accent-cyan cartridge-battlefield" href={`${base}games/battlefield/`} data-cart="battlefield" style={`--i:${games.length}`}>
-      <span class="cart-grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-      <span class="cart-label">
-        <span class="cart-art" aria-hidden="true"><Fragment set:html={battlefieldIcon}/></span>
-        <small>0{games.length + 1} / SQUAD TACTICS</small>
-        <strong>DOM Battlefield</strong>
-        <em>Sherman Bytes, a whole platoon.</em>
-      </span>
-      <span class="cart-pins" aria-hidden="true"></span>
-    </a>
+    <Cartridge id="battlefield" href={`${base}games/battlefield/`} accent="cyan" index={games.length} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon.">
+      <Fragment set:html={battlefieldIcon}/>
+    </Cartridge>
   </div>
   <div class="console" data-console aria-hidden="true">
-    <div class="console-slot"><i></i></div>
-    <div class="console-body">
-      <div class="console-screen" data-console-screen><span class="console-boot">INSERT CARTRIDGE</span><span class="console-name"></span></div>
-      <div class="console-controls"><i class="console-dpad"></i><span class="console-brand">DOM·VIRUS</span><i class="console-btn b"></i><i class="console-btn a"></i></div>
-      <span class="console-led"></span>
+    <div class="slot"><i></i></div>
+    <div class="body">
+      <div class="screen" data-console-screen>
+        <span class="attract">{attract.map((kind, i) => <i style={`--d:${i * -1.6}s`}><Icon kind={kind} size={22}/></i>)}</span>
+        <span class="boot">INSERT CARTRIDGE</span>
+        <span class="name" data-console-name></span>
+        <span class="start">PRESS START</span>
+      </div>
+      <div class="controls"><i class="dpad"></i><i class="pill"></i><i class="pill"></i><i class="btn b"></i><i class="btn a" data-console-start></i></div>
+      <span class="led"></span>
     </div>
+    <div class="drawer"></div>
   </div>
 </section>
+<style>
+.cartridge-shelf{padding:56px 24px 80px;text-align:center}
+h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
+.lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
+.shelf{display:grid;grid-template-columns:repeat(5,minmax(0,200px));justify-content:center;gap:24px}
+/* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). */
+.shelf[data-pop="wait"] :global(.cartridge){opacity:0;transform:translateY(90px) rotate(6deg)}
+.shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
+.shelf[data-plugging] :global(.cartridge:not(.plugging)){opacity:.3}
+@keyframes cart-pop{from{opacity:0;transform:translateY(90px) rotate(6deg)}}
+
+/* Unbranded handheld-style console. The body front hides the plugged-in half. */
+.console{position:relative;width:min(400px,100%);margin:56px auto 0}
+.slot{position:relative;z-index:41;width:56%;height:22px;margin:0 auto;background:var(--raised);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
+.slot i{position:absolute;left:12%;right:12%;top:8px;height:6px;background:#07060f;border-radius:3px}
+.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:8px 8px 0 var(--accent,#f4457a)}
+.screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
+.screen > span{grid-area:1/1}
+.boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
+.name,.start{display:none}
+/* Attract loop: game characters march across the idle screen (paused offscreen). */
+.attract{align-self:start;width:100%;height:40%;position:relative;margin-top:10%}
+.attract i{position:absolute;left:0;top:0;color:#f4457a;animation:march 6.4s steps(32) var(--d) infinite;animation-play-state:paused}
+.attract i:nth-child(2){color:#4bce82}.attract i:nth-child(3){color:#8573ee}.attract i:nth-child(4){color:#06c4ff}
+.console[data-motion="true"] .attract i{animation-play-state:running}
+@keyframes march{from{transform:translateX(-30px)}to{transform:translateX(380px)}}
+.controls{display:flex;align-items:center;gap:12px}
+.dpad{width:44px;height:44px;background:linear-gradient(var(--ink),var(--ink)) 50% 50%/14px 44px no-repeat,linear-gradient(var(--ink),var(--ink)) 50% 50%/44px 14px no-repeat}
+.pill{width:26px;height:8px;border-radius:4px;background:var(--line)}
+.pill:first-of-type{margin-left:auto}
+.btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:0 3px 0 var(--ink)}
+.btn.a{background:#f4457a;margin-left:-2px}
+.btn.b{margin-left:14px}
+.led{position:absolute;top:12px;right:18px;width:8px;height:8px;border-radius:50%;background:#5a2133}
+.drawer{position:relative;z-index:39;height:16px;margin:-8px 4% 0;background:var(--raised);border:2px solid var(--ink);border-top:0;border-radius:0 0 14px 14px}
+
+/* Booted: power on, cartridge name, PRESS START, A pulses. */
+.console:global(.booting) .screen{background-color:var(--boot);color:#07060f;box-shadow:inset 0 0 40px #0006,0 0 30px var(--boot)}
+.console:global(.booting) :is(.boot,.attract){display:none}
+.console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px;animation:boot .42s steps(3) both}
+.console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
+.console:global(.booting) .led{background:#4bce82;box-shadow:0 0 10px #4bce82}
+.console:global(.booting) .btn.a{cursor:pointer;animation:press-me .7s ease-in-out infinite}
+/* Start: screen flashes, then the console slides down into its drawer. */
+.console:global(.starting) .screen{animation:flash .18s steps(2)}
+.console:global(.starting) .body{animation:into-drawer .5s .12s cubic-bezier(.6,0,.8,.4) forwards}
+.console:global(.starting) .btn.a{animation:none;transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+@keyframes blink{50%{opacity:.25}}
+@keyframes boot{from{opacity:0;letter-spacing:12px}}
+@keyframes press-me{50%{transform:scale(1.15);box-shadow:0 3px 0 var(--ink),0 0 0 6px #f4457a44}}
+@keyframes flash{50%{background-color:#fff}}
+@keyframes into-drawer{to{transform:translateY(38%) scaleY(.6);opacity:.2}}
+
+@media (max-width:1180px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
+@media (max-width:860px){.shelf{grid-template-columns:repeat(2,minmax(0,210px));gap:20px}}
+@media (max-width:420px){.shelf{gap:14px}}
+@media (prefers-reduced-motion:reduce){
+  .shelf[data-pop] :global(.cartridge){opacity:1;transform:none;animation:none}
+  .attract i,.boot,.console :global(*){animation:none!important}
+}
+</style>

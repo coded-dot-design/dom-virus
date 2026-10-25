@@ -253,7 +253,7 @@ shelf?.addEventListener("click", (event) => {
   event.preventDefault();
   shelf.dataset.plugging = cart.dataset.cart!;
   cart.classList.add("plugging");
-  const slot = consoleEl.querySelector<HTMLElement>(".console-slot")!,
+  const slot = consoleEl.querySelector<HTMLElement>(".slot")!,
     screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;
   // Bring the console on screen first (phones), then fly.
   const below = consoleEl.getBoundingClientRect().bottom > innerHeight;
@@ -279,15 +279,34 @@ function plug(cart: HTMLAnchorElement, slot: HTMLElement, screen: HTMLElement) {
     ],
     { duration: 760, easing: "cubic-bezier(.3,.7,.3,1)", fill: "forwards" },
   );
+  // The start screen is a tiny game: power on, PRESS START; A, a tap or Enter starts (or wait).
   flight.onfinish = () => {
-    consoleEl.classList.add("booting");
-    consoleEl.querySelector(".console-name")!.textContent =
-      cart.querySelector("strong")?.textContent ?? "";
     consoleEl.style.setProperty(
       "--boot",
       getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a",
     );
-    setTimeout(go, 420);
+    consoleEl.querySelector("[data-console-name]")!.textContent =
+      cart.querySelector("strong")?.textContent ?? "";
+    consoleEl.classList.add("booting");
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      clearTimeout(auto);
+      removeEventListener("keydown", onKey);
+      consoleEl.classList.add("starting");
+      setTimeout(go, 320);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        start();
+      }
+    };
+    const auto = setTimeout(start, 1800);
+    addEventListener("keydown", onKey);
+    consoleEl.querySelector("[data-console-start]")?.addEventListener("click", start, { once: true });
+    screen.addEventListener("click", start, { once: true });
   };
 }
 // Back/forward from the game page restores the shelf to its resting state.
@@ -298,7 +317,7 @@ addEventListener("pageshow", () => {
     n.classList.remove("plugging");
     n.getAnimations().forEach((a) => a.cancel());
   });
-  consoleEl?.classList.remove("booting");
+  consoleEl?.classList.remove("booting", "starting");
   consoleEl?.querySelector<HTMLElement>("[data-console-screen]")?.style.removeProperty("view-transition-name");
 });
 // Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
@@ -317,7 +336,7 @@ hero?.querySelector(".promo-stage")?.addEventListener(
 );
 // CSS owns the motion. Observe visibility once per illustration to avoid offscreen work.
 const diagrams = document.querySelectorAll<HTMLElement>(
-  ".system-map,.tick-map,.ownership-map,.hero-crossover",
+  ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display",
 );
 const visibleDiagrams = new Set<Element>();
 function syncDiagramMotion() {
