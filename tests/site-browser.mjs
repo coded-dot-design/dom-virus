@@ -93,6 +93,16 @@ try {
   assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
   await at(5300);
   assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
+  // Tap the card: the contained mini-game takes over (auto-aim, spawns, squash, nuke cycle).
+  await promo.locator(".promo-stage").click({ position: { x: 240, y: 200 } });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").dataset.play === "true");
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.foes > 0);
+  assert.equal(await promo.locator(".foe-css").first().isVisible(), false, "CSS loop steps aside");
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score > 0, null, { timeout: 15000 });
+  await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.nuke());
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"));
+  await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
+  assert.equal(await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.score), 0, "round resets");
   assert.equal(await page.locator(".game-tab .directory-arrow").count(), 4);
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   assert.equal(await menu.isVisible(), false);
@@ -258,6 +268,8 @@ try {
     }
   }
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.waitForFunction(() => !document.querySelector(".hero-crossover").dataset.play);
+  assert.equal(await page.locator(".hx-layer,.hx-foes").count(), 0, "reduced motion restores the poster");
   await system.scrollIntoViewIfNeeded();
   assert.equal(await system.locator(".motion-toggle").isVisible(), false);
   const running = await page

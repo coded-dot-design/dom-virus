@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.13.0
+
+Site kit 1.17.0 — the hero card is playable:
+- Untouched, the choreographed CSS loop runs as before. The first tap or drag on the card loads a tiny contained game (`site-kit/hero-game.ts`, dynamic import).
+- Bad guys (DOM Virus skulls, aliens, flies, bugs) keep spawning and self-destruct after a few seconds; the interceptor and tank turret auto-aim on their own centres and auto-fire with spread, so some shots miss and fly off screen.
+- Tap a bad guy to squash it; drag the tank (treads roll); tap the tank for a 360° turret spray; tap the plane to spin it and burst-fire (faster taps, more bullets).
+- Every two minutes: a 10-second alarm (card blinks), a nuke clears everything, the round resets. Score and timer replace the status line.
+- One rAF loop, capped pools (26 foes, 60 shots, 14 explosions); pauses with the scene toggle/offscreen; reduced motion ends the game and restores the poster.
+
 ## 0.12.0
 
 Site kit 1.16.0 — hero mash-up, choreographed (CSS only, paused until the scene toggle runs it):
