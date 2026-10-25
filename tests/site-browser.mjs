@@ -108,7 +108,7 @@ try {
   await page.locator('.cartridge[data-cart="byte-runner"]').click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   assert.equal(await page.locator("[data-console-name]").textContent(), "Byte Runner");
-  // PRESS START: Enter (or A, a tap, or a short wait) slides the console into its drawer.
+  // PRESS START: Enter (or A, a tap, or a short wait) flashes the screen and morphs it into the page.
   await page.keyboard.press("Enter");
   await page.waitForFunction(() => document.querySelector(".console").classList.contains("starting"));
   await page.waitForURL(/\/games\/byte-runner\/$/);

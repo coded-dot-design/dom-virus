@@ -4,9 +4,11 @@ import Cartridge from './Cartridge.astro';
 import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
 /*
   Home-page game picker, played like a tiny game (logic in client.ts):
-  cartridges pop up as the shelf scrolls in → pick one → it flies into the console slot →
+  cartridges pop up as the shelf scrolls in → pick one → it flies over and slides down behind the
+  console's top edge →
   power LED, PRESS START, A pulses → press A / tap the screen / Enter (or wait) → the console
-  slides down into its drawer and the screen morphs into the game page (View Transitions).
+  screen flashes and morphs into the game page (View Transitions). The console never moves, so the
+  way back is an exact reverse.
   The special-edition (full game) cartridge lights both LEDs and asks: red A plays (the game
   board folds open across the viewport), blue B opens its details page.
   Coming back, the URL (?play=<id> / ?board=<id>) lets the page load docked and play it all in reverse.
@@ -33,8 +35,6 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
     </Cartridge>
   </div>
   <div class="console" id="console" data-console>
-    <div class="slot" aria-hidden="true"><i class="hole"></i></div>
-    <div class="lip" aria-hidden="true"></div>
     <div class="body">
       <div class="screen" data-console-screen aria-hidden="true">
         <span class="attract">{attract.map((kind, i) => <i style={`--d:${i * -1.6}s`}><Icon kind={kind} size={22}/></i>)}</span>
@@ -49,7 +49,6 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
       </div>
       <span class="led" aria-hidden="true"></span><span class="led two" aria-hidden="true"></span>
     </div>
-    <div class="drawer" aria-hidden="true"></div>
   </div>
 </section>
 <style>
@@ -62,15 +61,10 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
 @keyframes cart-pop{from{opacity:0;transform:translateY(90px) rotate(6deg)}}
 
-/* Unbranded handheld-style console. A cartridge sits in the groove: the slot back and hole paint
-   under it, the front lip and body paint over its pins. Slot, lip and body always move as one. */
-.console{position:relative;width:min(400px,100%);margin:56px auto 0;scroll-margin-top:min(300px,32vh)}
-.slot{position:relative;width:66%;height:30px;margin:0 auto;background:var(--surface);border:2px solid var(--ink);border-bottom:0;border-radius:12px 12px 0 0;box-shadow:5px 5px 0 3px var(--accent,#f4457a)}
-/* The black slit is the opening, a little wider than a cartridge: the cartridge paints over it and
-   the lip (the slot face below the slit) paints over the cartridge, so it drops into the slit.
-   Pink shadows: offset + spread so their corners are a touch rounder than the faces. */
-.hole{position:absolute;left:9%;right:9%;top:9px;height:11px;background:#07060f;border-radius:6px}
-.lip{position:absolute;z-index:41;left:calc(17% + 2px);right:calc(17% + 2px);top:22px;height:10px;background:var(--surface)}
+/* Unbranded handheld-style console, drawn with the same 3D rules as the cartridges: front face and
+   a hard pink right/bottom side; the top face isn't visible, so the cartridge slides in behind the
+   flat top edge (cartridge z 30 under body z 40). Pink shadow: offset + spread for a rounder corner. */
+.console{position:relative;width:min(400px,100%);margin:244px auto 0;scroll-margin-top:256px}
 .body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 3px var(--accent,#f4457a)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
@@ -106,7 +100,6 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1)}
 .led{position:absolute;top:7px;right:12px;width:8px;height:8px;border-radius:50%;background:#5a2133;border:1px solid var(--ink);transition:background .1s,box-shadow .1s}
 .led.two{right:26px}
-.drawer{position:relative;z-index:39;height:16px;margin:-8px 4% 0;background:var(--raised);border:2px solid var(--ink);border-top:0;border-radius:0 0 14px 14px}
 
 /* Booted: power on, cartridge name, PRESS START, A pulses. */
 .console:global(.booting) .screen{background-color:var(--boot);color:#07060f;box-shadow:inset 0 0 40px #0006,0 0 30px var(--boot)}
@@ -122,9 +115,8 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting) .btn.a{cursor:pointer;animation:press-me .7s ease-in-out infinite}
 /* Full game: the second LED kicks on too. */
 .console:global(.booting.full) .led.two{background:#f4457a;box-shadow:0 0 10px #f4457a;transition-delay:.38s}
-/* Start: screen flashes, then the whole console (slot, lip, body) slides down into its drawer. */
+/* Start: the screen flashes; the console itself never moves (launch and return mirror exactly). */
 .console:global(.starting) .screen{animation:flash .18s steps(2)}
-.console:global(.starting:not(.launching)) :is(.slot,.lip,.body){animation:into-drawer .5s .12s cubic-bezier(.6,0,.8,.4) forwards}
 .console:global(.starting) .btn.a{animation:none;transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
 @keyframes blink{50%{opacity:.25}}
 @keyframes boot{from{opacity:0;letter-spacing:12px}}
@@ -133,7 +125,6 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 @keyframes press-me-b{50%{transform:scale(1.15);box-shadow:3px 3px 0 var(--ink),0 0 0 6px #06c4ff44}}
 @keyframes press-me{50%{transform:scale(1.15);box-shadow:3px 3px 0 var(--ink),0 0 0 6px #f4457a44}}
 @keyframes flash{50%{background-color:#fff}}
-@keyframes into-drawer{to{transform:translateY(34px);opacity:.2}}
 
 /* Full-game launch: the screen grows into the whole viewport and the game board folds open. */
 :global(.board-open){position:fixed;inset:0;z-index:9999;display:grid;place-items:center;perspective:1400px;background:linear-gradient(#06c4ff22 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#06c4ff22 1px,transparent 1px) 0 0/40px 40px,#07060f;font:700 14px/1 var(--mono);letter-spacing:4px;color:#06c4ff}
@@ -148,9 +139,8 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 :global(.board-open.shut > :is(span,em)){animation:none;opacity:1}
 :global(.board-open.shut.closing > i){animation:board-fold .5s .1s cubic-bezier(.6,0,.3,1) reverse both}
 :global(.board-open.shut.closing > :is(span,em)){opacity:0;transition:opacity .2s .35s}
-/* Returning from a game (state from the URL, set before first paint by Site.astro): the console
-   starts down in its drawer and its screen is ready to morph back from the game page. */
-:global(html[data-return-mode="screen"]) :is(.slot,.lip,.body){transform:translateY(34px)}
+/* Returning from a game (state from the URL, set before first paint by Site.astro): the screen is
+   ready to morph back from the game page. */
 :global(html[data-return-mode="screen"]) .screen{view-transition-name:game-screen}
 :global(html[data-return-mode="board"] body)::after{content:"";position:fixed;inset:0;z-index:9998;background:#07060f}
 @keyframes board-fold{to{transform:rotateY(var(--fold,-100deg));opacity:.4}}

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.20.0
+
+Site kit 1.25.0:
+- One launch path: the console never moves. Info/game pages flash the screen and morph it into the page; the full game opens its board. Coming back is the exact reverse from the same seated position (no drawer slide, no rise, no shoved-down cartridge).
+- Removed leftovers: the drawer, the drawer slide and the lowered return state.
+- Console top follows the 3D rules: no bump; the top face isn't visible, so cartridges slide in behind the flat top edge, just past their pins. More room above the console so a seated cartridge sits clear of the shelf.
+
 ## 0.19.4
 
 Site kit 1.24.4:

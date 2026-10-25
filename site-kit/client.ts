@@ -288,23 +288,23 @@ shelf?.addEventListener("click", (event) => {
   if (below) consoleEl.scrollIntoView({ block: "end", behavior: "smooth" });
   setTimeout(() => plug(cart, screen), below ? 380 : 0);
 });
-// Where a plugged cartridge sits: bottom-centre anchored, pins down in the groove behind the lip,
-// scaled so it fits the hole.
-// Every cartridge goes in the same amount: just past its pins, so the bottom of the label meets
-// the slit. Measured without any hover lift so the depth never varies.
+// Where a plugged cartridge sits. The console's top face isn't visible from this angle (we see
+// its front plus the right/bottom sides, like the cartridges), so a cartridge simply slides down
+// behind the top edge. Every cartridge goes in the same amount: just past its pins, so the bottom
+// of the label meets the edge. Measured without any hover lift so the depth never varies.
 function slotOffset(cart: HTMLElement) {
   cart.style.transformOrigin = "50% 100%";
   cart.style.setProperty("transition", "none");
   cart.style.setProperty("transform", "none", "important");
   const c = cart.getBoundingClientRect(),
     label = cart.querySelector<HTMLElement>(".label")!.getBoundingClientRect(),
-    hole = consoleEl!.querySelector<HTMLElement>(".hole")!.getBoundingClientRect();
+    body = consoleEl!.querySelector<HTMLElement>(".body")!.getBoundingClientRect();
   cart.style.removeProperty("transform");
   cart.style.removeProperty("transition");
-  const k = Math.min(1, (hole.width * 0.96) / c.width);
+  const k = Math.min(1, (body.width * 0.56) / c.width);
   return {
-    dx: hole.left + hole.width / 2 - (c.left + c.width / 2),
-    dy: hole.bottom + (c.bottom - label.bottom) * k - c.bottom,
+    dx: body.left + body.width / 2 - (c.left + c.width / 2),
+    dy: body.top + (c.bottom - label.bottom) * k - c.bottom,
     k,
     h: c.height,
   };
@@ -347,20 +347,13 @@ function plug(cart: HTMLAnchorElement, screen: HTMLElement) {
       clearTimeout(auto);
       removeEventListener("keydown", onKey);
       pad?.removeEventListener("click", onPad);
+      // Both launches leave the console exactly where it is (so coming back is the same exact
+      // reverse): the screen flashes, then it morphs into the page or opens into the board.
       consoleEl.classList.add("starting");
       if (action.launch === "board") {
-        consoleEl.classList.add("launching");
         openBoard(screen, () => leaveTo(cart, true, action.href));
         return;
       }
-      // The plugged cartridge rides down into the drawer with the console.
-      cart.animate([{ transform: "translateY(0)", opacity: 1 }, { transform: `translateY(${DROP}px)`, opacity: 0.2 }], {
-        duration: 500,
-        delay: 120,
-        easing: "cubic-bezier(.6,0,.8,.4)",
-        fill: "forwards",
-        composite: "add",
-      });
       setTimeout(() => go(action.href), 320);
     };
     const byPad = (p: string) =>
@@ -448,9 +441,9 @@ function closeBoard(board: HTMLElement, screen: HTMLElement, done: () => void) {
 
 // Coming back from a game. Leaving rewrites the home URL to ?play=<id>#console (or ?board=<id>
 // for the full game); game pages link back the same way. An inline head script reads it before
-// first paint (html[data-return], cartridge hidden, console lowered, screen named for the View
-// Transition), so the page arrives in the state it left: game screen morphs back into the
-// console, the console rises out of its drawer, then the cartridge pulls out and flies home.
+// first paint (html[data-return], cartridge hidden until seated, screen named for the View
+// Transition), so the page arrives in the state it left: the game screen morphs back into the
+// console (or the board folds shut into it), then the cartridge pulls out and flies home.
 function returnState() {
   const q = new URLSearchParams(location.search),
     id = q.get("play") || q.get("board");
@@ -489,21 +482,19 @@ function afterReveal(fresh: boolean, cb: () => void) {
   else addEventListener("pagereveal", (e) => use((e as Event & { viewTransition?: { finished: Promise<unknown> } }).viewTransition), { once: true });
   setTimeout(run, fresh ? 700 : 1500);
 }
-const DROP = 34; // how far the console sinks into its drawer on start
-const consoleParts = () => consoleEl!.querySelectorAll<HTMLElement>(".slot,.lip,.body");
-function dock(cart: HTMLElement, lowered: boolean) {
+function dock(cart: HTMLElement) {
   const full = cart.hasAttribute("data-full");
   cart.getAnimations().forEach((a) => a.cancel());
   shelf!.dataset.plugging = cart.dataset.cart!;
   cart.classList.add("plugging");
   const seat = slotOffset(cart);
-  const at = `translate(${seat.dx}px, ${seat.dy + (lowered ? DROP : 0)}px) scale(${seat.k})`;
+  const at = `translate(${seat.dx}px, ${seat.dy}px) scale(${seat.k})`;
   cart.animate([{ transform: at }, { transform: at }], { duration: 1, fill: "forwards" });
   document.getElementById("dv-return")?.remove();
   consoleEl!.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
   consoleEl!.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
   pressText(cart);
-  consoleEl!.classList.remove("starting", "launching");
+  consoleEl!.classList.remove("starting");
   consoleEl!.classList.toggle("full", full);
   consoleEl!.classList.add("booting");
   return seat;
@@ -513,31 +504,22 @@ function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (cart) cart.getAnimations().forEach((a) => a.cancel());
-    consoleEl?.classList.remove("booting", "starting", "launching", "full", "choice");
+    consoleEl?.classList.remove("booting", "starting", "full", "choice");
     shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
     if (shelf) delete shelf.dataset.plugging;
     return settle();
   }
   markReturn(state);
   const screen = consoleEl.querySelector<HTMLElement>("[data-console-screen]")!;
-  const seat = dock(cart, !state.board);
+  const seat = dock(cart);
   // The full game comes back through its board; the board is up before the first frame.
   const board = state.board ? buildBoard(false) : null;
   board?.classList.add("shut");
   if (board) clearReturn();
   afterReveal(fresh, () => {
     if (board) return closeBoard(board, screen, () => eject(cart, seat));
-    // Console rises out of the drawer with the cartridge in it.
-    const rise = { duration: 480, easing: "cubic-bezier(.2,.7,.3,1)", fill: "both" as const };
-    const parts = [...consoleParts()].map((el) => el.animate([{ transform: `translateY(${DROP}px)` }, { transform: "none" }], rise));
     clearReturn();
-    cart.getAnimations().forEach((a) => a.cancel());
-    const at = (y: number) => `translate(${seat.dx}px, ${y}px) scale(${seat.k})`;
-    const up = cart.animate([{ transform: at(seat.dy + DROP) }, { transform: at(seat.dy) }], rise);
-    up.onfinish = () => {
-      parts.forEach((a) => a.cancel());
-      setTimeout(() => eject(cart, seat), 220);
-    };
+    setTimeout(() => eject(cart, seat), 160);
   });
 }
 // The cartridge pops out of the console and flies home.
@@ -575,7 +557,7 @@ addEventListener("pageshow", (event) => {
     n.getAnimations().forEach((a) => a.cancel());
   });
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
-  consoleEl?.classList.remove("booting", "starting", "launching", "full", "choice");
+  consoleEl?.classList.remove("booting", "starting", "full", "choice");
   clearReturn();
 });
 // Console buttons: all clickable. A starts a plugged cartridge (handled above); idle A/B make
