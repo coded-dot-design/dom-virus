@@ -152,12 +152,13 @@ try {
   await page.goBack();
   await page.waitForFunction(() => !!document.querySelector(".board-open.shut"));
   await page.waitForFunction(() => !document.querySelector(".board-open") && !document.querySelector(".cartridge.plugging") && location.hash === "#games", null, { timeout: 6000 });
-  // BLUE opens the info page; its All games link plays the reverse from the docked state.
+  // BLUE opens the info page; its Eject cartridge link plays the reverse from the docked state.
   await bf.scrollIntoViewIfNeeded();
   await bf.click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   await page.locator('[data-pad="b"]').dispatchEvent("click");
   await page.waitForURL(/\/games\/battlefield\/$/);
+  assert.equal((await page.locator(".back-link").textContent()).trim(), "Eject cartridge");
   await page.locator(".back-link").click();
   await page.waitForURL(/\?play=battlefield#console$/);
   assert.equal(await page.evaluate(() => document.documentElement.dataset.return), "battlefield", "marked before first paint");

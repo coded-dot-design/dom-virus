@@ -3364,7 +3364,7 @@ html[data-theme="light"] :is(.engineering,.embed-section){background:transparent
   text-decoration: none;
 }
 .back-link .back-arrow {
-  transform: rotate(-135deg);
+  flex-shrink: 0;
 }
 .back-link:hover {
   color: var(--ink);

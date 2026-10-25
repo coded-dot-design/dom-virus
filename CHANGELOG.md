@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.25.5
+
+Site kit 1.29.5:
+- Game and Battlefield info pages: the back link is now "Eject cartridge" (eject icon); it still returns home and ejects the cartridge.
+- Battlefield 0.6.7 pinned: its header Exit is now "Eject", going home with the board-closing eject.
+
 ## 0.25.4
 
 Site kit 1.29.4:
