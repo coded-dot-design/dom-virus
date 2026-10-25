@@ -402,6 +402,18 @@ try {
   console.log(
     "Site: responsive navigation, both themes, SVG controls, syntax colors, exact clipboard, animation pause/visibility/reduced motion, and launcher passed.",
   );
+  // Touch devices: the demo page is a game board (no zoom, no selection or copy callouts).
+  {
+    const touch = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    await touch.goto(base);
+    const policy = await touch.evaluate(() => ({
+      touch: getComputedStyle(document.documentElement).touchAction,
+      select: getComputedStyle(document.querySelector("h1")).userSelect,
+      gesture: (() => { const e = new Event("gesturestart", { cancelable: true }); document.dispatchEvent(e); return e.defaultPrevented; })(),
+    }));
+    assert.deepEqual(policy, { touch: "pan-x pan-y", select: "none", gesture: true });
+    await touch.close();
+  }
 } catch (e) {
   // CI annotation: readable from the checks API even when log downloads are not.
   console.log(`::error title=Site browser test::${String(e.stack || e).split("\n").slice(0, 5).join(" | ").slice(0, 900)}`);

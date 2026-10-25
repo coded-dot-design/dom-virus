@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+Site kit 1.18.0 — demo pages behave like a game on touch devices:
+- No pinch or double-tap zoom (viewport, `touch-action: pan-x pan-y`, Safari gesture events), no text selection, no long-press copy/lookup callouts. Form fields stay editable; code samples keep their Copy buttons. Desktop is unchanged.
+- Embedded games already apply the same reversible zoom and selection locks only while a session runs (shared engine and Swarm), restoring the host page afterwards.
+
 ## 0.13.0
 
 Site kit 1.17.0 — the hero card is playable:
