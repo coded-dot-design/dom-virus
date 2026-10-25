@@ -421,7 +421,7 @@ const LOAD_JOKES = [
 function loadingScreen(what: string) {
   const el = consoleEl!.querySelector<HTMLElement>("[data-console-loading]")!;
   el.textContent = `LOADING ${what}`;
-  consoleEl!.classList.add("loading");
+  consoleEl!.classList.add("is-loading");
   if (Math.random() > 0.3) return 700;
   setTimeout(() => {
     el.textContent = LOAD_JOKES[Math.floor(Math.random() * LOAD_JOKES.length)]!;
@@ -555,7 +555,7 @@ function dock(cart: HTMLElement) {
   consoleEl!.style.setProperty("--boot", getComputedStyle(cart).getPropertyValue("--accent") || "#f4457a");
   consoleEl!.querySelector("[data-console-name]")!.textContent = cart.querySelector("strong")?.textContent ?? "";
   pressText(cart);
-  consoleEl!.classList.remove("starting", "loading");
+  consoleEl!.classList.remove("starting", "is-loading");
   consoleEl!.classList.toggle("full", full);
   consoleEl!.classList.add("booting");
   return seat;
@@ -565,7 +565,7 @@ function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (cart) cart.getAnimations().forEach((a) => a.cancel()), putBack(cart);
-    consoleEl?.classList.remove("booting", "starting", "loading", "full", "choice");
+    consoleEl?.classList.remove("booting", "starting", "is-loading", "full", "choice");
     shelf?.querySelectorAll(".plugging").forEach((n) => n.classList.remove("plugging"));
     if (shelf) delete shelf.dataset.plugging;
     return settle();
@@ -607,7 +607,7 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
         ],
         { duration: 900, easing: "cubic-bezier(.3,.7,.3,1)", fill: "both" },
       );
-  setTimeout(() => consoleEl!.classList.remove("booting", "loading", "full", "choice"), 300);
+  setTimeout(() => consoleEl!.classList.remove("booting", "is-loading", "full", "choice"), 300);
   out.onfinish = () => {
     out.cancel();
     cart.classList.remove("plugging");
@@ -631,7 +631,7 @@ addEventListener("pageshow", (event) => {
     putBack(n);
   });
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
-  consoleEl?.classList.remove("booting", "starting", "loading", "full", "choice");
+  consoleEl?.classList.remove("booting", "starting", "is-loading", "full", "choice");
   clearReturn();
 });
 // Console buttons: all clickable. With a cartridge in, they follow its actions (above). With

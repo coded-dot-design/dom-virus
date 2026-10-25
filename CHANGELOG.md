@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.26.1
+
+Site kit 1.30.1:
+- Fix: pressing start hid the whole console (the loading-text rule also matched the console's new "loading" state class), so the page jumped and the screen-to-page morph broke. The state is now `is-loading`; a regression test checks the console keeps its size while loading.
+- A seated cartridge no longer shows a focus outline after a keyboard start.
+
 ## 0.26.0
 
 Site kit 1.30.0:

@@ -125,6 +125,8 @@ try {
   await page.waitForFunction(() => document.querySelector(".console").classList.contains("starting"));
   // After start the screen says it is loading (and now and then needs a blow on the pins).
   assert.match(await page.locator("[data-console-loading]").textContent(), /^LOADING GAME$/);
+  // Regression: the loading state must never hide or move the console (the screen morphs from it).
+  assert.ok(await page.evaluate(() => { const r = document.querySelector(".console .body").getBoundingClientRect(); return r.height > 150 && getComputedStyle(document.querySelector(".console")).display !== "none"; }), "console stays put while loading");
   await page.waitForURL(/\/games\/byte-runner\/$/);
   assert.equal(await page.locator(".game-section.standalone").count(), 1);
   assert.equal(await page.locator(".game-section").evaluate((el) => getComputedStyle(el).borderTopWidth), "0px", "game page has no outer border");

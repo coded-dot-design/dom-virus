@@ -144,9 +144,9 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px;animation:boot .42s steps(3) both}
 /* Loading: after start, PRESS START gives way to LOADING… (and sometimes a cartridge joke). */
 .loading{display:none}
-.console:global(.loading) .start{display:none!important}
-.console:global(.loading) .loading{display:block;align-self:end;margin-bottom:12%;font-size:11px;letter-spacing:2px}
-.console:global(.loading) .loading::after{content:"";display:inline-block;width:3ch;text-align:left;animation:dots 1s steps(4) infinite}
+.console:global(.is-loading) .start{display:none!important}
+.console:global(.is-loading) .loading{display:block;align-self:end;margin-bottom:12%;font-size:11px;letter-spacing:2px}
+.console:global(.is-loading) .loading::after{content:"";display:inline-block;width:3ch;text-align:left;animation:dots 1s steps(4) infinite}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
 .console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
 /* Multi-action cartridges: one dark chip per pad, in the pad's colour; no blink, the chips pulse. */

@@ -84,6 +84,7 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 .cartridge:active{transform:translateY(2px);transition-duration:60ms}
 .cartridge:focus-visible{outline:3px solid var(--ink);outline-offset:6px}
 .cartridge:global(.plugging){z-index:30}
+.cartridge:global(.plugging):focus-visible{outline:none}
 .grip{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 26px 0 4px}
 .grip i{display:block;height:2px;background:color-mix(in srgb,var(--ink) 35%,transparent)}
 .label{display:grid;align-content:start;gap:4px;padding:14px 12px;background:var(--surface);border:2px solid var(--ink);border-radius:6px}
