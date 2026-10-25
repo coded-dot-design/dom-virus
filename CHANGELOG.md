@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.25.3
+
+Site kit 1.29.3:
+- Footer bottom line: "Created by Chris Cooley" on the left; "© <year> coded.design · Open source (MIT)" on the right (stacked on phones). The coded.design link is accent-coloured with a hover, no underline.
+
 ## 0.25.2
 
 Site kit 1.29.2:

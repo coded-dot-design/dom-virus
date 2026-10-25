@@ -956,14 +956,21 @@ pre {
 }
 .footer-legal {
   flex-basis: 100%;
-  margin: 0;
-  font: 10px/1.5 var(--mono);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  font: 10px/1.6 var(--mono);
   letter-spacing: 0.04em;
   color: var(--faint, var(--muted));
 }
+.footer-legal span:first-child {
+  color: var(--muted);
+}
 .footer-legal a {
-  color: inherit;
-  text-underline-offset: 3px;
+  color: var(--accent-text, var(--accent));
+  text-decoration: none;
+  transition: color 140ms ease;
 }
 .footer-legal a:hover {
   color: var(--ink);
