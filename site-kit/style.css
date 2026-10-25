@@ -180,7 +180,7 @@ section {
 .site-header nav a:hover {
   color: var(--ink);
 }
-.site-header nav span {
+.site-header nav .nav-count {
   font: 10px var(--mono);
   color: var(--accent-text, var(--accent));
   margin-left: 4px;
@@ -2039,25 +2039,60 @@ html:not([data-theme="dark"]) .theme-moon {
     gap: 20px;
   }
 }
+.nav-icon {
+  display: none;
+}
+/* Phones: one row — brand, then square 3D icon buttons (Games, Under the hood, theme). The page
+   you're on stays pressed in. Labels stay in the accessible name, visually hidden. */
 @media (max-width: 560px) {
   .site-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
     height: auto;
-    padding: 16px 20px 4px;
-    gap: 4px 16px;
+    padding: 16px 20px;
+    gap: 12px;
   }
-  .header-panel {
-    display: contents;
-  }
+  .header-panel,
   .site-header nav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    gap: 24px;
+    gap: 10px;
   }
-  .theme-toggle {
-    grid-column: 2;
-    grid-row: 1;
+  .site-header nav a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    min-height: 0;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    transition:
+      transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .site-header nav a:active,
+  .site-header nav a[aria-current="page"] {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--ink);
+    transition-duration: 55ms;
+  }
+  .site-header nav a[aria-current="page"] {
+    background: var(--accent);
+    color: #171022;
+  }
+  .site-header nav a[aria-current="page"]::after,
+  .site-header nav .nav-count {
+    display: none;
+  }
+  .nav-icon {
+    display: block;
+  }
+  .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   .site-header .brand {
     font-size: 13px;

@@ -44,7 +44,7 @@ const kb=(n)=>(n/1000).toFixed(1);
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
     <div class="header-panel">
-      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined}>Games <span>{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined}>Under the hood</a></nav>
+      <nav aria-label="Main navigation"><a href={hub?`${base}#games`:'#games'} aria-current={hub&&page!=='engineering'&&page!=='archive'?'page':undefined}><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined}><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
   </header>

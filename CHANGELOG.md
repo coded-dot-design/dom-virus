@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.3
+
+Site kit 1.28.3:
+- Phone header: one row — brand plus square 3D icon buttons for Games (cartridge), Under the hood (chip) and the theme. The current page's button stays pressed in. Labels stay in the accessible name. Desktop unchanged.
+
 ## 0.24.2
 
 Site kit 1.28.2:
