@@ -57,7 +57,7 @@ try {
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
     await page.locator(".cartridge").evaluateAll((nodes) => nodes.map((n) => new URL(n.href).pathname)),
-    [...order, "battlefield"].map((id) => `/dom-virus/games/${id}/`),
+    [...order.map((id) => `/dom-virus/games/${id}/`), "/dom-virus/battlefield/"],
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
   assert.equal(await page.locator(".console").count(), 1);
@@ -122,6 +122,16 @@ try {
   // Every console button is clickable; idle presses never navigate.
   for (const pad of ["up", "left", "right", "down", "select", "start", "b", "a"]) await page.locator(`[data-pad="${pad}"]`).click();
   assert.match(page.url(), /\/dom-virus\/(#games)?$/);
+  // Special edition: the sleeve opens the details; the cartridge boots two LEDs and folds the board open.
+  assert.equal(new URL(await page.locator("[data-sleeve]").evaluate((a) => a.href)).pathname, "/dom-virus/games/battlefield/");
+  await page.locator('.cartridge[data-cart="battlefield"]').scrollIntoViewIfNeeded();
+  await page.locator('.cartridge[data-cart="battlefield"]').click({ position: { x: 40, y: 40 } });
+  await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
+  assert.ok(await page.evaluate(() => document.querySelector(".console").classList.contains("full")));
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() => !!document.querySelector(".board-open"));
+  await page.waitForURL(/\/dom-virus\/battlefield\/$/);
+  await page.goto(base);
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");

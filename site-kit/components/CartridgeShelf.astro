@@ -7,6 +7,8 @@ import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
   cartridges pop up as the shelf scrolls in → pick one → it flies into the console slot →
   power LED, PRESS START, A pulses → press A / tap the screen / Enter (or wait) → the console
   slides down into its drawer and the screen morphs into the game page (View Transitions).
+  The special-edition (full game) cartridge slides out of its sleeve, lights both LEDs and
+  launches by folding the game board open across the viewport; its sleeve opens the details.
   While idle the screen runs an attract loop of characters from the games.
 */
 const { games, base = '/' } = Astro.props;
@@ -22,25 +24,26 @@ const attract = ['ship', 'runner', 'bug', 'tank'];
         <Icon kind={game.icon} size={44}/>
       </Cartridge>
     ))}
-    <Cartridge id="battlefield" href={`${base}games/battlefield/`} accent="cyan" index={games.length} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon.">
+    <Cartridge id="battlefield" href={`${base}battlefield/`} sleeve={`${base}games/battlefield/`} full accent="cyan" index={games.length} kind="SQUAD TACTICS" name="DOM Battlefield" tagline="Sherman Bytes, a whole platoon.">
       <Fragment set:html={battlefieldIcon}/>
     </Cartridge>
   </div>
   <div class="console" data-console>
-    <div class="slot" aria-hidden="true"><i></i></div>
+    <div class="slot" aria-hidden="true"><i class="hole"></i></div>
+    <div class="lip" aria-hidden="true"></div>
     <div class="body">
       <div class="screen" data-console-screen aria-hidden="true">
         <span class="attract">{attract.map((kind, i) => <i style={`--d:${i * -1.6}s`}><Icon kind={kind} size={22}/></i>)}</span>
         <span class="boot">INSERT CARTRIDGE</span>
         <span class="name" data-console-name></span>
-        <span class="start">PRESS START</span>
+        <span class="start" data-console-press>PRESS START</span>
       </div>
-      <div class="controls" data-console-pad>
-        <span class="dpad"><button type="button" tabindex="-1" class="up" data-pad="up" aria-label="Up"></button><button type="button" tabindex="-1" class="left" data-pad="left" aria-label="Left"></button><button type="button" tabindex="-1" class="right" data-pad="right" aria-label="Right"></button><button type="button" tabindex="-1" class="down" data-pad="down" aria-label="Down"></button></span>
-        <button type="button" tabindex="-1" class="pill" data-pad="select" aria-label="Select"></button><button type="button" tabindex="-1" class="pill" data-pad="start" aria-label="Start"></button>
-        <button type="button" tabindex="-1" class="btn b" data-pad="b" aria-label="B"></button><button type="button" tabindex="-1" class="btn a" data-pad="a" data-console-start aria-label="A"></button>
+      <div class="controls" data-console-pad aria-hidden="true">
+        <span class="dpad"><span role="button" class="up" data-pad="up" aria-label="Up"></span><span role="button" class="left" data-pad="left" aria-label="Left"></span><span role="button" class="right" data-pad="right" aria-label="Right"></span><span role="button" class="down" data-pad="down" aria-label="Down"></span></span>
+        <span class="pills"><span role="button" class="pill" data-pad="select" aria-label="Select"></span><span role="button" class="pill" data-pad="start" aria-label="Start"></span></span>
+        <span class="ab"><span role="button" class="btn b" data-pad="b" aria-label="B"></span><span role="button" class="btn a" data-pad="a" data-console-start aria-label="A"></span></span>
       </div>
-      <span class="led" aria-hidden="true"></span>
+      <span class="led" aria-hidden="true"></span><span class="led two" aria-hidden="true"></span>
     </div>
     <div class="drawer" aria-hidden="true"></div>
   </div>
@@ -51,15 +54,18 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
 .shelf{display:grid;grid-template-columns:repeat(5,minmax(0,200px));justify-content:center;gap:24px}
 /* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). */
-.shelf[data-pop="wait"] :global(.cartridge){opacity:0;transform:translateY(90px) rotate(6deg)}
-.shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
-.shelf[data-plugging] :global(.cartridge:not(.plugging)){opacity:.3}
+.shelf[data-pop="wait"] :global(:is(.cartridge,.sleeve)){opacity:0;transform:translateY(90px) rotate(6deg)}
+.shelf[data-pop="in"] :global(:is(.cartridge,.sleeve)){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
+.shelf[data-plugging] :global(:is(.cartridge:not(.plugging),.edition:not(:has(.plugging)) .sleeve)){opacity:.3;transition:opacity .2s}
 @keyframes cart-pop{from{opacity:0;transform:translateY(90px) rotate(6deg)}}
 
-/* Unbranded handheld-style console. The body front hides the plugged-in half. */
+/* Unbranded handheld-style console. A cartridge sits in the groove: the slot back and hole paint
+   under it, the front lip and body paint over its pins. Slot, lip and body always move as one. */
 .console{position:relative;width:min(400px,100%);margin:56px auto 0}
-.slot{position:relative;z-index:41;width:56%;height:22px;margin:0 auto;background:var(--raised);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
-.slot i{position:absolute;left:12%;right:12%;top:8px;height:6px;background:#07060f;border-radius:3px}
+.slot{position:relative;width:60%;height:26px;margin:0 auto;background:var(--raised);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
+.hole{position:absolute;left:5%;right:5%;top:7px;height:10px;background:#07060f;border-radius:3px 3px 0 0;box-shadow:inset 0 3px 0 #000}
+.lip{position:absolute;z-index:41;left:20%;right:20%;top:12px;height:16px;background:var(--raised);border:2px solid var(--ink);border-width:2px 2px 0;border-radius:2px 2px 0 0}
+.lip::after{content:"";position:absolute;left:12%;right:12%;top:4px;height:2px;border-radius:1px;background:color-mix(in srgb,var(--ink) 25%,transparent)}
 .body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:8px 8px 0 var(--accent,#f4457a)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
@@ -71,28 +77,30 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .attract i:nth-child(2){color:#4bce82}.attract i:nth-child(3){color:#8573ee}.attract i:nth-child(4){color:#06c4ff}
 .console[data-motion="true"] .attract i{animation-play-state:running}
 @keyframes march{from{transform:translateX(-30px)}to{transform:translateX(380px)}}
-.controls{display:flex;align-items:center;gap:12px}
-/* Every control clicks: springy press, D-pad tilts toward the pressed arm. */
-:where(.controls button){all:unset;display:inline-block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 220ms cubic-bezier(.34,1.7,.5,1),box-shadow 220ms}
-.controls button:active,.controls button:global(.down){transition-duration:50ms}
-.dpad{position:relative;width:46px;height:46px;transition:transform 200ms cubic-bezier(.34,1.7,.5,1)}
-.dpad button{position:absolute;width:15px;height:15px;background:var(--ink)}
+/* Every control clicks. Plain spans (not buttons) so the site's button styles never leak in;
+   they rest on the same diagonal hard shadow as everything else and press into it. */
+.controls{display:flex;align-items:center;gap:10px}
+.controls [data-pad]{display:block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;transition:transform 220ms cubic-bezier(.34,1.7,.5,1),box-shadow 220ms cubic-bezier(.34,1.7,.5,1)}
+.controls [data-pad]:active{transition-duration:50ms}
+.dpad{position:relative;width:46px;height:46px;filter:drop-shadow(3px 3px 0 color-mix(in srgb,var(--ink) 30%,transparent));transition:transform 200ms cubic-bezier(.34,1.7,.5,1)}
+.dpad [data-pad]{position:absolute;width:15px;height:15px;background:var(--ink)}
 .dpad::after{content:"";position:absolute;left:15px;top:15px;width:16px;height:16px;background:var(--ink)}
 .dpad .up{left:15.5px;top:0;border-radius:3px 3px 0 0}.dpad .down{left:15.5px;bottom:0;border-radius:0 0 3px 3px}
 .dpad .left{left:0;top:15.5px;border-radius:3px 0 0 3px}.dpad .right{right:0;top:15.5px;border-radius:0 3px 3px 0}
 .dpad:has(.up:active){transform:perspective(120px) rotateX(14deg)}.dpad:has(.down:active){transform:perspective(120px) rotateX(-14deg)}
 .dpad:has(.left:active){transform:perspective(120px) rotateY(-14deg)}.dpad:has(.right:active){transform:perspective(120px) rotateY(14deg)}
-.pill{width:26px;height:8px;border-radius:4px;background:var(--line);box-shadow:0 2px 0 var(--ink)}
-.pill:first-of-type{margin-left:auto}
-.pill:active{transform:translateY(2px);box-shadow:0 0 0 var(--ink)}
-.btn{width:30px;height:30px;box-sizing:border-box;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:0 3px 0 var(--ink)}
-.btn:active{transform:translateY(3px) scale(.95);box-shadow:0 0 0 var(--ink)}
-.btn.a{background:#f4457a;margin-left:-2px}
-.btn.b{margin-left:14px}
+.pills{display:flex;gap:8px;margin-left:auto}
+.pill{width:26px;height:8px;border-radius:4px;background:var(--line);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.pill:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.ab{display:flex;gap:7px;margin-left:8px}
+.btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn.a{background:#f4457a;translate:0 -6px}
 /* A/B make the attract characters hop. */
 .attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}
 .attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1)}
-.led{position:absolute;top:12px;right:18px;width:8px;height:8px;border-radius:50%;background:#5a2133}
+.led{position:absolute;top:7px;right:12px;width:8px;height:8px;border-radius:50%;background:#5a2133;border:1px solid var(--ink);transition:background .1s,box-shadow .1s}
+.led.two{right:26px}
 .drawer{position:relative;z-index:39;height:16px;margin:-8px 4% 0;background:var(--raised);border:2px solid var(--ink);border-top:0;border-radius:0 0 14px 14px}
 
 /* Booted: power on, cartridge name, PRESS START, A pulses. */
@@ -100,23 +108,36 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting) :is(.boot,.attract){display:none}
 .console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px;animation:boot .42s steps(3) both}
 .console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
-.console:global(.booting) .led{background:#4bce82;box-shadow:0 0 10px #4bce82}
+.console:global(.booting) .led:not(.two){background:#4bce82;box-shadow:0 0 10px #4bce82}
 .console:global(.booting) .btn.a{cursor:pointer;animation:press-me .7s ease-in-out infinite}
-/* Start: screen flashes, then the console slides down into its drawer. */
+/* Full game: the second LED kicks on too. */
+.console:global(.booting.full) .led.two{background:#f4457a;box-shadow:0 0 10px #f4457a;transition-delay:.38s}
+/* Start: screen flashes, then the whole console (slot, lip, body) slides down into its drawer. */
 .console:global(.starting) .screen{animation:flash .18s steps(2)}
-.console:global(.starting) .body{animation:into-drawer .5s .12s cubic-bezier(.6,0,.8,.4) forwards}
-.console:global(.starting) .btn.a{animation:none;transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+.console:global(.starting:not(.full)) :is(.slot,.lip,.body){animation:into-drawer .5s .12s cubic-bezier(.6,0,.8,.4) forwards}
+.console:global(.starting) .btn.a{animation:none;transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
 @keyframes blink{50%{opacity:.25}}
 @keyframes boot{from{opacity:0;letter-spacing:12px}}
-@keyframes press-me{50%{transform:scale(1.15);box-shadow:0 3px 0 var(--ink),0 0 0 6px #f4457a44}}
+@keyframes press-me{50%{transform:scale(1.15);box-shadow:3px 3px 0 var(--ink),0 0 0 6px #f4457a44}}
 @keyframes flash{50%{background-color:#fff}}
-@keyframes into-drawer{to{transform:translateY(38%) scaleY(.6);opacity:.2}}
+@keyframes into-drawer{to{transform:translateY(34px);opacity:.2}}
+
+/* Full-game launch: the screen grows into the whole viewport and the game board folds open. */
+:global(.board-open){position:fixed;inset:0;z-index:9999;display:grid;place-items:center;perspective:1400px;background:linear-gradient(#06c4ff22 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#06c4ff22 1px,transparent 1px) 0 0/40px 40px,#07060f;font:700 14px/1 var(--mono);letter-spacing:4px;color:#06c4ff}
+:global(.board-open > b){position:absolute;width:var(--w);height:var(--h);left:var(--x);top:var(--y);background:#3a3f5c;border:2px solid #06c4ff55}
+:global(.board-open > em){position:absolute;left:var(--x);top:var(--y);width:22px;height:22px;background:var(--c);border:2px solid #07060f;box-shadow:0 0 14px var(--c);opacity:0;animation:board-text .2s calc(.75s + var(--d)) steps(2) forwards}
+:global(.board-open > span){opacity:0;animation:board-text .3s .8s steps(3) forwards;text-shadow:0 0 12px #06c4ff}
+:global(.board-open > i){position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(135deg,#0000 0 14px,#ffffff14 14px 17px),#f4457a;border:3px solid #07060f;animation:board-fold .55s .62s cubic-bezier(.6,0,.3,1) forwards}
+:global(.board-open > i.l){left:0;transform-origin:0 50%}
+:global(.board-open > i.r){right:0;transform-origin:100% 50%;--fold:100deg}
+@keyframes board-fold{to{transform:rotateY(var(--fold,-100deg));opacity:.4}}
+@keyframes board-text{to{opacity:1}}
 
 @media (max-width:1180px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
 @media (max-width:860px){.shelf{grid-template-columns:repeat(2,minmax(0,210px));gap:20px}}
 @media (max-width:420px){.shelf{gap:14px}}
 @media (prefers-reduced-motion:reduce){
-  .shelf[data-pop] :global(.cartridge){opacity:1;transform:none;animation:none}
+  .shelf[data-pop] :global(:is(.cartridge,.sleeve)){opacity:1;transform:none;animation:none}
   .attract i,.boot,.console :global(*){animation:none!important}
 }
 </style>

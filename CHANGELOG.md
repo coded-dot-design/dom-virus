@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.18.0
+
+Site kit 1.23.0:
+- Cartridges: the notched shell is its own layer, so the hard shadow covers the right side and the notch corner. Contact pins look worn: a few missing, worn short, or tarnished.
+- Console slot is a groove: the cartridge slides into the hole behind a front lip instead of behind a block. Insert clicks and power-on chirps (WebAudio, gesture-started).
+- Start animation moves slot, lip, body and the plugged cartridge together (no more split top).
+- Console controls are plain spans with diagonal hard shadows, so site button styles no longer leak in; tighter spacing; LED moved up and right.
+- DOM Battlefield is a special edition: pink trim, a sleeve over the bottom half that opens the details page, and a cartridge that boots two LEDs and folds the game board open into the full game.
+
 ## 0.17.1
 
 Site kit 1.22.0:
