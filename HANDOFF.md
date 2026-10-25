@@ -37,6 +37,8 @@ full of easter eggs, and high-performance on phones. Not "vibe-coded".
 - One cartridge at a time. While one is busy (flying, loading, launching, ejecting), other cartridges
   refuse with a wiggle (`refuse()`) and never follow their links. While the console waits for input,
   tapping the seated cartridge (or Esc) ejects it (`waiting.pull()`). Keyboard Enter is never eject.
+  On phones the row is also locked to vertical panning while busy (`.shelf[data-plugging]{touch-action:pan-y}`);
+  scripted centring still works.
 - The 3D press rule (section 4) holds for every 3D control: the base never moves, the press lands
   exactly, selected stays pressed, and there's no overshoot easing.
 - Only transforms and opacity move in hot paths. One layout read per gesture. Pause offscreen

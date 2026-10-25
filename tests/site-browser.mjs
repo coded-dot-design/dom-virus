@@ -397,13 +397,35 @@ try {
   await page.waitForTimeout(500);
   await last.click();
   assert.equal(await last.evaluate((el) => el.parentElement.hasAttribute("data-flight-deck")), true, "lifted out of the row to fly");
+  // While a cartridge goes in (or comes out) the row can't be swiped sideways.
+  const touch = await page.context().newCDPSession(page);
+  const swipeRow = async (dx = -200) => {
+    const r = await row.boundingBox(),
+      x = Math.round(r.x + r.width / 2),
+      y = Math.round(r.y + 80);
+    await touch.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y }] });
+    for (let i = 1; i <= 12; i++) await touch.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x + (dx * i) / 12, y }] });
+    await touch.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+    await page.waitForTimeout(500);
+  };
+  await page.waitForTimeout(400);
+  const rowAt = await row.evaluate((el) => el.scrollLeft);
+  await swipeRow();
+  assert.equal(await row.evaluate((el) => el.scrollLeft), rowAt, "no swiping the row mid-insert");
   await page.waitForFunction(() => document.querySelector(".console").classList.contains("booting"));
   await page.keyboard.press("Enter");
   await page.waitForURL(/\/games\/null-invaders\/$/);
   await page.goBack();
+  await page.waitForFunction(() => document.querySelector(".shelf").dataset.plugging);
+  const backAt = await row.evaluate((el) => el.scrollLeft);
+  await swipeRow();
+  assert.equal(await row.evaluate((el) => el.scrollLeft), backAt, "no swiping the row while it comes home");
   await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games", null, { timeout: 6000 });
   assert.equal(await last.evaluate((el) => el.parentElement.dataset.bay), "null-invaders", "back in its bay");
   assert.ok(await page.locator('[data-bay="null-invaders"]').evaluate((bay) => { const r = bay.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth; }), "its spot is on screen");
+  const freeAt = await row.evaluate((el) => el.scrollLeft);
+  await swipeRow(200);
+  assert.notEqual(await row.evaluate((el) => el.scrollLeft), freeAt, "the row swipes again once it's home");
   await page.setViewportSize({ width: 1280, height: 900 });
 
   // Reduced motion: the hero game ends and the poster returns; diagrams stop.

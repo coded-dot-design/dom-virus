@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.28.2
+
+Site kit 1.32.2:
+- Phones: the cartridge row can't be swiped sideways while a cartridge goes in, sits in the console or comes home (the page still scrolls up and down). It swipes again as soon as the cartridge is back in its spot.
+
 ## 0.28.1
 
 Site kit 1.32.1:

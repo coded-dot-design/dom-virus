@@ -200,6 +200,9 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
   .shelf{--card:min(200px,50vw - 24px);display:flex;justify-content:flex-start;gap:16px;margin-inline:-24px;padding:16px calc(50vw - var(--card) / 2) 30px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .shelf::-webkit-scrollbar{display:none}
   .shelf > :global(.bay){flex:0 0 var(--card);scroll-snap-align:center}
+  /* While a cartridge goes in or comes out, the row can't be swiped sideways (the page still scrolls).
+     The code still centres the row itself. */
+  .shelf[data-plugging]{touch-action:pan-y}
   .shelf :global(.cartridge){min-height:calc(var(--card) * 1.25)}
   /* Tighter vertical rhythm on phones (sizes unchanged): a little less above the console than below. */
   .shelf{padding-bottom:12px}
