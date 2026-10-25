@@ -296,8 +296,8 @@ function slotOffset(cart: HTMLElement) {
     hole = consoleEl!.querySelector<HTMLElement>(".hole")!.getBoundingClientRect();
   return {
     dx: hole.left + hole.width / 2 - (c.left + c.width / 2),
-    dy: hole.top + hole.height / 2 + 22 - c.bottom,
-    k: Math.min(1, (hole.width * 0.92) / c.width),
+    dy: hole.bottom + c.height * 0.4 - c.bottom,
+    k: Math.min(1, (hole.width * 0.96) / c.width),
     h: c.height,
   };
 }

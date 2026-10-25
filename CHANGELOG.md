@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1
+
+Site kit 1.24.1:
+- Cartridge redrawn from the original: thick darker side face down the right and a bottom face, mitred at the corner; notch and bottom-left chamfer outlined; no drop shadow or animated hover shadow (just a lift).
+- Edge connector pins: gold fingers in a dark recess, some worn short, tarnished or missing.
+- Special edition is just the sticker (no pink trim). Other cartridges no longer dim while one is plugged in.
+- Console slot is a clean block with a wide black slit the cartridge drops into; pink shadows have slightly rounder corners; Select/Start line up with B/A.
+
 ## 0.19.0
 
 Site kit 1.24.0:

@@ -60,19 +60,18 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 /* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). */
 .shelf[data-pop="wait"] :global(.cartridge){opacity:0;transform:translateY(90px) rotate(6deg)}
 .shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
-.shelf[data-plugging] :global(.cartridge:not(.plugging)){opacity:.3}
 @keyframes cart-pop{from{opacity:0;transform:translateY(90px) rotate(6deg)}}
 
 /* Unbranded handheld-style console. A cartridge sits in the groove: the slot back and hole paint
    under it, the front lip and body paint over its pins. Slot, lip and body always move as one. */
 .console{position:relative;width:min(400px,100%);margin:56px auto 0;scroll-margin-top:min(300px,32vh)}
-.slot{position:relative;width:56%;height:22px;margin:0 auto;background:var(--raised);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
-/* The black slit is the opening, as wide as a cartridge. Its top half paints behind the
-   cartridge; the lip (front half of the slot block, same face) paints the bottom half over it. */
-.hole{position:absolute;left:4%;right:4%;top:8px;height:6px;background:#07060f;border-radius:3px}
-.lip{position:absolute;z-index:41;left:calc(22% + 2px);right:calc(22% + 2px);top:13px;height:11px;background:var(--raised)}
-.lip::before{content:"";position:absolute;left:4%;right:4%;top:0;height:3px;background:#07060f;border-radius:0 0 3px 3px}
-.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:8px 8px 0 var(--accent,#f4457a)}
+.slot{position:relative;width:66%;height:30px;margin:0 auto;background:var(--surface);border:2px solid var(--ink);border-bottom:0;border-radius:12px 12px 0 0;box-shadow:5px 5px 0 3px var(--accent,#f4457a)}
+/* The black slit is the opening, a little wider than a cartridge: the cartridge paints over it and
+   the lip (the slot face below the slit) paints over the cartridge, so it drops into the slit.
+   Pink shadows: offset + spread so their corners are a touch rounder than the faces. */
+.hole{position:absolute;left:9%;right:9%;top:9px;height:11px;background:#07060f;border-radius:6px}
+.lip{position:absolute;z-index:41;left:calc(17% + 2px);right:calc(17% + 2px);top:22px;height:10px;background:var(--surface)}
+.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 3px var(--accent,#f4457a)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
 .boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
@@ -101,7 +100,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .ab{display:flex;gap:7px;margin-left:8px}
 .btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:3px 3px 0 var(--ink)}
 .btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.btn.a{background:#f4457a;translate:0 -6px}
+.btn.a{background:#f4457a}
 /* A/B make the attract characters hop. */
 .attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}
 .attract i{transition:translate 220ms cubic-bezier(.34,1.7,.5,1)}

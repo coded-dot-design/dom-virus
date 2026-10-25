@@ -1,11 +1,9 @@
 ---
 // One game cartridge: grip ridges, a label (art slot + text), worn gold contact pins.
-// The notched shell is its own layer so the hard drop-shadow follows the notch (a clip-path
-// on the link itself would clip the shadow off the right side and the corner).
 // `actions` are the cartridge's rules: what it can do once plugged in. The console maps each to a
 // pad ({ pad: 'a' | 'b' | 'start', label, href, launch: 'screen' | 'board' }) and shows them on
 // screen. No actions = one: open `href` (PRESS START). A cartridge that launches a full game
-// ('board') is a special edition: pink trim, and both console LEDs light.
+// ('board') is a special edition: a sticker, and both console LEDs light.
 // Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / client.ts.
 const { id, href, accent, index = 0, kind, name, tagline, actions } = Astro.props;
 const full = actions?.some((a) => a.launch === 'board');
@@ -15,7 +13,7 @@ const pins = Array.from({ length: 11 }, (_, p) => {
   return h < 2 ? 'gone' : h < 6 ? 'short' : h < 9 ? 'dim' : '';
 });
 ---
-<a class:list={['cartridge', `accent-${accent}`, { special: !!full }]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
+<a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
   <span class="shell" aria-hidden="true"></span>
   <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
   <span class="label">
@@ -28,13 +26,18 @@ const pins = Array.from({ length: 11 }, (_, p) => {
   <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
 </a>
 <style>
-.cartridge{position:relative;isolation:isolate;display:grid;grid-template-rows:28px 1fr 26px;min-height:250px;padding:0 14px;color:var(--ink);text-decoration:none;text-align:left;filter:drop-shadow(6px 6px 0 var(--ink));transition:transform 260ms cubic-bezier(.34,1.7,.5,1),filter 260ms cubic-bezier(.34,1.7,.5,1),opacity 200ms}
-/* Ink outline layer + accent fill inset 2px; the notch diagonal is offset so the outline stays 2px thick. */
-.shell{position:absolute;inset:0;z-index:-1;background:var(--trim,var(--ink));border-radius:12px 12px 4px 4px;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,0 100%)}
-.shell::before{content:"";position:absolute;inset:var(--trim-w,2px);background:var(--accent);border-radius:10px 10px 2px 2px;box-shadow:inset -6px 0 0 color-mix(in srgb,var(--accent) 60%,#000);clip-path:polygon(0 0,calc(100% - var(--notch-in,20.8px)) 0,100% var(--notch-in,20.8px),100% 100%,0 100%)}
-/* Same hard-shadow language as the site's buttons: the shadow grows on lift and collapses on press. */
-@media (hover:hover) and (pointer:fine){.cartridge:hover{transform:translate(-3px,-10px) rotate(-1.5deg);filter:drop-shadow(10px 14px 0 var(--ink))}}
-.cartridge:active{transform:translate(3px,3px) scale(.98);filter:drop-shadow(1px 1px 0 var(--ink));transition-duration:60ms}
+/* Flat cartridge with a little depth: front face in the accent colour, a thick darker side face
+   down the right and a bottom face, mitred at the corner. The notch and the bottom-left chamfer
+   are the same 45° as the depth, so the silhouette reads as one solid block. No drop shadow. */
+.cartridge{position:relative;isolation:isolate;display:grid;grid-template-rows:28px 1fr 34px;min-height:250px;padding:0 16px 0 14px;color:var(--ink);text-decoration:none;text-align:left;transition:transform 260ms cubic-bezier(.34,1.7,.5,1)}
+.shell{position:absolute;inset:0;z-index:-1;background:var(--ink);border-radius:12px 12px 0 0;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,7.2px 100%,0 calc(100% - 7.2px))}
+.shell::before,.shell::after{content:"";position:absolute;inset:2px}
+/* Front face + bottom face (inset band). Inner chamfers are offset so the outline stays 2px. */
+.shell::before{background:var(--accent);border-radius:10px 10px 0 0;box-shadow:inset 0 -6px 0 color-mix(in srgb,var(--accent) 68%,#0b0a1a);clip-path:polygon(0 0,calc(100% - 20.8px) 0,100% 20.8px,100% 100%,6px 100%,0 calc(100% - 6px))}
+/* Right side face: starts on the notch diagonal, mitres into the bottom face. */
+.shell::after{background:color-mix(in srgb,var(--accent) 48%,#0b0a1a);clip-path:polygon(calc(100% - 7px) 13.8px,100% 20.8px,100% 100%,calc(100% - 7px) calc(100% - 6px))}
+@media (hover:hover) and (pointer:fine){.cartridge:hover{transform:translateY(-8px) rotate(-1deg)}}
+.cartridge:active{transform:translateY(2px);transition-duration:60ms}
 .cartridge:focus-visible{outline:3px solid var(--ink);outline-offset:6px}
 .cartridge:global(.plugging){z-index:30}
 .grip{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:0 26px 0 4px}
@@ -45,15 +48,13 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 small{font:9px/1.3 var(--mono);letter-spacing:.5px;color:var(--faint)}
 strong{font-size:18px;line-height:1.15}
 em{font-style:normal;font-size:12px;color:var(--muted)}
-/* Contact pins: flat gold, with a few missing, worn down or tarnished. */
-.pins{display:flex;align-items:flex-start;gap:4px;margin:6px 10px 0;padding-bottom:3px;border-top:2px solid var(--ink)}
-.pins i{flex:1;height:100%;background:#ffd166;border-radius:0 0 2px 2px}
-.pins i.short{height:52%}
-.pins i.dim{background:color-mix(in srgb,#ffd166 45%,var(--ink))}
-.pins i.gone{background:none;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 28%,transparent);height:30%}
-
-/* Special edition: pink trim plus a corner stamp. */
-.special{--trim:#f4457a;--trim-w:3px;--notch-in:20.2px}
-.edition-tag{position:absolute;right:10px;bottom:34px;padding:3px 6px;font:700 8px/1 var(--mono);letter-spacing:1px;color:#07060f;background:#f4457a;border:2px solid var(--ink);border-radius:3px;rotate:-4deg}
-@media (max-width:420px){.cartridge{min-height:220px;padding:0 9px}strong{font-size:15px}}
+/* Edge connector: gold fingers in a dark recess, a few worn short, tarnished or missing. */
+.pins{display:flex;align-items:flex-end;gap:3px;margin:8px 4px 8px;padding:0 5px;background:#0b0a1a;border-radius:3px 3px 0 0}
+.pins i{flex:1;height:calc(100% - 3px);background:linear-gradient(#ffe7a6 0 3px,#ffc94a 3px);border-radius:2px 2px 0 0}
+.pins i.short{height:50%}
+.pins i.dim{background:linear-gradient(#cfae63 0 3px,#9a7a38 3px)}
+.pins i.gone{height:3px;background:#3a3350}
+/* Special edition: just the sticker. */
+.edition-tag{position:absolute;right:18px;bottom:46px;padding:3px 6px;font:700 8px/1 var(--mono);letter-spacing:1px;color:#07060f;background:#f4457a;border:2px solid var(--ink);border-radius:3px;rotate:-4deg}
+@media (max-width:420px){.cartridge{min-height:220px;padding:0 13px 0 9px}strong{font-size:15px}}
 </style>
