@@ -989,15 +989,48 @@ pre {
     transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.footer-icons a:active {
+@media (hover: hover) and (pointer: fine) {
+  .footer-icons a:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+}
+.site-footer .footer-icons a:active {
   transform: translate(3px, 3px);
   box-shadow: 0 0 0 var(--ink);
   transition-duration: 55ms;
 }
 @media (max-width: 560px) {
+  /* Phones: skull mark, then the credit + copyright stacked where the brand text was (each
+     line truncates), then the GitHub button. One tight row. */
   .site-footer.site-footer {
-    padding: 20px 20px calc(18px + env(safe-area-inset-bottom));
-    gap: 14px 16px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    padding: 16px 20px calc(14px + env(safe-area-inset-bottom));
+    gap: 12px;
+  }
+  .site-footer .brand > span:not(.brand-mark) {
+    display: none;
+  }
+  .footer-legal {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+  .footer-legal > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .footer-legal .oss {
+    display: none;
+  }
+  .footer-icons {
+    grid-column: 3;
+    grid-row: 1;
   }
 }
 .session-bar {
@@ -2051,7 +2084,7 @@ html:not([data-theme="dark"]) .theme-moon {
     box-shadow: 5px 5px 0 var(--ink);
   }
 }
-.site-header nav a:active,
+.site-header nav a:not([aria-current]):active,
 .site-header nav a[aria-current="page"] {
   transform: translate(3px, 3px);
   box-shadow: 0 0 0 var(--ink);

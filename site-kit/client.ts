@@ -192,6 +192,19 @@ if (matchMedia("(pointer: coarse)").matches) {
     (event) => (event as TouchEvent).touches.length > 1 && block(event),
     { passive: false },
   );
+  // iOS ignores user-scalable=no and still zooms on a quick double tap (e.g. tapping bad guys in
+  // the hero game). A quick second tap on anything that isn't a control can't zoom; games read
+  // pointer events, so play is unaffected, and links/buttons keep every tap.
+  let lastTap = 0;
+  document.addEventListener(
+    "touchend",
+    (event) => {
+      const quick = event.timeStamp - lastTap < 400;
+      lastTap = event.timeStamp;
+      if (quick && !(event.target as Element).closest?.("a,button,input,textarea,select,label,summary,[role=button],[contenteditable]")) block(event);
+    },
+    { passive: false },
+  );
 }
 // Cartridge shelf: cartridges pop up as the shelf scrolls in. Picking one lifts it out,
 // plugs it into the console, boots the screen, then navigates; the browser's View Transition

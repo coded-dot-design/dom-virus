@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.25.4
+
+Site kit 1.29.4:
+- Phones: a quick second tap on anything that isn't a control no longer zooms (iOS ignores user-scalable=no), e.g. while tapping bad guys in the hero game.
+- Footer: the coded.design icon button is gone (it's the text link now); the GitHub button hovers/presses exactly. Phones: skull mark + the credit and copyright stacked beside it (truncating, "MIT"), then GitHub; one tight row.
+- Header nav buttons press correctly (hover no longer overrides the press).
+
 ## 0.25.3
 
 Site kit 1.29.3:
