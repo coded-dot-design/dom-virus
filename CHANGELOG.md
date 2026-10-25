@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.2
+
+Site kit 1.24.2:
+- Screen chips follow the buttons' left-to-right order (BLUE INFO, RED LAUNCH).
+
 ## 0.19.1
 
 Site kit 1.24.1:

@@ -129,7 +129,7 @@ try {
   await bf.click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   assert.ok(await page.evaluate(() => document.querySelector(".console").classList.contains("full")));
-  assert.match(await page.locator("[data-console-press]").textContent(), /RED LAUNCH BLUE INFO/);
+  assert.match(await page.locator("[data-console-press]").textContent(), /BLUE INFO RED LAUNCH/);
   await page.waitForTimeout(2100);
   assert.equal(await page.evaluate(() => document.querySelector(".console").classList.contains("starting")), false, "two-way cartridges wait for a choice");
   await page.locator('[data-pad="a"]').dispatchEvent("click");

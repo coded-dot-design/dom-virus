@@ -383,13 +383,15 @@ function cartActions(cart: HTMLElement): CartAction[] {
   } catch {}
   return [{ pad: "a", label: "START", href: cart.getAttribute("href")!, launch: "screen" }];
 }
+const PAD_ORDER = ["start", "b", "a"];
 const PAD_CHIP = { a: ["ka", "RED"], b: ["kb", "BLUE"], start: ["ks", "START"] } as const;
 function pressText(cart: HTMLElement) {
   const press = consoleEl!.querySelector<HTMLElement>("[data-console-press]")!,
     actions = cartActions(cart);
   consoleEl!.classList.toggle("choice", actions.length > 1);
   if (actions.length < 2) press.textContent = "PRESS START";
-  else press.innerHTML = actions.map((a) => `<b class="${PAD_CHIP[a.pad][0]}">${PAD_CHIP[a.pad][1]}</b> ${a.label}`).join(" ");
+  // Chips follow the pads' left-to-right order on the console: Start, B (blue), A (red).
+  else press.innerHTML = [...actions].sort((x, y) => PAD_ORDER.indexOf(x.pad) - PAD_ORDER.indexOf(y.pad)).map((a) => `<b class="${PAD_CHIP[a.pad][0]}">${PAD_CHIP[a.pad][1]}</b> ${a.label}`).join(" ");
 }
 // Full game: the console screen grows to fill the viewport, then the board folds open.
 function buildBoard(closing: boolean) {
