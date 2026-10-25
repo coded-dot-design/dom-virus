@@ -19,6 +19,8 @@ const hub=data.id==='dom-virus';
 const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
 const game=gameId?data.games.find((g)=>g.id===gameId):null;
 const gameIndex=game?data.games.indexOf(game):0;
+// Game pages use the home shelf's numbering, where DOM Battlefield sits in slot 02.
+const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
 const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
@@ -96,7 +98,7 @@ const year=new Date().getFullYear();
     </section>
     <section class="embed-section" id="embed"><div class="section-heading"><span class="eyebrow"><span class="index">DEV</span> BRING YOUR OWN PLAYGROUND</span><span class="version">MIT LICENSED</span></div><h2>Your page is next.</h2><p class="embed-lead">Import a game, choose the targets, and start a session. The launcher is optional. React adapters are separate exports so plain JavaScript consumers do not pay for React.</p>{data.games.map(game=><article class={`embed-game accent-${game.accent}`}><div><h3>{game.name}</h3><p>{game.engine}</p><a href={`https://github.com/coded-dot-design/${game.id}#readme`} class="text-link" data-virus-ignore data-swarm-ignore>Install + integration guide <UiIcon name="arrow-up-right" size={17}/></a></div><CodePreview game={game}/></article>)}<p class="install-note">Package names show the import after installation. Use each repository’s README for its available install or release route; registry publication is separate from this demo. Start with a static content container and exclude application controls you want to preserve.</p></section>
     </>}
-    {page==='game' && game && <GameSection game={game} index={gameIndex} mode="page" base={base} games={data.games}/>}
+    {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games}/>}
     {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}
     {page==='engineering' && <>
     <section class="engineering" id="engineering">

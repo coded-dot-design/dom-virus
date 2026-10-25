@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.25.2
+
+Site kit 1.29.2:
+- Game detail pages are numbered in the home shelf's order (Sherman 01, Battlefield 02, Swarm 03, Byte Runner 04, Null Invaders 05).
+
 ## 0.25.1
 
 Site kit 1.29.1:
