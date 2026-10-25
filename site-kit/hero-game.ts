@@ -61,6 +61,7 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
     last = 0,
     frame = 0,
     nuked = false,
+    resets = 0,
     drag: { id: number; dx: number; moved: boolean } | null = null;
 
   function angleOf(g: SVGGElement) {
@@ -287,6 +288,7 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
       nuked = false;
       round = 0;
       score = 0;
+      resets++;
     }, 2200);
   }
 
@@ -392,6 +394,9 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
     stop,
     get score() {
       return score;
+    },
+    get resets() {
+      return resets;
     },
     get foes() {
       return foes.filter((f) => !f.dead).length;

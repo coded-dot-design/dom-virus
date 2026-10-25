@@ -101,15 +101,16 @@ try {
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.foes > 0);
   assert.equal(await promo.locator(".foe-css").first().isVisible(), false, "CSS loop steps aside");
   await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score > 0, null, { timeout: 15000 });
+  const resets = await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.resets);
   await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.nuke());
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"));
-  // The round resets to 0 (checked every frame: auto-play can score again right after).
-  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
+  // The round resets (a counter, since auto-play can score again right after the reset to 0).
+  await page.waitForFunction((n) => document.querySelector(".hero-crossover").heroGame.resets > n, resets, { timeout: 6000 });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   // The hero's mock BUTTON_01 is a 3D button that nukes every bad guy and resets the round.
   await page.locator(".promo-button").click();
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
-  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score === 0, null, { timeout: 5000, polling: "raf" });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.resets > 1, null, { timeout: 6000 });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   assert.equal(await page.locator(".site-header nav a").count(), 2, "header: Games + Under the hood");
   assert.equal(await page.locator(".site-footer a[href$='archive/']").count(), 0, "archive is kept but not linked");
