@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.35.0
+
+Site kit 1.38.0:
+- Ships DOM Battlefield 0.11.0: the command card docks above the map on desktop (no longer covering the field) with a clearer head and a close key (Auto in battle, Hide while planning), and the platoon list is back to square arcade keys (colour = health, pips = size, number = the tank on the field).
+
 ## 0.34.1
 
 Site kit 1.37.2:
