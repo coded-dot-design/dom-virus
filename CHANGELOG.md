@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.30.0 — Launch day
+
+Site kit 1.34.0:
+- Home: the strip under the hero is now a console-style readout (05 cartridges, 01 page: yours, 00 installs, SOON: Battlefield multiplayer). 2×2 on phones; the stale "04 independent games" and React footnote are gone.
+- The hero tank stays hidden until it drives in, so it no longer sits on top of the readout.
+- DOM Battlefield info page and Under the hood: "Coming soon: multiplayer".
+- Under the hood origin copy: two Macs, one network, and Bolo.
+- Custom domain ready: set repo variables `SITE_URL` and `SITE_BASE` (see HANDOFF). The hub rewrites Battlefield's links back home to same-origin paths.
+
 ## 0.29.0 — Launch polish
 
 Site kit 1.33.0:

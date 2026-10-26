@@ -27,6 +27,9 @@ jobs:
       - run: npm run site:build
         env:
           DOM_VIRUS_LATEST_RELEASES: '1'
+          # Custom domain (optional): repo variables. Unset = coded-dot-design.github.io/dom-virus/.
+          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_BASE: ${{ vars.SITE_BASE }}
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: artifacts/site

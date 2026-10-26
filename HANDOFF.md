@@ -80,10 +80,10 @@ is a game (cartridges, a console), every surface obeys one 3D press rule, and mo
 (CSS + WAAPI transforms) so it stays smooth on phones.
 
 **Where it comes from (the "why" behind every game):** Bolo, played in a middle-school engineering
-tech class. The gameplay was great, but the hook was the networking: how two computers talk to each
-other. That curiosity about how it all works is the point of every game. Keep the story simple when
-writing copy: the game, the love for tech, the curiosity. No dates, places or "N years later" maths;
-it shouldn't read as a memoir. It is told on the Under the hood page (lab 00). That's also why
+tech class, on a room of networked Macs. The hook was the networking: your machine reaching into
+someone else's screen, which is exactly what a DOM VIRUS game does to a page. Keep the story simple
+when writing copy: curious, hands-on, smart without showing off. No dates, places or "N years later"
+maths; it shouldn't read as a memoir. It is told on the Under the hood page (lab 00). That's also why
 multiplayer is on the roadmap (see FUTURE.md).
 
 ## 2. Repositories
@@ -116,6 +116,14 @@ hub page. Each keeps `site/game.json` (and `site/art.json`) as the source of its
    Only those two lock fields: never search-and-replace a version string across the lockfile.
    Dependencies share version numbers (esbuild and scheduler are 0.28.x), and a global replace
    breaks `npm ci` in CI (this happened at 0.28.3). `npm version <x> --no-git-tag-version` is safest.
+
+### Custom domain (domvirus.com)
+
+The build reads two optional repo variables (Settings → Secrets and variables → Actions → Variables):
+`SITE_URL` (e.g. `https://domvirus.com`) and `SITE_BASE` (`/`). Unset, the site builds for
+`coded-dot-design.github.io/dom-virus/`. Switch order: DNS records → Pages custom domain → set both
+variables → re-run "Deploy product page". The hub rewrites Battlefield's absolute hub links to
+same-origin paths at build time (`scripts/prepare-battlefield.mjs`). Old github.io links redirect.
 
 ### Commands (hub)
 

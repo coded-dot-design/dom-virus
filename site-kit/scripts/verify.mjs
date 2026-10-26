@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import assert from "node:assert/strict";
 const root = process.cwd();
 const { id } = JSON.parse(readFileSync("site/config.json", "utf8"));
-const base = (process.env.SITE_BASE ?? `/${id}`).replace(/\/$/, "");
+const base = (process.env.SITE_BASE || `/${id}`).replace(/\/$/, "");
 const output = resolve(root, "artifacts/site");
 const html = readFileSync(resolve(output, "index.html"), "utf8");
 const assets = [...html.matchAll(/(?:src|href)="([^"#]+)"/g)]

@@ -36,24 +36,25 @@ const pipeline = [
   <article class="lab origin accent-amber" data-lab="duel" aria-labelledby="origin-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">00</span> INSERT COIN</span>
-      <h3 id="origin-title">It started with Bolo.</h3>
-      <p>Middle school, engineering tech class, and a tank game called <b>Bolo</b>. I loved the gameplay. What really hooked me was the network: my tank on my screen, someone else’s tank on theirs, and the two computers somehow talking to each other.</p>
-      <p>All this tech and a lot of years later, I still want to know how it all works. Every DOM VIRUS game comes from that same curiosity.</p>
-      <p class="origin-next"><UiIcon name="target" size={16}/> Next: two players, two pages, one battle. Multiplayer is on the roadmap.</p>
+      <h3 id="origin-title">Two Macs, one network, and Bolo.</h3>
+      <p>Middle school engineering tech class: a room of networked Macs and a tank game called <b>Bolo</b>. The gameplay was good for its day. The networking is what hooked me.</p>
+      <p>We weren’t always supposed to be playing, but we could reach across the network and change what was happening on someone else’s screen. Once that clicked, I wanted to know how all of it worked, and the way to find out was to build things: apps, websites, games, anything that could talk to something else.</p>
+      <p>DOM VIRUS is the same trick, pointed at a webpage: a game that reaches into the page you’re reading.</p>
+      <p class="origin-next"><UiIcon name="target" size={16}/> Coming soon: DOM Battlefield multiplayer. Two players, two pages, one battle.</p>
     </div>
     <figure class="lab-stage duel" aria-label="Two computers joined by a network cable. Fire from either side: a packet crosses the cable and hits the other tank.">
       <div class="machine" data-side="0">
         <span class="mac"><span class="crt"><span class="tank-sprite"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">PLAYER 1 · YOU</span>
+        <span class="machine-label">MAC 01 · YOU</span>
         <span class="duel-score" data-score="0">00</span>
-        <button class="lab-key" data-fire="0" aria-label="Fire from player 1">FIRE</button>
+        <button class="lab-key" data-fire="0" aria-label="Fire from Mac 01">FIRE</button>
       </div>
       <div class="cable" aria-hidden="true"><i></i><span>THE NETWORK</span></div>
       <div class="machine" data-side="1">
         <span class="mac"><span class="crt mirror"><span class="tank-sprite flip"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">PLAYER 2<span class="long"> · THEM</span></span>
+        <span class="machine-label">MAC 02<span class="long"> · THEM</span></span>
         <span class="duel-score" data-score="1">00</span>
-        <button class="lab-key" data-fire="1" aria-label="Fire from player 2">FIRE</button>
+        <button class="lab-key" data-fire="1" aria-label="Fire from Mac 02">FIRE</button>
       </div>
     </figure>
   </article>

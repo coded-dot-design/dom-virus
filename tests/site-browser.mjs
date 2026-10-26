@@ -66,6 +66,9 @@ try {
     [`/dom-virus/games/${order[0]}/`, "/dom-virus/battlefield/", ...order.slice(1).map((id) => `/dom-virus/games/${id}/`)],
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
+  // The readout under the hero: live cartridge count, and what's next.
+  assert.deepEqual(await page.locator(".readout b").allTextContents(), ["05", "01", "00", "SOON"]);
+  assert.match(await page.locator(".readout-next").textContent(), /Battlefield multiplayer/);
   assert.equal(await page.locator(".console").count(), 1);
   const promo = page.locator(".hero-crossover");
   // Mash-up: DOM Virus skulls and bad guys from every game, an interceptor, and a turreted tank.

@@ -13,9 +13,10 @@ export default defineConfig({
   outDir: resolve(root, "artifacts/site") + "/",
   publicDir: resolve(root, "site/generated/public") + "/",
   devToolbar: { enabled: false },
-  // Custom domain later: set SITE_URL (e.g. https://domvirus.com) and SITE_BASE=/ in the Pages workflow.
-  site: process.env.SITE_URL ?? "https://coded-dot-design.github.io",
-  base: process.env.SITE_BASE ?? `/${id}`,
+  // Custom domain: set repo variables SITE_URL=https://domvirus.com and SITE_BASE=/ (Settings →
+  // Secrets and variables → Actions → Variables); pages.yml passes them in. Empty means github.io.
+  site: process.env.SITE_URL || "https://coded-dot-design.github.io",
+  base: process.env.SITE_BASE || `/${id}`,
   trailingSlash: "always",
   output: "static",
   server: { host: "0.0.0.0", port: 5173 },

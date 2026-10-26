@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, mkdirSync, rmSync, cpSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -46,4 +46,9 @@ const dest = resolve("site/generated/public/battlefield");
 rmSync(dest, { recursive: true, force: true });
 mkdirSync(dest, { recursive: true });
 cpSync(resolve(root, "dist"), dest, { recursive: true });
+// The app's links back to the hub are absolute (for its standalone preview). Served from the hub,
+// make them same-origin so Eject never bounces through a redirect (e.g. on a custom domain).
+const hubBase = (process.env.SITE_BASE || "/dom-virus").replace(/\/?$/, "/");
+const page = resolve(dest, "index.html");
+writeFileSync(page, readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase));
 console.log(`Battlefield ${pin.version}: verified standalone app copied to /battlefield/.`);
