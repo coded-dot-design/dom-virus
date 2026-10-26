@@ -203,8 +203,21 @@ try {
   // reload so the rest of the flow starts clean. See FUTURE.md.
   await page.waitForTimeout(300);
   const left = await bf.evaluate((el) => getComputedStyle(el).transform);
-  if (left !== "none") console.log(`::warning title=Ejected cartridge kept a transform::${left}`);
-  await page.goto(base + "#games");
+  if (left !== "none") {
+    // Experiments, reported back from CI: what is holding it, and what clears it?
+    const probe = await bf.evaluate(async (el) => {
+      const t = () => getComputedStyle(el).transform, wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const out = { t0: t(), transition: getComputedStyle(el).transition, docAnims: document.getAnimations().filter((a) => a.effect?.target === el).map((a) => `${a.constructor.name}:${a.playState}:${a.replaceState}`), elAnims: el.getAnimations().length };
+      await wait(1000); out.t1s = t();
+      el.style.transition = "none"; void el.offsetWidth; out.afterTransitionNone = t();
+      el.style.transform = "none"; void el.offsetWidth; out.afterTransformNone = t();
+      el.style.removeProperty("transform"); void el.offsetWidth; out.afterRemove = t();
+      el.style.removeProperty("transition");
+      return out;
+    });
+    console.log(`::warning title=Ejected cartridge kept a transform::${JSON.stringify(probe)}`);
+  }
+  await page.goto(base + "?fresh=1#games");
   await bf.scrollIntoViewIfNeeded();
   await page.mouse.move(5, 5);
   await clickCart(bf);
