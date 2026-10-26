@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.29.0 — Launch polish
+
+Site kit 1.33.0:
+- Share cards: Open Graph and X tags on every page (title, description, canonical URL, a 1200×630 preview image).
+- Branded 404 page ("Nothing in this slot.") with a way back to the shelf.
+- One `h1` per page (game pages, Battlefield info and Under the hood used `h2`).
+- Home hero: "Five tiny arcade experiments" (it said four; the shelf has five).
+- Game page copy says joystick, not D-pad (Sherman Bytes, Byte Runner), via pinned content commits.
+- `SITE_URL` in the Astro config, ready for a custom domain.
+- Tests: a flaky CI step (re-plugging Battlefield right after an eject) waits for the eject to finish.
+
 ## 0.28.3
 
 Site kit 1.32.3:

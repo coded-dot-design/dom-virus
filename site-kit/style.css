@@ -515,11 +515,11 @@ section {
   align-items: center;
   margin: 43px 0;
 }
-.game-intro h2 {
+.game-intro :is(h1, h2) {
   font-size: 48px;
   font-weight: 500;
 }
-.game-intro h2 > span {
+.game-intro :is(h1, h2) > span {
   display: block;
   font-size: 23px;
   line-height: 1.3;
@@ -1159,7 +1159,7 @@ pre {
   .game-intro {
     gap: 35px;
   }
-  .game-intro h2 {
+  .game-intro :is(h1, h2) {
     font-size: 36px;
   }
   .arena-copy {
@@ -1278,10 +1278,10 @@ pre {
     margin: 30px 0;
     gap: 30px;
   }
-  .game-intro h2 {
+  .game-intro :is(h1, h2) {
     font-size: 36px;
   }
-  .game-intro h2 > span {
+  .game-intro :is(h1, h2) > span {
     font-size: 22px;
   }
   .game-display {
@@ -1553,7 +1553,7 @@ html[data-theme="light"] .theme-switch button[aria-pressed="true"] {
 html[data-theme="light"] .game-tab:hover {
   background: color-mix(in srgb, var(--accent) 10%, #fff);
 }
-html[data-theme="light"] .accent-lime :is(.game-intro h2 > span) {
+html[data-theme="light"] .accent-lime :is(.game-intro :is(h1, h2) > span) {
   text-decoration: underline;
   text-decoration-color: #4bce82;
   text-decoration-thickness: 4px;

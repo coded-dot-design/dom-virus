@@ -174,6 +174,9 @@ try {
   await page.waitForFunction(() => !document.querySelector("[data-shelf]").dataset.plugging, null, { timeout: 4000 });
   assert.equal(await page.evaluate(() => document.querySelector(".console").classList.contains("booting")), false, "console back to idle");
   assert.equal(page.url(), homeUrl.replace(/#.*$/, "") + "#games");
+  // Let it settle in its bay (and move the pointer off it) before plugging it back in.
+  await bf.evaluate((el) => Promise.all(el.getAnimations({ subtree: true }).filter((a) => a.effect?.getComputedTiming().endTime !== Infinity).map((a) => a.finished.catch(() => {}))));
+  await page.mouse.move(5, 5);
   await bf.click();
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   await page.locator('[data-pad="a"]').dispatchEvent("click");
@@ -232,6 +235,19 @@ try {
   await page.setViewportSize({ width: 320, height: 700 });
   assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
   await page.setViewportSize(footerWidth);
+  // Every page has one h1, a canonical URL and a share card with an absolute image URL.
+  for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/"]) {
+    await page.goto(base + path);
+    assert.equal(await page.locator("h1").count(), 1, `${path || "home"} has one h1`);
+    assert.match(await page.locator('meta[property="og:image"]').getAttribute("content"), /^https:\/\/.+\.png$/);
+    assert.equal(await page.locator('meta[name="twitter:card"]').getAttribute("content"), "summary_large_image");
+    assert.match(await page.locator('link[rel="canonical"]').getAttribute("href"), /^https:\/\//);
+  }
+  // Missing pages get the branded 404 (GitHub Pages serves 404.html), with a way back.
+  await page.goto(base + "404.html");
+  assert.match(await page.locator("h1").textContent(), /Nothing in/);
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute("content"), "noindex");
+  assert.equal(new URL(await page.getByRole("link", { name: /Back to the games/ }).getAttribute("href"), base).pathname, "/dom-virus/");
   await page.goto(base + "under-the-hood/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   for (const selector of [".uth", ".embed-section"])

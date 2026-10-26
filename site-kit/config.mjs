@@ -13,7 +13,8 @@ export default defineConfig({
   outDir: resolve(root, "artifacts/site") + "/",
   publicDir: resolve(root, "site/generated/public") + "/",
   devToolbar: { enabled: false },
-  site: "https://coded-dot-design.github.io",
+  // Custom domain later: set SITE_URL (e.g. https://domvirus.com) and SITE_BASE=/ in the Pages workflow.
+  site: process.env.SITE_URL ?? "https://coded-dot-design.github.io",
   base: process.env.SITE_BASE ?? `/${id}`,
   trailingSlash: "always",
   output: "static",

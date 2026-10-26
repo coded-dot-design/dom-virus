@@ -1,0 +1,34 @@
+---
+// 404: GitHub Pages serves this for any missing path, so every link here is absolute (base).
+import UiIcon from './UiIcon.astro';
+const { base } = Astro.props;
+const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z';
+---
+<section class="nf" aria-labelledby="nf-title">
+  <div class="section-heading"><span class="eyebrow"><span class="index">404</span> CARTRIDGE NOT FOUND</span></div>
+  <div class="nf-grid">
+    <div>
+      <h1 id="nf-title">Nothing in<br/><em>this slot.</em></h1>
+      <p>This page isn’t plugged in. It may have moved, or the link has a typo. The games are all on the shelf.</p>
+      <div class="actions"><a class="button primary" href={`${base}#games`}>Back to the games <UiIcon name="cartridge" size={18}/></a><a class="text-link" href={`${base}under-the-hood/`}>Under the hood <UiIcon name="arrow-up-right" size={17}/></a></div>
+    </div>
+    <div class="nf-screen" aria-hidden="true">
+      <svg viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d={SKULL}/></svg>
+      <code>ERR 404 · NO CARTRIDGE</code>
+    </div>
+  </div>
+</section>
+<style>
+.nf{margin:0 auto;padding:44px 30px 80px;max-width:1200px}
+.nf-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;margin-top:30px}
+.nf h1{margin:0 0 18px;font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.04em}
+.nf h1 em{font-style:normal;color:var(--accent-text,var(--accent))}
+.nf p{max-width:440px;margin:0 0 26px;font-size:16px}
+.nf .actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.nf-screen{display:grid;place-items:center;gap:14px;aspect-ratio:4/3;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#0b0a1a;border:2px solid var(--ink);border-radius:12px;box-shadow:8px 8px 0 var(--accent)}
+.nf-screen svg{width:34%;fill:var(--accent);animation:nf-blink 1.2s steps(2) infinite}
+.nf-screen code{font:700 12px var(--mono);letter-spacing:.1em;color:#cec0e0}
+@keyframes nf-blink{50%{opacity:.35}}
+@media (max-width:900px){.nf{padding:30px 20px 60px}.nf-grid{grid-template-columns:1fr;gap:28px}}
+@media (prefers-reduced-motion:reduce){.nf-screen svg{animation:none}}
+</style>

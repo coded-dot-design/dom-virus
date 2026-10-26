@@ -5,21 +5,26 @@ A running list. Phase 1 (the hub, five games, the cartridge console) is tagged `
 
 ## Cleanup carried over from Phase 1 (small, do first)
 
+Done before launch: game READMEs refreshed, D-pad copy fixed (hub pins the copy commits in
+`site/config.json` `contentRefs`), CHANGELOG order, Swarm 1.3.1 entry, fly-cap note, branded 404,
+share cards (Open Graph), one `h1` per page. Still open:
+
 - **Swarm Protocol releases:** CI tags are created with the workflow token, so they don't trigger
   `release.yml`. The last GitHub release (zip + npm tarball) is v1.2.3; v1.2.4–v1.3.1 are tags only.
-  Fix with a PAT/App token or by having `release.yml` run on `workflow_run`. Also: add the missing
-  CHANGELOG 1.3.1 entry, align Node 22 → 24 in `release.yml`, and add `shared/ORIGIN.json`.
-- **Game READMEs** (Sherman, Null, Byte Runner, Swarm) still describe the retired per-game Astro
-  sites (`site:build`, `site:preview`, `npm run dev`) and the old size budgets; refresh them.
-- **Stale "D-pad" copy** in Sherman and Byte Runner `site/game.json` and in the Byte Runner and Null READMEs; the
-  controls are a joystick now.
-- **Null Invaders:** the in-game hint says "G: next gate", but the game page says "G — next factory". Pick one.
-- **CHANGELOG order** in Null and Byte Runner: a stray version heading sits above `# Changelog`.
-- **Byte Runner:** the CHANGELOG says flies cap at 8, but the code (`MAX_GHOSTS`) caps at 12. Byte Runner is
-  also the only engine game without a simulation test. Its size headroom is under 1 KB (29.2 of 30 KB).
-- **Battlefield:** `shared/ORIGIN.json` version labels are stale (the hashes match); re-run `node scripts/sync-shared.mjs`.
+  Fix with a PAT/App token or by having `release.yml` run on `workflow_run`. Also align Node 22 → 24
+  in `release.yml` (and `docs/RELEASING.md`, `docs/FIRST-PUBLISH.md`), and add `shared/ORIGIN.json`.
+- **Null Invaders:** the in-game hint says "G: next gate"; the site says "G — next factory" (the
+  brand word). Change the hint in `src/index.ts` in the next game release.
+- **Byte Runner:** the only engine game without a simulation test. Size headroom is under 1 KB (29.2 of 30 KB).
+- **Battlefield:** `shared/ORIGIN.json` version labels are stale (the hashes match); re-run
+  `node scripts/sync-shared.mjs`. The standalone app (`/battlefield/`) has no share card yet.
+- **Changelogs** skip some tagged versions (Byte Runner 0.6.0–0.10.1, Null 0.3.0/0.6.0/0.7.1,
+  Sherman 0.3.1/0.4.5/0.5.1). Backfill from git history if wanted.
 - **Hub pins:** the hourly hub build already follows the newest tag in each pinned major line (all v0),
   so a new game tag reaches the hub before `games.json` is bumped. Decide whether pins should be exact.
+- **Viewport zoom is disabled** (`user-scalable=no`, by request, to stop double-tap zoom). Lighthouse
+  flags this for accessibility; the touchend guard in `client.ts` may be enough on its own.
+- **Custom domain:** set `SITE_URL` and `SITE_BASE=/` in `pages.yml` (see `site-kit/config.mjs`).
 
 ## Phase 2: one controls layer, optimisation, hardening
 
