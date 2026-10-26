@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.35.1
+
+Site kit 1.38.1:
+- Ships DOM Battlefield 0.11.1: drag the command card anywhere by its grip (double-click docks it), Command is always yellow, the theme key shows moon/sun and sits with the other header keys, phone header keys are one size, and keyboard controls + tips sit beside the battlefield title.
+
 ## 0.35.0
 
 Site kit 1.38.0:
