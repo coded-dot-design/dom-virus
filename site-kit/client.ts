@@ -294,10 +294,12 @@ const sfx = {
 let waiting: { cart: HTMLElement; pull: () => void } | null = null;
 function refuse(cart: HTMLElement) {
   tone("square", 140, 110, 0, 0.09, 0.03);
-  cart.animate([{ transform: "translateX(0)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(-3px)" }, { transform: "translateX(0)" }], { duration: 260, easing: "steps(5)", composite: "add" });
+  // The individual `translate` property stacks on top of the cartridge's own transform (its seat
+  // or flight) without composite: "add", which has left a stuck transform behind in some Chromium builds.
+  cart.animate([{ translate: "0 0" }, { translate: "-5px 0" }, { translate: "5px 0" }, { translate: "-3px 0" }, { translate: "0 0" }], { duration: 260, easing: "steps(5)" });
   // Hint: the seated cartridge hops, so you know which one is in the way.
   if (waiting && waiting.cart !== cart)
-    waiting.cart.animate([{ transform: "translateY(0)" }, { transform: "translateY(-7px)" }, { transform: "translateY(0)" }], { duration: 300, easing: "cubic-bezier(.3,.7,.3,1)", composite: "add" });
+    waiting.cart.animate([{ translate: "0 0" }, { translate: "0 -7px" }, { translate: "0 0" }], { duration: 300, easing: "cubic-bezier(.3,.7,.3,1)" });
 }
 const onCartClick = (event: Event) => {
   const cart = (event.target as Element).closest<HTMLAnchorElement>("a.cartridge");
