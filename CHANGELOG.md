@@ -1,10 +1,14 @@
 # Changelog
 
+## 0.31.1
+
+Site kit 1.35.1:
+- Fix: an ejected cartridge could stay stuck at its console seat, one slot over and on top of its neighbour, in some Chromium builds (a cancelled animation's transform kept applying). Landing home now checks it's at rest and, if not, swaps in a fresh copy of the element. The "not now" wiggle and hop also animate `translate` now instead of an additive `transform`.
+
 ## 0.31.0
 
 Site kit 1.35.0:
 - Game and Battlefield detail pages: Play is the only big button. "Swap to …" and "Read the source" are now square icon keys beside it (new `IconKey`): the target game's icon on its cartridge colour ("Try Battlefield", "Try Sherman Bytes") and the GitHub logo ("Source details"). Labels slide out on hover or keyboard focus; phones show the icons.
-- Fix: the "not now" wiggle and the seated cartridge's hop animate `translate` instead of an additive `transform`. In some Chromium builds the additive animation could leave an ejected cartridge stuck one slot over, on top of its neighbour.
 
 ## 0.30.1
 

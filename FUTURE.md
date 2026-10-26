@@ -24,11 +24,11 @@ share cards (Open Graph), one `h1` per page. Still open:
   so a new game tag reaches the hub before `games.json` is bumped. Decide whether pins should be exact.
 - **Viewport zoom is disabled** (`user-scalable=no`, by request, to stop double-tap zoom). Lighthouse
   flags this for accessibility; the touchend guard in `client.ts` may be enough on its own.
-- **CI-only eject offset:** on GitHub's headless runners, Battlefield ejected by tapping it in the
-  console has sometimes kept its seat transform (`translate(224px, 106px)` at 1440px) with no
-  inline style or animation left. Never reproduced locally (any CPU throttle) or on devices. The
-  site test records it as a warning ("Ejected cartridge kept a transform") and reloads; check those
-  warnings, and try a real-device pass of: plug Battlefield, tap it to eject, plug it again.
+- **Stuck cartridge after eject (fixed in 0.31.0, keep an eye on it):** CI's Chromium kept a
+  cancelled animation's seat transform applied (above inline styles, invisible to
+  `getAnimations()`; a cloned node was clean). `eject()` now checks the cartridge is at rest and
+  swaps in a fresh copy if not. The site test still warns ("Ejected cartridge kept a transform") if
+  it ever sees the offset again. Worth filing a minimal repro with Chromium.
 - **Custom domain:** set `SITE_URL` and `SITE_BASE=/` in `pages.yml` (see `site-kit/config.mjs`).
 
 ## Phase 2: one controls layer, optimisation, hardening

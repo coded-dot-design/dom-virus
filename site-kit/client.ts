@@ -694,6 +694,16 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
     cart.style.removeProperty("transform-origin");
     cart.style.removeProperty("transform");
     putBack(cart);
+    // Some Chromium builds keep a cancelled animation's transform applied (above inline styles and
+    // invisible to getAnimations), leaving the cartridge stuck at its seat over a neighbour. If it
+    // isn't at rest, swap in a fresh copy of the element: listeners live on the shelf, so nothing
+    // is lost, and keyboard focus moves with it.
+    if (!cart.matches(":hover") && getComputedStyle(cart).transform !== "none") {
+      const fresh = cart.cloneNode(true) as HTMLElement,
+        focused = document.activeElement === cart;
+      cart.replaceWith(fresh);
+      if (focused) fresh.focus({ preventScroll: true });
+    }
     if (shelf) delete shelf.dataset.plugging;
     settle();
     const next = chained;
