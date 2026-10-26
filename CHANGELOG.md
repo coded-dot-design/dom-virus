@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.37.2
+
+Site kit 1.40.2:
+- Ships DOM Battlefield 0.13.2: Start and Surrender flash a flat cyberpunk red-pink when pressed.
+
 ## 0.37.1
 
 Site kit 1.40.1:
