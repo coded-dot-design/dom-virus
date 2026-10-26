@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.33.1
+
+- Ships DOM Battlefield 0.8.2: the desert is redrawn flat, Tron style (neon amber outlines on black, sand dots, scrub), and winter ice is flat.
+
 ## 0.33.0
 
 Site kit 1.37.0:
