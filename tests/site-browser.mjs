@@ -642,6 +642,8 @@ try {
   assert.ok(await page.evaluate(() => window.battlefield.paused));
   // Narrow/touch layouts keep secondary actions in the slide-out panel.
   if (await page.locator("#bf-squad").isVisible()) await page.locator("#bf-squad").click();
+  // 0.9.0+: Surrender (#bf-restart) lives in the gear menu.
+  if (!(await page.locator("#bf-restart").isVisible())) await page.locator("#bf-settings").click();
   await page.locator("#bf-restart").click();
   assert.equal(await page.evaluate(() => window.battlefield.playing), false);
   assert.deepEqual(errors, []);
