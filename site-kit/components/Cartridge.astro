@@ -5,7 +5,8 @@
 // screen. No actions = one: open `href` (PRESS START). A cartridge that launches a full game
 // ('board') is a special edition: a sticker, and both console LEDs light.
 // Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / client.ts.
-const { id, href, accent, index = 0, kind, name, tagline, actions } = Astro.props;
+// placeholder: just the empty bay (dashed outline + muted cover), as left behind when it's plugged in.
+const { id, href, accent, index = 0, kind, name, tagline, actions, placeholder = false } = Astro.props;
 const full = actions?.some((a) => a.launch === 'board');
 // The art is used twice: on the label and, muted, on the "cover" left behind in the empty bay.
 const art = await Astro.slots.render('default');
@@ -25,10 +26,10 @@ const pins = Array.from({ length: 11 }, (_, p) => {
   return h < 2 ? 'gone' : h < 6 ? 'short' : h < 9 ? 'dim' : '';
 });
 ---
-<div class="bay" data-bay={id} style={`--i:${index}`}>
+<div class:list={["bay", { out: placeholder, placeholder }]} data-bay={id} style={`--i:${index}`}>
   <svg class="ghost" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true"><path d="M13 1.5H178.5L198.5 21.5V248.5H8.7L1.5 241.3V13Q1.5 1.5 13 1.5Z"/></svg>
   <span class="ghost-cover" aria-hidden="true"><span class="ghost-art"><Fragment set:html={art}/></span><b>{name}</b><small>0{index + 1} / {kind}</small></span>
-  <a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
+  {!placeholder && <a class:list={['cartridge', `accent-${accent}`, ]} href={href} data-cart={id} data-full={full ? '' : undefined} data-actions={actions ? JSON.stringify(actions) : undefined} style={`--i:${index}`}>
     <span class="shell" aria-hidden="true"></span>
     <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
     <span class="label">
@@ -40,12 +41,13 @@ const pins = Array.from({ length: 11 }, (_, p) => {
     {full && <span class="edition-tag" aria-hidden="true">SPECIAL EDITION</span>}
     <span class:list={['skull-sticker', { peel: sticker.peel }]} style={`${sticker.at};--tilt:${sticker.tilt}deg`} aria-hidden="true"><svg viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d="M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z"/><path d="M54 0h9v9h-9z"/></svg></span>
     <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
-  </a>
+  </a>}
 </div>
 <style>
 /* The cartridge's spot on the shelf. While it's out (plugged in), a soft dashed outline marks
    where it comes back to. */
 .bay{position:relative;display:grid}
+.bay.placeholder{min-height:250px}
 .ghost{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;opacity:0;transition:opacity .25s}
 .ghost path{vector-effect:non-scaling-stroke;fill:color-mix(in srgb,var(--ink) 3%,transparent);stroke:color-mix(in srgb,var(--ink) 28%,transparent);stroke-width:2;stroke-dasharray:7 6}
 /* The cover left behind: the game's icon and name, muted, inside the dashed outline (top half,

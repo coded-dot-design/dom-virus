@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.0
+
+Site kit 1.42.0:
+- Code snippet sections follow the new grid: left, the game's sticker beside its name and engine line, then its cartridge (Under the hood: plug it in at home) or, on the game's own page, the empty dashed bay it leaves behind; right, the code card with the GitHub Install guide key inside it, bottom right. Phones skip the cartridge.
+
 ## 0.38.1
 
 Site kit 1.41.1:

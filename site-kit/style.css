@@ -3750,43 +3750,48 @@ html[data-theme="light"] .readout-next b {
 .button.primary {
   border-color: var(--ink);
 }
-/* Code snippet sections: the game's sticker + name on one row, the GitHub key pushed to the right
-   of it (its label slides out leftward from the edge). */
+/* Code snippet sections: left column = the game's sticker beside its name + engine line, then its
+   cartridge (Under the hood: plug it in at home; game pages: the empty bay it leaves behind).
+   Right column = the code card, with the GitHub Install guide key inside it, bottom right. */
+.embed-copy {
+  display: grid;
+  align-content: start;
+  gap: 28px;
+}
 .embed-title {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 6px 0 10px;
+  align-items: flex-start;
+  gap: 16px;
 }
 .embed-title h3 {
-  margin: 0;
-  min-width: 0;
+  margin: 2px 0 0;
 }
-.embed-title .guide-key {
-  margin: 0 0 0 auto;
-  flex: none;
+.embed-title p {
+  margin: 8px 0 0;
 }
-.embed-copy > .eyebrow + .embed-title {
-  margin-top: 10px;
-}
-/* Under the hood, desktop: the game's cartridge sits beside its snippet. Clicking it goes home,
-   plugs it into the console and opens the game's page. */
 .embed-cart {
-  display: none;
+  width: 176px;
+  justify-self: center;
 }
-@media (min-width: 1100px) {
-  .embed-game.with-cart {
-    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.18fr) 176px;
-    align-items: center;
-  }
-  .embed-cart {
-    display: block;
-    width: 176px;
-  }
+.code-body {
+  position: relative;
+}
+.code-guide {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
 }
 @media (max-width: 760px) {
+  .embed-cart {
+    display: none;
+  }
   .embed-title {
-    gap: 10px;
+    gap: 12px;
+  }
+  .code-guide {
+    right: 10px;
+    bottom: 10px;
   }
 }
 @media (max-width: 760px) {

@@ -253,11 +253,13 @@ try {
     const cart = page.locator('.embed-cart .cartridge[data-cart="byte-runner"]');
     assert.equal(await cart.getAttribute("href"), "/dom-virus/?load=byte-runner#console");
     assert.equal(await page.locator(".embed-title .game-sticker").count(), await page.locator(".embed-game").count());
+    assert.equal(await page.locator(".code-guide .icon-key").count(), await page.locator(".embed-game").count(), "GitHub key inside each code card");
     await cart.click();
     await page.waitForURL(/games\/byte-runner\/$/, { timeout: 8000 });
   }
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
+  assert.equal(await page.locator(".game-embed .bay.placeholder").count(), 1, "game page shows the empty cartridge bay, not a cartridge");
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
   // Each game page carries its integration snippet in the same 3D code card as Under the hood.
   assert.equal(await page.locator(".game-embed .code-example").count(), 1);
