@@ -623,6 +623,9 @@ try {
   assert.equal(await page.locator(".bf-mission").count(), 4);
   await page.locator("#bf-deploy").click();
   assert.ok(await page.evaluate(() => window.battlefield.playing));
+  // 0.7.0+: every battle opens with a plan step in command mode; Start begins the fight.
+  assert.equal(await page.evaluate(() => window.battlefield.command?.planning), true);
+  await page.locator("#bf-start").click();
   await page.locator("[data-order=follow]").click();
   assert.ok(await page.evaluate(() => window.battlefield.snapshot().units.filter(u => u.side === 0 && u.id !== 0).every(u => u.order === "follow")));
   await page.locator("#bf-pause").click();

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.32.0
+
+Site kit 1.36.0:
+- Ships DOM Battlefield 0.7.0: command your squad. Every battle opens with a frozen plan step; tap a tank, tap a square, drag the route to bend it, lock it, start. In battle, Command is the third aim mode (half speed, gun off). Button tips now appear on every phone and expand on tap.
+- Battlefield info page copy describes planning and Command mode.
+
 ## 0.31.1
 
 Site kit 1.35.1:
