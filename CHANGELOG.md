@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.34.0
+
+Site kit 1.37.1:
+- Ships DOM Battlefield 0.9.0: header icon keys with a gear menu and white-flag Surrender, PAUSED and START BATTLE stickers, grouped command panel with a planning-only Move HQ, square squad chips, distinct formations, roads that change by terrain and seed, new bushes and city shapes, and a full-screen "Expand the map?" prompt.
+- Under the hood: more breathing room on big screens (wider gap between copy and diagram, more space between labs, copy held to a reading width). Mobile unchanged.
+
 ## 0.33.1
 
 - Ships DOM Battlefield 0.8.2: the desert is redrawn flat, Tron style (neon amber outlines on black, sand dots, scrub), and winter ice is flat.
