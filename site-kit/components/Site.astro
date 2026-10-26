@@ -78,7 +78,7 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
       <ul class="readout" aria-label="DOM VIRUS at a glance">
         <li><b>{(data.games.length + 1).toString().padStart(2,'0')}</b><span>cartridges</span></li>
         <li><b>01</b><span>page: yours</span></li>
-        <li><b>00</b><span>installs to play</span></li>
+        <li><b aria-label="Infinite"><UiIcon name="infinity" size={28}/></b><span>infinite possibilities</span></li>
         <li class="readout-next"><i class="readout-led" aria-hidden="true"></i><b>SOON</b><span>Battlefield multiplayer</span></li>
       </ul>
     </section>

@@ -67,7 +67,11 @@ try {
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
   // The readout under the hero: live cartridge count, and what's next.
-  assert.deepEqual(await page.locator(".readout b").allTextContents(), ["05", "01", "00", "SOON"]);
+  assert.deepEqual(await page.locator(".readout b").allTextContents(), ["05", "01", "", "SOON"]);
+  assert.match(await page.locator(".readout").textContent(), /infinite possibilities/);
+  // Its hairlines span exactly as wide as the footer's.
+  const span = (sel) => page.locator(sel).evaluate((el) => { const r = el.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.right)]; });
+  assert.deepEqual(await span(".readout"), await span(".site-footer"));
   assert.match(await page.locator(".readout-next").textContent(), /Battlefield multiplayer/);
   assert.equal(await page.locator(".console").count(), 1);
   const promo = page.locator(".hero-crossover");

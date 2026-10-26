@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.30.1
+
+Site kit 1.34.1:
+- Home: the strip under the hero is a quiet hairline separator again, as wide as the footer's line (edge to edge on phones), with refreshed type: 05 cartridges, 01 page: yours, ∞ infinite possibilities, SOON: Battlefield multiplayer.
+
 ## 0.30.0 — Launch day
 
 Site kit 1.34.0:
