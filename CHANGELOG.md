@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.36.0
+
+Site kit 1.39.0:
+- Ships DOM Battlefield 0.12.0: a comms panel above the map (objective, live progress and the message line), a balanced footer (orders · platoon in the middle · aim + pause, each labelled), a taller map, and a clearer Attack icon.
+
 ## 0.35.1
 
 Site kit 1.38.1:
