@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.37.0
+
+Site kit 1.40.0:
+- Ships DOM Battlefield 0.13.0: route your own tank (it drives while you shoot; steer to override), one white-flag pause screen (Keep fighting / Surrender), a draggable command card over the field, team-coloured routes and platoon keys, a blue Auto key, help keys beside the logo and new Attack/Advance icons.
+- Site browser test follows the new pause flow.
+
 ## 0.36.1
 
 Site kit 1.39.1:

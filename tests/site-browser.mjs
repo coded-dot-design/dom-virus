@@ -640,8 +640,7 @@ try {
   assert.ok(await page.evaluate(() => window.battlefield.snapshot().units.filter(u => u.side === 0 && u.id !== 0).every(u => u.order === "follow")));
   await page.locator("#bf-pause").click();
   assert.ok(await page.evaluate(() => window.battlefield.paused));
-  // 0.10.0+: Surrender lives on the PAUSED sticker and asks "Give up?" first.
-  await page.locator("#bf-surrender").click();
+  // 0.13.0+: the white flag pauses and asks GIVE UP?: Keep fighting or Surrender.
   await page.locator("#bf-giveup-yes").click();
   await page.waitForFunction(() => !window.battlefield.playing);
   assert.deepEqual(errors, []);
