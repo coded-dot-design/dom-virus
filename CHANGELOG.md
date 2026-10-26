@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.1
+
+Site kit 1.42.1:
+- Ships DOM Battlefield 0.13.3: shells in each team's colour, with an ink rim so they read on light maps too.
+
 ## 0.39.0
 
 Site kit 1.42.0:
