@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.39.2
+
+Site kit 1.42.2:
+- CSS cleanup: removed 99 orphaned rules left from earlier design passes (old architecture-map / tick-stage diagrams, nerd-page chapters, a theme switch, side keys, the old guide-key and archive link) and the stale light-mode `.game-section { background: #fff }` that boxed the game pages in white. Before/after screenshots of every page, both themes, desktop and phone, match apart from that intended change.
+- Game pages: the "PUT IT ON YOUR PAGE" label above the code snippet is gone.
+
 ## 0.39.1
 
 Site kit 1.42.1:

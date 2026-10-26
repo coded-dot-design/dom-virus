@@ -1501,9 +1501,6 @@ html[data-theme="light"] .amber {
 .game-display[data-cartridge="sherman-bytes"] .arena-targets button {
   border: 3px double color-mix(in srgb, var(--accent) 65%, var(--line));
 }
-html[data-theme="light"] .game-section {
-  background: #fff;
-}
 /* White browser panels invert the chrome while keeping the neon game colors. */
 html[data-theme="light"] :is(.hero-art, .game-display) {
   --surface: #fff;
@@ -1537,10 +1534,6 @@ html[data-theme="light"] .art-character.amber {
 .button.primary {
   border-color: var(--ink);
   box-shadow: 3px 3px 0 var(--ink);
-}
-html[data-theme="light"] .theme-switch button[aria-pressed="true"] {
-  background: #f4457a;
-  color: #21051a;
 }
 .game-tab > .character-icon {
   color: var(--accent);
@@ -2320,15 +2313,6 @@ html[data-theme="light"] .embed-section {
 .map-heading > .ui-icon {
   color: var(--accent-text, var(--accent));
 }
-.map-badge {
-  font: 9px/1.4 var(--mono);
-  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
-  color: var(--accent-text, var(--accent));
-  padding: 4px 6px;
-  border-radius: 3px;
-  margin-left: auto;
-  white-space: nowrap;
-}
 .motion-toggle {
   display: grid;
   place-items: center;
@@ -2342,9 +2326,6 @@ html[data-theme="light"] .embed-section {
   background: var(--surface);
   color: var(--muted);
 }
-.map-badge + .motion-toggle {
-  margin-left: 0;
-}
 .motion-play {
   display: none;
 }
@@ -2353,55 +2334,6 @@ html[data-theme="light"] .embed-section {
 }
 [data-paused="true"] .motion-pause {
   display: none;
-}
-.map-document {
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: var(--surface);
-  overflow: hidden;
-}
-.map-document-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  padding: 10px 13px;
-}
-.map-document-title code {
-  font: 10px var(--mono);
-  color: var(--faint);
-}
-.map-elements {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding: 18px 14px;
-}
-.map-elements > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 82px;
-  background: var(--raised);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-}
-.map-elements b {
-  font-size: 27px;
-  line-height: 30px;
-  letter-spacing: -1px;
-  color: var(--ink);
-}
-.map-elements svg {
-  width: 32px;
-  height: 30px;
-  color: var(--accent-text, var(--accent));
-}
-.map-elements span {
-  font: 10px/1.4 var(--mono);
-  color: var(--muted);
 }
 .map-exchange {
   display: flex;
@@ -2418,264 +2350,6 @@ html[data-theme="light"] .embed-section {
 }
 .map-exchange .ui-icon {
   color: var(--accent-text, var(--accent));
-}
-.map-adapter {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  border: 1px solid var(--accent);
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
-  box-shadow: 3px 3px 0 var(--accent);
-}
-.map-chip {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  background: var(--accent);
-  color: #112c30;
-  border: 1px solid var(--ink);
-  border-radius: 4px;
-}
-.map-adapter small {
-  display: block;
-  font: 9px/1.5 var(--mono);
-  color: var(--muted);
-  margin-bottom: 3px;
-}
-.map-adapter strong {
-  display: block;
-  font-size: 22px;
-  line-height: 1.3;
-  font-weight: 600;
-  letter-spacing: -0.6px;
-}
-.map-capabilities {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  grid-column: 1/-1;
-}
-.map-capabilities span {
-  font: 9px/1.5 var(--mono);
-  padding: 4px 7px;
-  background: var(--surface);
-  color: var(--muted);
-  border: 1px solid var(--line);
-  border-radius: 3px;
-}
-.map-branches {
-  display: block;
-  width: 100%;
-  height: 36px;
-  color: var(--accent-text, var(--accent));
-}
-.map-outputs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.map-output {
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 12px;
-  background: var(--surface);
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.output-preview {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 12px;
-  height: 60px;
-  margin-bottom: 12px;
-  border-bottom: 1px dashed var(--line);
-  position: relative;
-}
-.mini-element {
-  display: inline-block;
-  position: relative;
-  border: 1px solid var(--ink);
-  border-radius: 3px;
-  padding: 4px 7px;
-  margin-right: 8px;
-  font: 9px var(--mono);
-  background: #8573ee;
-  color: #171022;
-  box-shadow: 2px 2px 0 var(--ink);
-}
-.mini-element .character-icon {
-  position: absolute;
-  right: -14px;
-  top: -19px;
-  color: #ff6b6b;
-}
-.mini-canvas {
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 12px 12px;
-}
-.mini-score {
-  align-self: flex-start;
-  font: 10px var(--mono);
-  color: var(--accent-text, var(--accent));
-  padding-top: 3px;
-}
-.map-output strong {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-.map-output > span {
-  font: 9px/1.7 var(--mono);
-  margin-top: 5px;
-  color: var(--muted);
-}
-.map-output small {
-  font-size: 10px;
-  line-height: 1.4;
-  color: var(--faint);
-  margin-top: 7px;
-}
-.map-recall {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid var(--line);
-  font: 10px/1.6 var(--mono);
-  color: var(--muted);
-}
-.map-recall .ui-icon {
-  color: var(--accent-text, var(--accent));
-}
-.tick-intro {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 0 0 24px;
-}
-.tick-orbit {
-  position: relative;
-  width: 68px;
-  height: 68px;
-  display: grid;
-  place-items: center;
-  color: var(--accent-text, var(--accent));
-  flex-shrink: 0;
-}
-.tick-orbit b {
-  position: absolute;
-  font: 500 25px var(--mono);
-}
-.tick-intro strong {
-  display: block;
-  font-size: 29px;
-  line-height: 1.2;
-  letter-spacing: -1px;
-}
-.tick-intro > div > span {
-  display: block;
-  font: 10px/1.6 var(--mono);
-  color: var(--accent-text, var(--accent));
-  margin: 6px 0;
-}
-.tick-intro small {
-  font-size: 11px;
-  color: var(--muted);
-}
-.tick-stages {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-.tick-stage {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px 10px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: var(--surface);
-  --signal: #63bfc8;
-}
-.tick-stage:nth-child(3) {
-  grid-column: 2;
-  grid-row: 2;
-}
-.tick-stage:nth-child(4) {
-  grid-column: 1;
-  grid-row: 2;
-}
-.signal-pink {
-  --signal: #ed819d;
-}
-.signal-violet {
-  --signal: #b1a1e8;
-}
-.signal-mint {
-  --signal: #83cba9;
-}
-.stage-icon {
-  display: grid;
-  place-items: center;
-  width: 39px;
-  height: 39px;
-  background: var(--signal);
-  color: #17202a;
-  border: 1px solid var(--ink);
-  border-radius: 4px;
-}
-.stage-number {
-  font: 11px var(--mono);
-  color: var(--faint);
-}
-.tick-stage strong {
-  grid-column: 1/-1;
-  font-size: 17px;
-  line-height: 1.2;
-  font-weight: 600;
-}
-.tick-stage p {
-  grid-column: 1/-1;
-  font-size: 11px;
-  line-height: 1.6;
-  margin: 0;
-  color: var(--muted);
-}
-.stage-arrow {
-  position: absolute;
-  right: -20px;
-  top: 50%;
-  color: var(--accent-text, var(--accent));
-  z-index: 1;
-}
-.tick-stage:nth-child(2) .stage-arrow {
-  right: calc(50% - 9px);
-  top: auto;
-  bottom: -20px;
-  transform: rotate(90deg);
-}
-.tick-stage:nth-child(3) .stage-arrow {
-  right: auto;
-  left: -20px;
-  transform: rotate(180deg);
-}
-.tick-stage:nth-child(4) .stage-arrow {
-  right: calc(50% - 9px);
-  top: -20px;
-  transform: rotate(-90deg);
 }
 .ownership-map ol {
   list-style: none;
@@ -2699,18 +2373,6 @@ html[data-theme="light"] .embed-section {
   bottom: 5px;
   width: 1px;
   background: var(--line);
-}
-.ownership-step {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 39px;
-  height: 39px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--raised);
-  color: var(--accent-text, var(--accent));
-  font: 12px var(--mono);
 }
 .ownership-map small {
   font: 9px/1.5 var(--mono);
@@ -2812,34 +2474,11 @@ html[data-theme="light"] .embed-section {
 .map-exchange span:last-child .ui-icon {
   animation: geometry-write 6s ease-in-out infinite paused;
 }
-.native-output .output-preview > .character-icon {
-  animation: dom-scramble 6s ease-in-out infinite paused;
-}
-.mini-canvas > .character-icon {
-  animation: canvas-drift 6s ease-in-out infinite paused;
-}
-.tick-stage .stage-icon {
-  animation: stage-work 8s ease-in-out infinite paused;
-}
-.tick-stage:nth-child(2) .stage-icon {
-  animation-delay: -6s;
-}
-.tick-stage:nth-child(3) .stage-icon {
-  animation-delay: -4s;
-}
-.tick-stage:nth-child(4) .stage-icon {
-  animation-delay: -2s;
-}
 .ownership-map em {
   animation: owned-bits 6s ease-in-out infinite paused;
 }
 :is(.system-map, .tick-map, .ownership-map)[data-motion="true"]
-  :is(
-    .map-exchange .ui-icon,
-    .output-preview > .character-icon,
-    .stage-icon,
-    em
-  ) {
+  :is(.map-exchange .ui-icon, em) {
   animation-play-state: running;
 }
 
@@ -2954,12 +2593,6 @@ html[data-theme="light"] .astro-code span {
   .ownership-map {
     padding: 18px;
   }
-  .map-badge {
-    display: none;
-  }
-  .map-badge + .motion-toggle {
-    margin-left: auto;
-  }
   .embed-game {
     gap: 22px;
     padding: 20px;
@@ -3039,90 +2672,12 @@ html[data-theme="light"] .astro-code span {
   .ownership-map {
     padding: 14px;
   }
-  .map-elements {
-    padding: 13px 10px;
-    gap: 7px;
-  }
-  .map-elements span {
-    font-size: 9px;
-  }
   .map-exchange {
     font-size: 8px;
     gap: 4px;
   }
   .map-exchange span {
     gap: 3px;
-  }
-  .map-adapter {
-    padding: 12px;
-    gap: 10px;
-  }
-  .map-adapter strong {
-    font-size: 20px;
-  }
-  .map-adapter small {
-    font-size: 8px;
-  }
-  .map-capabilities span {
-    font-size: 8px;
-    padding: 3px 5px;
-  }
-  .map-outputs {
-    gap: 8px;
-  }
-  .map-output {
-    padding: 9px;
-  }
-  .map-output strong {
-    font-size: 12px;
-  }
-  .map-output > span {
-    font-size: 8px;
-  }
-  .map-output small {
-    font-size: 9px;
-  }
-  .map-recall {
-    font-size: 9px;
-  }
-  .output-preview {
-    gap: 5px;
-  }
-  .mini-element {
-    font-size: 8px;
-    padding: 4px;
-  }
-  .mini-score {
-    font-size: 8px;
-  }
-  .tick-intro {
-    gap: 13px;
-  }
-  .tick-intro strong {
-    font-size: 26px;
-  }
-  .tick-intro > div > span {
-    font-size: 9px;
-  }
-  .tick-intro small {
-    font-size: 10px;
-  }
-  .tick-stage {
-    padding: 12px;
-    gap: 10px;
-  }
-  .tick-stage strong {
-    font-size: 15px;
-  }
-  .tick-stage p {
-    font-size: 10px;
-  }
-  .stage-icon {
-    width: 34px;
-    height: 34px;
-  }
-  .stage-number {
-    font-size: 10px;
   }
   .ownership-map li {
     gap: 12px;
@@ -3495,68 +3050,6 @@ a.nerd-link:active {
     box-shadow: 7px 7px 0 var(--accent);
   }
 }
-.nerd-intro {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 24px;
-  align-items: center;
-  margin: 12px 0 8px;
-}
-.nerd-intro h2 span {
-  display: block;
-  color: var(--accent-text, var(--accent));
-}
-.nerd-badge {
-  display: grid;
-  place-items: center;
-  width: 112px;
-  height: 112px;
-  color: var(--accent-text, var(--accent));
-  background: var(--surface);
-  border: 2px solid var(--ink);
-  border-radius: 12px;
-  box-shadow: 6px 6px 0 var(--accent);
-}
-.nerd-chapters {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px 36px;
-  margin-top: 30px;
-}
-.nerd-chapters h3 {
-  margin: 6px 0 8px;
-  font-size: 18px;
-}
-.nerd-chapters p,
-.nerd-extra {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-.nerd-extra {
-  margin-top: 26px;
-}
-.nerd-sources {
-  margin-top: 26px;
-}
-.nerd-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
-}
-@media (max-width: 760px) {
-  .nerd-chapters {
-    grid-template-columns: 1fr;
-  }
-  .nerd-intro {
-    grid-template-columns: 1fr;
-  }
-  .nerd-badge {
-    width: 84px;
-    height: 84px;
-  }
-}
 
 /* ===================== Page transitions (View Transitions API) ===================== */
 @view-transition {
@@ -3603,10 +3096,6 @@ a.nerd-link:active {
   color: var(--muted);
   border: 2px dashed var(--line);
   border-radius: 6px;
-}
-.archive-link {
-  font: 11px var(--mono);
-  color: var(--faint);
 }
 
 /* Shared card: the site's hard-shadow surface (facts, layers, links). */
@@ -3690,14 +3179,6 @@ html[data-theme="light"] .readout-next b {
   .readout-led { animation: none; }
 }
 
-/* Secondary keys beside the big Play button: small, square, quiet. */
-.side-keys {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: 6px;
-}
-
 /* "Your page is next": the code card is the 3D object (hard shadow in the game's colour); the
    game name and guide sit on the flat page beside it. */
 .embed-game {
@@ -3727,14 +3208,6 @@ html[data-theme="light"] .readout-next b {
 }
 .game-embed {
   margin: 56px 0 8px;
-}
-.game-embed .eyebrow {
-  display: block;
-  margin-bottom: 6px;
-}
-.guide-key {
-  display: block;
-  margin-top: 4px;
 }
 /* One action-button shape across the site (matches the newer keys): 2px ink border, 9px corners,
    46px tall, hard 3px base; hover lifts 2px, press lands on the base. */
