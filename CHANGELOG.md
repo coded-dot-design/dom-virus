@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.36.1
+
+Site kit 1.39.1:
+- Ships DOM Battlefield 0.12.1: MISSION COMPLETE / GAME OVER, PAUSED and GIVE UP? are compact on phones in landscape.
+
 ## 0.36.0
 
 Site kit 1.39.0:
