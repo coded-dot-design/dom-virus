@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.38.0
+
+Site kit 1.41.0:
+- Code snippet sections (Under the hood and each game page): the game's name leads with its own sticker (its pixel icon on worn dark vinyl with a white die-cut edge, each tilted differently, some peeling, like the DOM VIRUS skull sticker), and the GitHub Install guide key sits to the right of the name.
+- Under the hood, desktop: each snippet has the game's cartridge beside it. Clicking it goes to the home page, plugs it into the console and opens the game's page (`?load=<id>`; the full game's cartridge presses INFO).
+
 ## 0.37.2
 
 Site kit 1.40.2:

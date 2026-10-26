@@ -5,6 +5,7 @@ import UiIcon from './UiIcon.astro';
 import IconKey from './IconKey.astro';
 import CodePreview from './CodePreview.astro';
 import CrossPromo from './CrossPromo.astro';
+import GameSticker from './GameSticker.astro';
 import CharacterIcon from './Icon.astro';
 import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
 // mode: 'full' (single-game sites: everything inline) | 'page' (hub game page; details live on the nerd page).
@@ -61,6 +62,6 @@ const controls = game.controls.map(parseControl);
     <div class="game-notes">{game.chapters.slice(0,2).map(chapter=><article><h3>{chapter.title}</h3><p>{chapter.body}</p></article>)}{page ? <a class="nerd-link card" href={`${repo}#readme`} data-virus-ignore data-swarm-ignore><span class="eyebrow">NERD NOTES · GITHUB</span><strong>How {game.name} works under the hood</strong><span>Engineering notes, budgets and source in the README</span><UiIcon name="github" size={20}/></a> : <details><summary data-virus-ignore data-swarm-ignore>Open the engineering notes <UiIcon name="chevron-down" class="disclosure-icon"/></summary><div>{game.chapters.slice(2).map(chapter=><article><h3>{chapter.title}</h3><p>{chapter.body}</p></article>)}<p>{game.extra}</p><div class="source-links" data-virus-ignore data-swarm-ignore>{game.sourcePaths.map(path=><a href={`${repo}/blob/main/${path}`}>{path} <UiIcon name="github" size={15}/></a>)}</div></div></details>}</div>
   </div>
   {page && game.id === 'sherman-bytes' && <CrossPromo base={base} from="sherman-bytes" to="battlefield"/>}
-  {page && <div class="embed-game game-embed"><div><span class="eyebrow">PUT IT ON YOUR PAGE</span><h3>{game.name} on your site.</h3><p>{game.engine}</p><span class="guide-key" data-virus-ignore data-swarm-ignore><IconKey href={`${repo}#readme`} label="Install guide" title="Install + integration guide on GitHub"><UiIcon name="github" size={22}/></IconKey></span></div><CodePreview game={game}/></div>}
+  {page && <div class="embed-game game-embed"><div class="embed-copy"><span class="eyebrow">PUT IT ON YOUR PAGE</span><div class="embed-title"><GameSticker kind={game.icon} index={index}/><h3>{game.name} on your site.</h3><span class="guide-key" data-virus-ignore data-swarm-ignore><IconKey href={`${repo}#readme`} label="Install guide" title="Install + integration guide on GitHub"><UiIcon name="github" size={22}/></IconKey></span></div><p>{game.engine}</p></div><CodePreview game={game}/></div>}
   {game.palette?.length > 0 && <footer class="game-palette" aria-label={`${game.name} color palette`} data-virus-ignore data-swarm-ignore><div class="eyebrow">GAME PALETTE / FULL SIGNAL</div><div class="palette-bar">{game.palette.map(swatch=><div class="palette-swatch"><i style={`--swatch:${swatch.color}`} aria-hidden="true"></i><span>{swatch.label}<code>{swatch.color}</code></span></div>)}</div></footer>}
 </section>

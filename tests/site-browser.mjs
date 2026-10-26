@@ -247,6 +247,15 @@ try {
   await page.waitForURL(/\?play=battlefield#console$/);
   assert.equal(await page.evaluate(() => document.documentElement.dataset.return), "battlefield", "marked before first paint");
   await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games" && !location.search, null, { timeout: 6000 });
+  // Under the hood: each snippet has a cartridge (desktop); it plugs in at home and opens the game page.
+  if ((page.viewportSize()?.width ?? 0) >= 1100) {
+    await page.goto(base + "under-the-hood/");
+    const cart = page.locator('.embed-cart .cartridge[data-cart="byte-runner"]');
+    assert.equal(await cart.getAttribute("href"), "/dom-virus/?load=byte-runner#console");
+    assert.equal(await page.locator(".embed-title .game-sticker").count(), await page.locator(".embed-game").count());
+    await cart.click();
+    await page.waitForURL(/games\/byte-runner\/$/, { timeout: 8000 });
+  }
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");

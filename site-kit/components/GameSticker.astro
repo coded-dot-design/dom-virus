@@ -1,0 +1,26 @@
+---
+// A game's sticker: its pixel icon on a dark vinyl square with a white die-cut edge, the same
+// family as the DOM VIRUS skull sticker on the cartridges. Each game gets its own tilt, scuffs
+// and (for some) a peeling corner, so a row of them looks slapped on by hand.
+import Icon from './AbstractIcon.astro';
+const { kind, index = 0, size = 44, label } = Astro.props;
+const LOOKS = [
+  { tilt: -7, peel: true },
+  { tilt: 5, peel: false },
+  { tilt: -3, peel: true },
+  { tilt: 8, peel: false },
+  { tilt: -10, peel: true },
+];
+const look = LOOKS[index % LOOKS.length];
+---
+<span class:list={['game-sticker', { peel: look.peel }]} style={`--tilt:${look.tilt}deg;--s:${size}px;--scuff:${(index * 37) % 70 + 15}%`} role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <Icon kind={kind} size={Math.round(size * 0.62)}/>
+</span>
+<style>
+.game-sticker{position:relative;flex:none;display:inline-grid;place-items:center;width:var(--s);height:var(--s);color:var(--accent-text,var(--accent));background:#14101f;border:3px solid #fff;border-radius:7px;box-shadow:0 0 0 1.5px var(--ink),2px 3px 0 color-mix(in srgb,var(--ink) 30%,transparent);rotate:var(--tilt);isolation:isolate}
+/* Wear: a soft scuff across the vinyl and a couple of nicks in the white edge. */
+.game-sticker::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:4px;background:linear-gradient(115deg,transparent calc(var(--scuff) - 8%),rgba(255,255,255,.09) var(--scuff),transparent calc(var(--scuff) + 6%)),radial-gradient(circle at 18% 82%,rgba(255,255,255,.07) 0 2px,transparent 3px)}
+.game-sticker :global(svg){position:relative;z-index:0}
+.game-sticker.peel{clip-path:polygon(-4px -4px,calc(100% + 4px) -4px,calc(100% + 4px) 70%,70% calc(100% + 4px),-4px calc(100% + 4px))}
+.game-sticker.peel::after{content:"";position:absolute;z-index:2;right:-3px;bottom:-3px;width:34%;height:34%;background:linear-gradient(135deg,#d9d3e6 50%,transparent 50%);filter:drop-shadow(-1px -1px 0 color-mix(in srgb,var(--ink) 35%,transparent))}
+</style>

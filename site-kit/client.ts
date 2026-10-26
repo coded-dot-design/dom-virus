@@ -625,15 +625,16 @@ function dock(cart: HTMLElement) {
 // A swap (?next=<id>) chains a second cartridge after the eject: it flies in, boots and the
 // console presses its main button (A) for you, e.g. Sherman Bytes out, DOM Battlefield in.
 let chained: string | null = null;
-function swapIn(id: string) {
+function swapIn(id: string, pad = "a") {
   const cart = allCarts().find((n) => n.dataset.cart === id) as HTMLAnchorElement | undefined;
   if (!cart || !consoleEl || !shelf) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return void (location.href = cart.href);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches)
+    return void (location.href = cartActions(cart).find((a) => a.pad === pad)?.href ?? cart.href);
   centreBay(cart);
   liftOut(cart);
   shelf.dataset.plugging = id;
   cart.classList.add("plugging");
-  plug(cart, consoleEl.querySelector<HTMLElement>("[data-console-screen]")!, "a");
+  plug(cart, consoleEl.querySelector<HTMLElement>("[data-console-screen]")!, pad);
 }
 function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   const cart = allCarts().find((n) => n.dataset.cart === state.id);
@@ -713,6 +714,19 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
 }
 const initialReturn = shelf ? returnState() : null;
 if (initialReturn) returnHome(initialReturn, false);
+// From elsewhere on the site (a cartridge on Under the hood): ?load=<id> brings you to the console,
+// plugs that cartridge in and presses the button that opens its page (INFO / B for the full game).
+{
+  const load = new URLSearchParams(location.search).get("load");
+  if (shelf && consoleEl && !initialReturn && load && /^[\w-]+$/.test(load)) {
+    history.replaceState(history.state, "", `${location.pathname}#console`);
+    shelf.dataset.pop = "in";
+    consoleEl.scrollIntoView({ block: "center", behavior: "instant" });
+    const cart = allCarts().find((n) => n.dataset.cart === load);
+    const info = cart && cartActions(cart as HTMLAnchorElement).find((a) => /info/i.test(a.label));
+    setTimeout(() => swapIn(load, info?.pad ?? "a"), 450);
+  }
+}
 // Back/forward from the bfcache: the page is restored mid-launch; rewind it from there.
 addEventListener("pageshow", (event) => {
   if (!shelf || !event.persisted) return;

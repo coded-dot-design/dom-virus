@@ -3750,3 +3750,42 @@ html[data-theme="light"] .readout-next b {
 .button.primary {
   border-color: var(--ink);
 }
+/* Code snippet sections: the game's sticker + name on one row, the GitHub key pushed to the right
+   of it (its label slides out leftward from the edge). */
+.embed-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 6px 0 10px;
+}
+.embed-title h3 {
+  margin: 0;
+  min-width: 0;
+}
+.embed-title .guide-key {
+  margin: 0 0 0 auto;
+  flex: none;
+}
+.embed-copy > .eyebrow + .embed-title {
+  margin-top: 10px;
+}
+/* Under the hood, desktop: the game's cartridge sits beside its snippet. Clicking it goes home,
+   plugs it into the console and opens the game's page. */
+.embed-cart {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .embed-game.with-cart {
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.18fr) 176px;
+    align-items: center;
+  }
+  .embed-cart {
+    display: block;
+    width: 176px;
+  }
+}
+@media (max-width: 760px) {
+  .embed-title {
+    gap: 10px;
+  }
+}
