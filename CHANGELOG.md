@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.37.1
+
+Site kit 1.40.1:
+- Ships DOM Battlefield 0.13.1: full screen simply grows the field (the "Expand the map?" prompt is gone).
+
 ## 0.37.0
 
 Site kit 1.40.0:
