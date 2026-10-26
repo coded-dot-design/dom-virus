@@ -213,6 +213,13 @@ try {
       el.style.transform = "none"; void el.offsetWidth; out.afterTransformNone = t();
       el.style.removeProperty("transform"); void el.offsetWidth; out.afterRemove = t();
       el.style.removeProperty("transition");
+      out.timeline = [document.timeline.currentTime, document.visibilityState, matchMedia("(prefers-reduced-motion: reduce)").matches];
+      el.style.setProperty("transform", "none", "important"); void el.offsetWidth; out.afterImportant = t(); el.style.removeProperty("transform");
+      const a = el.animate([{ transform: "none" }, { transform: "none" }], { duration: 1, fill: "forwards" }); await a.finished; out.afterAnim = t(); a.cancel(); out.afterAnimCancel = t();
+      const c = el.cloneNode(true); el.after(c); out.clone = getComputedStyle(c).transform; c.remove();
+      const pseudo = getComputedStyle(el, "::before").transform; out.before = pseudo;
+      out.parentT = getComputedStyle(el.parentElement).transform; out.vt = typeof document.startViewTransition;
+      out.rules = [...document.styleSheets].flatMap((sh) => { try { return [...sh.cssRules]; } catch { return []; } }).flatMap(function walk(r) { return r.cssRules ? [...r.cssRules].flatMap(walk) : [r]; }).filter((r) => r.selectorText && r.style?.transform && el.matches(r.selectorText.replace(/::?[\w-]+(\(.*?\))?$/, "") || "*")).map((r) => `${r.selectorText} {${r.style.transform}}`).slice(0, 10);
       return out;
     });
     console.log(`::warning title=Ejected cartridge kept a transform::${JSON.stringify(probe)}`);
