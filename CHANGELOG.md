@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.32.3
+
+Site kit 1.36.2:
+- GitHub moved off the Play row: game and Battlefield detail pages keep Play (plus the "Try <game>" swap) alone. Every code section (game pages and Under the hood) uses the expanding GitHub key, "Install guide", in place of the text link.
+
 ## 0.32.2
 
 - Ships DOM Battlefield 0.7.1: in full screen / the Home Screen app, the setup header (Theme, Eject) clears the phone's status bar, so Eject can always be tapped.

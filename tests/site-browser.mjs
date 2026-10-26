@@ -267,7 +267,9 @@ try {
   // and the board folds open into the full game.
   await page.goto(base + "games/sherman-bytes/");
   const swap = page.getByRole("link", { name: "Try Battlefield" });
-  assert.match(await page.getByRole("link", { name: "Source details" }).getAttribute("href"), /github\.com\/coded-dot-design\/sherman-bytes#readme$/);
+  // GitHub lives with the code: the expanding key in "Put it on your page", not beside Play.
+  assert.equal(await page.locator(".game-intro .actions a[href*='github.com']").count(), 0);
+  assert.match(await page.locator(".game-embed").getByRole("link", { name: "Install guide" }).getAttribute("href"), /github\.com\/coded-dot-design\/sherman-bytes#readme$/);
   assert.match(await swap.getAttribute("href"), /\?play=sherman-bytes&next=battlefield#console$/);
   await swap.click();
   await page.waitForFunction(() => document.querySelector('.cartridge[data-cart="battlefield"]')?.classList.contains("plugging"), null, { timeout: 8000 });

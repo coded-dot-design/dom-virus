@@ -3732,3 +3732,7 @@ html[data-theme="light"] .readout-next b {
   display: block;
   margin-bottom: 6px;
 }
+.guide-key {
+  display: block;
+  margin-top: 4px;
+}
