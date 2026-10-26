@@ -3689,3 +3689,11 @@ html[data-theme="light"] .readout-next b {
 @media (prefers-reduced-motion: reduce) {
   .readout-led { animation: none; }
 }
+
+/* Secondary keys beside the big Play button: small, square, quiet. */
+.side-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 6px;
+}

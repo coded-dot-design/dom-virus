@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.31.0
+
+Site kit 1.35.0:
+- Game and Battlefield detail pages: Play is the only big button. "Swap to …" and "Read the source" are now square icon keys beside it (new `IconKey`): the target game's icon on its cartridge colour ("Try Battlefield", "Try Sherman Bytes") and the GitHub logo ("Source details"). Labels slide out on hover or keyboard focus; phones show the icons.
+
 ## 0.30.1
 
 Site kit 1.34.1:

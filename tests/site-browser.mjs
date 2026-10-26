@@ -234,13 +234,14 @@ try {
   await page.goto(base + "games/battlefield/");
   assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
   // Cross-links between games are cartridge swaps (shared rule): Battlefield -> Sherman Bytes.
-  assert.match(await page.getByRole("link", { name: "Swap to Sherman Bytes" }).getAttribute("href"), /\?play=battlefield&next=sherman-bytes#console$/);
+  assert.match(await page.getByRole("link", { name: "Try Sherman Bytes" }).getAttribute("href"), /\?play=battlefield&next=sherman-bytes#console$/);
   assert.equal(await page.locator(".layers li").count(), 4);
   assert.equal(await page.locator(".battlefield-display .tank").count(), 4, "battlefield scene has two tanks a side");
   // Sherman Bytes can swap to Battlefield: home ejects Sherman, plugs Battlefield in, presses A,
   // and the board folds open into the full game.
   await page.goto(base + "games/sherman-bytes/");
-  const swap = page.getByRole("link", { name: "Swap to Battlefield" });
+  const swap = page.getByRole("link", { name: "Try Battlefield" });
+  assert.match(await page.getByRole("link", { name: "Source details" }).getAttribute("href"), /github\.com\/coded-dot-design\/sherman-bytes#readme$/);
   assert.match(await swap.getAttribute("href"), /\?play=sherman-bytes&next=battlefield#console$/);
   await swap.click();
   await page.waitForFunction(() => document.querySelector('.cartridge[data-cart="battlefield"]')?.classList.contains("plugging"), null, { timeout: 8000 });

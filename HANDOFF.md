@@ -198,6 +198,7 @@ every game competed with every other. Phase 1 turned navigation into play.
   (twice the cartridge side) built from 1px box-shadow layers with two darker ridge layers, and an ink rim.
 - **Header/footer:**
   - Square 3D icon keys: Games (cartridge, with a gold count badge, toggles `#games`), Under the hood (chip), theme. The current page is pressed.
+  - Detail pages: Play is the only big button. Secondary actions are `IconKey`s beside it (square 3D key, label slides out on hover/focus): `Try <game>` (swap, in the target game's colour) and `Source details` (GitHub).
   - The footer has the skull mark, the style guide and GitHub keys, and "Created by Chris Cooley" (LinkedIn) / "© <build year> coded.design · Open source (MIT)". The year is stamped at build.
 - **Voice:** short, playful, arcade: "Pick a cartridge.", "INSERT CARTRIDGE", "Eject cartridge".
 

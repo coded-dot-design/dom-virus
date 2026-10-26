@@ -1,6 +1,7 @@
 ---
 import { swapHref } from '../swap';
 import UiIcon from './UiIcon.astro';
+import IconKey from './IconKey.astro';
 import Icon from './AbstractIcon.astro';
 import PixelTank from './PixelTank.astro';
 // DOM Battlefield's page: how it is layered on Sherman Bytes, and how to launch it.
@@ -54,8 +55,7 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
       <p class="lead">Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. Lock targets, send wingmen, breach cover and repair at HQ. It is a separate app layered on Sherman Bytes: same tanks, its own battlefield.</p>
       <div class="actions" data-virus-ignore data-swarm-ignore>
         <a class="button primary" href={`${base}battlefield/`}><UiIcon name="play" size={18}/> Launch Battlefield</a>
-        {sherman && <a class="button quiet" href={swapHref(base, 'battlefield', 'sherman-bytes')} title="Ejects DOM Battlefield and plugs in Sherman Bytes"><Icon kind="tank" size={20}/> Swap to Sherman Bytes</a>}
-        <a class="button quiet" href={`${repo}#readme`}>Read the source <UiIcon name="arrow-up-right" size={18}/></a>
+        <span class="side-keys">{sherman && <IconKey href={swapHref(base, 'battlefield', 'sherman-bytes')} label="Try Sherman Bytes" accent="accent-amber" title="Ejects DOM Battlefield and plugs in Sherman Bytes"><Icon kind="tank" size={22}/></IconKey>}<IconKey href={`${repo}#readme`} label="Source details"><UiIcon name="github" size={22}/></IconKey></span>
       </div>
       <p class="soon-note"><i aria-hidden="true"></i><b>Coming soon</b> Multiplayer: two players, two pages, one battle.</p>
       <p class="credit">Created by <a href="https://www.linkedin.com/in/chriscooleyme" rel="author">Chris Cooley</a> · <a href="https://coded.design">coded.design</a></p>
