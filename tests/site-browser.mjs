@@ -640,12 +640,10 @@ try {
   assert.ok(await page.evaluate(() => window.battlefield.snapshot().units.filter(u => u.side === 0 && u.id !== 0).every(u => u.order === "follow")));
   await page.locator("#bf-pause").click();
   assert.ok(await page.evaluate(() => window.battlefield.paused));
-  // Narrow/touch layouts keep secondary actions in the slide-out panel.
-  if (await page.locator("#bf-squad").isVisible()) await page.locator("#bf-squad").click();
-  // 0.9.0+: Surrender (#bf-restart) lives in the gear menu.
-  if (!(await page.locator("#bf-restart").isVisible())) await page.locator("#bf-settings").click();
-  await page.locator("#bf-restart").click();
-  assert.equal(await page.evaluate(() => window.battlefield.playing), false);
+  // 0.10.0+: Surrender lives on the PAUSED sticker and asks "Give up?" first.
+  await page.locator("#bf-surrender").click();
+  await page.locator("#bf-giveup-yes").click();
+  await page.waitForFunction(() => !window.battlefield.playing);
   assert.deepEqual(errors, []);
   console.log(
     "Site: responsive navigation, both themes, SVG controls, syntax colors, exact clipboard, animation pause/visibility/reduced motion, and launcher passed.",

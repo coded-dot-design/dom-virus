@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.34.1
+
+Site kit 1.37.2:
+- Ships DOM Battlefield 0.10.1: squad tanks as pressable 3D shapes (shape = size, colour = health), a keyboard-controls key in the header, Surrender on the pause screen with a "Give up?" confirm, Auto / Lock / Command docked beside Pause, Tron-style winter buildings, and dashed cover that falls to fewer shells.
+
 ## 0.34.0
 
 Site kit 1.37.1:
