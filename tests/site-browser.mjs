@@ -250,6 +250,12 @@ try {
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
+  // Each game page carries its integration snippet in the same 3D code card as Under the hood.
+  assert.equal(await page.locator(".game-embed .code-example").count(), 1);
+  assert.match(await page.locator(".game-embed code").textContent(), /byte-runner/);
+  assert.notEqual(await page.locator(".game-embed .code-example").evaluate((el) => getComputedStyle(el).boxShadow), "none");
+  // Every GitHub link carries the GitHub mark.
+  assert.equal(await page.locator('a[href*="github.com"]:not(:has(.ui-icon))').count(), 0);
   // Battlefield has its own page and launches the app; Sherman Bytes can launch it too.
   await page.goto(base + "games/battlefield/");
   assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");

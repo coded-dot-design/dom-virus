@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.32.1
+
+Site kit 1.36.1:
+- "Your page is next": the code snippet is the 3D card (thick ink border, hard shadow in the game's colour); the game name and guide sit on the flat page beside it.
+- Every game page has the same "Put it on your page" block with its snippet card and Copy code.
+- Every link to GitHub carries the GitHub mark (source, READMEs, file links, integration guides, the performance write-up).
+
 ## 0.32.0
 
 Site kit 1.36.0:

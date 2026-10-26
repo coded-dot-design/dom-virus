@@ -3697,3 +3697,38 @@ html[data-theme="light"] .readout-next b {
   gap: 12px;
   margin-left: 6px;
 }
+
+/* "Your page is next": the code card is the 3D object (hard shadow in the game's colour); the
+   game name and guide sit on the flat page beside it. */
+.embed-game {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 44px 0;
+  align-items: start;
+}
+.embed-game .code-example {
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 var(--accent);
+}
+.embed-game .text-link {
+  gap: 8px;
+}
+@media (max-width: 760px) {
+  .embed-game {
+    margin: 32px 0;
+  }
+  .embed-game .code-example {
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+}
+.game-embed {
+  margin: 56px 0 8px;
+}
+.game-embed .eyebrow {
+  display: block;
+  margin-bottom: 6px;
+}
