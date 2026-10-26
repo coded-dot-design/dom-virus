@@ -686,9 +686,11 @@ function eject(cart: HTMLElement, seat: { dx: number; dy: number; k: number; h: 
       );
   setTimeout(() => consoleEl!.classList.remove("booting", "is-loading", "full", "choice"), 300);
   out.onfinish = () => {
-    out.cancel();
+    // Home means home: drop every hold, hop or leftover transform so it sits exactly in its bay.
+    cart.getAnimations().forEach((a) => a.cancel());
     cart.classList.remove("plugging");
     cart.style.removeProperty("transform-origin");
+    cart.style.removeProperty("transform");
     putBack(cart);
     if (shelf) delete shelf.dataset.plugging;
     settle();

@@ -4,6 +4,7 @@
 
 Site kit 1.34.1:
 - Home: the strip under the hero is a quiet hairline separator again, as wide as the footer's line (edge to edge on phones), with refreshed type: 05 cartridges, 01 page: yours, ∞ infinite possibilities, SOON: Battlefield multiplayer.
+- A cartridge that comes home always lands exactly in its own bay (clears any leftover hold or transform).
 
 ## 0.30.0 — Launch day
 

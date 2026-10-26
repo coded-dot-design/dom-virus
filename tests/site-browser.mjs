@@ -48,6 +48,8 @@ try {
     permissions: ["clipboard-read", "clipboard-write"],
   });
   const page = await context.newPage();
+  // CPU_THROTTLE=4 reproduces slow CI runners locally.
+  if (process.env.CPU_THROTTLE) await (await context.newCDPSession(page)).send("Emulation.setCPUThrottlingRate", { rate: Number(process.env.CPU_THROTTLE) });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(base);
@@ -169,7 +171,8 @@ try {
     } catch (e) {
       const why = await cart.evaluate((el) => {
         const r = el.getBoundingClientRect(), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-        return { rect: [r.left, r.top, r.width, r.height].map(Math.round), inView: r.bottom > 0 && r.top < innerHeight, hit: hit ? `${hit.tagName}.${hit.className}` : null, plugging: document.querySelector("[data-shelf]").dataset.plugging || null, anims: el.getAnimations({ subtree: true }).map((a) => `${a.animationName || a.id || "waapi"}:${a.playState}`) };
+        const bay = el.parentElement.getBoundingClientRect();
+        return { rect: [r.left, r.top, r.width, r.height].map(Math.round), bay: [el.parentElement.className, el.parentElement.dataset.bay, Math.round(bay.left), Math.round(bay.top)], style: el.getAttribute("style"), transform: getComputedStyle(el).transform, cls: el.className, inView: r.bottom > 0 && r.top < innerHeight, hit: hit ? `${hit.tagName}.${hit.className} in ${hit.closest("[data-bay]")?.dataset.bay}` : null, plugging: document.querySelector("[data-shelf]").dataset.plugging || null, html: document.documentElement.className + " " + JSON.stringify(document.documentElement.dataset), anims: document.getAnimations().filter((a) => a.effect?.target?.closest?.(".cartridge-shelf")).map((a) => `${a.animationName || "waapi"}@${a.effect.target.className}:${a.playState}`) };
       });
       console.log(`::warning title=Cartridge click stalled::${JSON.stringify(why)} | ${String(e.message).split("\n").slice(0, 30).join(" | ").slice(0, 2500)}`);
       await cart.click({ force: true });
