@@ -113,6 +113,9 @@ hub page. Each keeps `site/game.json` (and `site/art.json`) as the source of its
 4. **Releases:** CI tags `v<package.version>` on main when checks pass. Bump `package.json`,
    both top-level `package-lock.json` fields and the CHANGELOG (or the README changelog for
    Battlefield) in the same commit. For the hub, also bump `site/config.json` `kitVersion`.
+   Only those two lock fields: never search-and-replace a version string across the lockfile.
+   Dependencies share version numbers (esbuild and scheduler are 0.28.x), and a global replace
+   breaks `npm ci` in CI (this happened at 0.28.3). `npm version <x> --no-git-tag-version` is safest.
 
 ### Commands (hub)
 
