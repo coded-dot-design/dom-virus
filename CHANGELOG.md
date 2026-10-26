@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.4
+
+Site kit 1.42.4:
+- Ships DOM Battlefield 0.13.6: the HQ must stay 7 squares behind the middle, with a dashed team-colour boundary line while you move it; the light-theme GIVE UP? card has an ink shadow; theme (shared with this site) and mute are remembered.
+
 ## 0.39.3
 
 Site kit 1.42.3:
