@@ -3789,3 +3789,11 @@ html[data-theme="light"] .readout-next b {
     gap: 10px;
   }
 }
+@media (max-width: 760px) {
+  .embed-copy p {
+    margin-bottom: 0;
+  }
+  .embed-game {
+    row-gap: 14px;
+  }
+}

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.38.1
+
+Site kit 1.41.1:
+- Phones: the snippet's description sits closer to its code card.
+
 ## 0.38.0
 
 Site kit 1.41.0:
