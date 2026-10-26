@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.28.3
+
+Site kit 1.32.3:
+- Origin copy rewritten, simpler: Bolo, the love of the game, and the curiosity about how computers talk. No dates or places.
+
 ## 0.28.2
 
 Site kit 1.32.2:
@@ -15,7 +20,7 @@ Site kit 1.32.1:
 
 Site kit 1.32.0:
 - Under the hood is now a set of live labs on one tiny engine loop (site-kit/lab.ts), with an engine HUD (FPS, entities, labs awake). Labs off screen sleep; with reduced motion nothing plays on its own.
-- 00 Insert coin · 1990: where DOM VIRUS comes from. Bolo across a Bay Area classroom, as a two-Mac duel you can play (packets cross the cable).
+- 00 Insert coin: where DOM VIRUS comes from (Bolo), as a two-computer duel you can play (packets cross the cable).
 - 01 The board: X-ray shows the rectangles a game reads; bugs walk around real elements; the button is a factory; tap a bug to squash it.
 - 02 One loop: a 32-slot pool with a hard cap, a frame meter and ALLOCATIONS 0.
 - 03 Recall: hits rewrite one Text node; the app's edit wins; Recall restores only the game's letters.

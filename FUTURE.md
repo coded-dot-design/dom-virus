@@ -81,8 +81,8 @@ a consistent adapter.
 
 ### Multiplayer: two players, two pages, one battle (the Bolo promise)
 
-The whole project started with Bolo: two people, two machines, one network, a tank on the other side
-of the room. Single-player DOM games prove the board; multiplayer is what made it feel like magic,
+The whole project started with Bolo: two people, two machines, one network, and someone else's tank
+on your screen. Single-player DOM games prove the board; multiplayer is what made it feel like magic,
 so it's the headline feature for a later version.
 
 - **Why:** it closes the loop on the origin story, it's the most shareable thing a DOM game can do

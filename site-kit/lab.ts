@@ -15,7 +15,7 @@ const rand = (a: number, b: number) => a + Math.random() * (b - a);
 const pad = (n: number) => String(n).padStart(2, "0");
 const $ = <T extends Element = HTMLElement>(root: ParentNode, sel: string) => root.querySelector<T>(sel)!;
 
-// ---------------------------------------------------------------- 00 duel (Bolo, 1990)
+// ---------------------------------------------------------------- 00 duel (Bolo)
 function duel(lab: HTMLElement): Lab {
   const stage = $(lab, ".duel");
   const sides = [0, 1].map((s) => {

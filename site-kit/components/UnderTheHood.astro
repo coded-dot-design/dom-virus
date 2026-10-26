@@ -1,7 +1,7 @@
 ---
 // Under the hood: the engineering page, rebuilt as a lab. Every diagram is a tiny live demo run
 // by site-kit/lab.ts (one rAF loop per visible lab, pooled nodes, transforms only, paused offscreen,
-// no autoplay with reduced motion). It opens with where this all started: Bolo, 1990.
+// no autoplay with reduced motion). It opens with where this all started: Bolo.
 import UiIcon from './UiIcon.astro';
 import Icon from './AbstractIcon.astro';
 const { data } = Astro.props;
@@ -32,28 +32,28 @@ const pipeline = [
     <p>A webpage is a surprisingly good game map. The trick is reading it cheaply, changing only what you own, and leaving cleanly. Everything below runs on one tiny engine loop, the same way the games do. Poke it. Scroll away and it sleeps.</p>
   </header>
 
-  <!-- 00 ORIGIN: Bolo, 1990 -->
+  <!-- 00 ORIGIN: Bolo -->
   <article class="lab origin accent-amber" data-lab="duel" aria-labelledby="origin-title">
     <div class="lab-copy">
-      <span class="eyebrow"><span class="lab-no">00</span> INSERT COIN · 1990</span>
-      <h3 id="origin-title">Two Macs, one cable, and Bolo.</h3>
-      <p>This started in a middle-school engineering tech class in the Bay Area, around 1990, when the valley was just getting started. We learned how computers talk to each other, then we proved it: finish the work, then play <b>Bolo</b> (Stuart Cheshire’s networked tank game) over the classroom network.</p>
-      <p>Driving a tank on your screen and hitting a tank someone was driving from the other side of the room felt close to magic. Thirty-six years and a lot of enterprise software later, that kid is still in the room. Every DOM VIRUS game is a small tribute: real machines, real elements, real play.</p>
+      <span class="eyebrow"><span class="lab-no">00</span> INSERT COIN</span>
+      <h3 id="origin-title">It started with Bolo.</h3>
+      <p>Middle school, engineering tech class, and a tank game called <b>Bolo</b>. I loved the gameplay. What really hooked me was the network: my tank on my screen, someone else’s tank on theirs, and the two computers somehow talking to each other.</p>
+      <p>All this tech and a lot of years later, I still want to know how it all works. Every DOM VIRUS game comes from that same curiosity.</p>
       <p class="origin-next"><UiIcon name="target" size={16}/> Next: two players, two pages, one battle. Multiplayer is on the roadmap.</p>
     </div>
     <figure class="lab-stage duel" aria-label="Two computers joined by a network cable. Fire from either side: a packet crosses the cable and hits the other tank.">
       <div class="machine" data-side="0">
         <span class="mac"><span class="crt"><span class="tank-sprite"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">MAC 01 · YOU</span>
+        <span class="machine-label">PLAYER 1 · YOU</span>
         <span class="duel-score" data-score="0">00</span>
-        <button class="lab-key" data-fire="0" aria-label="Fire from Mac 01">FIRE</button>
+        <button class="lab-key" data-fire="0" aria-label="Fire from player 1">FIRE</button>
       </div>
-      <div class="cable" aria-hidden="true"><i></i><span>LocalTalk · 230 kbit/s</span></div>
+      <div class="cable" aria-hidden="true"><i></i><span>THE NETWORK</span></div>
       <div class="machine" data-side="1">
         <span class="mac"><span class="crt mirror"><span class="tank-sprite flip"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">MAC 02<span class="long"> · ACROSS THE ROOM</span></span>
+        <span class="machine-label">PLAYER 2<span class="long"> · THEM</span></span>
         <span class="duel-score" data-score="1">00</span>
-        <button class="lab-key" data-fire="1" aria-label="Fire from Mac 02">FIRE</button>
+        <button class="lab-key" data-fire="1" aria-label="Fire from player 2">FIRE</button>
       </div>
     </figure>
   </article>

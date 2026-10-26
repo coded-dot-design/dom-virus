@@ -79,13 +79,11 @@ and paragraphs become terrain, food, enemies and cover. The hub site is itself t
 is a game (cartridges, a console), every surface obeys one 3D press rule, and motion is cheap
 (CSS + WAAPI transforms) so it stays smooth on phones.
 
-**Where it comes from (the "why" behind every game):** Bolo. In an early-90s middle-school
-engineering tech class in the Bay Area, the lesson was how computers talk to each other, and the
-reward for finishing your work was a networked game of Bolo across the classroom. Hitting a tank that
-someone else was driving from the other side of the room felt close to magic in 1990. The creator
-now builds enterprise software, and DOM VIRUS is a small tribute to that feeling: real machines,
-real elements, real play. Keep that tone when writing copy: warm, specific, a little nerdy, never
-nostalgic for its own sake. It is told on the Under the hood page (lab 00). That's also why
+**Where it comes from (the "why" behind every game):** Bolo, played in a middle-school engineering
+tech class. The gameplay was great, but the hook was the networking: how two computers talk to each
+other. That curiosity about how it all works is the point of every game. Keep the story simple when
+writing copy: the game, the love for tech, the curiosity. No dates, places or "N years later" maths;
+it shouldn't read as a memoir. It is told on the Under the hood page (lab 00). That's also why
 multiplayer is on the roadmap (see FUTURE.md).
 
 ## 2. Repositories
