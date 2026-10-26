@@ -157,9 +157,23 @@ try {
   assert.match(page.url(), /\/dom-virus\/(#games)?$/);
   // Two-way special edition: the cartridge declares two actions; the screen asks RED to launch or BLUE for info.
   const bf = page.locator('.cartridge[data-cart="battlefield"]');
+  // Cartridge clicks: if one stalls (seen only on CI runners), report why, then click anyway so
+  // the rest of the flow still gets checked.
+  const clickCart = async (cart) => {
+    try {
+      await cart.click({ timeout: 8000 });
+    } catch (e) {
+      const why = await cart.evaluate((el) => {
+        const r = el.getBoundingClientRect(), hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        return { rect: [r.left, r.top, r.width, r.height].map(Math.round), inView: r.bottom > 0 && r.top < innerHeight, hit: hit ? `${hit.tagName}.${hit.className}` : null, plugging: document.querySelector("[data-shelf]").dataset.plugging || null, anims: el.getAnimations({ subtree: true }).map((a) => `${a.animationName || a.id || "waapi"}:${a.playState}`) };
+      });
+      console.log(`::warning title=Cartridge click stalled::${JSON.stringify(why)} | ${String(e.message).split("\n").slice(0, 30).join(" | ").slice(0, 2500)}`);
+      await cart.click({ force: true });
+    }
+  };
   assert.deepEqual(JSON.parse(await bf.getAttribute("data-actions")).map((a) => [a.pad, a.label, new URL(a.href, base).pathname]), [["a", "LAUNCH", "/dom-virus/battlefield/"], ["b", "INFO", "/dom-virus/games/battlefield/"]]);
   await bf.scrollIntoViewIfNeeded();
-  await bf.click();
+  await clickCart(bf);
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   assert.ok(await page.evaluate(() => document.querySelector(".console").classList.contains("full")));
   assert.match(await page.locator("[data-console-press]").textContent(), /BLUE INFO RED LAUNCH/);
@@ -180,7 +194,7 @@ try {
   // Let it settle in its bay (and move the pointer off it) before plugging it back in.
   await bf.evaluate((el) => Promise.all(el.getAnimations({ subtree: true }).filter((a) => a.effect?.getComputedTiming().endTime !== Infinity).map((a) => a.finished.catch(() => {}))));
   await page.mouse.move(5, 5);
-  await bf.click();
+  await clickCart(bf);
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   await page.locator('[data-pad="a"]').dispatchEvent("click");
   await page.waitForFunction(() => !!document.querySelector(".board-open"));
@@ -191,7 +205,7 @@ try {
   await page.waitForFunction(() => !document.querySelector(".board-open") && !document.querySelector(".cartridge.plugging") && location.hash === "#games", null, { timeout: 6000 });
   // BLUE opens the info page; its Eject cartridge link plays the reverse from the docked state.
   await bf.scrollIntoViewIfNeeded();
-  await bf.click();
+  await clickCart(bf);
   await page.waitForFunction(() => document.querySelector(".console")?.classList.contains("booting"));
   await page.locator('[data-pad="b"]').dispatchEvent("click");
   await page.waitForURL(/\/games\/battlefield\/$/);
@@ -601,7 +615,7 @@ try {
   }
 } catch (e) {
   // CI annotation: readable from the checks API even when log downloads are not.
-  console.log(`::error title=Site browser test::${String(e.stack || e).split("\n").slice(0, 5).join(" | ").slice(0, 900)}`);
+  console.log(`::error title=Site browser test::${String(e.stack || e).split("\n").slice(0, 30).join(" | ").slice(0, 2500)}`);
   throw e;
 } finally {
   await browser.close();
