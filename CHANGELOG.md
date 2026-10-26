@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.3
+
+Site kit 1.42.3:
+- Ships DOM Battlefield 0.13.4: tanks no longer start stacked or boxed in; deployment clears ground around every starting tank for any formation, squad size or HQ position.
+
 ## 0.39.2
 
 Site kit 1.42.2:
