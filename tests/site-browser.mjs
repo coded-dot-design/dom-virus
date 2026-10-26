@@ -260,13 +260,15 @@ try {
   await page.goto(base + "games/battlefield/");
   assert.equal(new URL(await page.getByRole("link", { name: "Launch Battlefield" }).evaluate((a) => a.href)).pathname, "/dom-virus/battlefield/");
   // Cross-links between games are cartridge swaps (shared rule): Battlefield -> Sherman Bytes.
-  assert.match(await page.getByRole("link", { name: "Try Sherman Bytes" }).getAttribute("href"), /\?play=battlefield&next=sherman-bytes#console$/);
+  assert.match(await page.locator(".cross-promo").getByRole("link", { name: "Swap to Sherman Bytes" }).getAttribute("href"), /\?play=battlefield&next=sherman-bytes#console$/);
   assert.equal(await page.locator(".layers li").count(), 4);
   assert.equal(await page.locator(".battlefield-display .tank").count(), 4, "battlefield scene has two tanks a side");
   // Sherman Bytes can swap to Battlefield: home ejects Sherman, plugs Battlefield in, presses A,
   // and the board folds open into the full game.
   await page.goto(base + "games/sherman-bytes/");
-  const swap = page.getByRole("link", { name: "Try Battlefield" });
+  const swap = page.locator(".cross-promo").getByRole("link", { name: "Swap to DOM Battlefield" });
+  // Play stands alone: the cross-game swap lives in its own promo further down.
+  assert.equal(await page.locator(".game-intro .actions a, .game-intro .actions .icon-key").count(), 0);
   // GitHub lives with the code: the expanding key in "Put it on your page", not beside Play.
   assert.equal(await page.locator(".game-intro .actions a[href*='github.com']").count(), 0);
   assert.match(await page.locator(".game-embed").getByRole("link", { name: "Install guide" }).getAttribute("href"), /github\.com\/coded-dot-design\/sherman-bytes#readme$/);

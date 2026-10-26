@@ -198,7 +198,7 @@ every game competed with every other. Phase 1 turned navigation into play.
   (twice the cartridge side) built from 1px box-shadow layers with two darker ridge layers, and an ink rim.
 - **Header/footer:**
   - Square 3D icon keys: Games (cartridge, with a gold count badge, toggles `#games`), Under the hood (chip), theme. The current page is pressed.
-  - Detail pages: Play is the only big button; a swap `IconKey` (`Try <game>`, in the target game's colour) may sit beside it. GitHub lives with the code: every code section uses the expanding GitHub `IconKey` ("Install guide") under the game name, never beside Play.
+  - Detail pages: Play stands alone. Cross-game swaps live in a `CrossPromo` card ("Next on the shelf") further down; GitHub lives with the code (the expanding `IconKey`, "Install guide"). Every `.button` shares one shape: 2px ink border, 9px corners, 46px, 3px base.
   - The footer has the skull mark, the style guide and GitHub keys, and "Created by Chris Cooley" (LinkedIn) / "© <build year> coded.design · Open source (MIT)". The year is stamped at build.
 - **Voice:** short, playful, arcade: "Pick a cartridge.", "INSERT CARTRIDGE", "Eject cartridge".
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.33.0
+
+Site kit 1.37.0:
+- Ships DOM Battlefield 0.8.1: terrain climates (fields, dunes, snow, river city), a two-step setup (location + terrain density, then Plan strategy or Quick battle), a Strategy slide-out during planning, a GAME OVER / MISSION COMPLETE sticker, smoother squad directing, and dragging your HQ while planning.
+- Detail pages: Play stands alone. The cross-game swap moved into a "Next on the shelf" promo card further down (the other game's cartridge art in its colour, plus Swap to …).
+- One action-button shape site-wide: every `.button` (Play, Launch, Choose your game, …) now matches the newer keys: 2px ink border, 9px corners, 46px tall, hard 3px base.
+
 ## 0.32.3
 
 Site kit 1.36.2:

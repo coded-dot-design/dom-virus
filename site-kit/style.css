@@ -3736,3 +3736,17 @@ html[data-theme="light"] .readout-next b {
   display: block;
   margin-top: 4px;
 }
+/* One action-button shape across the site (matches the newer keys): 2px ink border, 9px corners,
+   46px tall, hard 3px base; hover lifts 2px, press lands on the base. */
+.button {
+  min-height: 46px;
+  padding: 0 18px;
+  gap: 10px;
+  border-width: 2px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.button.primary {
+  border-color: var(--ink);
+}

@@ -1,0 +1,30 @@
+---
+// "Next on the shelf": a cross-game promo that lives below the fold, away from Play (the one
+// thing a game page asks you to do). The button is a swap: eject this cartridge, plug in that one.
+import { swapHref } from '../swap';
+import Icon from './AbstractIcon.astro';
+import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
+const { base, from, to } = Astro.props;
+const battlefield = to === 'battlefield';
+const name = battlefield ? 'DOM Battlefield' : 'Sherman Bytes';
+const pitch = battlefield
+  ? 'Same tanks, a whole platoon. Plan every route, then command your squad under fire.'
+  : 'Where the tanks come from: one Sherman, your page, and everything on it as cover.';
+---
+<aside class:list={['cross-promo', battlefield ? 'accent-cyan' : 'accent-amber']} aria-label={`Next on the shelf: ${name}`}>
+  <div class="cross-cart" aria-hidden="true">{battlefield ? <Fragment set:html={battlefieldIcon}/> : <Icon kind="tank" size={44}/>}</div>
+  <div class="cross-copy">
+    <span class="eyebrow">NEXT ON THE SHELF</span>
+    <h3>{name}</h3>
+    <p>{pitch}</p>
+  </div>
+  <a class="button primary" href={swapHref(base, from, to)} title={`Ejects this cartridge and plugs in ${name}`}>Swap to {name}</a>
+</aside>
+<style>
+.cross-promo{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:22px;margin:56px 0 8px;padding:20px 22px;background:var(--surface);border:2px solid var(--ink);border-radius:12px;box-shadow:6px 6px 0 var(--accent)}
+.cross-cart{display:grid;place-items:center;width:76px;height:76px;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface));border:2px solid var(--ink);border-radius:10px 10px 4px 4px;box-shadow:3px 3px 0 var(--ink)}
+.cross-cart :global(svg){width:44px;height:44px}
+.cross-copy h3{margin:4px 0 4px;font-size:24px;color:var(--accent-text,var(--accent))}
+.cross-copy p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:760px){.cross-promo{grid-template-columns:auto minmax(0,1fr);gap:14px 16px;padding:16px;box-shadow:4px 4px 0 var(--accent)}.cross-cart{width:60px;height:60px}.cross-promo .button{grid-column:1/-1}}
+</style>
