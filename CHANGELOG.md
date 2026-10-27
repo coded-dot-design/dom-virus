@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.3
+
+Site kit 1.43.3:
+- Ships DOM Battlefield 0.15.2: the rotate-to-landscape hint now turns counter-clockwise.
+
 ## 0.40.2
 
 Site kit 1.43.2:
