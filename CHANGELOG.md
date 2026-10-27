@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.4
+
+Site kit 1.43.4:
+- Ships DOM Battlefield 0.15.3: double-tap a planning card's icon to fold it to a small square (and back), an invisible resize grab, and more see-through battle rails.
+
 ## 0.40.3
 
 Site kit 1.43.3:
