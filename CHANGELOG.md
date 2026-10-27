@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.41.2
+
+Site kit 1.44.2:
+- Ships DOM Battlefield 0.16.2: in desktop full screen the platoon gets its own card under the sector map, sized to its keys, with a grid / column / row switch, and it can be dragged anywhere.
+
 ## 0.41.1
 
 Site kit 1.44.1:
