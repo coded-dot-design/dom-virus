@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.41.0
+
+Site kit 1.44.0:
+- Ships DOM Battlefield 0.16.0: one control palette across desktop and phone, dark and light (violet command and locked orders, red aim family, magenta attack, orange advance, lime fall in, team-colour retreat); locked keys breathe, keys that want a press ring out from their base; squad orders release back to the plan and attacks end on their own; a per-tank orders card with a back / you / forward pager and pin; sticker overlays with the debrief over comms; a desktop bar with Command opposite Surrender, and full-screen map cards.
+
 ## 0.40.10
 
 Site kit 1.43.10:
