@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.42.1
+
+Site kit 1.45.1:
+- Ships DOM Battlefield 0.18.2: the keyboard focus ring wraps each 3D key's base, the full-screen platoon card waits top-right before the battle, and the full-screen RADIO / AIM cards get a clean header row, group labels and right-aligned shortcuts.
+
 ## 0.42.0 — Phase 1
 
 Site kit 1.45.0:
