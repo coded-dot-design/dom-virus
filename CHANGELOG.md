@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.7
+
+Site kit 1.43.7:
+- Ships DOM Battlefield 0.15.6: fixes a click right after the page loads being dropped (0.15.5), which failed this site's Battlefield check.
+
 ## 0.40.6
 
 Site kit 1.43.6:
