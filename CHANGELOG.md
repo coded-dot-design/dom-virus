@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.8
+
+Site kit 1.43.8:
+- Ships DOM Battlefield 0.15.7: every battle key answers a second finger while you drive, on phones and on touch screens using the desktop layout.
+
 ## 0.40.7
 
 Site kit 1.43.7:
