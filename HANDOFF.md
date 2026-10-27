@@ -7,6 +7,10 @@ and the lessons that cost real time to learn. Phase 1 is done and tagged `phase-
 
 ## Start here (for agents)
 
+**Engine phase:** the next big piece of work is extracting a reusable micro DOM game and
+interaction engine from this core and the games. The plan, contract, phases and progress log are
+in [ENGINE.md](ENGINE.md). Read it before changing `src/`.
+
 **What/why:** the hub site is the showcase for DOM games. Navigation is a game: cartridges, a
 console, exact-reverse transitions. It is also a portfolio piece for coded.design: polished, fun,
 full of easter eggs, and high-performance on phones. Not "vibe-coded".

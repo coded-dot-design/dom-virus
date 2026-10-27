@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.40.9
+
+Site kit 1.43.9:
+- Ships DOM Battlefield 0.15.8 (audit fixes): a phone tap on Menu can no longer follow the header link that drops in under the finger; touch keys act exactly once; planning survives a resize; Enter no longer clears a just-locked route; cards reset between stages; sector-map taps aim correctly on phones.
+- Adds ENGINE.md: the engine phase plan (contract, inventory, harness architecture, multiplayer/presence, phases E0–E6, progress log). HANDOFF.md points to it; FUTURE.md's multiplayer note is corrected (only Battlefield is fixed-step today).
+
 ## 0.40.8
 
 Site kit 1.43.8:

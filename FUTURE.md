@@ -100,7 +100,7 @@ so it's the headline feature for a later version.
   bandwidth).
 - **First cut:** 2-player Sherman Bytes or Battlefield. Peer to peer over WebRTC data channels, with a
   tiny signalling step (share a link or a short code). No game server; the static-site rule holds.
-- **Model:** lockstep or rollback on inputs only (the sim is already fixed-step and pooled), so a
+- **Model:** lockstep or rollback on inputs only (needs a fixed-step, seeded simulation first: today only Battlefield is fixed-step, and the core `runtime.ts` uses a variable dt; see ENGINE.md), so a
   packet is a few bytes per tick. Each player's own page is their board; the opponent appears as a
   ghost tank. A shared "arena page" mode for when both should fight on the same document.
 - **Couch mode:** two players on one keyboard/pad as the zero-network fallback, which is also how to
