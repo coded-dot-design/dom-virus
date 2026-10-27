@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.41.1
+
+Site kit 1.44.1:
+- Ships DOM Battlefield 0.16.1: overlays grey the field out and slam their sticker in (bigger keys, at the bottom on phones); the phone Menu key no longer sticks and the phone header is bigger; the first screen flickers to life with the HQs facing off; foldable cards say so, an over-budget Loadout blocks the other cards; violet tank identity; desktop full-screen cards stack with an icons-only switch.
+
 ## 0.41.0
 
 Site kit 1.44.0:
