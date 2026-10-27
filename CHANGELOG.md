@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.1
+
+Site kit 1.43.1:
+- Ships DOM Battlefield 0.15.0: readable planning and location cards on phones and desktop, icons drawn with the Sherman sprite, a joined Move HQ / Move Tanks switch, dice for Randomize, Loadout emblems, a bigger START BATTLE, HQs clear of the phone notch, a randomised enemy HQ, one shared army yellow, and the camera following your tank again.
+
 ## 0.40.0
 
 Site kit 1.43.0:
