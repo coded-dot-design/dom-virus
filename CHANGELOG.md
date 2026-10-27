@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.10
+
+Site kit 1.43.10:
+- Ships DOM Battlefield 0.15.9 (phone controls): on iPhone, above all from the Home Screen, the stick could stop driving your tank and orders tapped while driving seemed dead. Battle controls now use native touch events, a stuck stick heals itself, the squad's current order stays lit, tanks jammed behind their own squad squeeze past, and your Loadout star is yellow.
+
 ## 0.40.9
 
 Site kit 1.43.9:
