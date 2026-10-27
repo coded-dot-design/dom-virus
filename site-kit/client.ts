@@ -523,16 +523,18 @@ const screenClip = (screen: HTMLElement) => {
   const r = screen.getBoundingClientRect();
   return `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px round 10px)`;
 };
+// The doors stay shut: the game page paints the same shut doors and opens them once it has
+// loaded, so the reveal is the game's own start (no stand-in board in between).
 function openBoard(screen: HTMLElement, done: () => void) {
   const board = buildBoard(false);
+  board.classList.add("hold");
   board.animate([{ clipPath: screenClip(screen) }, { clipPath: "inset(0px 0px 0px 0px round 0px)" }], {
     duration: 600,
     easing: "cubic-bezier(.7,0,.2,1)",
     fill: "forwards",
   });
   tone("sawtooth", 90, 360, 0.05, 0.55, 0.035);
-  setTimeout(() => tone("square", 660, 990, 0, 0.09, 0.04), 640);
-  setTimeout(done, 1300);
+  setTimeout(done, 700);
 }
 // The reverse: the covers fold shut over the board, then it shrinks back into the console screen.
 function closeBoard(board: HTMLElement, screen: HTMLElement, done: () => void) {
@@ -560,6 +562,8 @@ function returnState() {
   return id && /^[\w-]+$/.test(id) ? { id, board: q.has("board") } : null;
 }
 function leaveTo(cart: HTMLAnchorElement, board: boolean, href = cart.href) {
+  // The full game opens the shut doors itself once it has loaded (see openBoard).
+  if (board) try { sessionStorage.setItem("dom-virus:doors", "shut"); } catch {}
   history.replaceState(history.state, "", `${location.pathname}?${board ? "board" : "play"}=${cart.dataset.cart}#console`);
   location.href = href;
 }
@@ -730,6 +734,8 @@ if (initialReturn) returnHome(initialReturn, false);
 // Back/forward from the bfcache: the page is restored mid-launch; rewind it from there.
 addEventListener("pageshow", (event) => {
   if (!shelf || !event.persisted) return;
+  // A launch's shut doors are still up in the restored page.
+  document.querySelectorAll(".board-open").forEach((n) => n.remove());
   const state = returnState();
   if (state) return returnHome(state, true);
   delete shelf.dataset.plugging;

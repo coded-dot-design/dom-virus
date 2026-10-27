@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.42.0 — Phase 1
+
+Site kit 1.45.0:
+- The full-game launch no longer shows a stand-in board: the console screen grows into the pink doors, they stay shut while DOM Battlefield loads, and the game opens them onto its own boot screen. Coming back, the doors fold shut over the plain grid.
+- Ships DOM Battlefield 0.18.1: steadier boot screen, full screen kept across games, bigger phone planning keys, command-mode cards kept out of the way on desktop (remembered), a white-flag SURRENDER key that blows up with a losing sound, readable button tips in light mode, full-screen card fixes and no more platoon key bounce.
+
 ## 0.41.3
 
 Site kit 1.44.3:

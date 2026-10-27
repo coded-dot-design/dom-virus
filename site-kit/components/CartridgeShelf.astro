@@ -174,10 +174,12 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 :global(.board-open > b){position:absolute;width:var(--w);height:var(--h);left:var(--x);top:var(--y);background:#3a3f5c;border:2px solid #06c4ff55}
 :global(.board-open > em){position:absolute;left:var(--x);top:var(--y);width:22px;height:22px;background:var(--c);border:2px solid #07060f;box-shadow:0 0 14px var(--c);opacity:0;animation:board-text .2s calc(.75s + var(--d)) steps(2) forwards}
 :global(.board-open > span){opacity:0;animation:board-text .3s .8s steps(3) forwards;text-shadow:0 0 12px #06c4ff}
-:global(.board-open > i){position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(135deg,#0000 0 14px,#ffffff14 14px 17px),#f4457a;border:3px solid #07060f;animation:board-fold .55s .62s cubic-bezier(.6,0,.3,1) forwards}
+:global(.board-open > i){position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(135deg,#0000 0 14px,#ffffff14 14px 17px),#ff2e88;border:3px solid #07060f;animation:board-fold .55s .62s cubic-bezier(.6,0,.3,1) forwards}
 :global(.board-open > i.l){left:0;transform-origin:0 50%}
 :global(.board-open > i.r){right:0;transform-origin:100% 50%;--fold:100deg}
 /* Reverse: the board arrives open, covers fold shut, then it shrinks back into the screen. */
+:global(.board-open:is(.hold,.shut) > :is(b,em,span)){display:none}
+:global(.board-open.hold > i){animation:none}
 :global(.board-open.shut > i){animation:none;transform:rotateY(var(--fold,-100deg));opacity:.4}
 :global(.board-open.shut > :is(span,em)){animation:none;opacity:1}
 :global(.board-open.shut.closing > i){animation:board-fold .5s .1s cubic-bezier(.6,0,.3,1) reverse both}
