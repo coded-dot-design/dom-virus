@@ -642,6 +642,8 @@ try {
   await page.goto(base + "battlefield/");
   await page.waitForFunction(() => !!window.battlefield);
   assert.equal(await page.locator(".bf-mission").count(), 4);
+  // 0.14.0+: pick a location first; Plan battle appears with its terrain.
+  await page.locator(".bf-mission").first().click();
   await page.locator("#bf-deploy").click();
   assert.ok(await page.evaluate(() => window.battlefield.playing));
   // 0.7.0+: every battle opens with a plan step in command mode; Start begins the fight.

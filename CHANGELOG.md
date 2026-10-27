@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.40.0
+
+Site kit 1.43.0:
+- Ships DOM Battlefield 0.14.1, the redesigned flow: a location card with terrain thumbnails on an empty field, then Quick start or Plan battle; planning cards (Platoon, Loadout, Plan) over the whole field; per-tank orders (Attack HQ, Follow me, Command with a flag and a check); and a new phone battle cockpit with see-through rails, an order diamond, a sliding right rail in Command mode, a menu that pauses with the header, a comms toast, an install intro card and readable tips.
+- Site test: picks a location before Plan battle (the key now appears after the pick).
+
 ## 0.39.4
 
 Site kit 1.42.4:
