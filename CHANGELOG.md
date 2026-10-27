@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.5
+
+Site kit 1.43.5:
+- Ships DOM Battlefield 0.15.4: a steady route check key, Next lined up over Command, a team-colour route on the Plan icon, and the rotate hint's phone the right way up.
+
 ## 0.40.4
 
 Site kit 1.43.4:
