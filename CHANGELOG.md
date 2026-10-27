@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.6
+
+Site kit 1.43.6:
+- Ships DOM Battlefield 0.15.5: on phones every battle key (Auto, Lock, orders, Command, Center, Pan) works with a second finger while you drive; the invisible card grab has no hover outline.
+
 ## 0.40.5
 
 Site kit 1.43.5:
