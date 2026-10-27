@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.40.2
+
+Site kit 1.43.2:
+- Ships DOM Battlefield 0.15.1: full-height planning and location cards that scroll and can be dragged shorter, a little more type, START BATTLE moving beside the open card, the white flag in your corner, and narrower platoon keys for big squads on desktop.
+
 ## 0.40.1
 
 Site kit 1.43.1:
