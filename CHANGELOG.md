@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.41.3
+
+Site kit 1.44.3:
+- Ships DOM Battlefield 0.17.1 (and 0.17.0's clearer planning): a boot screen with cartridge doors, a lit grid and PRESS START when the game is opened directly; a lock with a REFRESH BROWSER key after the browser's back / forward; command mode is easy to leave (Space, right-click or a GUN OFF · FIGHT key on desktop, a shrunk x Fire key on phones); launch keys press, invert and shatter like the hero's bad guys; the phone toast matches the desktop comms bar and stays clear of the header.
+
 ## 0.41.2
 
 Site kit 1.44.2:
