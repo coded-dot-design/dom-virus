@@ -7,6 +7,8 @@ import UiIcon from './UiIcon.astro';
 import CodePreview from './CodePreview.astro';
 import CartridgeShelf from './CartridgeShelf.astro';
 import BattlefieldDetail from './BattlefieldDetail.astro';
+import ComingSoon from './ComingSoon.astro';
+import KaijuDetail from './KaijuDetail.astro';
 import StyleGuide from './StyleGuide.astro';
 import UnderTheHood from './UnderTheHood.astro';
 import IconKey from './IconKey.astro';
@@ -28,14 +30,14 @@ const game=gameId?data.games.find((g)=>g.id===gameId):null;
 const gameIndex=game?data.games.indexOf(game):0;
 // Game pages use the home shelf's numbering, where DOM Battlefield sits in slot 02.
 const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
-const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
+const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='soon'?'Coming soon':page==='kaiju'?'DOM Kaiju (coming soon)':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
 // Stamped at build time; a fresh build (e.g. on January 1) rolls the copyright year.
 const year=new Date().getFullYear();
 // Share previews (Open Graph / X). URLs follow astro.config `site` + base, so a custom domain only
 // changes the config.
-const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
+const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='soon'?'Coming soon to DOM VIRUS: Battlefield Blitz, DOM Crossfire, DOM Kaiju and DOM Flock, plus the shared engine and its performance targets.':page==='kaiju'?'DOM Kaiju (coming soon): a giant pixel gorilla climbs your page from the footer to the top, smashing text while helicopters swarm.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
 const pageUrl=new URL(Astro.url.pathname, Astro.site).href;
 const shareImage=new URL(ogImageUrl, Astro.site).href;
 ---
@@ -68,7 +70,7 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
     <div class="header-panel">
-      <nav aria-label="Main navigation"><a data-games-link href={hub?`${base}#games`:'#games'} aria-current={hub&&(page==='game'||page==='battlefield')?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
+      <nav aria-label="Main navigation"><a data-games-link href={hub?`${base}#games`:'#games'} aria-current={hub&&(page==='game'||page==='battlefield'||page==='kaiju')?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}under-the-hood/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
   </header>
@@ -82,7 +84,7 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
         <li><b>{(data.games.length + 1).toString().padStart(2,'0')}</b><span>cartridges</span></li>
         <li><b>01</b><span>page: yours</span></li>
         <li><b aria-label="Infinite"><UiIcon name="infinity" size={28}/></b><span>infinite possibilities</span></li>
-        <li class="readout-next"><i class="readout-led" aria-hidden="true"></i><b>SOON</b><span>Battlefield multiplayer</span></li>
+        <li class="readout-next"><a href={`${base}coming-soon/`}><i class="readout-led" aria-hidden="true"></i><b>SOON</b><span>4 new games + the engine</span></a></li>
       </ul>
     </section>
     {hub ? <CartridgeShelf games={data.games} base={base}/> : <>
@@ -126,6 +128,8 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
     {page==='styleguide' && <StyleGuide games={data.games} base={base}/>}
     {page==='notfound' && <NotFound base={base}/>}
     {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games}/>}
+    {page==='soon' && <ComingSoon base={base}/>}
+    {page==='kaiju' && <KaijuDetail base={base}/>}
     {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}
     {page==='engineering' && <>
     <UnderTheHood data={data}/>

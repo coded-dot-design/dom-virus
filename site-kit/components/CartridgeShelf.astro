@@ -2,6 +2,7 @@
 import Icon from './AbstractIcon.astro';
 import Cartridge from './Cartridge.astro';
 import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
+import kaijuIcon from '../assets/kaiju-icon.svg?raw';
 /*
   Home-page game picker, played like a tiny game (logic in client.ts):
   cartridges pop up as the shelf scrolls in → pick one → it flies over and slides down behind the
@@ -52,6 +53,12 @@ const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v
         <Icon kind={game.icon} size={44}/>
       </Cartridge>
     ))}
+    {/* Coming soon: plugs in like any cartridge, and its one action opens the details page. */}
+    <Cartridge id="kaiju" href={`${base}games/kaiju/`} soon actions={[
+      { pad: 'a', label: 'INFO', href: `${base}games/kaiju/`, launch: 'screen' },
+    ]} accent="pink" index={games.length + 1} kind="CLIMB + SMASH" name="DOM Kaiju" tagline="Climb the page. Wreck the page.">
+      <Fragment set:html={kaijuIcon}/>
+    </Cartridge>
   </div>
   <div class="flight-deck" data-flight-deck></div>
   <div class="console" id="console" data-console>
@@ -77,7 +84,7 @@ const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v
 .cartridge-shelf{position:relative;padding:56px 24px 80px;text-align:center}
 h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
-.shelf{display:grid;grid-template-columns:repeat(5,minmax(0,200px));justify-content:center;gap:24px}
+.shelf{display:grid;grid-template-columns:repeat(6,minmax(0,186px));justify-content:center;gap:20px}
 /* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). */
 .shelf[data-pop="wait"] :global(.cartridge){opacity:0;transform:translateY(90px) rotate(6deg)}
 .shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
@@ -194,7 +201,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 @keyframes board-fold{to{transform:rotateY(var(--fold,-100deg));opacity:.4}}
 @keyframes board-text{to{opacity:1}}
 
-@media (max-width:1180px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
+@media (max-width:1260px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
 /* Phones / small tablets: one horizontal row you swipe through, snapping a cartridge to the
    middle with its neighbours peeking in. It runs edge to edge; the padding lets the first and last
    cartridge centre. A scroller clips its content, so client.ts lifts a cartridge out of the row

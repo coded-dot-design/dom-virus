@@ -3141,6 +3141,15 @@ a.nerd-link:active {
 .readout-next {
   margin-left: auto;
 }
+.readout-next a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.readout-next a:hover span {
+  color: var(--ink);
+}
 .readout-next b {
   font-size: 11px;
   letter-spacing: 0.12em;

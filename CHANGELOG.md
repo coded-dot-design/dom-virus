@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.45.0
+
+Site kit 1.48.0:
+- **Coming soon** page (`/coming-soon/`): the next games in build order (Battlefield Blitz, DOM Crossfire, DOM Kaiju, DOM Flock), the next engine phase and the optimisation targets from the perf baseline. The home readout's SOON line links to it.
+- **DOM Kaiju** details page (`/games/kaiju/`): the run, the cast, the palette and a live concept scene; its key says Coming soon.
+- A **COMING SOON** cartridge on the shelf (DOM Kaiju, striped band down the side): plug it in and press Start to open its details. The shelf is six cartridges (two rows of three below 1260px).
+- Plans: `GAMES.md` (new game ideas, in build order) and `docs/games/dom-kaiju.md` (the full Kaiju design, the seed for the engine's first big test run).
+
 ## 0.44.1
 
 Site kit 1.47.1:

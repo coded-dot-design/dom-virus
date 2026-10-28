@@ -1,0 +1,90 @@
+---
+// /coming-soon/: the next games in build order, then the next engine phase and its perf targets.
+import UiIcon from './UiIcon.astro';
+import Icon from './AbstractIcon.astro';
+import kaijuIcon from '../assets/kaiju-icon.svg?raw';
+import { SOON_GAMES, NEXT_PHASE, OPTIMIZE, GAMES_DOC, ENGINE_DOC } from '../coming-soon';
+const { base = '/' } = Astro.props;
+const art = { blitz: 'tank', crossfire: 'ship', flock: 'fly-roamer' };
+const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
+---
+<section class="soon-page" aria-labelledby="soon-title">
+  <div class="section-heading"><span class="eyebrow"><span class="index">NEXT</span> COMING SOON / ON THE BENCH</span><span class="version">PLANS, NOT PROMISES</span></div>
+  <div class="soon-intro">
+    <h1 id="soon-title">Coming soon.<br/><em>Louder.</em></h1>
+    <p class="lead">Four new cartridges and a shared engine. The bar for every one of them: the explosions on our home page and the tanks wrecking the DOM Battlefield site. That is the floor.</p>
+  </div>
+
+  <ol class="soon-games">
+    {SOON_GAMES.map((g) => (
+      <li class:list={['card', 'soon-game', accent(g.accent), { lead: g.status === 'NEXT UP' }]} id={g.id}>
+        <div class="soon-top">
+          <span class="soon-art" aria-hidden="true">{g.id === 'kaiju' ? <Fragment set:html={kaijuIcon}/> : <Icon kind={art[g.id]} size={44}/>}</span>
+          <span class="soon-n">{g.n}</span>
+          <span class:list={['soon-status', g.status.toLowerCase().replace(' ', '-')]}>{g.status}</span>
+        </div>
+        <span class="eyebrow">{g.kind}</span>
+        <h2>{g.name}</h2>
+        <p>{g.line}</p>
+        <ul>{g.points.map((p) => <li>{p}</li>)}</ul>
+        <div class="soon-links">
+          {g.page && <a class="button primary" href={`${base}${g.page}`}><UiIcon name="cartridge" size={18}/> Details</a>}
+          <a class="button" href={g.doc}><UiIcon name="github" size={18}/> Design notes</a>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <div class="soon-phase">
+    <span class="eyebrow"><span class="index">ENG</span> THE NEXT PHASE</span>
+    <h2>One engine under every cartridge.</h2>
+    <p class="phase-lead">The games share one small engine: one loop, one way to read the page and give it back, one set of keys. Then every cartridge gets faster, and new games take days, not weeks.</p>
+    <ol class="phase-steps">{NEXT_PHASE.map((p) => <li class="card"><span class="tag">{p.tag}</span><div><h3>{p.title}</h3><p>{p.body}</p></div></li>)}</ol>
+    <h3 class="opt-title">Optimisation targets (from the baseline)</h3>
+    <div class="card opt-table"><table>
+      <thead><tr><th>Game</th><th>Now (4x CPU throttle)</th><th>Goal</th><th>Why</th></tr></thead>
+      <tbody>{OPTIMIZE.map((o) => <tr><td>{o.name}</td><td><code>{o.now}</code></td><td><code>{o.goal}</code></td><td>{o.note}</td></tr>)}</tbody>
+    </table></div>
+    <a class="nerd-link card" href={GAMES_DOC}><span class="eyebrow">GAME IDEAS · GITHUB</span><strong>GAMES.md: every planned game, in build order</strong><span>Loops, drama bar, builds and status for Blitz, Crossfire, Kaiju and Flock</span><UiIcon name="github" size={20}/></a>
+    <a class="nerd-link card" href={ENGINE_DOC}><span class="eyebrow">ENGINE PLAN · GITHUB</span><strong>ENGINE.md: the plan for the shared engine</strong><span>The contract, the harnesses, the phases and the progress log</span><UiIcon name="github" size={20}/></a>
+  </div>
+</section>
+<style>
+.soon-page{max-width:1200px;margin:0 auto;padding:40px 30px 80px}
+.soon-intro h1{margin:18px 0 12px;font-size:clamp(46px,7vw,92px);line-height:.95;letter-spacing:-.04em}
+.soon-intro h1 em{font-style:normal;color:var(--accent-text,var(--accent))}
+.soon-intro .lead{max-width:640px;margin:0;color:var(--muted);font-size:17px;line-height:1.6}
+.soon-games{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.soon-game{display:grid;align-content:start;gap:8px;padding:22px}
+.soon-game h2{margin:2px 0;font-size:clamp(26px,3vw,34px);letter-spacing:-.02em}
+.soon-game > p{margin:0;color:var(--muted);line-height:1.55}
+.soon-game ul{margin:6px 0 4px;padding-left:18px;font-size:14px;line-height:1.7}
+.soon-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.soon-art{display:grid;place-items:center;width:64px;height:64px;color:var(--accent);background:#100a1b;border:2px solid var(--ink);border-radius:10px}
+.soon-art :global(svg){width:46px;height:46px}
+.soon-n{font:800 28px var(--mono);color:var(--accent-text,var(--accent))}
+.soon-status{margin-left:auto;padding:4px 8px;font:700 10px var(--mono);letter-spacing:.12em;border:2px solid var(--ink);border-radius:4px}
+.soon-status.next-up{color:var(--accent-ink);background:var(--accent);animation:soon-blink 1.2s steps(2) infinite}
+.soon-status.planned{color:var(--ink);background:var(--surface)}
+.soon-status.idea{color:var(--muted);background:transparent;border-style:dashed}
+@keyframes soon-blink{50%{opacity:.55}}
+.soon-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.soon-phase{margin-top:70px}
+.soon-phase h2{margin:10px 0 8px;font-size:clamp(28px,3.6vw,42px)}
+.phase-lead{max-width:680px;margin:0 0 24px;color:var(--muted);line-height:1.6}
+.phase-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.phase-steps li{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:16px}
+.phase-steps h3{margin:0 0 4px;font-size:16px}
+.phase-steps p{margin:0;font-size:13px;line-height:1.55;color:var(--muted)}
+.tag{align-self:start;padding:4px 8px;font:700 10px var(--mono);letter-spacing:1px;color:var(--accent-ink);background:var(--accent);border:2px solid var(--ink);border-radius:4px}
+.opt-title{margin:40px 0 14px;font-size:20px}
+.opt-table{padding:0;overflow-x:auto}
+.opt-table table{width:100%;border-collapse:collapse;font-size:14px}
+.opt-table th,.opt-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.opt-table th{font:10px var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.opt-table tr:last-child td{border-bottom:0}
+.soon-phase .nerd-link{margin-top:18px}
+@media (max-width:860px){.soon-games{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.soon-page{padding:28px 20px 60px}}
+@media (prefers-reduced-motion:reduce){.soon-status.next-up{animation:none}}
+</style>

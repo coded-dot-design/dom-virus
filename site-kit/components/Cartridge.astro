@@ -6,7 +6,8 @@
 // ('board') is a special edition: a sticker, and both console LEDs light.
 // Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / client.ts.
 // placeholder: just the empty bay (dashed outline + muted cover), as left behind when it's plugged in.
-const { id, href, accent, index = 0, kind, name, tagline, actions, placeholder = false } = Astro.props;
+// soon: a COMING SOON cartridge (its one action opens the game's details page).
+const { id, href, accent, index = 0, kind, name, tagline, actions, placeholder = false, soon = false } = Astro.props;
 const full = actions?.some((a) => a.launch === 'board');
 // The art is used twice: on the label and, muted, on the "cover" left behind in the empty bay.
 const art = await Astro.slots.render('default');
@@ -39,6 +40,7 @@ const pins = Array.from({ length: 11 }, (_, p) => {
       <em>{tagline}</em>
     </span>
     {full && <span class="edition-tag" aria-hidden="true">SPECIAL EDITION</span>}
+    {soon && <span class="soon-band" aria-hidden="true">COMING SOON</span>}
     <span class:list={['skull-sticker', { peel: sticker.peel }]} style={`${sticker.at};--tilt:${sticker.tilt}deg`} aria-hidden="true"><svg viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d="M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z"/><path d="M54 0h9v9h-9z"/></svg></span>
     <span class="pins" aria-hidden="true">{pins.map((wear) => <i class={wear || undefined}></i>)}</span>
   </a>}
@@ -108,6 +110,8 @@ em{font-style:normal;font-size:12px;color:var(--muted)}
 .pins i.gone{height:0}
 .pins i.gone::after{background:#3a3350}
 /* Special edition: just the sticker. */
+.soon-band{position:absolute;top:30px;bottom:56px;right:-2px;display:grid;place-items:center;width:20px;writing-mode:vertical-rl;font:800 9px/1 var(--mono);letter-spacing:2px;color:#07060f;background:repeating-linear-gradient(135deg,#ffe14d 0 8px,#f4c21a 8px 16px);border:2px solid var(--ink);border-radius:3px 0 0 3px}
+.cartridge:has(.soon-band) .label{filter:saturate(.85)}
 .edition-tag{position:absolute;right:18px;bottom:46px;padding:3px 6px;font:700 8px/1 var(--mono);letter-spacing:1px;color:#07060f;background:#f4457a;border:2px solid var(--ink);border-radius:3px;rotate:-4deg}
 @media (max-width:420px){.cartridge{min-height:220px;padding:0 13px 0 9px}strong{font-size:15px}}
 </style>

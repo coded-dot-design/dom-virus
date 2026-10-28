@@ -64,8 +64,8 @@ try {
   const order = ["sherman-bytes", "swarm-protocol", "byte-runner", "null-invaders"];
   assert.deepEqual(
     await page.locator(".cartridge").evaluateAll((nodes) => nodes.map((n) => new URL(n.href).pathname)),
-    // Battlefield (the full game) sits in slot 2.
-    [`/dom-virus/games/${order[0]}/`, "/dom-virus/battlefield/", ...order.slice(1).map((id) => `/dom-virus/games/${id}/`)],
+    // Battlefield (the full game) sits in slot 2; the COMING SOON cartridge (Kaiju) comes last.
+    [`/dom-virus/games/${order[0]}/`, "/dom-virus/battlefield/", ...order.slice(1).map((id) => `/dom-virus/games/${id}/`), "/dom-virus/games/kaiju/"],
   );
   assert.equal(await page.locator(".game-section").count(), 0, "no long scroll of game sections on home");
   // The readout under the hero: live cartridge count, and what's next.
@@ -74,7 +74,7 @@ try {
   // Its hairlines span exactly as wide as the footer's.
   const span = (sel) => page.locator(sel).evaluate((el) => { const r = el.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.right)]; });
   assert.deepEqual(await span(".readout"), await span(".site-footer"));
-  assert.match(await page.locator(".readout-next").textContent(), /Battlefield multiplayer/);
+  assert.match(await page.locator(".readout-next").textContent(), /4 new games/);
   assert.equal(await page.locator(".console").count(), 1);
   const promo = page.locator(".hero-crossover");
   // Mash-up: DOM Virus skulls and bad guys from every game, an interceptor, and a turreted tank.
@@ -313,7 +313,18 @@ try {
   assert.deepEqual(outs, ["https://coded-dot-design.github.io/dom-battlefield/", "https://coded-dot-design.github.io/dom-battlefield/style-guide/"]);
   assert.equal(await page.locator('.actions a[href="https://coded-dot-design.github.io/dom-battlefield/"]').count(), 1, "Battlefield has a website key");
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
-  for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/"]) {
+  // Coming soon: the list page, the Kaiju details page and its COMING SOON cartridge on the shelf.
+  await page.goto(base);
+  assert.equal(new URL(await page.locator(".readout-next a").evaluate((a) => a.href)).pathname, "/dom-virus/coming-soon/");
+  const kaijuCart = page.locator('.cartridge[data-cart="kaiju"]');
+  assert.equal(await kaijuCart.locator(".soon-band").textContent(), "COMING SOON");
+  assert.equal(JSON.parse(await kaijuCart.getAttribute("data-actions"))[0].href, "/dom-virus/games/kaiju/", "the soon cartridge opens its details");
+  await page.goto(base + "coming-soon/");
+  assert.deepEqual(await page.locator(".soon-game h2").allTextContents(), ["Battlefield Blitz", "DOM Crossfire", "DOM Kaiju", "DOM Flock"], "build order");
+  await page.goto(base + "games/kaiju/");
+  assert.equal(await page.locator(".soon-key").getAttribute("aria-disabled"), "true", "Kaiju can't be played yet");
+  assert.equal(await page.locator('a[href*="docs/games/dom-kaiju.md"]').count() > 0, true, "links the design doc");
+  for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/", "coming-soon/", "games/kaiju/"]) {
     await page.goto(base + path);
     assert.equal(await page.locator("h1").count(), 1, `${path || "home"} has one h1`);
     assert.match(await page.locator('meta[property="og:image"]').getAttribute("content"), /^https:\/\/.+\.png$/);

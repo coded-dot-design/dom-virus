@@ -74,6 +74,7 @@ behaviour, architecture or workflow changes. Every repo keeps both files.
 - **Live hub:** https://coded-dot-design.github.io/dom-virus/
 - **Full game:** https://coded-dot-design.github.io/dom-virus/battlefield/
 - **Style guide:** https://coded-dot-design.github.io/dom-virus/style-guide/ (brand, tokens, 3D rule, motion, components, case study)
+- **Coming soon:** https://coded-dot-design.github.io/dom-virus/coming-soon/ (plans in `GAMES.md`; DOM Kaiju design in `docs/games/dom-kaiju.md`)
 - **Battlefield site:** https://coded-dot-design.github.io/dom-battlefield/ (landing page, game at `/play/`)
 - **Board UI:** https://coded-dot-design.github.io/dom-battlefield/style-guide/ (the game board and controls design system every board follows; spec in `dom-battlefield/board-ui/BOARD-UI.md`)
 - **Original one-page site (archived, unlinked from nav):** https://coded-dot-design.github.io/dom-virus/archive/

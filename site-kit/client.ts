@@ -903,7 +903,7 @@ hero?.querySelector(".promo-button")?.addEventListener("click", () => {
 });
 // CSS owns the motion. Observe visibility once per illustration to avoid offscreen work.
 const diagrams = document.querySelectorAll<HTMLElement>(
-  ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display",
+  ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display,.kaiju-display",
 );
 const visibleDiagrams = new Set<Element>();
 function syncDiagramMotion() {
