@@ -248,7 +248,14 @@ Rename per game (e.g. SQUAD, CREW, SHIPS) but keep the grammar.
 - **Fold key**: the card's icon/number is a real button. Click/tap/Enter/Space shrinks the card to
   that key; a hover/focus tip says "Click to shrink" / "Click to expand". A hint strip (CLICK THE
   NUMBER TO SHRINK) shows on first open.
-- **Back tab** (`.bui-back-tab`): "‹ PREVIOUS STEP" on the top edge, left side, cmd, 22u tall.
+- **Back tab** (`.bui-back-tab`): "‹ PREVIOUS STEP" on the top edge, left side, cmd, 22u tall. A
+  card with a back tab keeps 22u of top padding so its title never meets the tab.
+- **Height**: a card fits its content, up to a cap (the map height minus room for the launch key);
+  its body scrolls past the cap. A resize handle can shorten a card, never stretch it past its
+  content. No empty card over the map.
+- **Status pill** (per-unit cards): top right, in the colour and icon of the unit's current order
+  (attack, fall in, command, repair = team) or grey for no order. Hidden in modes where it doesn't
+  apply (e.g. Move HQ). No "mode" line on the card: the comms toast states the mode.
 - **Step keys** (orbit): beside settings cards, never beside the plan card; hidden when the card is
   folded. Round on phones (icon and caption together), rounded squares (14u) on desktop.
 - **The first step is keys, not cards**: the step-picker keys have no grip and never drag; only the

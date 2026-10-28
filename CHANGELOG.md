@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.4
+
+Site kit 1.46.4:
+- Ships DOM Battlefield 0.18.7: the plan card shows each tank's order as a pill in the order's own colour and icon (top right), drops the PLAN · TIME FROZEN line, and planning cards fit their content.
+
 ## 0.43.3
 
 Site kit 1.46.3:
