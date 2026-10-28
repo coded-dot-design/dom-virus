@@ -27,6 +27,7 @@ full of easter eggs, and high-performance on phones. Not "vibe-coded".
 | Hero art / hero mini-game | `site-kit/components/HeroScene.astro`, `site-kit/hero-game.ts` |
 | Game pages / Battlefield info page | `site-kit/components/GameSection.astro`, `BattlefieldDetail.astro` |
 | Style guide + case study | `site-kit/components/StyleGuide.astro` |
+| Board UI (game board design system) | `board-ui/` (kit, tokens, BOARD-UI.md spec) · page `site-kit/components/BoardUI.astro` |
 | Under the hood page (live labs + engine HUD) | `site-kit/components/UnderTheHood.astro`, `site-kit/lab.ts` |
 | Shared tokens, global buttons, layout | `site-kit/style.css` |
 | Engine runtime, touch controls | `src/runtime.ts`, `src/touch-controls.ts` (then `npm run sync:games`) |
@@ -73,6 +74,7 @@ behaviour, architecture or workflow changes. Every repo keeps both files.
 - **Live hub:** https://coded-dot-design.github.io/dom-virus/
 - **Full game:** https://coded-dot-design.github.io/dom-virus/battlefield/
 - **Style guide:** https://coded-dot-design.github.io/dom-virus/style-guide/ (brand, tokens, 3D rule, motion, components, case study)
+- **Board UI:** https://coded-dot-design.github.io/dom-virus/board-ui/ (the game board and controls design system every board follows; spec in `board-ui/BOARD-UI.md`)
 - **Original one-page site (archived, unlinked from nav):** https://coded-dot-design.github.io/dom-virus/archive/
 - **Phase 1 tag:** `phase-1` in every repo (hub `v0.27.0`)
 

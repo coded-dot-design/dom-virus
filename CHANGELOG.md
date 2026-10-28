@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.43.0 — Board UI design system
+
+Site kit 1.46.0:
+- **Board UI**, the game board and controls design system, at `/board-ui/`: principles, the palette a game passes in (live switcher: Battlefield, Swarm, Sherman or your own colours), the 3D key and its states, key families, labels, cards, overlays (with a working pause overlay and white-flag surrender), the launch burst, comms and tips, the four layouts, motion and sound, and a new-board checklist. Every demo is built from the kit only.
+- The kit itself in `board-ui/`: `board-ui.css` (scoped under `.bui`, 3.7 KB gzip), `board-ui.ts` (`applyPalette`, `press`, `slam`, `toast`, `launch`; 2.1 KB gzip), `tokens.json`, and `BOARD-UI.md`, the full spec for humans and agents (exact values, states, timings, layouts, lessons, checklist).
+- The DOM Battlefield page gets a Board UI key next to Launch and a Game board design section.
+- Ships DOM Battlefield 0.18.4: the desktop platoon row never wraps (icon keys, or its card on the map, by measured width).
+
 ## 0.42.2
 
 Site kit 1.45.2:

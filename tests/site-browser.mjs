@@ -307,6 +307,25 @@ try {
   await page.setViewportSize({ width: 320, height: 700 });
   assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
   await page.setViewportSize(footerWidth);
+  // Board UI: the game board design system, linked from the Battlefield page, built from the kit.
+  await page.goto(base + "games/battlefield/");
+  assert.equal(new URL(await page.locator(".board-design a.nerd-link").evaluate((a) => a.href)).pathname, "/dom-virus/board-ui/");
+  assert.equal(await page.locator('.actions a[href$="board-ui/"]').count(), 1, "Battlefield has a Board UI key");
+  await page.goto(base + "board-ui/");
+  assert.equal(await page.locator(".board-guide h1").count(), 1);
+  const cmd = () => page.locator("[data-bui]").first().evaluate((n) => getComputedStyle(n).getPropertyValue("--k-cmd").trim());
+  assert.equal(await cmd(), "#9a63ff");
+  await page.locator('[data-palette="swarm"]').click();
+  assert.equal(await cmd(), "#8573ee", "a passed-in palette repaints every board");
+  await page.locator('[data-palette="battlefield"]').click();
+  assert.equal(await cmd(), "#9a63ff", "and restores");
+  const toggle = page.locator("#key [data-toggle]");
+  await toggle.click();
+  assert.equal(await toggle.getAttribute("aria-pressed"), "true", "keys lock");
+  await page.locator("[data-open-overlay]").click();
+  assert.equal(await page.locator("[data-overlay]").isVisible(), true, "the overlay opens");
+  await page.locator("[data-close-overlay]").click();
+  assert.equal(await page.locator("[data-overlay]").isVisible(), false);
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/"]) {
     await page.goto(base + path);

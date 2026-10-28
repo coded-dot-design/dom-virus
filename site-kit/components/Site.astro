@@ -8,6 +8,7 @@ import CodePreview from './CodePreview.astro';
 import CartridgeShelf from './CartridgeShelf.astro';
 import BattlefieldDetail from './BattlefieldDetail.astro';
 import StyleGuide from './StyleGuide.astro';
+import BoardUI from './BoardUI.astro';
 import UnderTheHood from './UnderTheHood.astro';
 import IconKey from './IconKey.astro';
 import NotFound from './NotFound.astro';
@@ -28,14 +29,14 @@ const game=gameId?data.games.find((g)=>g.id===gameId):null;
 const gameIndex=game?data.games.indexOf(game):0;
 // Game pages use the home shelf's numbering, where DOM Battlefield sits in slot 02.
 const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
-const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
+const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='boardui'?'Board UI':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
 // Stamped at build time; a fresh build (e.g. on January 1) rolls the copyright year.
 const year=new Date().getFullYear();
 // Share previews (Open Graph / X). URLs follow astro.config `site` + base, so a custom domain only
 // changes the config.
-const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
+const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':page==='boardui'?'The game board design system: the keys, cards, overlays, launch bursts and layouts every DOM VIRUS board shares. Only the palette changes.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
 const pageUrl=new URL(Astro.url.pathname, Astro.site).href;
 const shareImage=new URL(ogImageUrl, Astro.site).href;
 ---
@@ -124,6 +125,7 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
     <section class="embed-section" id="embed"><div class="section-heading"><span class="eyebrow"><span class="index">DEV</span> BRING YOUR OWN PLAYGROUND</span><span class="version">MIT LICENSED</span></div><h2>Your page is next.</h2><p class="embed-lead">Import a game, choose the targets, and start a session. The launcher is optional. React adapters are separate exports so plain JavaScript consumers do not pay for React.</p>{data.games.map(game=><article class={`embed-game accent-${game.accent}`}><div><h3>{game.name}</h3><p>{game.engine}</p><a href={`https://github.com/coded-dot-design/${game.id}#readme`} class="text-link" data-virus-ignore data-swarm-ignore>Install + integration guide <UiIcon name="github" size={17}/></a></div><CodePreview game={game}/></article>)}<p class="install-note">Package names show the import after installation. Use each repository’s README for its available install or release route; registry publication is separate from this demo. Start with a static content container and exclude application controls you want to preserve.</p></section>
     </>}
     {page==='styleguide' && <StyleGuide games={data.games} base={base}/>}
+    {page==='boardui' && <BoardUI base={base}/>}
     {page==='notfound' && <NotFound base={base}/>}
     {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games}/>}
     {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}

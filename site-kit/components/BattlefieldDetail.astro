@@ -56,6 +56,7 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
       <p class="lead">Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. Plan every wingman's route before the shooting starts, then redirect them under fire in Command mode. Breach cover, take the enemy HQ, repair at yours. It is a separate app layered on Sherman Bytes: same tanks, its own battlefield.</p>
       <div class="actions" data-virus-ignore data-swarm-ignore>
         <a class="button primary" href={`${base}battlefield/`}><UiIcon name="play" size={18}/> Launch Battlefield</a>
+        <IconKey href={`${base}board-ui/`} label="Board UI design system" title="The game board design system"><UiIcon name="board" size={22}/></IconKey>
 
       </div>
       <p class="soon-note"><i aria-hidden="true"></i><b>Coming soon</b> Multiplayer: two players, two pages, one battle.</p>
@@ -106,6 +107,12 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
     <h3>Four layers. One borrowed tank.</h3>
     <ol>{layers.map((l) => <li class="card"><span class="tag">{l.tag}</span><div><h4>{l.title}</h4><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="github" size={14}/></a></div></li>)}</ol>
   </div>
+  <div class="board-design">
+    <div class="eyebrow">GAME BOARD DESIGN</div>
+    <h3>The board UI, made portable.</h3>
+    <p>Every key, card, overlay, launch burst and layout in Battlefield follows one written system: 3D keys with a base straight below, one colour per job, locked keys that rest down, overlays that slam and press in, and four layouts from phone cockpit to full screen. New boards reuse it exactly; only the palette changes.</p>
+    <a class="nerd-link card" href={`${base}board-ui/`}><span class="eyebrow">DESIGN SYSTEM · LIVE</span><strong>Board UI: the game board and controls design system</strong><span>Live keys, cards and overlays, the palette you pass in, and the spec for humans and agents</span><UiIcon name="board" size={20}/></a>
+  </div>
   {sherman && <CrossPromo base={base} from="battlefield" to="sherman-bytes"/>}
   <a class="nerd-link card" href={`${repo}#readme`} data-virus-ignore data-swarm-ignore><span class="eyebrow">NERD NOTES · GITHUB</span><strong>How DOM Battlefield works under the hood</strong><span>Controls, boundaries, budgets and release notes in the README</span><UiIcon name="github" size={20}/></a>
 </section>
@@ -135,6 +142,9 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
 @keyframes blast{0%{opacity:1;transform:scale(.3)}5%{opacity:1;transform:scale(1.6)}10%,100%{opacity:0;transform:scale(2.2)}}
 /* Layer cards share the site's .card style. */
 .layers{margin-top:42px}
+.board-design{margin-top:42px}
+.board-design h3{margin:8px 0 10px;font-size:22px}
+.board-design p{max-width:720px;margin:0 0 16px;font-size:14px;line-height:1.65;color:var(--muted)}
 .layers h3{margin:8px 0 18px;font-size:22px}
 .layers ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .layers li{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:18px}

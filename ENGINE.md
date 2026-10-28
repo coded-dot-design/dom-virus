@@ -140,7 +140,7 @@ interaction.
 @capsid/camera      follow with dead zone, bounds, margins, pan
 @capsid/fx          particles, popups, flashes (WAAPI one-shots outside the tick)
 @capsid/presence    multiplayer/presence: rooms, command stream, snapshots, interpolation, agents
-@capsid/ui          optional kits: 3D press buttons, cards, HUD, tips (CSS + tiny JS), not in kernel
+@capsid/ui          the Board UI kit (board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
 ```
 
 Names are placeholders. In E1 decide between one package with subpath exports

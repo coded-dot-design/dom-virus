@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "types": []
   },
-  "files": ["client.ts", "client-contracts.d.ts"]
+  "files": ["client.ts", "client-contracts.d.ts", "../board-ui/board-ui.ts"]
 }
