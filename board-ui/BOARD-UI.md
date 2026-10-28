@@ -45,7 +45,7 @@ building, then section 16 (lessons: mistakes we already paid for) and section 17
 | File | What it is |
 |---|---|
 | `board-ui/board-ui.css` | Tokens and every component, scoped under `.bui` |
-| `board-ui/board-ui.ts` | `applyPalette`, `press`, `slam`, `toast`, `launch` (2.1 KB gzip; the CSS is 3.7 KB gzip) |
+| `board-ui/board-ui.ts` | `mount`, `applyPalette`, `press`, `slam`, `toast`, `launch` (≈2.4 KB gzip; the CSS is 3.7 KB gzip) |
 | `board-ui/tokens.json` | Machine-readable tokens, timings, breakpoints, z-layers, storage keys |
 | `board-ui/BOARD-UI.md` | This spec |
 | `/board-ui/` (hub) | Live guide built from the kit only |
@@ -60,6 +60,18 @@ building, then section 16 (lessons: mistakes we already paid for) and section 17
 import { applyPalette, press, launch, slam, toast } from "./board-ui";
 applyPalette(root, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", teamB: "#f4457a" });
 ```
+
+### 2.1 Isolation: class scope or shadow DOM
+
+- **Class scope (`.bui`)**: every kit rule starts with `.bui`, so the kit never styles the host
+  page. Use it for first-party pages (the hub's guide, a game's own page). A host page's own CSS
+  *can* still reach in (a global `button {}` rule, a reset).
+- **Shadow DOM (`mount()`)**: for embeds on someone else's site. `mount(host, css, { theme, side,
+  palette })` attaches a shadow root, adopts one shared constructed stylesheet and returns the
+  `.bui` root to build in. Nothing crosses either way. This is the engine contract (owned UI in a
+  shadow root) and the default for `easterEgg` installs.
+- The launch burst renders on `<body>` with **inline styles only**, so it works from inside a
+  shadow root and survives any layout change.
 
 Battlefield still ships its own copy of these rules (`bf-` prefixes). In the engine phase (E3) it
 ports onto this kit; until then **Battlefield is the reference** and this kit must match it. When

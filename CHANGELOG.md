@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.43.1
+
+Site kit 1.46.1:
+- Board UI page follows the site grid (1200px column, 30px gutters, 20px on phones), stacks to one column on phones and never scrolls sideways; wide tables scroll inside their own cards.
+- Board UI kit: `mount(host, css, { theme, side, palette })` puts a board in a shadow root, isolated both ways from the host page (shown live under a hostile page rule); the launch burst uses inline styles so it works from inside a shadow root.
+- Engine plan: the engine gets its own repo with a friendly name; dom-virus stays the showcase.
+
 ## 0.43.0 — Board UI design system
 
 Site kit 1.46.0:

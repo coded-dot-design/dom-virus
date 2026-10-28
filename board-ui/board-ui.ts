@@ -20,6 +20,32 @@ const VARS: Record<keyof Palette, string> = {
 };
 const HEX = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
+let shared: CSSStyleSheet | null = null;
+/**
+ * Mount a board inside a shadow root on `host`, isolated both ways: the kit can't touch the page
+ * and the page's CSS (a global `button {}` rule, a reset) can't touch the board. Pass the kit CSS
+ * text (e.g. `import css from "board-ui/board-ui.css?raw"`). Returns the `.bui` root to build in.
+ * One constructed stylesheet is shared by every board on the page.
+ */
+export function mount(host: HTMLElement, css: string, opts: { theme?: "dark" | "light"; side?: 0 | 1; palette?: Palette } = {}) {
+  const shadow = host.shadowRoot ?? host.attachShadow({ mode: "open" });
+  if ("adoptedStyleSheets" in shadow && typeof CSSStyleSheet === "function" && "replaceSync" in CSSStyleSheet.prototype) {
+    if (!shared) (shared = new CSSStyleSheet()).replaceSync(css);
+    if (!shadow.adoptedStyleSheets.includes(shared)) shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, shared];
+  } else {
+    const style = document.createElement("style");
+    style.textContent = css;
+    shadow.append(style);
+  }
+  const root = document.createElement("div");
+  root.className = "bui";
+  root.dataset.theme = opts.theme ?? "dark";
+  root.dataset.side = String(opts.side ?? 0);
+  shadow.append(root);
+  if (opts.palette) applyPalette(root, opts.palette);
+  return root;
+}
+
 /** Paint a board: sets the palette's CSS variables on the .bui root. Invalid colours are ignored
  *  (an embed config can never inject CSS). Returns a function that restores the old values. */
 export function applyPalette(root: HTMLElement, palette: Palette): () => void {
@@ -89,7 +115,8 @@ export function launch(button: HTMLElement, action: () => void, opts: { reduced?
     layer = document.createElement("div");
     layer.className = "bui-burst";
     layer.setAttribute("aria-hidden", "true");
-    Object.assign(layer.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
+    // Inline styles only: the burst lives on <body>, outside any shadow root the board is in.
+    Object.assign(layer.style, { position: "fixed", zIndex: "2147483000", pointerEvents: "none", left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
     document.body.append(layer);
     const sink = Number(style.boxShadow.match(/(-?[\d.]+)px\s+(-?[\d.]+)px/)?.[2] || 5);
     const copy = () => {
@@ -133,8 +160,12 @@ export function launch(button: HTMLElement, action: () => void, opts: { reduced?
     const dot = (cls: string, size: number, tone: string) => {
       const d = document.createElement("i");
       d.className = cls;
-      Object.assign(d.style, { width: `${size}px`, height: `${size}px`, left: `${W / 2 - size / 2}px`, top: `${H / 2 - size / 2 + sink}px` });
-      d.style.setProperty("--tone", tone);
+      Object.assign(d.style, {
+        position: "absolute", width: `${size}px`, height: `${size}px`, left: `${W / 2 - size / 2}px`, top: `${H / 2 - size / 2 + sink}px`,
+        borderRadius: cls === "bui-bit" ? "0" : "50%",
+        background: cls === "bui-ring" ? "none" : tone,
+        border: cls === "bui-ring" ? `3px solid ${tone}` : "0",
+      });
       return d;
     };
     add(dot("bui-flash", R * 0.6, "#fff4ff"), [{ transform: "scale(.3)", opacity: 1 }, { transform: "scale(2.6)", opacity: 0.9, offset: 0.35 }, { transform: "scale(3.2)", opacity: 0 }], 320);

@@ -4,7 +4,7 @@ Status: **Phase E0 (baseline) in progress** (perf harness and baseline numbers d
 [Progress log](#progress-log) at the end of every working session. This file is the plan and the
 handoff: an agent or a person should be able to start from here with no other context.
 
-Working name: **Capsid** (a capsid is the tiny protein shell that carries a virus's payload: the
+Working name: **Capsid** (placeholder: the final name is friendlier, see section 7) (a capsid is the tiny protein shell that carries a virus's payload: the
 engine is the small shell a page's game or interaction rides in). Alternatives if it doesn't stick:
 *Strain*, *Mote*, *Spore*, *Rampage* (it should look and feel like Rampage, in the browser). Decide in
 E1 before the package name is published.
@@ -293,7 +293,8 @@ its per-frame `getBoundingClientRect`); Battlefield runs ≈48 layouts/s (worth 
 Bytes and Null Invaders hold 60 fps.
 
 ### E1: Kernel
-- Create the engine in this repo (`engine/` workspace or `src/engine/`; decide in E1) with the
+- Create the engine repo (`coded-dot-design/<name>`), move `board-ui/` and the core there, and
+  publish it as one package with subpath exports. Then build, in that repo, the
   kernel: scheduler, fixed step, lifecycle with `AbortSignal`, caps/stats, pools, ledger (from
   `ledger.ts`, merged with Swarm's attribute/style ledger), keyed writer, seeded random.
 - Tests that prove the contract: one rAF for N instances; zero allocation over 10k steps (heap
@@ -351,11 +352,13 @@ Extract in this order (each with unit tests, size check and an example):
 
 ## 7. Open decisions
 
-- Name (Capsid / Strain / Mote / Spore / Rampage / other) and package scope.
+- Name: something friendly, not virus-themed (the engine is the product; DOM VIRUS is one
+  showcase). Shortlist: Mote, Glint, Pip, Sprig, Kite; also Rampage. Capsid / Strain / Spore are out.
 - One package with subpaths vs many packages.
 - Licence for everything (MIT recommended; the hub, games and engine are open).
-- Engine location: inside dom-virus (recommended: it's already the core's home and the hub is the
-  showcase) vs a new repo later.
+- ~~Engine location~~ **Decided 2026-10-28: its own repo** in the coded-dot-design org, with a
+  friendly name (not virus-themed). dom-virus stays the showcase site and the games' home; the
+  Board UI kit and the core move to the engine repo in E1, and the hub consumes the engine package.
 - Whether the arcade games' `createArcade` API stays as a compatibility layer on top of the kernel.
 - Reference room host (Cloudflare account) and cost limits.
 

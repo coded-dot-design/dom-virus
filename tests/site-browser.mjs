@@ -326,6 +326,12 @@ try {
   assert.equal(await page.locator("[data-overlay]").isVisible(), true, "the overlay opens");
   await page.locator("[data-close-overlay]").click();
   assert.equal(await page.locator("[data-overlay]").isVisible(), false);
+  // A shadow-mounted board ignores the page's hostile button rule.
+  assert.equal(await page.locator("[data-shadow-demo]").evaluate((h) => getComputedStyle(h.shadowRoot.querySelector("button")).borderStyle), "solid", "shadow DOM isolates the board");
+  const guideWidth = page.viewportSize();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "Board UI never scrolls sideways on a phone");
+  await page.setViewportSize(guideWidth);
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/"]) {
     await page.goto(base + path);

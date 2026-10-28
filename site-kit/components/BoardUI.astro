@@ -123,12 +123,12 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
       </div>
       <div class="bu-try"><span class="bui-label"><b>TRY</b> · tap to lock, tap again to release</span><button class="bui-arcade bui-cmd" type="button" aria-pressed="false" data-toggle><svg viewBox="0 0 20 20"><path d={icon.command}/></svg>Command<kbd>O</kbd></button></div>
     </div>
-    <table class="bu-table"><thead><tr><th>Variable</th><th>Base</th><th>Arcade</th><th>Sticker</th><th>Meaning</th></tr></thead><tbody>
+    <div class="bu-table card"><table><thead><tr><th>Variable</th><th>Base</th><th>Arcade</th><th>Sticker</th><th>Meaning</th></tr></thead><tbody>
       <tr><td><code>--py</code></td><td>3u</td><td>4u</td><td>5u</td><td>base height</td></tr>
       <tr><td><code>--hy</code></td><td>1u</td><td>2u</td><td>2u</td><td>hover lift</td></tr>
       <tr><td><code>--edge</code></td><td>--line</td><td>--c 45% into rim</td><td>#f6f3ff</td><td>base colour</td></tr>
       <tr><td><code>--lock</code></td><td></td><td>role or --k-cmd</td><td></td><td>colour when locked</td></tr>
-    </tbody></table>
+    </tbody></table></div>
   </section>
 
   <!-- 04 FAMILIES -->
@@ -175,12 +175,12 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
   <!-- 05 LABELS -->
   <section id="labels" class="bu-block">
     <div class="bu-head"><span class="eyebrow"><span class="index">05</span> LABELS</span><h2>FIRST WORD bold · detail.</h2><p>Mono caps, spaced, muted, with the first word in ink. Each layout keeps the same grammar at its own length.</p></div>
-    <table class="bu-table"><thead><tr><th>Group</th><th>Desktop bar</th><th>Compact desktop</th><th>Full-screen card</th><th>Phone</th></tr></thead><tbody>
+    <div class="bu-table card"><table><thead><tr><th>Group</th><th>Desktop bar</th><th>Compact desktop</th><th>Full-screen card</th><th>Phone</th></tr></thead><tbody>
       <tr><td>per unit</td><td><b>RADIO</b> · EACH TANK</td><td><b>RADIO</b></td><td>title RADIO · EACH TANK</td><td>rail key</td></tr>
       <tr><td>squad</td><td><b>RADIO</b> · WHOLE SQUAD</td><td><b>WHOLE SQUAD</b></td><td>WHOLE SQUAD</td><td>ORDERS · WHOLE SQUAD</td></tr>
       <tr><td>roster</td><td><b>PLATOON</b> · RADIOS</td><td><b>PLATOON</b></td><td><b>PLATOON</b></td><td>PLATOON</td></tr>
       <tr><td>aim</td><td><b>AIM</b> · AUTO / LOCK</td><td><b>AIM</b></td><td>title AIM</td><td>rail keys</td></tr>
-    </tbody></table>
+    </tbody></table></div>
     <div class="bui bu-board bu-bar" data-bui>
       <div><span class="bui-label"><b>RADIO</b> · EACH TANK</span><button class="bui-arcade bui-cmd" type="button"><svg viewBox="0 0 20 20"><path d={icon.command}/></svg>Command<kbd>O</kbd></button></div>
       <i class="bu-sep"></i>
@@ -231,12 +231,12 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
         </div>
       </div>
     </div>
-    <table class="bu-table"><thead><tr><th>Overlay</th><th>Kicker / word</th><th>Keys</th></tr></thead><tbody>
+    <div class="bu-table card"><table><thead><tr><th>Overlay</th><th>Kicker / word</th><th>Keys</th></tr></thead><tbody>
       <tr><td>Pause</td><td>BATTLE PAUSED / GIVE UP?</td><td>KEEP FIGHTING · SURRENDER</td></tr>
       <tr><td>Lost</td><td>INSERT COIN / GAME OVER</td><td>REMATCH · NEW CAMPAIGN</td></tr>
       <tr><td>Won</td><td>STAGE CLEAR / MISSION COMPLETE</td><td>REMATCH · NEW CAMPAIGN</td></tr>
       <tr><td>Stale page</td><td>SOMETHING WENT WRONG / REFRESH</td><td>REFRESH BROWSER</td></tr>
-    </tbody></table>
+    </tbody></table></div>
   </section>
 
   <!-- 08 LAUNCH -->
@@ -279,13 +279,17 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
   <!-- 11 MOTION & SOUND -->
   <section id="motion" class="bu-block">
     <div class="bu-head"><span class="eyebrow"><span class="index">11</span> MOTION &amp; SOUND</span><h2>Snappy keys, theatrical moments.</h2><p>Keys never spring. Springs are for pop-ins only. Reduced motion keeps every end state and drops the motion.</p></div>
-    <table class="bu-table"><thead><tr><th>Motion</th><th>Timing</th><th>Notes</th></tr></thead><tbody>{motion.map(([a, b, c]) => <tr><td>{a}</td><td><code>{b}</code></td><td>{c}</td></tr>)}</tbody></table>
-    <table class="bu-table"><thead><tr><th>Sound cue</th><th>Character</th></tr></thead><tbody>{sounds.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody></table>
+    <div class="bu-table card"><table><thead><tr><th>Motion</th><th>Timing</th><th>Notes</th></tr></thead><tbody>{motion.map(([a, b, c]) => <tr><td>{a}</td><td><code>{b}</code></td><td>{c}</td></tr>)}</tbody></table></div>
+    <div class="bu-table card"><table><thead><tr><th>Sound cue</th><th>Character</th></tr></thead><tbody>{sounds.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody></table></div>
   </section>
 
   <!-- 12 BUILD -->
   <section id="build" class="bu-block">
     <div class="bu-head"><span class="eyebrow"><span class="index">12</span> BUILD A BOARD</span><h2>A new game in an hour.</h2><p>Swap the game logic and the board; keep everything above. The spec has the full checklist, every exact value and the lessons we already paid for.</p></div>
+    <div class="bu-iso">
+      <div class="bu-iso-text"><span class="eyebrow">ISOLATION · SHADOW DOM</span><p>On someone else's site, mount the board in a shadow root: <code>mount(host, css, {"{"} palette {"}"})</code>. This box sits under a page rule that turns every button red with a dashed border. The board inside doesn't see it.</p></div>
+      <div class="bu-hostile" data-shadow-demo aria-label="Board mounted in a shadow root"></div>
+    </div>
     <ol class="bu-check card">
       <li>Wrap the board in <code>&lt;div class="bui" data-theme data-side&gt;</code> and include the kit.</li>
       <li>Pass the palette; check every face reads with ink text on it.</li>
@@ -304,7 +308,8 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
 </section>
 
 <script>
-  import { applyPalette, launch, slam } from "../../board-ui/board-ui";
+  import { applyPalette, launch, slam, mount } from "../../board-ui/board-ui";
+  import kitCss from "../../board-ui/board-ui.css?raw";
   const boards = [...document.querySelectorAll<HTMLElement>("[data-bui]")];
   const html = document.documentElement;
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -349,6 +354,13 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
   new MutationObserver(() => theme(html.dataset.theme === "light" ? "light" : "dark")).observe(html, { attributes: true, attributeFilter: ["data-theme"] });
   theme(boardTheme);
   hexes();
+  // Isolation: a board in a shadow root, under a hostile page rule (.bu-hostile button).
+  const isoHost = document.querySelector<HTMLElement>("[data-shadow-demo]")!;
+  const iso = mount(isoHost, kitCss, { theme: boardTheme });
+  iso.style.cssText = "display:flex;flex-wrap:wrap;gap:8px;padding:18px;background:var(--bg);border-radius:12px";
+  iso.innerHTML = `<button class="bui-arcade bui-fallin" type="button" aria-pressed="false">Fall in<kbd>F</kbd></button><button class="bui-arcade bui-attack" type="button" aria-pressed="false">Attack<kbd>G</kbd></button><button class="bui-arcade bui-cmd bui-call" type="button" aria-pressed="false">Command<kbd>O</kbd></button>`;
+  for (const b of iso.querySelectorAll<HTMLElement>("button")) b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true")));
+  boards.push(iso);
   // Toggles: tap to lock, tap again to release (repaint in the handler: no bounce).
   for (const b of document.querySelectorAll<HTMLElement>("[data-toggle]"))
     b.addEventListener("click", () => b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true")));
@@ -375,7 +387,7 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
 </script>
 
 <style>
-.board-guide{--bu-gap:18px}
+.board-guide{--bu-gap:22px;max-width:1200px;margin:0 auto;padding:56px 30px 90px}
 .bu-hero{padding-bottom:28px;border-bottom:1px solid var(--line)}
 .bu-hero h1{margin:14px 0 12px;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.03em}
 .bu-hero h1 em{font-style:normal;color:var(--accent-text,var(--accent))}
@@ -393,8 +405,8 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
 .bu-custom label{display:flex;align-items:center;gap:6px;font:11px var(--mono)}
 .bu-custom input{width:34px;height:26px;padding:0;border:2px solid var(--ink);border-radius:4px;background:none}
 .bu-block{padding:64px 0 0;scroll-margin-top:80px}
-.bu-head{max-width:720px;margin-bottom:22px}
-.bu-head h2{margin:10px 0 8px;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em}
+.bu-head{max-width:720px;margin-bottom:26px}
+.bu-head h2{margin:10px 0 8px;font-size:clamp(28px,3.6vw,42px);line-height:1.05}
 .bu-head p{margin:0;color:var(--muted);line-height:1.6}
 .bu-rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--bu-gap)}
 .bu-rules li{padding:16px}
@@ -410,7 +422,7 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
 .bu-roles code{grid-area:var;font-size:11px}
 .bu-roles span{grid-area:job}
 .bu-roles em{grid-area:hex;font-style:normal;font-size:11px;color:var(--ink)}
-.bu-code{margin:16px 0 0;padding:16px;overflow:auto;font:12px/1.6 var(--mono);background:var(--surface);border:2px solid var(--ink);border-radius:10px}
+.bu-code{max-width:100%;margin:16px 0 0;padding:16px;overflow:auto;font:12px/1.6 var(--mono);background:var(--surface);border:2px solid var(--ink);border-radius:10px}
 .bu-states{display:flex;flex-wrap:wrap;gap:22px 18px}
 .bu-states figure{display:grid;justify-items:start;gap:10px;margin:0}
 .bu-states figcaption{display:grid;font-size:11px;color:var(--muted)}
@@ -457,10 +469,28 @@ applyPalette(boardRoot, { sys: "#06c4ff", cmd: "#8573ee", teamA: "#4bce82", team
 .bu-mock.full .map{inset:4%}
 .bu-mock .dock{bottom:10%;width:16%;height:46%;background:#1d1738;border:1px solid #3b3170}
 .bu-mock .dock.l{left:7%}.bu-mock .dock.r{right:7%;height:34%}
-.bu-table{width:100%;margin-top:18px;border-collapse:collapse;font-size:13px}
-.bu-table th,.bu-table td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-.bu-table th{font:700 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.bu-table{margin-top:22px;padding:0;overflow-x:auto}
+.bu-table table{width:100%;border-collapse:collapse;font-size:13px}
+.bu-table th,.bu-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.bu-table th{font:10px var(--mono);letter-spacing:.1em;color:var(--faint,var(--muted));text-transform:uppercase}
+.bu-table tr:last-child td{border-bottom:0}
+.bu-iso{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center;margin-bottom:22px}
+.bu-iso-text p{margin:8px 0 0;color:var(--muted);line-height:1.6;font-size:14px}
+.bu-hostile button{background:red!important;border:3px dashed currentColor!important;font:italic 20px serif!important}
 .bu-check{margin:0;padding:18px 18px 18px 38px;line-height:1.9;font-size:14px}
 .board-guide .nerd-link{margin-top:22px}
-@media (max-width:760px){.bu-cards{grid-template-columns:1fr}.bu-launch{grid-auto-flow:row}.bu-board{padding:22px 14px}.bu-strip{position:static}}
+@media (max-width:960px){.bu-bar{grid-template-columns:1fr 1fr}.bu-bar .bu-sep{display:none}.bu-bar .bu-center{justify-items:start}}
+@media (max-width:760px){
+  .board-guide{padding:36px 20px 60px}
+  .bu-block{padding-top:48px}
+  .bu-cards{grid-template-columns:1fr}
+  .bu-dock{max-width:none}
+  .bu-launch{grid-auto-flow:row;justify-items:center}
+  .bu-board{padding:22px 16px;gap:18px}
+  .bu-strip{position:static}
+  .bu-states{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bu-bar{grid-template-columns:1fr}
+  .bu-roles{grid-template-columns:1fr}
+  .bu-iso{grid-template-columns:1fr}
+}
 </style>
