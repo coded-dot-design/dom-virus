@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.42.2
+
+Site kit 1.45.2:
+- Ships DOM Battlefield 0.18.3: desktop bar labels match the full-screen cards (RADIO · EACH TANK, RADIO · WHOLE SQUAD, PLATOON · RADIOS, AIM · AUTO / LOCK), bigger planning keys with outlined tank icons, and a clearer plan step with a LOADOUT back tab.
+
 ## 0.42.1
 
 Site kit 1.45.1:
