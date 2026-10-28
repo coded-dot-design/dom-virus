@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.2
+
+Site kit 1.46.2:
+- Ships DOM Battlefield 0.18.5: the "Best as an app" card is readable on phones (bigger type and keys, never below one pixel a unit) and waits for landscape instead of covering the rotate screen.
+
 ## 0.43.1
 
 Site kit 1.46.1:
