@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.7
+
+Site kit 1.46.7:
+- Full-game launch: the hub's pink doors now span the whole window (under the scrollbar) and the scrollbar hides once they cover the page, so their seam no longer jumps a few pixels right when the game page takes over.
+
 ## 0.43.6
 
 Site kit 1.46.6:

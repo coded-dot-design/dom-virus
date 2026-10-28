@@ -534,6 +534,9 @@ function openBoard(screen: HTMLElement, done: () => void) {
     fill: "forwards",
   });
   tone("sawtooth", 90, 360, 0.05, 0.55, 0.035);
+  // Once the doors cover the page, drop its scrollbar: the game page has none, so the doors'
+  // seam lands on the same pixel when the game takes over.
+  setTimeout(() => document.documentElement.classList.add("board-full"), 620);
   setTimeout(done, 700);
 }
 // The reverse: the covers fold shut over the board, then it shrinks back into the console screen.
@@ -645,6 +648,7 @@ function returnHome(state: { id: string; board: boolean }, fresh: boolean) {
   const next = new URLSearchParams(location.search).get("next");
   chained = next && /^[\w-]+$/.test(next) ? next : null;
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
+  document.documentElement.classList.remove("board-full");
   if (!cart || !consoleEl || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     if (cart) cart.getAnimations().forEach((a) => a.cancel()), putBack(cart);
     consoleEl?.classList.remove("booting", "starting", "is-loading", "full", "choice");
@@ -736,6 +740,7 @@ addEventListener("pageshow", (event) => {
   if (!shelf || !event.persisted) return;
   // A launch's shut doors are still up in the restored page.
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
+  document.documentElement.classList.remove("board-full");
   const state = returnState();
   if (state) return returnHome(state, true);
   delete shelf.dataset.plugging;
@@ -745,6 +750,7 @@ addEventListener("pageshow", (event) => {
     putBack(n);
   });
   document.querySelectorAll(".board-open").forEach((n) => n.remove());
+  document.documentElement.classList.remove("board-full");
   consoleEl?.classList.remove("booting", "starting", "is-loading", "full", "choice");
   clearReturn();
 });
