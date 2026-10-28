@@ -142,7 +142,7 @@ interaction.
 @capsid/fx          particles, popups, flashes (WAAPI one-shots outside the tick)
 @capsid/presence    multiplayer/presence: rooms, command stream, snapshots, interpolation, agents
 @capsid/embed       drop-in install: palette, lazy load, easter-egg triggers, open/close toggle (from Swarm's loader)
-@capsid/ui          the Board UI kit (board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
+@capsid/ui          the Board UI kit (dom-battlefield/board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
 ```
 
 Names are placeholders. In E1 decide between one package with subpath exports
@@ -199,7 +199,7 @@ easterEgg: {
 }
 ```
 
-- **Palette:** the Board UI roles (`board-ui/BOARD-UI.md` section 3). Validated as hex; anything
+- **Palette:** the Board UI roles (`dom-battlefield/board-ui/BOARD-UI.md` section 3). Validated as hex; anything
   else is ignored, so an embed can never inject CSS. This is the fix for "the colours clash with
   my site": the host passes its brand colours, everything else is derived.
 - **`easterEgg: false`** (default): the game mounts normally (or the host calls `open()` itself).
@@ -293,7 +293,7 @@ its per-frame `getBoundingClientRect`); Battlefield runs ≈48 layouts/s (worth 
 Bytes and Null Invaders hold 60 fps.
 
 ### E1: Kernel
-- Create the engine repo (`coded-dot-design/<name>`), move `board-ui/` and the core there, and
+- Create the engine repo (`coded-dot-design/<name>`), move `board-ui/` (now in dom-battlefield) and the core there, and
   publish it as one package with subpath exports. Then build, in that repo, the
   kernel: scheduler, fixed step, lifecycle with `AbortSignal`, caps/stats, pools, ledger (from
   `ledger.ts`, merged with Swarm's attribute/style ledger), keyed writer, seeded random.
@@ -316,7 +316,7 @@ Extract in this order (each with unit tests, size check and an example):
    `camera`, `fx`, `sound` (adapter reading the event ring, section 4.3).
 7. `embed` (section 4.4): palette config, lazy load, easter-egg triggers and toggle, extracted
    from Swarm's loader; remove the hard-coded copy from Swarm in its engine cut.
-8. `ui`: the Board UI kit (`board-ui/`) as the optional UI brick; Battlefield ports onto it in E3.
+8. `ui`: the Board UI kit (`dom-battlefield/board-ui/`) as the optional UI brick; Battlefield ports onto it in E3.
 
 **Exit:** every harness ≤ ~1.5 KB, documented, with a runnable example in `playground/`.
 
@@ -380,6 +380,7 @@ Extract in this order (each with unit tests, size check and an example):
 | Date | Phase | What changed | Next |
 |---|---|---|---|
 | 2026-10-28 | E0 | Board UI design system shipped (`board-ui/`, `/board-ui/`, hub 0.43.0) as the `ui` brick. Plan: event ring + sound adapter (4.3), embed config with palette and easter-egg triggers lifted from Swarm (4.4), `embed` and `ui` harnesses in E2. E0: perf harness + baseline numbers + baseline commits recorded. | Tag baselines (needs push access); Battlefield archive selector; then E1 |
+| 2026-10-28 | E0 | Board UI moved to the Battlefield repo with its live guide (`dom-battlefield/style-guide/`); DOM VIRUS drops `/board-ui/` and links to the Battlefield site. Battlefield gets its own landing page (hero arena on the game sprites). | E1 moves `board-ui/` from dom-battlefield into the engine repo |
 | 2026-10-27 | Plan | Plan written from a code inventory of all six repos and a prior-art survey. Battlefield 0.15.8 shipped after a regression audit (fixes for touch double-fires, Menu following the header link, plan lost on resize, Enter clearing routes). Baseline to freeze: hub 0.40.9 + the games in `games.json` + Battlefield 0.15.8. | E0: tag baselines, archive selector for Battlefield, perf harness |
 
 ---

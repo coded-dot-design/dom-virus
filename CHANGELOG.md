@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.44.0
+
+Site kit 1.47.0:
+- Board UI moved to DOM Battlefield: the kit, tokens and spec now live in `dom-battlefield/board-ui/`, and the live style guide is on Battlefield's own site (https://coded-dot-design.github.io/dom-battlefield/style-guide/). The hub drops its `/board-ui/` page (old links redirect there) and the kit from its type check.
+- The Battlefield page links to the game's new website (a landing page with a live battle in the hero) and to the style guide.
+
 ## 0.43.8
 
 Site kit 1.46.8:

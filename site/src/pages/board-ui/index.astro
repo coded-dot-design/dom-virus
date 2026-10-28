@@ -1,8 +1,17 @@
 ---
-// Board UI: the game board and controls design system (board-ui/ kit), shown live.
-import Site from '@site-kit/components/Site.astro';
-import data from '@site-data';
+// Board UI moved to DOM Battlefield's own site; old links land there.
+const to = 'https://coded-dot-design.github.io/dom-battlefield/style-guide/';
 ---
-<Site data={data} page="boardui" />
-
-<script>import "@site-kit/client.ts";</script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Board UI moved</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={to} />
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+  </head>
+  <body>
+    <p>Board UI now lives on the DOM Battlefield site: <a href={to}>{to}</a></p>
+  </body>
+</html>
