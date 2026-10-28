@@ -4,10 +4,9 @@ Status: **Phase E0 (baseline) in progress** (perf harness and baseline numbers d
 [Progress log](#progress-log) at the end of every working session. This file is the plan and the
 handoff: an agent or a person should be able to start from here with no other context.
 
-Working name: **Capsid** (placeholder: the final name is friendlier, see section 7) (a capsid is the tiny protein shell that carries a virus's payload: the
-engine is the small shell a page's game or interaction rides in). Alternatives if it doesn't stick:
-*Strain*, *Mote*, *Spore*, *Rampage* (it should look and feel like Rampage, in the browser). Decide in
-E1 before the package name is published.
+Name: **Fizlet** (decided 2026-10-28; npm name `fizlet` is free). A small fizz-pop of a thing:
+tiny, light, quick, gone cleanly. Package `fizlet`, repo `coded-dot-design/fizlet`. Runner-up
+**BitKapow** is kept for the effects brick or a Blitz power-up.
 
 ---
 
@@ -127,26 +126,26 @@ declares what it needs. A **game harness** is a config that composes harnesses f
 interaction.
 
 ```
-@capsid/kernel      clock · scheduler · lifecycle · signal · caps/stats · pools · ledger · writer
-@capsid/board-page  the page as the world: glyph/element scan, cached geometry, spatial grid, recall
-@capsid/board-grid  a tile world: tiles, generator hooks, BFS/flow fields, line of sight
-@capsid/input       controller harness: keys, pointer, touch stick, press keys, gamepad → intents
-@capsid/actor       character harness: position, velocity, heading, hp, team; pooled
-@capsid/steer       steering: seek, flee, arrive, follow-path, orbit, wander, avoid (probe), separation
-@capsid/collide     collision + reconcile: AABB, circle, swept segment, tile probes, spatial hash
-@capsid/aim         aim harness: nearest / nearest-visible / lock / lead targeting, turret turn rate
-@capsid/rules       logic harness: waves, objectives, timers, scoring, win/lose, seeded random
-@capsid/sound       sound adapter: tiny synth (default), cue map, voice cap, gesture unlock
-@capsid/view-dom    render adapters: DOM node per actor, cached canvas sprite tiles, SVG layer, pools
-@capsid/camera      follow with dead zone, bounds, margins, pan
-@capsid/fx          particles, popups, flashes (WAAPI one-shots outside the tick)
-@capsid/presence    multiplayer/presence: rooms, command stream, snapshots, interpolation, agents
-@capsid/embed       drop-in install: palette, lazy load, easter-egg triggers, open/close toggle (from Swarm's loader)
-@capsid/ui          the Board UI kit (dom-battlefield/board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
+fizlet/kernel      clock · scheduler · lifecycle · signal · caps/stats · pools · ledger · writer
+fizlet/board-page  the page as the world: glyph/element scan, cached geometry, spatial grid, recall
+fizlet/board-grid  a tile world: tiles, generator hooks, BFS/flow fields, line of sight
+fizlet/input       controller harness: keys, pointer, touch stick, press keys, gamepad → intents
+fizlet/actor       character harness: position, velocity, heading, hp, team; pooled
+fizlet/steer       steering: seek, flee, arrive, follow-path, orbit, wander, avoid (probe), separation
+fizlet/collide     collision + reconcile: AABB, circle, swept segment, tile probes, spatial hash
+fizlet/aim         aim harness: nearest / nearest-visible / lock / lead targeting, turret turn rate
+fizlet/rules       logic harness: waves, objectives, timers, scoring, win/lose, seeded random
+fizlet/sound       sound adapter: tiny synth (default), cue map, voice cap, gesture unlock
+fizlet/view-dom    render adapters: DOM node per actor, cached canvas sprite tiles, SVG layer, pools
+fizlet/camera      follow with dead zone, bounds, margins, pan
+fizlet/fx          particles, popups, flashes (WAAPI one-shots outside the tick)
+fizlet/presence    multiplayer/presence: rooms, command stream, snapshots, interpolation, agents
+fizlet/embed       drop-in install: palette, lazy load, easter-egg triggers, open/close toggle (from Swarm's loader)
+fizlet/ui          the Board UI kit (dom-battlefield/board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
 ```
 
-Names are placeholders. In E1 decide between one package with subpath exports
-(`capsid/input`, recommended: one version, tree-shakable) and many packages.
+One package with subpath exports (`fizlet/input`, recommended: one version, tree-shakable);
+confirm in E1.
 
 ### 4.1 Kernel (≤ 4 KB)
 
@@ -214,7 +213,7 @@ easterEgg: {
   a timestamp (typed text is never stored or sent); gesture timers exist only while a gesture is in
   progress; a route change cancels a pending load; `destroy()` removes every listener.
 - **Swarm today** hard-codes this in `swarm-protocol/src/swarm-loader.ts` (sequence, footer
-  hold-tap, pill). E2 moves it into `@capsid/embed`; Swarm's engine cut uses the harness with
+  hold-tap, pill). E2 moves it into `fizlet/embed`; Swarm's engine cut uses the harness with
   `easterEgg: true` and keeps its exact behaviour (its tests port over).
 
 ### 4.5 Game harness (composition)
@@ -293,7 +292,7 @@ its per-frame `getBoundingClientRect`); Battlefield runs ≈48 layouts/s (worth 
 Bytes and Null Invaders hold 60 fps.
 
 ### E1: Kernel
-- Create the engine repo (`coded-dot-design/<name>`), move `board-ui/` (now in dom-battlefield) and the core there, and
+- Create the engine repo (`coded-dot-design/fizlet`), move `board-ui/` (now in dom-battlefield) and the core there, and
   publish it as one package with subpath exports. Then build, in that repo, the
   kernel: scheduler, fixed step, lifecycle with `AbortSignal`, caps/stats, pools, ledger (from
   `ledger.ts`, merged with Swarm's attribute/style ledger), keyed writer, seeded random.
@@ -352,8 +351,8 @@ Extract in this order (each with unit tests, size check and an example):
 
 ## 7. Open decisions
 
-- Name: something friendly, not virus-themed (the engine is the product; DOM VIRUS is one
-  showcase). Shortlist: Mote, Glint, Pip, Sprig, Kite; also Rampage. Capsid / Strain / Spore are out.
+- ~~Name~~ **Decided 2026-10-28: Fizlet** (`fizlet` on npm, `coded-dot-design/fizlet`). Final two
+  were Fizlet and BitKapow; BitKapow is kept for the effects brick or a Blitz power-up.
 - One package with subpaths vs many packages.
 - Licence for everything (MIT recommended; the hub, games and engine are open).
 - ~~Engine location~~ **Decided 2026-10-28: its own repo** in the coded-dot-design org, with a
@@ -382,6 +381,7 @@ Extract in this order (each with unit tests, size check and an example):
 | 2026-10-28 | E0 | Board UI design system shipped (`board-ui/`, `/board-ui/`, hub 0.43.0) as the `ui` brick. Plan: event ring + sound adapter (4.3), embed config with palette and easter-egg triggers lifted from Swarm (4.4), `embed` and `ui` harnesses in E2. E0: perf harness + baseline numbers + baseline commits recorded. | Tag baselines (needs push access); Battlefield archive selector; then E1 |
 | 2026-10-28 | E0 | Board UI moved to the Battlefield repo with its live guide (`dom-battlefield/style-guide/`); DOM VIRUS drops `/board-ui/` and links to the Battlefield site. Battlefield gets its own landing page (hero arena on the game sprites). | E1 moves `board-ui/` from dom-battlefield into the engine repo |
 | 2026-10-28 | E0 | Game plan: `GAMES.md` (Battlefield Blitz, DOM Crossfire, DOM Kaiju, DOM Flock, in that order). Blitz and Crossfire are the quick first engine test runs; DOM Kaiju (`docs/games/dom-kaiju.md`) is the big one (embed + board builds, section 10 lists what it must prove). Hub `/coming-soon/` page and a COMING SOON cartridge. | Engine name and repo from the owner, then E1 |
+| 2026-10-28 | E0 | **Engine named Fizlet** (npm `fizlet` free; repo `coded-dot-design/fizlet`). | Owner creates the empty repo; then E1 (kernel) starts there |
 | 2026-10-27 | Plan | Plan written from a code inventory of all six repos and a prior-art survey. Battlefield 0.15.8 shipped after a regression audit (fixes for touch double-fires, Menu following the header link, plan lost on resize, Enter clearing routes). Baseline to freeze: hub 0.40.9 + the games in `games.json` + Battlefield 0.15.8. | E0: tag baselines, archive selector for Battlefield, perf harness |
 
 ---
