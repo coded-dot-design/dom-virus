@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.6
+
+Site kit 1.46.6:
+- Ships DOM Battlefield 0.18.9: on a compact desktop the planning footer drops a big platoon (more than four tanks below 1160px) instead of wrapping onto two rows.
+
 ## 0.43.5
 
 Site kit 1.46.5:
