@@ -9,7 +9,8 @@ site, every game and the Fizlet engine. It decides structure and voice. The visu
 - Phase: **2** (marketing clean-up and cut-over). Phase 1 is frozen: see
   [`docs/phase-1/`](../docs/phase-1/README.md).
 - Owner: Chris Cooley · [coded.design](https://coded.design). Ask before changing anything marked
-  **Decision** or **Open question**.
+  **Decision** or **Open question**. Every open question across the family, with a recommendation:
+  [`DECISIONS.md`](DECISIONS.md).
 
 ---
 
@@ -42,9 +43,13 @@ Rules:
   marketing engine (astro-base-engine, see §11). Brands change the look, never the frame.
 - **Credit**, visible on every page: **By Chris Cooley · coded.design**, with coded.design linked
   to <https://coded.design>.
-- **Default design style:** cyberpunk meets Tron. Dark by default, light theme supported everywhere,
-  neon accents on deep navy, pixel characters, mono type, hard bases straight below (never to the
-  side unless a brand's cartridge says so).
+- **Default design style:** cyberpunk meets Tron. Dark and light themes everywhere (the theme
+  default is per brand: the hub follows the system setting, Battlefield and Fizlet start dark),
+  neon accents on deep navy, pixel characters, mono type, hard unblurred shadows.
+- **Shadow direction is a brand parameter** (`--shadow-angle`, to be added in the clean-up; today
+  each site hard-codes it): the DOM VIRUS hub falls **45° down-right** (keys, cartridges, console),
+  Battlefield, Blitz and the Board UI kit fall **straight down**. The shared cartridge and key take
+  the angle from the brand; never mix directions within one brand.
 - **Flat colour for performance.** No gradients, blurs or glows in the game layer unless measured.
   Shadows are hard and offset, not blurred.
 - **Size is a recurring theme.** Every game landing page states the delivered, compressed size
@@ -152,7 +157,7 @@ standard set: about, contact, privacy, terms, 404, sitemap, campaign landing pag
 
 **Game templates**
 - **Cartridge**: shared component; the shadow angle, cover art and colours come from the brand
-  (`--shadow-angle` per brand). Carries the number, gameplay tag, name, tagline and the console
+  (`--shadow-angle` per brand: 45° on the hub, straight down on Battlefield). Carries the number, gameplay tag, name, tagline and the console
   actions (START / INFO / LAUNCH).
 - **Coming-soon page** (`/coming-soon/<game>/`): character first pass, game description, gameplay
   logic, hero inspiration preview (the browser-skeleton hero from the embedded template), cartridge
