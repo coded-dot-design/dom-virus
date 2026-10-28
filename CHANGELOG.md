@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.43.5
+
+Site kit 1.46.5:
+- Ships DOM Battlefield 0.18.8: the plan card's order pill sits flat on the top edge opposite the LOADOUT tab and pulses with the selected tank key, sent command locations read as radio talk (ROGER · GRID 0412), and Move HQ shows the HQ icon in the badge.
+- Board UI spec: status pill placement, radio-talk labels, and mode badges.
+
 ## 0.43.4
 
 Site kit 1.46.4:

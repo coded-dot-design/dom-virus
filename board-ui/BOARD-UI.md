@@ -253,9 +253,17 @@ Rename per game (e.g. SQUAD, CREW, SHIPS) but keep the grammar.
 - **Height**: a card fits its content, up to a cap (the map height minus room for the launch key);
   its body scrolls past the cap. A resize handle can shorten a card, never stretch it past its
   content. No empty card over the map.
-- **Status pill** (per-unit cards): top right, in the colour and icon of the unit's current order
-  (attack, fall in, command, repair = team) or grey for no order. Hidden in modes where it doesn't
-  apply (e.g. Move HQ). No "mode" line on the card: the comms toast states the mode.
+- **Status pill** (per-unit cards): on the top edge, right side, opposite the back tab (top -12u,
+  right 14u, 22u tall). Flat: no hard shadow, because it is a readout, not a key. It breathes with
+  the same locked glow as the selected unit key, so the pill and the key read as one. Colour and
+  icon follow the unit's current order (attack, fall in, command, repair = team); grey and still
+  for no order. Labels are short radio talk: PLOTTING (unsent route), ROGER · GRID 0412 (command
+  location sent; the grid of the last waypoint), ATTACKING HQ, FOLLOWING YOU, HOLDING, REPAIRING,
+  ON ITS OWN. Hidden in modes where it doesn't apply (e.g. Move HQ) and when the card is folded.
+  No "mode" line on the card: the comms toast states the mode. With the pill on the edge, the
+  card's mode switch and the unit number sit opposite each other on the body row.
+- **Badge in a mode**: when a mode replaces the unit (Move HQ), the badge shows that mode's icon
+  (the HQ glyph) and the title names the mode. Never an empty box.
 - **Step keys** (orbit): beside settings cards, never beside the plan card; hidden when the card is
   folded. Round on phones (icon and caption together), rounded squares (14u) on desktop.
 - **The first step is keys, not cards**: the step-picker keys have no grip and never drag; only the
