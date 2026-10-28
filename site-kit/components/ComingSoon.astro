@@ -12,7 +12,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
   <div class="section-heading"><span class="eyebrow"><span class="index">NEXT</span> COMING SOON / ON THE BENCH</span><span class="version">PLANS, NOT PROMISES</span></div>
   <div class="soon-intro">
     <h1 id="soon-title">Coming soon.<br/><em>Louder.</em></h1>
-    <p class="lead">Four new cartridges and a shared engine. The bar for every one of them: the explosions on our home page and the tanks wrecking the DOM Battlefield site. That is the floor.</p>
+    <p class="lead">Four new cartridges and a shared engine. The first one is already out. The bar for every one of them: the explosions on our home page and the tanks wrecking the DOM Battlefield site. That is the floor.</p>
   </div>
 
   <ol class="soon-games">
@@ -28,6 +28,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
         <p>{g.line}</p>
         <ul>{g.points.map((p) => <li>{p}</li>)}</ul>
         <div class="soon-links">
+          {g.play && <a class="button primary" href={g.play}><UiIcon name="play" size={18}/> Play it now</a>}
           {g.page && <a class="button primary" href={`${base}${g.page}`}><UiIcon name="cartridge" size={18}/> Details</a>}
           <a class="button" href={g.doc}><UiIcon name="github" size={18}/> Design notes</a>
         </div>
@@ -37,7 +38,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
 
   <div class="soon-phase">
     <span class="eyebrow"><span class="index">ENG</span> THE NEXT PHASE</span>
-    <h2>One engine under every cartridge.</h2>
+    <h2>One engine under every cartridge: Fizlet.</h2>
     <p class="phase-lead">The games share one small engine: one loop, one way to read the page and give it back, one set of keys. Then every cartridge gets faster, and new games take days, not weeks.</p>
     <ol class="phase-steps">{NEXT_PHASE.map((p) => <li class="card"><span class="tag">{p.tag}</span><div><h3>{p.title}</h3><p>{p.body}</p></div></li>)}</ol>
     <h3 class="opt-title">Optimisation targets (from the baseline)</h3>
@@ -64,6 +65,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
 .soon-art :global(svg){width:46px;height:46px}
 .soon-n{font:800 28px var(--mono);color:var(--accent-text,var(--accent))}
 .soon-status{margin-left:auto;padding:4px 8px;font:700 10px var(--mono);letter-spacing:.12em;border:2px solid var(--ink);border-radius:4px}
+.soon-status.playable{color:#07060f;background:#39ffb0}
 .soon-status.next-up{color:var(--accent-ink);background:var(--accent);animation:soon-blink 1.2s steps(2) infinite}
 .soon-status.planned{color:var(--ink);background:var(--surface)}
 .soon-status.idea{color:var(--muted);background:transparent;border-style:dashed}
@@ -86,5 +88,6 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
 .soon-phase .nerd-link{margin-top:18px}
 @media (max-width:860px){.soon-games{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){.soon-page{padding:28px 20px 60px}}
-@media (prefers-reduced-motion:reduce){.soon-status.next-up{animation:none}}
+@media (prefers-reduced-motion:reduce){.soon-status.playable{color:#07060f;background:#39ffb0}
+.soon-status.next-up{animation:none}}
 </style>

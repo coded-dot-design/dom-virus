@@ -13,7 +13,7 @@ heals on Recall.
 
 | # | Game | One line | Status | Design |
 |---|---|---|---|---|
-| 1 | **Battlefield Blitz** | DOM Battlefield's fast arcade cut: the landing-page arena as a real game. Waves, airstrikes, chaos. | Next up | below |
+| 1 | **Battlefield Blitz** | The Blitz version of DOM Battlefield: free for all, parachute respawns, the blinking grid, airstrikes. | **Playable (0.1.0)** | [repo](https://github.com/coded-dot-design/dom-battlefield-blitz), [play](https://coded-dot-design.github.io/dom-battlefield/blitz/) |
 | 2 | **DOM Crossfire** | The mash-up: the DOM VIRUS hero (interceptor, skulls, bad guys) meets the Battlefield arena (tanks, airstrikes) on one page. | Next up | below |
 | 3 | **DOM Kaiju** | A giant pixel gorilla climbs your page from the footer to the top, smashing text while choppers swarm. | Planned (engine test) | [`docs/games/dom-kaiju.md`](docs/games/dom-kaiju.md) |
 | 4 | **DOM Flock** | The light-gun duck shoot: birds burst out of the page and you're the crosshair. | Idea | below |
@@ -22,7 +22,12 @@ Battlefield (the original, "OG") stays the full tactics game; Blitz is its arcad
 
 ---
 
-## 1. Battlefield Blitz (next up)
+## 1. Battlefield Blitz (playable: 0.1.0)
+
+Shipped 2026-10-28 as a free-for-all (the brief changed from waves to every-tank-for-itself):
+repo `dom-battlefield-blitz`, built on Fizlet; pages on the Battlefield site (`/blitz/`,
+`/blitz/play/`, drop-in `/blitz/blitz.js`). Below is the original plan; waves, bosses and more
+power-ups can come later as modes.
 
 **Why first:** it already exists as the DOM Battlefield landing hero (`arena.ts`, ≈600 lines, game
 tank sprites, one canvas). Turning it into a game is mostly rules and UI, so it is the quickest

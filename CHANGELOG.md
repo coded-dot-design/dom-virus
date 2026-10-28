@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.46.0
+
+Site kit 1.49.0:
+- **Battlefield Blitz is playable**: the coming-soon page marks it PLAYABLE with a Play it now key (it lives on the DOM Battlefield site, code in `dom-battlefield-blitz`, built on Fizlet). The Battlefield page links it.
+- The engine has a name and a release: **Fizlet** 0.2 (kernel + input, collide, fx, sound, embed). `ENGINE.md` logs E1 done and E2 started; `GAMES.md` updated.
+
 ## 0.45.0
 
 Site kit 1.48.0:

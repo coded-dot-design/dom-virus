@@ -310,7 +310,7 @@ try {
   // Battlefield links out to its own site (landing page and the Board UI style guide).
   await page.goto(base + "games/battlefield/");
   const outs = await page.locator(".board-design a.nerd-link").evaluateAll((as) => as.map((a) => a.href));
-  assert.deepEqual(outs, ["https://coded-dot-design.github.io/dom-battlefield/", "https://coded-dot-design.github.io/dom-battlefield/style-guide/"]);
+  assert.deepEqual(outs, ["https://coded-dot-design.github.io/dom-battlefield/", "https://coded-dot-design.github.io/dom-battlefield/blitz/", "https://coded-dot-design.github.io/dom-battlefield/style-guide/"]);
   assert.equal(await page.locator('.actions a[href="https://coded-dot-design.github.io/dom-battlefield/"]').count(), 1, "Battlefield has a website key");
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   // Coming soon: the list page, the Kaiju details page and its COMING SOON cartridge on the shelf.

@@ -6,7 +6,7 @@ const GH = "https://github.com/coded-dot-design/dom-virus/blob/main";
 export type SoonGame = {
   id: string;
   n: string;
-  status: "NEXT UP" | "PLANNED" | "IDEA";
+  status: "PLAYABLE" | "NEXT UP" | "PLANNED" | "IDEA";
   name: string;
   kind: string;
   accent: "cyan" | "violet" | "lime" | "pink";
@@ -14,6 +14,8 @@ export type SoonGame = {
   points: string[];
   /** Hub detail page (relative to base), if it has one. */
   page?: string;
+  /** Where to play it now (absolute URL), once it's playable. */
+  play?: string;
   doc: string;
 };
 
@@ -21,18 +23,19 @@ export const SOON_GAMES: SoonGame[] = [
   {
     id: "blitz",
     n: "01",
-    status: "NEXT UP",
+    status: "PLAYABLE",
     name: "Battlefield Blitz",
     kind: "ARCADE TANKS",
     accent: "cyan",
-    line: "DOM Battlefield's fast arcade cut: the landing-page battle becomes a real game.",
+    line: "The Blitz version of DOM Battlefield: free for all, every tank parachutes in, most kills in three minutes wins.",
     points: [
-      "Endless waves of tanks pour in from the edges; a boss every fifth wave",
-      "Tap anywhere for airstrikes: multi-blast, letters knocked flying",
-      "Treads flatten headings, shells chew cards, Recall heals the page",
-      "Combos, slow-mo last kills, power-ups: cluster strike, shield, nuke",
+      "Eight tanks, no teams: die and drop back in by parachute",
+      "The grid blinks: slot-machine squares settle into rapid fire, triple shot, airstrikes, shields or mines",
+      "Airstrikes land three blasts wherever you point",
+      "Drops onto any website with one line: shells knock the page's headings, Escape restores it",
     ],
-    doc: `${GH}/GAMES.md#1-battlefield-blitz-next-up`,
+    play: "https://coded-dot-design.github.io/dom-battlefield/blitz/",
+    doc: "https://github.com/coded-dot-design/dom-battlefield-blitz#readme",
   },
   {
     id: "crossfire",
