@@ -249,8 +249,10 @@ Rename per game (e.g. SQUAD, CREW, SHIPS) but keep the grammar.
   that key; a hover/focus tip says "Click to shrink" / "Click to expand". A hint strip (CLICK THE
   NUMBER TO SHRINK) shows on first open.
 - **Back tab** (`.bui-back-tab`): "‹ PREVIOUS STEP" on the top edge, left side, cmd, 22u tall.
-- **Round step keys** (orbit): beside settings cards, never beside the plan card; hidden when the
-  card is folded.
+- **Step keys** (orbit): beside settings cards, never beside the plan card; hidden when the card is
+  folded. Round on phones (icon and caption together), rounded squares (14u) on desktop.
+- **The first step is keys, not cards**: the step-picker keys have no grip and never drag; only the
+  cards they open do.
 
 ### 7.2 Placement rules
 
@@ -262,8 +264,9 @@ Rename per game (e.g. SQUAD, CREW, SHIPS) but keep the grammar.
    offers one back tab instead.
 4. Desktop battle: the plan card starts **shrunk, top-left**, the per-unit orders card **unpinned**
    beside it. Shrink/expand and pin/unpin are remembered (`<game>:battle-cards`).
-5. Full screen: the roster card waits top-right until the map's mini-map exists, then sits under
-   it. Never in the middle (it would cover the launch key).
+5. Full screen: the roster card waits in the map's top corner on **your team's side** (settings
+   cards sit on the far side) until the mini-map exists, then sits under it. Never in the middle
+   (it would cover the launch key).
 
 ### 7.3 Orders card (per-unit tooltip)
 

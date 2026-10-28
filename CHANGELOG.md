@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.3
+
+Site kit 1.46.3:
+- Ships DOM Battlefield 0.18.6: the first planning step's three keys no longer drag, desktop step keys are rounded squares, phone step keys keep icon and caption together, and in full screen the waiting platoon card sits on your team's side.
+
 ## 0.43.2
 
 Site kit 1.46.2:
