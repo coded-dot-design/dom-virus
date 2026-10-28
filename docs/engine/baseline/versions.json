@@ -1,0 +1,20 @@
+{
+  "note": "Engine E0 baseline: the builds every engine port is compared against. Tag each commit `engine-baseline` (and `phase-1`).",
+  "date": "2026-10-28",
+  "hub": "0.43.0",
+  "games": {
+    "sherman-bytes": "v0.5.2",
+    "swarm-protocol": "v1.3.1",
+    "byte-runner": "v0.10.2",
+    "null-invaders": "v0.7.2"
+  },
+  "battlefield": "v0.18.4",
+  "commits": {
+    "dom-virus": "f2e5e7ed334b7f46f49ea49cc5372cf11d1ae814",
+    "dom-battlefield": "61ed8f35af989b9915040296a7ca4331e22e7fa1",
+    "sherman-bytes": "caa1dbf2cf5c6524887babd83ac2851f9bf24039",
+    "byte-runner": "cd18396af591149f37fbb7676a709d90dccb827f",
+    "swarm-protocol": "03156d2e8e437c550e98f4ace4d4d1aba87867db",
+    "null-invaders": "3d18d664e5f5e52062b61af277c82c45d2d54056"
+  }
+}

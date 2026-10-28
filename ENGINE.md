@@ -1,12 +1,13 @@
 # Engine phase: the micro DOM game engine
 
-Status: **Phase E0 (baseline) not started.** Owner: whoever picks this up. Update the
+Status: **Phase E0 (baseline) in progress** (perf harness and baseline numbers done; tags and the Battlefield archive selector next). Owner: whoever picks this up. Update the
 [Progress log](#progress-log) at the end of every working session. This file is the plan and the
 handoff: an agent or a person should be able to start from here with no other context.
 
 Working name: **Capsid** (a capsid is the tiny protein shell that carries a virus's payload: the
 engine is the small shell a page's game or interaction rides in). Alternatives if it doesn't stick:
-*Strain*, *Mote*, *Spore*. Decide in E1 before the package name is published.
+*Strain*, *Mote*, *Spore*, *Rampage* (it should look and feel like Rampage, in the browser). Decide in
+E1 before the package name is published.
 
 ---
 
@@ -140,6 +141,7 @@ interaction.
 @capsid/camera      follow with dead zone, bounds, margins, pan
 @capsid/fx          particles, popups, flashes (WAAPI one-shots outside the tick)
 @capsid/presence    multiplayer/presence: rooms, command stream, snapshots, interpolation, agents
+@capsid/embed       drop-in install: palette, lazy load, easter-egg triggers, open/close toggle (from Swarm's loader)
 @capsid/ui          the Board UI kit (board-ui/, spec BOARD-UI.md): keys, cards, overlays, bursts; not in kernel
 ```
 
@@ -166,7 +168,56 @@ Simulation state is plain, serializable data (Battlefield's `model.ts` is the re
 closures, fixed-capacity arrays. That enables snapshots (rollback, replays, archives), tests without
 a browser, and the presence harness.
 
-### 4.3 Game harness (composition)
+### 4.3 Events and the sound adapter
+
+Harnesses talk through one fixed-capacity **event ring** per step (no callbacks in the hot path):
+`collide` emits contacts (`{kind: "hit" | "touch" | "block", a, b, impulse}`), `rules` emits game
+events (`score`, `wave`, `win`), `actor` emits `spawn` / `destroyed`. The **sound adapter** reads the
+ring after the step and maps events to cues through a cue map (`{ hit: "hit", "touch:wall": "bump" }`)
+with per-cue cooldowns and the voice cap, so collisions make sound without collide knowing about
+audio. The default adapter is the tiny synth (core `audio.ts`); a game can pass its own adapter
+(`{ play(cue, intensity) }`, e.g. sampled sounds) or none. Audio still unlocks on the first trusted
+gesture and stays silent while paused or hidden.
+
+### 4.4 Embed config (palette and easter egg)
+
+Every game or interaction mounts with one small, serializable config, so a site can drop it in:
+
+```ts
+mount(game, {
+  root,                                  // where it lives (default: a fixed host on <body>)
+  palette: { cmd: "#8573ee", teamA: "#4bce82" },   // hex only, any subset (Board UI roles)
+  easterEgg: true,                       // or false (default) or an object, below
+});
+
+easterEgg: {
+  sequence: "konami" | false | string[], // keys; default "konami" = ↑ ↑ ↓ ↓ ← → ← → B A Enter (Swarm's)
+  gesture: { on: "selector", type: "hold-tap" | "double-tap" | "long-press" } | false,
+  click: "selector" | false,             // a host button that opens the game
+  scope: { sequence: "desktop", gesture: "mobile", click: "all" },  // per trigger
+  toggle: true,                          // the floating open / close key once unlocked
+}
+```
+
+- **Palette:** the Board UI roles (`board-ui/BOARD-UI.md` section 3). Validated as hex; anything
+  else is ignored, so an embed can never inject CSS. This is the fix for "the colours clash with
+  my site": the host passes its brand colours, everything else is derived.
+- **`easterEgg: false`** (default): the game mounts normally (or the host calls `open()` itself).
+- **`easterEgg: true`**: dormant install. Nothing heavy loads; only tiny input listeners run. The
+  default triggers are the Konami sequence on desktop and a hold-release-tap on any element marked
+  `[data-<game>-trigger]` on touch. A trigger **lazy-loads** the game module, then shows the
+  game with the **toggle** key (open / minimise / close). Escape closes and restores the page.
+- **Triggers:** a key sequence (any list), a gesture on a selector (hold-then-tap, double tap,
+  long press), or a click on a selector; each can be scoped to desktop, mobile or both.
+- **Safety and privacy (from Swarm, keep):** keys inside inputs, editable content, dialogs and
+  `[data-<game>-ignore]` never advance a sequence; the sequence keeps only an integer position and
+  a timestamp (typed text is never stored or sent); gesture timers exist only while a gesture is in
+  progress; a route change cancels a pending load; `destroy()` removes every listener.
+- **Swarm today** hard-codes this in `swarm-protocol/src/swarm-loader.ts` (sequence, footer
+  hold-tap, pill). E2 moves it into `@capsid/embed`; Swarm's engine cut uses the harness with
+  `easterEgg: true` and keeps its exact behaviour (its tests port over).
+
+### 4.5 Game harness (composition)
 
 ```ts
 const game = defineGame({
@@ -226,6 +277,21 @@ Each phase ends with a tagged release, green CI, updated docs and a progress-log
 
 **Exit:** baseline numbers for all six apps checked in under `docs/engine/baseline/`.
 
+Progress:
+- [x] Perf harness: `npm run perf:baseline` (`scripts/perf-baseline.mjs`) plays every app from the
+  built hub under a 4x CPU throttle; writes `docs/engine/baseline/<app>.json` + `summary.md`.
+- [x] Baseline numbers recorded (2026-10-28, hub 0.43.0): `docs/engine/baseline/summary.md`.
+- [x] Baseline commits recorded: `docs/engine/baseline/versions.json`.
+- [ ] Tag those commits `engine-baseline` in every repo (cloud sessions can't push tags; run the
+  command in `docs/engine/baseline/README.md` from a machine with push access).
+- [ ] Battlefield archive selector (versioned `/battlefield/vX.Y.Z/` paths + a selector on its page).
+- [ ] Hub TEST A RELEASE selector covering every current game version.
+
+Baseline findings (first perf targets): **Swarm Protocol** is the heaviest (≈32 fps, 18 long tasks
+in 10s, ≈200 ms/s script at 4x throttle); **Byte Runner** drops frames (≈48 fps, 44 layouts/s, from
+its per-frame `getBoundingClientRect`); Battlefield runs ≈48 layouts/s (worth a look). Sherman
+Bytes and Null Invaders hold 60 fps.
+
 ### E1: Kernel
 - Create the engine in this repo (`engine/` workspace or `src/engine/`; decide in E1) with the
   kernel: scheduler, fixed step, lifecycle with `AbortSignal`, caps/stats, pools, ledger (from
@@ -246,7 +312,10 @@ Extract in this order (each with unit tests, size check and an example):
 4. `aim`, `rules` (waves from `WaveDirector`, objectives from Battlefield).
 5. `board-page` (from `board.ts`), `board-grid` (from Battlefield `model.ts` + Byte Runner BFS).
 6. `view-dom` (merge the two canvas sprite caches; DOM node pools from Battlefield `view.ts`),
-   `camera`, `fx`, `sound`.
+   `camera`, `fx`, `sound` (adapter reading the event ring, section 4.3).
+7. `embed` (section 4.4): palette config, lazy load, easter-egg triggers and toggle, extracted
+   from Swarm's loader; remove the hard-coded copy from Swarm in its engine cut.
+8. `ui`: the Board UI kit (`board-ui/`) as the optional UI brick; Battlefield ports onto it in E3.
 
 **Exit:** every harness ≤ ~1.5 KB, documented, with a runnable example in `playground/`.
 
@@ -282,7 +351,7 @@ Extract in this order (each with unit tests, size check and an example):
 
 ## 7. Open decisions
 
-- Name (Capsid / Strain / Mote / Spore / other) and package scope.
+- Name (Capsid / Strain / Mote / Spore / Rampage / other) and package scope.
 - One package with subpaths vs many packages.
 - Licence for everything (MIT recommended; the hub, games and engine are open).
 - Engine location: inside dom-virus (recommended: it's already the core's home and the hub is the
@@ -307,6 +376,7 @@ Extract in this order (each with unit tests, size check and an example):
 
 | Date | Phase | What changed | Next |
 |---|---|---|---|
+| 2026-10-28 | E0 | Board UI design system shipped (`board-ui/`, `/board-ui/`, hub 0.43.0) as the `ui` brick. Plan: event ring + sound adapter (4.3), embed config with palette and easter-egg triggers lifted from Swarm (4.4), `embed` and `ui` harnesses in E2. E0: perf harness + baseline numbers + baseline commits recorded. | Tag baselines (needs push access); Battlefield archive selector; then E1 |
 | 2026-10-27 | Plan | Plan written from a code inventory of all six repos and a prior-art survey. Battlefield 0.15.8 shipped after a regression audit (fixes for touch double-fires, Menu following the header link, plan lost on resize, Enter clearing routes). Baseline to freeze: hub 0.40.9 + the games in `games.json` + Battlefield 0.15.8. | E0: tag baselines, archive selector for Battlefield, perf harness |
 
 ---

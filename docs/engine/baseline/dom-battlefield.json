@@ -1,0 +1,38 @@
+{
+  "app": "dom-battlefield",
+  "version": "0.18.4",
+  "hub": "0.43.0",
+  "date": "2026-10-28T01:52:52.861Z",
+  "started": true,
+  "setup": {
+    "cpuThrottle": 4,
+    "seconds": 10,
+    "warmMs": 2000,
+    "viewport": "1440x900",
+    "browser": "153.0.8010.12"
+  },
+  "frames": {
+    "count": 583,
+    "fps": 58.3,
+    "avgMs": 17.15,
+    "p95Ms": 16.8,
+    "maxMs": 33.4,
+    "over33ms": 2
+  },
+  "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "maxMs": 0
+  },
+  "heapMB": 3.95,
+  "domNodes": 2421,
+  "perSecond": {
+    "layouts": 48.1,
+    "styleRecalcs": 58.5,
+    "scriptMs": 95.7,
+    "layoutMs": 26.37,
+    "styleMs": 154.12,
+    "taskMs": 723.2
+  },
+  "errors": []
+}

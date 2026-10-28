@@ -1,0 +1,38 @@
+{
+  "app": "byte-runner",
+  "version": "0.10.2",
+  "hub": "0.43.0",
+  "date": "2026-10-28T01:52:25.820Z",
+  "started": true,
+  "setup": {
+    "cpuThrottle": 4,
+    "seconds": 10,
+    "warmMs": 2000,
+    "viewport": "1440x900",
+    "browser": "153.0.8010.12"
+  },
+  "frames": {
+    "count": 477,
+    "fps": 47.7,
+    "avgMs": 21.03,
+    "p95Ms": 33.4,
+    "maxMs": 66.6,
+    "over33ms": 29
+  },
+  "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "maxMs": 0
+  },
+  "heapMB": 4.3,
+  "domNodes": 1568,
+  "perSecond": {
+    "layouts": 43.7,
+    "styleRecalcs": 92.5,
+    "scriptMs": 89.27,
+    "layoutMs": 15.92,
+    "styleMs": 46.96,
+    "taskMs": 826.3
+  },
+  "errors": []
+}

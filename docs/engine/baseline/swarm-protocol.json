@@ -1,0 +1,38 @@
+{
+  "app": "swarm-protocol",
+  "version": "1.3.1",
+  "hub": "0.43.0",
+  "date": "2026-10-28T01:52:12.333Z",
+  "started": true,
+  "setup": {
+    "cpuThrottle": 4,
+    "seconds": 10,
+    "warmMs": 2000,
+    "viewport": "1440x900",
+    "browser": "153.0.8010.12"
+  },
+  "frames": {
+    "count": 319,
+    "fps": 31.9,
+    "avgMs": 31.29,
+    "p95Ms": 50.1,
+    "maxMs": 116.7,
+    "over33ms": 86
+  },
+  "longTasks": {
+    "count": 18,
+    "totalMs": 1141,
+    "maxMs": 103
+  },
+  "heapMB": 2.79,
+  "domNodes": 3979,
+  "perSecond": {
+    "layouts": 24.2,
+    "styleRecalcs": 50.4,
+    "scriptMs": 198.4,
+    "layoutMs": 22.03,
+    "styleMs": 184.04,
+    "taskMs": 966.77
+  },
+  "errors": []
+}

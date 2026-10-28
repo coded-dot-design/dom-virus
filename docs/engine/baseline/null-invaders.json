@@ -1,0 +1,38 @@
+{
+  "app": "null-invaders",
+  "version": "0.7.2",
+  "hub": "0.43.0",
+  "date": "2026-10-28T01:52:39.000Z",
+  "started": true,
+  "setup": {
+    "cpuThrottle": 4,
+    "seconds": 10,
+    "warmMs": 2000,
+    "viewport": "1440x900",
+    "browser": "153.0.8010.12"
+  },
+  "frames": {
+    "count": 599,
+    "fps": 59.9,
+    "avgMs": 16.69,
+    "p95Ms": 16.8,
+    "maxMs": 33.4,
+    "over33ms": 0
+  },
+  "longTasks": {
+    "count": 0,
+    "totalMs": 0,
+    "maxMs": 0
+  },
+  "heapMB": 3.2,
+  "domNodes": 1004,
+  "perSecond": {
+    "layouts": 5.8,
+    "styleRecalcs": 41.8,
+    "scriptMs": 51.97,
+    "layoutMs": 4.98,
+    "styleMs": 19.3,
+    "taskMs": 376.37
+  },
+  "errors": []
+}
