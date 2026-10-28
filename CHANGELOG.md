@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.8
+
+Site kit 1.46.8:
+- Ships DOM Battlefield 0.18.10: on a compact desktop the planning footer switches to icon keys like battle does, so the AIM keys no longer overlap Attack.
+
 ## 0.43.7
 
 Site kit 1.46.7:
