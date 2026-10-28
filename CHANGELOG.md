@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.44.1
+
+Site kit 1.47.1:
+- Ships DOM Battlefield 0.18.12: your own tank's plan-card pill shows its real order (ATTACKING HQ, ROGER · GRID 0412, PLOTTING) and reads YOU'RE DRIVING when it has none, instead of always ON ITS OWN.
+
 ## 0.44.0
 
 Site kit 1.47.0:
