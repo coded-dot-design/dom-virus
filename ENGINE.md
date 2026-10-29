@@ -113,7 +113,7 @@ The engine is mostly **extraction and standardisation**, not invention. Details:
 | Locks | core `selection-lock`, `zoom-lock` | Already shared by copy |
 | Distribution | `sync-games.mjs` (minified core copy, pinned **0.21.0** in three games) and BF `sync-shared.mjs` | Two sync schemes; arcade games are 19 core versions behind |
 
-**Known facts to correct in docs:** FUTURE.md says the sim "is already fixed-step"; only
+**Known facts to correct in docs:** an older roadmap said the sim "is already fixed-step"; only
 Battlefield is. Core `board.consume` uses `Math.random()`, not the seeded random. Byte Runner reads
 `getBoundingClientRect` twice per frame (`syncPosition`).
 
@@ -247,7 +247,7 @@ client of a few KB and no game-specific server code beyond rules.
   already fixed-capacity, so snapshots are cheap).
 - **Transport adapter:** default reference server on Cloudflare Durable Objects / PartyKit
   (partysocket ≈ 4 KB, WebSocket hibernation keeps idle rooms cheap). WebRTC as an optional
-  peer-to-peer transport (FUTURE.md "Bolo promise"), not the default (NAT failures).
+  peer-to-peer transport (the "Bolo promise"), not the default (NAT failures).
 - **Agents as participants:** an AI agent joins a room like any player and emits the same command
   stream, validated by the same rules. This is the business case: an interactive element on a client
   site where a human or an agent can respond to a visitor (questions, guided tours, a lead form as a
@@ -360,17 +360,6 @@ Extract in this order (each with unit tests, size check and an example):
   Board UI kit and the core move to the engine repo in E1, and the hub consumes the engine package.
 - Whether the arcade games' `createArcade` API stays as a compatibility layer on top of the kernel.
 - Reference room host (Cloudflare account) and cost limits.
-
----
-
-## 8. How to work on this
-
-1. Read this file, then [HANDOFF.md](HANDOFF.md) (repo map, invariants, release discipline) and
-   [PERFORMANCE.md](PERFORMANCE.md) (current caps).
-2. Pick the first unchecked item in the current phase. Keep changes small and releasable.
-3. Keep the contract (section 2). If something can't, write it down here first.
-4. Before pushing: `npm run check`, the browser suites, and the perf harness once E0 exists.
-5. Update the progress log below, then commit with the code.
 
 ---
 
