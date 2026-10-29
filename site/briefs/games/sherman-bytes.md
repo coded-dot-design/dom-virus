@@ -35,4 +35,3 @@ A: Letters block tanks and shells, and direct hits turn nearby text into faint b
 title: Sherman Bytes: a pixel tank game that plays on your page
 description: Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.
 [/seo]
-
