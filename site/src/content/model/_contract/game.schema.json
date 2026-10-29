@@ -23,7 +23,7 @@
       "properties": {
         "runtime": { "enum": ["fizlet", "dom-virus-core", "own"], "description": "fizlet for every new game." },
         "bricks": { "type": "array", "items": { "enum": ["input", "collide", "fx", "sound", "embed", "ui", "debug", "hud", "pad", "sprite", "match", "grid", "slot"] } },
-        "recipe": { "enum": ["shoot", "dodge", "eat", "jump"], "description": "The gameplay recipe the scaffold composes (factory/templates/recipes/); default eat." }
+        "recipe": { "enum": ["shoot", "dodge", "eat", "jump", "board"], "description": "The gameplay recipe the scaffold composes (factory/templates/recipes/); default eat." }
       }
     },
     "budget": {
