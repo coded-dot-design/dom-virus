@@ -5,7 +5,7 @@ slug: about
 tags: [about, story, open-source]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS is a shelf of tiny arcade games that play on the real page you are reading. I'm Chris Cooley, and I make them on my own, under coded.design. Letters become terrain, buttons become bases, and Recall gives the page back when you are done.
 

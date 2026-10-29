@@ -10,7 +10,7 @@
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
-        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+        "sourceUrl": "/og/dom-virus.png"
       }
     }
   },

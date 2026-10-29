@@ -48,13 +48,9 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
 // page="engine" renders any engine page (blog, news, about, legal…) through EnginePage.
 const engineId=engineRoute||(page==='game'&&game?`games-${game.id}`:null);
 const enginePage=engineId?byId(engineId):undefined;
-const engineHead=headOf(enginePage);
+const engineHead=headOf(enginePage,pageUrl);
 // Cookieless analytics (brand/SITEMAP.md E8): only when the repository variable is set.
 const analyticsToken=import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
-if(engineHead){
-  const canonical=engineHead.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-  if(canonical!==pageUrl) throw new Error(`Engine head for ${engineId} has canonical ${canonical}, but this build serves ${pageUrl}. Update brand.siteUrl in site/engine.config.json and run npm run engine:heads.`);
-}
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">

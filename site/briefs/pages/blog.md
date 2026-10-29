@@ -6,7 +6,7 @@ eyebrow: BLOG / DEVLOG
 tags: [blog]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 The DOM VIRUS devlog, written by me, Chris Cooley. A new post lands every week. Where the ideas come from, how the games read the page and give it back, and what broke along the way.
 

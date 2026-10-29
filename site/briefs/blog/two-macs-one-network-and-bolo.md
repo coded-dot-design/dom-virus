@@ -5,7 +5,7 @@ slug: two-macs-one-network-and-bolo
 tags: [origin, bolo, multiplayer, sherman-bytes]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Every game on this site traces back to one room. It was a middle school engineering tech class, with a few networked Macs and a tank game called Bolo. The game was good. The network is what hooked me, and it still shapes how I build.
 

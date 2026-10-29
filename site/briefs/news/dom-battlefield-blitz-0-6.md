@@ -5,7 +5,7 @@ slug: dom-battlefield-blitz-0-6
 tags: [release, dom-battlefield-blitz]
 date: 2026-10-28
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Battlefield Blitz 0.6 brings DOM Battlefield's pause and result screens to the free-for-all, plus better spacing on phones. Battlefield Blitz is the arcade tank game: every tank for itself, parachute in, call airstrikes, and most kills in three minutes wins.
 

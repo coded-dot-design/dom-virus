@@ -4,7 +4,7 @@ title: DOM VIRUS launches with 10 games | Your page. Their playground.
 slug: dom-virus-launch
 tags: [launch, dom-virus]
 status: draft
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS launches with ten tiny arcade games that play on a real webpage. Letters become points, buttons become enemy factories, and Recall gives the page back. No install to play. Every game is open source under the MIT licence.
 

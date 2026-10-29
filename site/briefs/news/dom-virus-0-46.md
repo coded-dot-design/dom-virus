@@ -5,7 +5,7 @@ slug: dom-virus-0-46
 tags: [release, dom-virus]
 date: 2026-10-28
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny open-source arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back.
 

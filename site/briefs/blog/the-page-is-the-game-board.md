@@ -5,7 +5,7 @@ slug: the-page-is-the-game-board
 tags: [engine, recall, performance, sherman-bytes]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Most browser games bring their own world: a canvas, a level, a map someone drew. DOM VIRUS games use the one already in front of you. The page you are reading is the board, and the game plays on its real letters and buttons.
 

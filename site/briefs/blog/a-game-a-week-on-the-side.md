@@ -6,7 +6,7 @@ tags: [process, story, roadmap]
 date: 2026-11-12
 status: scheduled
 publishAt: 2026-11-12
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 I make DOM VIRUS on the side, for fun, and I ship roughly a game a week. That pace works because every game follows the same path. An idea page, a playable game on this site, and sometimes a board game of its own.
 

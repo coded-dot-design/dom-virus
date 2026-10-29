@@ -4,7 +4,7 @@ title: Sherman Bytes | Every page is a battlefield.
 slug: sherman-bytes
 eyebrow: 01 / DOM TANK
 tags: [embedded, tank, arcade]
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 slots: [characters, palette, embed]
 codeRepository: https://github.com/coded-dot-design/sherman-bytes
 ---

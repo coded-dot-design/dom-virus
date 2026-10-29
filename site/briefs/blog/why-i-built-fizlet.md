@@ -6,7 +6,7 @@ tags: [fizlet, engine, performance, open-source]
 date: 2026-11-26
 status: scheduled
 publishAt: 2026-11-26
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Fizlet is the small engine I wrote so each new game starts where the last one finished. It is a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today.
 

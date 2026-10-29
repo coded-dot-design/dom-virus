@@ -5,7 +5,7 @@ slug: press
 tags: [about, press]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS is a family of tiny open-source arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design.
 
