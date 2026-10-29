@@ -53,9 +53,17 @@ if (existsSync("site/redirects.json")) {
     assert(page.includes('content="noindex,follow"'), `Redirect ${from} must be noindex`);
     assert(existsSync(resolve(output, to, "index.html")), `Redirect target missing: ${to}`);
   }
-  const sitemap = readFileSync(resolve(output, "sitemap.xml"), "utf8");
-  assert(sitemap.includes("/about/</loc>") && !sitemap.includes("/under-the-hood/"), "Sitemap must list live pages only.");
-  assert(readFileSync(resolve(output, "robots.txt"), "utf8").includes("Sitemap: "), "robots.txt must point to the sitemap.");
+  // Discovery files per target (site-kit/scripts/sitemap.mjs): production has a sitemap and CNAME,
+  // staging only a robots.txt that blocks crawlers.
+  const robots = readFileSync(resolve(output, "robots.txt"), "utf8");
+  if (existsSync(resolve(output, "sitemap.xml"))) {
+    const sitemap = readFileSync(resolve(output, "sitemap.xml"), "utf8");
+    assert(sitemap.includes("/about/</loc>") && !sitemap.includes("/under-the-hood/"), "Sitemap must list live pages only.");
+    assert(robots.includes("Sitemap: "), "robots.txt must point to the sitemap.");
+    assert(existsSync(resolve(output, "CNAME")), "A production build names its domain in CNAME.");
+  } else {
+    assert(/Disallow: \/\n/.test(robots), "A staging build's robots.txt must block crawlers.");
+  }
   assert(readFileSync(resolve(output, "feed.xml"), "utf8").includes("<item>"), "RSS feed must have items.");
   // Drafts and not-yet-due scheduled pages never ship (E7).
   const pagesDir = "site/src/content/pages";

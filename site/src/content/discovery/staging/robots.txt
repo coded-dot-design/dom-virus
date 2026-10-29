@@ -1,0 +1,4 @@
+# DOM VIRUS — STAGING: block every crawler from the whole site; no sitemap.
+# AI training crawlers honour Disallow but not noindex, so this stays a blanket Disallow.
+User-agent: *
+Disallow: /
