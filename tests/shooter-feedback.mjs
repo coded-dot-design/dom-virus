@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { gameRoot } from "../scripts/game-paths.mjs";
+import { coreGameRoot as gameRoot } from "../scripts/game-paths.mjs";
 
 export async function checkShooterFeedback(page) {
   const urls = {

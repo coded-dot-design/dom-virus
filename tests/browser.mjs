@@ -9,7 +9,7 @@ import { resolve } from "node:path";
 import { checkAttachedEffects } from "./attached-effects.mjs";
 import { checkDomMutations } from "./dom-mutations.mjs";
 import { checkShooterFeedback } from "./shooter-feedback.mjs";
-import { gameRoot } from "../scripts/game-paths.mjs";
+import { coreGameRoot as gameRoot } from "../scripts/game-paths.mjs";
 const sourcePath = (name) => resolve(gameRoot(name), "src/simulation.ts");
 const sourceURLs = {
   board: "/@fs" + resolve("src/board.ts"),
