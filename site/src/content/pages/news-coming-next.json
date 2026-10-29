@@ -105,6 +105,14 @@
       "heading": "Related",
       "items": [
         {
+          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
+            "href": "/blog/two-macs-one-network-and-bolo"
+          }
+        },
+        {
           "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
           "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
           "link": {
@@ -118,14 +126,6 @@
           "link": {
             "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
             "href": "/news/dom-battlefield-blitz-0-6"
-          }
-        },
-        {
-          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
-          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
-          "link": {
-            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
-            "href": "/news/dom-virus-0-46"
           }
         }
       ]

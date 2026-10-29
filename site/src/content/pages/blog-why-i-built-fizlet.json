@@ -138,11 +138,11 @@
           }
         },
         {
-          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
-          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "title": "Open-source licences: MIT for every game | DOM VIRUS",
+          "body": "Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes.",
           "link": {
-            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
-            "href": "/news/fizlet-0-2"
+            "label": "Read: Open-source licences: MIT for every game | DOM VIRUS",
+            "href": "/legal/licenses"
           }
         }
       ]

@@ -15,6 +15,15 @@ Hand the prompt at the bottom to the astro-engine keeper as is.
   1 warning (`perf.js`, the game itself). The other three embedded game pages also pass now (heading
   order fixed in markup; screenshots pixel-identical to before).
 
+## Status (2026-10-29)
+
+Fixed in astro-engine `7c474b7`: 1–5, 7–8, 13–15, 17, 19–20 and batch produce; 6 (breadcrumbs) and
+18 (robots) have engine options (`breadcrumbs`, `head --json`). The hub now uses native `date:` and
+`knownRoutes`; `scripts/abe.py` is a plain launcher. Still open: a `game` preset (16), the
+robots swap in `site-kit/engine-content.ts` (until the layout reads `head --json`), and a new bug:
+batch `produce` picks "Related" only from pages outside the batch, so producing everything at once
+leaves posts with none (workaround: produce posts one at a time).
+
 ## Suggestions
 
 | # | Area | Friction seen | Workaround on the site | Suggested engine change |

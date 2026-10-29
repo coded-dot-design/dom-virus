@@ -1,5 +1,5 @@
 {
-  "$comment": "astro-base-engine config for the DOM VIRUS hub. Run the engine with --site site (the Astro srcDir is site/src, so page JSON lands in site/src/content/pages). brand.siteUrl is the live GitHub Pages address until domvirus.com is pointed (then change it here; family.json has the production URL). Rules: brand/README.md; decisions: brand/DECISIONS.md. Routes and page types: brand/SITEMAP.md. Produce with `python3 scripts/abe.py produce <brief> --site site --write` (adds the brief's `date:` as the publish date).",
+  "$comment": "astro-base-engine config for the DOM VIRUS hub. Run the engine with --site site (the Astro srcDir is site/src, so page JSON lands in site/src/content/pages). brand.siteUrl is the live GitHub Pages address until domvirus.com is pointed (then change it here; family.json has the production URL). Rules: brand/README.md; decisions: brand/DECISIONS.md. Routes and page types: brand/SITEMAP.md. Produce with `python3 scripts/abe.py produce <brief> --site site --write`.",
   "brand": {
     "name": "DOM VIRUS",
     "siteUrl": "https://coded-dot-design.github.io/dom-virus",
@@ -128,22 +128,13 @@
       "related": true
     }
   },
-  "siteRoutes": {
-    "$comment": "Routes the site renders itself (not engine pages). scripts/abe.py tells the engine they exist so links to them are not reported broken (ENGINE-SUGGESTIONS #19).",
-    "paths": [
-      "/",
-      "/engine/",
-      "/games/coming-soon/",
-      "/games/kaiju/",
-      "/games/battlefield/",
-      "/about/brand/",
-      "/about/brand/archive/",
-      "/feed.xml",
-      "/battlefield/",
-      "/games/sherman-bytes/",
-      "/games/swarm-protocol/",
-      "/games/byte-runner/",
-      "/games/null-invaders/"
-    ]
-  }
+  "knownRoutes": [
+    "/",
+    "/engine/",
+    "/about/brand/",
+    "/about/brand/archive/",
+    "/feed.xml",
+    "/battlefield/",
+    "/games/*"
+  ]
 }
