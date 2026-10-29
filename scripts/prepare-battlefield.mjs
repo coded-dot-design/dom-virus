@@ -50,5 +50,32 @@ cpSync(resolve(root, "dist"), dest, { recursive: true });
 // make them same-origin so Eject never bounces through a redirect (e.g. on a custom domain).
 const hubBase = (process.env.SITE_BASE || "/dom-virus").replace(/\/?$/, "/");
 const page = resolve(dest, "index.html");
-writeFileSync(page, readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase));
+let app = readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase);
+// Head tags for the hub's copy (canonical, Open Graph), from the app's own title and description:
+// the hub serves this page, so it is its canonical address. Head only; the app itself is untouched.
+const siteUrl = new URL(hubBase, process.env.SITE_URL || "https://coded-dot-design.github.io").href;
+const title = app.match(/<title>([^<]*)<\/title>/)?.[1]?.trim();
+const description = app.match(/<meta\s+name="description"\s+content="([^"]*)"/)?.[1];
+if (!title || !description) throw Error("Battlefield page lost its title or description");
+if (!app.includes('rel="canonical"'))
+  app = app.replace(
+    "</head>",
+    [
+      `<link rel="canonical" href="${siteUrl}battlefield/">`,
+      '<meta property="og:type" content="website">',
+      `<meta property="og:title" content="${title}">`,
+      `<meta property="og:description" content="${description}">`,
+      `<meta property="og:url" content="${siteUrl}battlefield/">`,
+      `<meta property="og:image" content="${siteUrl}og/dom-virus.png">`,
+      '<meta name="twitter:card" content="summary_large_image">',
+      "</head>",
+    ].join("\n"),
+  );
+// Icon-only buttons that carry an aria-label but also whitespace between their icon tags: drop that
+// whitespace (no rendering change) so markup checks that read text before aria-label see the label.
+app = app.replace(/(<button\b[^>]*\baria-label="[^"]+"[^>]*>)((?:(?!<\/?button\b)[\s\S])*)(<\/button\s*>)/g, (m, open, inner, close) =>
+  inner.replace(/<[^>]*>/g, "").trim() ? m : open + inner.replace(/>\s+</g, "><").trim() + close,
+);
+writeFileSync(page, app);
+
 console.log(`Battlefield ${pin.version}: verified standalone app copied to /battlefield/.`);

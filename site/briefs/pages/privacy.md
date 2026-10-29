@@ -5,7 +5,7 @@ slug: privacy
 tags: [legal, privacy]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS has no accounts, sets no cookies and sells nothing. The games save a few settings in your own browser, and our web host keeps standard request logs. Last updated 2026-10-29.
 

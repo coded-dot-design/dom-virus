@@ -5,7 +5,7 @@ slug: cookies
 tags: [legal, privacy, cookies]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-10-29.
 

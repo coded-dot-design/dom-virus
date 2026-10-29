@@ -6,7 +6,7 @@ tags: [sherman-bytes, dom-battlefield, battlefield-blitz, story]
 date: 2026-12-03
 status: scheduled
 publishAt: 2026-12-03
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Sherman Bytes started as one pixel tank on a live webpage. Its tanks now drive two full board games: DOM Battlefield, a squad tactics game, and Battlefield Blitz, a free-for-all arcade brawl. Here is how one small game grew a family.
 

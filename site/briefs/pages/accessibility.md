@@ -5,7 +5,7 @@ slug: accessibility
 tags: [legal, accessibility]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 We want everyone to be able to play. The games work with a keyboard or touch, follow your reduced-motion setting, and give the page back on Escape or Recall. Fast action games still have limits, listed below. Last updated 2026-10-29.
 

@@ -5,7 +5,7 @@ slug: games
 tags: [games]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Every DOM VIRUS game starts as an idea page and becomes a tiny game you play right on the page. The best ones grow into a full board game on their own site. Pick a cartridge, press Play, and hit Recall to give the page back.
 

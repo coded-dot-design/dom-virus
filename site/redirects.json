@@ -1,5 +1,11 @@
 {
   "$comment": "The one redirect source for this site (brand/SITEMAP.md E4). Old path -> new path, both relative to the site root. GitHub Pages: built as static redirect pages. Cloudflare: import as bulk 301s.",
+  "$host": {
+    "$comment": "The domain move (2026-10-29 cutover). Every path keeps its name; only the host and the /dom-virus base change. GitHub Pages answers the old address with a 301 to the custom domain once it is set in Settings -> Pages, so this entry is documentation for the Cloudflare step-up (one bulk redirect), not a built page.",
+    "from": "https://coded-dot-design.github.io/dom-virus/*",
+    "to": "https://domvirus.com/*",
+    "status": 301
+  },
   "under-the-hood/": "engine/",
   "style-guide/": "about/brand/",
   "archive/": "about/brand/archive/",

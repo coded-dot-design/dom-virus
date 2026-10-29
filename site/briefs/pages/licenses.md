@@ -5,7 +5,7 @@ slug: licenses
 tags: [legal, open-source, licenses]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Every DOM VIRUS game, the Fizlet engine and this site are open source under the MIT licence, copyright 2026 Chris Cooley. One icon outline carries its own ISC licence, listed below. Last updated 2026-10-29.
 

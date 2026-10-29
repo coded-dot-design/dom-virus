@@ -6,7 +6,7 @@ tags: [recall, engine, fizlet]
 date: 2026-11-19
 status: scheduled
 publishAt: 2026-11-19
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Every DOM VIRUS game breaks the page you are reading, on purpose. Then you press Recall and the page comes back. That second half is the part I care about most, and it is harder than it looks.
 

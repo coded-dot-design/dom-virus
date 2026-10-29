@@ -1,5 +1,8 @@
 // Writes sitemap.xml and robots.txt from the built HTML (brand/SITEMAP.md): every page's canonical
 // URL, skipping pages marked noindex (404, redirects, drafts). Run after `astro build`.
+// On a custom domain (SITE_URL set to a host other than github.io) it also writes CNAME, so the
+// artifact names its own host. GitHub Pages deployed by Actions takes the domain from the repository
+// Settings, not from this file; it is there for the record and for any host that reads it.
 import { readdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 const out = resolve(process.cwd(), "artifacts/site");
@@ -16,4 +19,10 @@ if (!list.length) throw new Error("sitemap: no indexable pages found");
 const home = list.reduce((a, b) => (a.length <= b.length ? a : b));
 writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${list.map((u) => `  <url><loc>${u}</loc></url>`).join("\n")}\n</urlset>\n`);
 writeFileSync(join(out, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${home}sitemap.xml\n`);
+const host = process.env.SITE_URL ? new URL(process.env.SITE_URL).host : "";
+if (host && !host.endsWith("github.io")) {
+  if (!list.every((u) => new URL(u).host === host)) throw new Error(`sitemap: canonical URLs are not all on ${host}`);
+  writeFileSync(join(out, "CNAME"), `${host}\n`);
+  console.log(`CNAME: ${host}`);
+}
 console.log(`Sitemap: ${list.length} indexable pages; robots.txt points to ${home}sitemap.xml`);

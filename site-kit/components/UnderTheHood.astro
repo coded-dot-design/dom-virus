@@ -36,7 +36,7 @@ const pipeline = [
   <article class="lab origin accent-amber" data-lab="duel" aria-labelledby="origin-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">00</span> INSERT COIN</span>
-      <h3 id="origin-title">Two Macs, one network, and Bolo.</h3>
+      <h2 id="origin-title">Two Macs, one network, and Bolo.</h2>
       <p>Middle school engineering tech class: a room of networked Macs and a tank game called <b>Bolo</b>. The gameplay was good for its day. The networking is what hooked me.</p>
       <p>We weren’t always supposed to be playing, but we could reach across the network and change what was happening on someone else’s screen. Once that clicked, I wanted to know how all of it worked, and the way to find out was to build things: apps, websites, games, anything that could talk to something else.</p>
       <p>DOM VIRUS is the same trick, pointed at a webpage: a game that reaches into the page you’re reading.</p>
@@ -63,14 +63,14 @@ const pipeline = [
   <article class="lab accent-cyan" data-lab="board" aria-labelledby="board-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">01</span> THE PAGE BECOMES THE BOARD</span>
-      <h3 id="board-title">One host. Two worlds.</h3>
+      <h2 id="board-title">One host. Two worlds.</h2>
       <p>A custom host attaches a Shadow Root for the canvas and controls, so game UI styles never leak into your page. The board adapter reads real DOM geometry once, caches it, and the simulation plays against that map. Letters and buttons stay in the real document.</p>
       <p>Turn on X-ray to see what the game sees. The bug walks around real elements. Click the button: buttons are enemy factories.</p>
     </div>
     <figure class="lab-stage board" aria-label="A miniature web page. X-ray shows the rectangles a game reads; bugs bounce off them; the button spawns more bugs.">
       <div class="mini-page" data-board>
         <div class="mini-chrome"><i></i><i></i><i></i><span>your.page</span></div>
-        <h4 data-solid>Hello, world.</h4>
+        <div class="mini-title" data-solid>Hello, world.</div>
         <p data-solid>Paragraphs become terrain.</p>
         <p data-solid class="short">Text is cover.</p>
         <button class="mini-button" data-solid data-factory>BUTTON_01</button>
@@ -85,7 +85,7 @@ const pipeline = [
   <article class="lab accent-lime reverse" data-lab="pool" aria-labelledby="pool-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">02</span> A FRAME, NOT A FREE-FOR-ALL</span>
-      <h3 id="pool-title">One loop. Bounded work.</h3>
+      <h2 id="pool-title">One loop. Bounded work.</h2>
       <p>One requestAnimationFrame loop. A spatial grid narrows collisions. Bullets, enemies and particles live in fixed pools with hard ceilings, so a long session never grows its memory. Projectiles query cached geometry instead of asking the browser for layout every shot.</p>
       <p>Spawn as much as you like. The pool holds 32: past that the engine says no, and the frame stays inside its budget.</p>
     </div>
@@ -101,7 +101,7 @@ const pipeline = [
   <article class="lab accent-violet" data-lab="recall" aria-labelledby="recall-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">03</span> THE PART WE CARE ABOUT MOST</span>
-      <h3 id="recall-title">Recall gives the page back.</h3>
+      <h2 id="recall-title">Recall gives the page back.</h2>
       <p>Hits rewrite characters inside the existing Text node to a literal 0 or 1. No clones, no per-letter wrappers. An ownership ledger records the original and what the game wrote. Recall restores only what is still the game’s; if your app changed it since, your app wins.</p>
       <p>Fire at the sentence, let “your app” edit a hit letter, then Recall.</p>
     </div>
@@ -114,7 +114,7 @@ const pipeline = [
 
   <!-- SPEC SHEET -->
   <div class="spec">
-    <div class="spec-head"><span class="eyebrow"><span class="lab-no">04</span> SPEC SHEET</span><h3>Hard limits, in actual numbers.</h3><p>Limits constrain work; they are not frame-rate promises. Real frame time still depends on the page, fonts and device.</p></div>
+    <div class="spec-head"><span class="eyebrow"><span class="lab-no">04</span> SPEC SHEET</span><h2>Hard limits, in actual numbers.</h2><p>Limits constrain work; they are not frame-rate promises. Real frame time still depends on the page, fonts and device.</p></div>
     <ul class="spec-grid">{specs.map(([n, label, note]) => <li class="spec-card"><b>{n}</b><span>{label}</span><small>{note}</small></li>)}</ul>
     <ul class="size-chips" aria-label="Package sizes">{data.games.map((game) => <li class={`accent-${game.accent}`}><i></i><span>{game.name}</span><b>{kb(game.metrics.gzip)}<small> kB gzip</small></b></li>)}</ul>
     <p class="spec-note">Sizes are measured at site build from each package’s distribution files (gzip, decimal kB). Null Invaders caps aliens at 48 and bullets at 80; Byte Runner caps flies at 12; Sherman Bytes caps tanks at 32 and shells at 120; Swarm caps bugs at 48.</p>
@@ -124,7 +124,7 @@ const pipeline = [
   <article class="lab pipeline-lab accent-amber" data-lab="pipeline" aria-labelledby="ship-title">
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">05</span> INDEPENDENT PACKAGES · SHARED FOUNDATIONS</span>
-      <h3 id="ship-title">Build once. Ship each.</h3>
+      <h2 id="ship-title">Build once. Ship each.</h2>
       <p>The engine lives here. Each game gets a fingerprinted snapshot, tests itself and tags its own release. The hub pins exact versions and Pages serves static files: no runtime iframe, no remote content service, no client framework.</p>
     </div>
     <figure class="lab-stage pipeline" aria-label="Release pipeline from engine source to the live site. Ship it sends a release through each stage.">
@@ -147,7 +147,7 @@ const pipeline = [
 .lab-copy{max-width:500px}
 .lab.reverse .lab-copy{justify-self:end}
 .lab.reverse .lab-copy{order:2}
-.lab-copy h3{margin:10px 0 12px;font-size:clamp(26px,3.2vw,38px);line-height:1.05;letter-spacing:-.02em}
+.lab-copy h2{margin:10px 0 12px;font-size:clamp(26px,3.2vw,38px);line-height:1.05;letter-spacing:-.02em}
 .lab-copy p{margin:0 0 12px;color:var(--muted);font-size:15px;line-height:1.65}
 .lab-copy p b{color:var(--ink)}
 .lab-no{display:inline-block;margin-right:8px;padding:2px 6px;font:700 10px/1.3 var(--mono);color:var(--accent-ink);background:var(--accent);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);rotate:-5deg}
@@ -189,7 +189,7 @@ const pipeline = [
 .mini-chrome{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:5px;padding:9px 12px;border-bottom:1px solid var(--line);font:9px var(--mono);color:var(--faint)}
 .mini-chrome i{width:6px;height:6px;border-radius:50%;background:#f4457a}.mini-chrome i:nth-child(2){background:#ffb547}.mini-chrome i:nth-child(3){background:#4bce82}
 .mini-chrome span{margin-left:auto}
-.mini-page h4{display:inline-block;margin:6px 0 14px;font:800 30px/1 var(--mono);letter-spacing:-.02em}
+.mini-page .mini-title{display:inline-block;margin:6px 0 14px;font:800 30px/1 var(--mono);letter-spacing:-.02em}
 .mini-page p{width:fit-content;margin:0 0 10px;font-size:14px;color:var(--muted)}
 .mini-page p.short{margin-left:80px}
 .mini-button{margin-top:10px;min-height:34px;padding:6px 14px;font:700 11px var(--mono);color:var(--ink);background:var(--raised);border:2px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
@@ -229,7 +229,7 @@ const pipeline = [
 .spec{margin:0 0 56px}
 .spec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 40px;align-items:end;margin-bottom:20px}
 .spec-head .eyebrow{grid-column:1/-1}
-.spec-head h3{margin:0;font-size:clamp(26px,3.2vw,38px);line-height:1.05;letter-spacing:-.02em}
+.spec-head h2{margin:0;font-size:clamp(26px,3.2vw,38px);line-height:1.05;letter-spacing:-.02em}
 .spec-head p{margin:0;color:var(--muted);font-size:14px}
 .spec-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
 .spec-card{display:grid;gap:2px;padding:16px;background:var(--surface);border:2px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--accent)}
@@ -273,7 +273,7 @@ const pipeline = [
   .duel{grid-template-columns:1fr 34px 1fr}
   .cable span{display:none}
   .lab-stage{padding:14px}
-  .mini-page h4{font-size:24px}
+  .mini-page .mini-title{font-size:24px}
   .slots{grid-template-columns:repeat(8,1fr)}
   .spec-card b{font-size:24px}
   .engine-hud{gap:4px 10px;padding:6px 10px;font-size:9px;bottom:10px}

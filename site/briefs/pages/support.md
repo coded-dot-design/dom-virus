@@ -5,7 +5,7 @@ slug: support
 tags: [support]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS is a one-person, open-source passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.
 

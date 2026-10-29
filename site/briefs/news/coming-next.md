@@ -5,7 +5,7 @@ slug: coming-next
 tags: [coming-soon, dom-kaiju, dom-crossfire, dom-flock, multiplayer]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Battlefield Blitz, the first of the new cartridges, has shipped. Next on the bench: DOM Crossfire, DOM Kaiju and DOM Flock, plus multiplayer Battlefield. All of them are planned, not promised. The bar for every one: the explosions on our home page and the tanks wrecking the DOM Battlefield site.
 

@@ -5,7 +5,7 @@ slug: fizlet-0-2
 tags: [release, fizlet]
 date: 2026-10-28
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Fizlet 0.2 adds the first five bricks on top of the kernel: input, collide, fx, sound and embed. Fizlet is the tiny game and animation engine for the DOM behind the DOM VIRUS family. One shared loop, bounded everything, and page changes given back on Recall.
 

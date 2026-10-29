@@ -5,7 +5,7 @@ slug: null-invaders-0-7
 tags: [release, null-invaders]
 date: 2026-10-25
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Null Invaders 0.7 adds sound and a proper phone cockpit: an analog joystick and a round Fire button you can hold while you fly. Null Invaders is the shooter where you fly an interceptor through a real webpage, turn letters into binary and break the button factories.
 

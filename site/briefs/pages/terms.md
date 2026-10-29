@@ -5,7 +5,7 @@ slug: terms
 tags: [legal, terms]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-29.
 

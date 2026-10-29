@@ -5,7 +5,7 @@ slug: contact
 tags: [contact]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 The quickest way to reach DOM VIRUS is GitHub. Report bugs and share ideas in the issues, send security reports privately, and find facts and logos in the press kit. An email address is coming soon.
 

@@ -5,7 +5,7 @@ slug: legal
 tags: [legal]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 The legal side of DOM VIRUS, in plain English. We collect as little as we can, set no cookies, and publish every game as open source under the MIT licence. Each page below covers one topic.
 

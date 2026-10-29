@@ -65,5 +65,5 @@ if (existsSync("site/redirects.json")) {
     if (["embedded", "game"].includes(p.meta?.pageType)) continue;
     assert.equal(existsSync(resolve(output, p.path.replace(/^\//, ""), "index.html")), live, `${p.id}: built must equal live (${p.status})`);
   }
-  console.log(`Routes verified: ${Object.keys(redirects).length - 1} redirects, sitemap, robots, feed, lifecycle.`);
+  console.log(`Routes verified: ${Object.keys(redirects).filter((k) => !k.startsWith("$")).length} redirects, sitemap, robots, feed, lifecycle.`);
 }
