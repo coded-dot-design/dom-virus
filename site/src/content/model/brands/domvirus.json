@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "270542b3e84b8534"
+    "hash": "8bb4de2e1eebf393"
   },
   "collection": "brands",
   "id": "domvirus",
@@ -54,19 +54,11 @@
     "id": "domvirus",
     "name": "DOM VIRUS",
     "level": "parent",
-    "credit": {
-      "text": "By Chris Cooley · coded.design",
-      "name": "Chris Cooley",
-      "agency": "coded.design",
-      "href": "https://coded.design"
-    },
     "repo": "https://github.com/coded-dot-design/dom-virus",
     "urls": {
       "current": "https://coded-dot-design.github.io/dom-virus/",
       "production": "https://domvirus.com/"
     },
-    "styleGuide": "dom-virus/brand/style-guide.md",
-    "voice": "dom-virus/brand/voice.md",
     "paths": {
       "home": "/",
       "comingSoon": "/coming-soon/{slug}/",
@@ -76,6 +68,18 @@
       "styleGuide": "/style-guide/",
       "underTheHood": "/under-the-hood/"
     },
-    "openQuestion": "embedded path: /games/{slug}/ (today, no redirects) or /embedded/{slug}/ (site-agent handoff)"
+    "openQuestion": "embedded path: /games/{slug}/ (today, no redirects) or /embedded/{slug}/ (site-agent handoff)",
+    "site": {
+      "repo": "dom-virus",
+      "config": "site/engine.config.json",
+      "voice": "brand/voice.md",
+      "styleGuide": "brand/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
   }
 }

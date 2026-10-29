@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "53bf9afc7b6f7aa2"
+  },
+  "collection": "brands",
+  "id": "sherman-bytes",
+  "slug": "sherman-bytes",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "sherman-bytes",
+    "name": "Sherman Bytes",
+    "level": "game",
+    "parent": "domvirus",
+    "site": {
+      "repo": "dom-virus",
+      "config": null,
+      "voice": "brand/games/sherman-bytes/voice.md",
+      "styleGuide": "brand/games/sherman-bytes/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}
