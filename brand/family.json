@@ -71,8 +71,8 @@
       "urls": {
         "current": "https://coded-dot-design.github.io/dom-battlefield/blitz/",
         "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
-        "production": "https://battlefield.domvirus.com/blitz/",
-        "productionPlay": "https://battlefield.domvirus.com/play/blitz/"
+        "production": "https://battlefieldblitz.domvirus.com/",
+        "productionPlay": "https://battlefieldblitz.domvirus.com/play/"
       },
       "openQuestion": "home: under battlefield.domvirus.com (proposed) or its own blitz.domvirus.com; style per brief was Board/Classic"
     },

@@ -119,9 +119,10 @@ characters into board games of different styles.
 
 - **Decided (A3):** embedded pages live at `/games/<game>/` (live today, matches the owner's URL
   table, no redirects; "keep URLs" is an engine rule). The engine config's embedded type uses it.
-- **Decided (A4):** Blitz stays on the Battlefield brand: `battlefield.domvirus.com/blitz/`
-  (landing) and `battlefield.domvirus.com/play/blitz/` (board), with `/blitz/play/` redirected and
-  Battlefield's board at `/play/battlefield/` (two boards, one subdomain).
+- **Decided (A4, changed by the owner 2026-10-29):** Blitz has its own subdomain,
+  `battlefieldblitz.domvirus.com` (landing) and `/play/` (board), from the dom-battlefield-blitz repo.
+  The Battlefield site keeps `/blitz/` for old links and the drop-in; Battlefield's board stays
+  planned at `/play/battlefield/`.
 
 **Environments.** The production URLs above are targets. Until each domain is pointed, the
 GitHub Pages addresses keep working, and local dev keeps working:
