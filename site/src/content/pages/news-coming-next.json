@@ -1,0 +1,145 @@
+{
+  "id": "news-coming-next",
+  "path": "/news/coming-next",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
+    "description": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/coming-next/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "What's coming next",
+      "headingAccent": "Plans, not promises.",
+      "eyebrow": "News",
+      "body": "Battlefield Blitz, the first of the new cartridges, has shipped. Next on the bench: DOM Crossfire, DOM Kaiju and DOM Flock, plus multiplayer Battlefield. All of them are planned, not promised. The bar for every one: the explosions on our home page and the tanks wrecking the DOM Battlefield site.",
+      "ctas": [
+        {
+          "label": "Play Battlefield Blitz",
+          "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
+          "variant": "primary"
+        },
+        {
+          "label": "See everything coming soon",
+          "href": "/games/coming-soon/"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Shipped: Battlefield Blitz",
+      "body": [
+        "The Blitz version of DOM Battlefield is out. Free for all, every tank parachutes in, and most kills in three minutes wins.",
+        "It is the first game built on Fizlet, the shared engine."
+      ]
+    },
+    {
+      "id": "features-2",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Planned games",
+      "items": [
+        {
+          "title": "DOM Crossfire",
+          "body": "Planned, and next up. The DOM VIRUS hero meets the Battlefield arena. Fly the interceptor or drive the tank, and swap any time while the other one wings for you."
+        },
+        {
+          "title": "DOM Kaiju",
+          "body": "Planned. A giant pixel gorilla falls onto your page and climbs it from the footer to the top, smashing as he goes. Text catches fire, people fall, choppers swarm in.",
+          "link": {
+            "label": "See DOM Kaiju",
+            "href": "/games/kaiju/"
+          }
+        },
+        {
+          "title": "DOM Flock",
+          "body": "Planned, still an idea. Pixel birds burst out of the page in pairs. You are the crosshair, and hit birds drop into the text."
+        }
+      ],
+      "headingAccent": "In build order."
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Kaiju's numbers are targets",
+      "body": [
+        "DOM Kaiju is planned as two builds: an embed for any page and a full board. One page is one level.",
+        "The embed's size target is 30 kB gzip or less. It is a target, not a measurement."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Multiplayer Battlefield",
+      "body": [
+        "Multiplayer is planned: two players, two pages, one battle, with rooms, co-op and one-on-one."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "One engine under every cartridge",
+      "body": [
+        "The games will share one small engine, Fizlet: one loop, one way to read the page and give it back, one set of keys.",
+        "Each cartridge gets an engine cut next: less code, the same feel, at least as fast as today. The old builds stay playable."
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "coming-soon",
+      "dom-kaiju",
+      "dom-crossfire",
+      "dom-flock",
+      "multiplayer"
+    ],
+    "created": "2026-10-29"
+  }
+}

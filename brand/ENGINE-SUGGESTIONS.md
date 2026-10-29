@@ -20,7 +20,7 @@ Hand the prompt at the bottom to the astro-engine keeper as is.
 | # | Area | Friction seen | Workaround on the site | Suggested engine change |
 |---|---|---|---|---|
 | 1 | Paths | `src/content/pages` is hard-coded; this site's Astro `srcDir` is `site/src`. | Run every command with `--site site`; inputs point to `../brand/`. | `paths.pages` (and `paths.styles`) in engine.config.json, default unchanged. |
-| 2 | Lifecycle | `produce --write` rewrites the page as `draft`, so every copy edit drops a published page to noindex until `status` runs again. | Always run `status <id> published` after `produce`. | Keep the existing `status`/`publishAt` when overwriting a page file. |
+| 2 | Lifecycle | `produce --write` sets `status` from the brief (default `draft`), so a re-produce silently drops a published page to noindex unless the brief says `status: published`. | Put `status:` in every brief. | Keep the existing status when the brief has none and the page file exists. |
 | 3 | Brief | An HTML comment after a block is refused ("copy after a block…"). | Notes moved out of the brief. | Ignore `<!-- … -->` anywhere in a brief. |
 | 4 | Open Graph | `og:image` is printed as given; a relative path (`/og/x.png`) is invalid for crawlers and wrong under a base path. | Absolute URL in the brief + a stable copy of the image at `/og/dom-virus.png`. | Resolve relative images against `brand.siteUrl`; print `og:image:alt`, `og:site_name`, `twitter:*`. |
 | 5 | Environments | One `brand.siteUrl` for every target. github.io now, custom domain later, base path `/dom-virus` vs `/`. | The layout fails the build if the head's canonical is not the URL being built. | `targets: {staging: {siteUrl}, production: {siteUrl}}` or an `ABE_SITE_URL` env override. |
@@ -35,17 +35,21 @@ Hand the prompt at the bottom to the astro-engine keeper as is.
 | 14 | Templates | `brief-template <type>` silently uses defaults when `--site` is missing, so a custom type looks unknown. | Always pass `--site site`. | Fail (or hint) when the type is not in the loaded config. |
 | 15 | SEO floor | No sitemap or robots.txt from the engine. | Not done yet (rollout). | `abe sitemap <dist> --site` that crawls built HTML, honours robots meta and canonical, and writes `sitemap.xml` + `robots.txt`. |
 | 16 | Game pages | A game page needs sections the engine has no type for: controls, characters, palette, the live game. | Rendered by the site from game data. | A `game` preset whose `slot game`, `slot controls`, `slot characters` are site-filled but counted by the audit. |
+| 17 | Dates | `meta.created` (and `datePublished`) is the day `produce` runs; release notes need their real date. | `scripts/abe.py` reads `date:` from the brief and passes it to `build(today=…)`. | A `date:` frontmatter key. |
+| 18 | Heads and time | `head` bakes robots from the status on the day it runs, so a scheduled page's committed head stays `noindex` after it goes live. | The layout swaps robots to `index,follow` once the page is visible. | Emit robots from the lifecycle at build time, or an option to omit robots from `head`. |
+| 19 | Site-owned routes | Links to pages the site renders itself (home, game pages) are reported as broken. | `scripts/abe.py` adds `siteRoutes.paths` from the config as known routes. | A `knownRoutes` config key. |
+| 20 | Rich text | Paragraphs can't hold inline links or lists; legal and blog copy needs both. | Links moved into `features rows` blocks. | Minimal inline markup in `[text]` (links, emphasis, bullet lists). |
 
 ## Prompt for the keeper
 
 > You keep astro-base-engine (`brain-cache/astro-engine`). A site agent ran the first pilot of the
 > engine on a browser-game site whose Astro `srcDir` is not `src/` and whose pages host live games.
 > The pilot passed (audit 100, check-html 0 errors) only with site-side workarounds. Read the table
-> in this file (16 items, each with the friction, the workaround and a suggested change) and turn it
+> in this file (20 items, each with the friction, the workaround and a suggested change) and turn it
 > into engine changes, smallest and most general first: 2 (keep status on re-produce), 3 (comments
 > in briefs), 4 (absolute og:image), 1 (configurable pages dir), 14 (unknown type), 5 (per-target
 > siteUrl), 6 (breadcrumb parents), 8 (JS budget, exemptions, noindex canonical), 7 (richer
-> VideoGame/SoftwareSourceCode JSON-LD), then 9–16. Keep the engine neutral: no client names, no
+> VideoGame/SoftwareSourceCode JSON-LD), then 9–20. Keep the engine neutral: no client names, no
 > game-specific code; game support should be a generic "interactive page" capability. Each change
 > gets a test and a line in the README. Defaults must not change for existing sites. Report what you
 > changed, what you declined and why.

@@ -1,0 +1,183 @@
+{
+  "id": "news-dom-virus-launch",
+  "path": "/news/dom-virus-launch",
+  "template": "article",
+  "status": "draft",
+  "seo": {
+    "title": "DOM VIRUS launches with 10 games that play on your page",
+    "description": "Ten tiny open-source arcade games that play on a real webpage. No install to play, Recall gives the page back, and every game is MIT licensed.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-launch/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "DOM VIRUS launches with 10 games",
+      "headingAccent": "Your page. Their playground.",
+      "eyebrow": "News",
+      "body": "DOM VIRUS launches with ten tiny arcade games that play on a real webpage. Letters become points, buttons become enemy factories, and Recall gives the page back. No install to play. Every game is open source under the MIT licence.",
+      "ctas": [
+        {
+          "label": "Choose your game",
+          "href": "/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/dom-virus"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "One maker, a game a week",
+      "body": [
+        "DOM VIRUS is made by one person, Chris Cooley, a game a week on the side.",
+        "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
+      ]
+    },
+    {
+      "id": "features-2",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "The ten games",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "A pixel tank on a live webpage. Breach button bases, build cover, hold the page.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "DOM Battlefield",
+          "body": "Squad tactics. Command up to twelve Sherman tanks on a grid built from real page elements.",
+          "link": {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          }
+        },
+        {
+          "title": "Battlefield Blitz",
+          "body": "Every tank for itself. Parachute in, call airstrikes, most kills in three minutes wins.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          }
+        },
+        {
+          "title": "Swarm Protocol",
+          "body": "Bugs eat letters into binary and drain your buttons. Squash them before the interface falls apart.",
+          "link": {
+            "label": "Play Swarm Protocol",
+            "href": "/games/swarm-protocol/"
+          }
+        },
+        {
+          "title": "Byte Runner",
+          "body": "A round pixel frog races through food pipes, eats real text and hunts escaping flies.",
+          "link": {
+            "label": "Play Byte Runner",
+            "href": "/games/byte-runner/"
+          }
+        },
+        {
+          "title": "Null Invaders",
+          "body": "Fly an interceptor through a real webpage. Break the button factories and clear the aliens they release.",
+          "link": {
+            "label": "Play Null Invaders",
+            "href": "/games/null-invaders/"
+          }
+        },
+        {
+          "title": "DOM Kaiju",
+          "body": "TO CONFIRM. A giant pixel gorilla climbs your page from the footer to the top, smashing as he goes.",
+          "link": {
+            "label": "See DOM Kaiju",
+            "href": "/games/kaiju/"
+          }
+        },
+        {
+          "title": "DOM Crossfire",
+          "body": "TO CONFIRM. The DOM VIRUS hero meets the Battlefield arena: interceptor and tank against everything."
+        },
+        {
+          "title": "DOM Flock",
+          "body": "TO CONFIRM. Pixel birds burst out of the page in pairs. You are the crosshair."
+        },
+        {
+          "title": "Game ten",
+          "body": "TO CONFIRM. Name and one line from the owner before this post is scheduled."
+        }
+      ],
+      "headingAccent": "Pick a cartridge."
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "10",
+          "label": "games at launch"
+        },
+        {
+          "value": "6",
+          "label": "playable today"
+        },
+        {
+          "value": "MIT",
+          "label": "open source, every game"
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        },
+        {
+          "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
+          "body": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
+          "link": {
+            "label": "Read: Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
+            "href": "/news/coming-next"
+          }
+        },
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "launch",
+      "dom-virus"
+    ],
+    "created": "2026-10-29"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "id": "news-null-invaders-0-7",
+  "path": "/news/null-invaders-0-7",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Null Invaders 0.7: combat sound and a phone joystick",
+    "description": "Null Invaders 0.7 adds firing, hit, upgrade and wave sounds, an analog joystick and a held Fire button on phones. 22.9 kB gzip, game + engine.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/null-invaders-0-7/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Null Invaders 0.7",
+      "headingAccent": "Louder, and ready for thumbs.",
+      "eyebrow": "News",
+      "body": "Null Invaders 0.7 adds sound and a proper phone cockpit: an analog joystick and a round Fire button you can hold while you fly. Null Invaders is the shooter where you fly an interceptor through a real webpage, turn letters into binary and break the button factories.",
+      "ctas": [
+        {
+          "label": "Play Null Invaders",
+          "href": "/games/null-invaders/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/null-invaders"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "Firing, hits, weapon upgrades and new waves now have synthesized sound cues.",
+        "On phones, the arrow pad becomes an analog joystick with eight-way flight. Fire is the round crosshair button from DOM Battlefield, with a 3D press. Fly and hold Fire together.",
+        "The scoreboard shares its controls with the other games: sound, pause or resume, minimize and Recall.",
+        "Pulse, Twin, Trident and Overdrive still unlock as you earn combat XP. Destroyed factories still stop spawning for the rest of the wave."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "The controls come from the shared DOM VIRUS runtime, snapshot 0.21.0. The gzip budget grew by 2 KB to pay for them and now sits at 24,000 bytes.",
+        "Setup, configuration and integration examples live in the repository README."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.7.2",
+          "label": "current release (25 October 2026)"
+        },
+        {
+          "value": "22.9 kB",
+          "label": "gzip, complete game + engine"
+        },
+        {
+          "value": "24.0 kB",
+          "label": "enforced gzip budget"
+        },
+        {
+          "value": "48",
+          "label": "alien cap"
+        },
+        {
+          "value": "80",
+          "label": "bullet cap"
+        },
+        {
+          "value": "4",
+          "label": "weapon tiers"
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "null-invaders"
+    ],
+    "created": "2026-10-25"
+  }
+}

@@ -66,3 +66,25 @@ DOM VIRUS, the four embedded games, Battlefield, Blitz and Fizlet.
 | D7 | Who owns which words on an embedded game page. | The engine page JSON owns the marketing layer: SEO, lead, Play label, related-game cards, FAQ, the "get the code" line. Gameplay facts (loop, controls, characters, sizes, caps) stay in the game repo's `site/game.json` and the build-time size measurement, so they can't go stale. |
 | D8 | Engine `<head>` in the layout. | `npm run engine:heads` writes `abe head` output to `site/src/content/heads/<id>.html` (committed; CI can't run the private engine). The layout uses it instead of its own tags and fails the build if its canonical is not the URL being built. |
 | D9 | Hero actions and cross-links on game pages. | Play stands alone in the hero (existing tested rule); GitHub stays with the install key. Related boards with a shelf cartridge still go through the cartridge swap; the label follows §7 ("Play DOM Battlefield"). |
+
+## E. Routes, site map and standard pages (2026-10-29)
+
+Full table and reasons: [SITEMAP.md](SITEMAP.md).
+
+| # | Question | Decision |
+|---|---|---|
+| E1 | Flat top-level pages? | No. Pages sit under their section (`/games/`, `/engine/`, `/about/`, `/legal/`); only `/contact/` and `/support/` stay at the root, where people and tools expect them. |
+| E2 | Coming-soon URL vs game URL. | One URL per game for life: `/games/<id>/` from idea to board; the stage changes the template, not the URL. `/coming-soon/` became the stage list `/games/coming-soon/`. This supersedes the `domvirus.com/coming-soon/<game>` row in the client card. |
+| E3 | Boards. | Own subdomain; the hub's `/games/<id>/` stays the family entry. |
+| E4 | Redirects. | One source, `site/redirects.json`: static redirect pages on GitHub Pages, bulk 301s on Cloudflare. Moved today: `/under-the-hood/` → `/engine/`, `/style-guide/` → `/about/brand/`, `/archive/` → `/about/brand/archive/`, `/coming-soon/` → `/games/coming-soon/`. |
+| E5 | URL style. | Trailing slash, lowercase, hyphens, no dates in URLs. |
+| E6 | Who renders content pages. | astro-base-engine page JSON → `EnginePage.astro` in the hub's look. |
+| E7 | Publishing. | Published, or scheduled once `publishAt` passes (the hourly Pages build picks it up). Drafts never ship. |
+| E8 | Analytics and consent. | Cloudflare Web Analytics, cookieless, behind the `PUBLIC_CF_ANALYTICS_TOKEN` repo variable; no cookies, so no banner. Anything that sets cookies needs consent first. |
+| E9 | Feeds. | `/feed.xml` (news + devlog). |
+| E10 | Security contact. | `/.well-known/security.txt` → GitHub private vulnerability reporting. |
+| E11 | Donations. | `/support/`: GitHub Sponsors first, a tip jar second; links go live when the accounts exist. |
+| E12 | Contact. | No form until there's a backend; GitHub issues now, email once one exists. |
+| E13 | Blog cadence and dates. | The devlog publishes weekly (scheduled posts); release notes are dated by their real git tags; the launch post stays a draft until the owner sets the November date and confirms the 10 games. |
+| E14 | The public story. | First person as Chris: a house full of computers in the 80s and 90s, Bolo, 20 years of tiny games, a game a week on the side. No employers, hometown, family or hobbies in public copy. |
+

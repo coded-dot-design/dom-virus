@@ -1,0 +1,170 @@
+{
+  "id": "blog-a-game-a-week-on-the-side",
+  "path": "/blog/a-game-a-week-on-the-side",
+  "template": "article",
+  "status": "scheduled",
+  "seo": {
+    "title": "A game a week, on the side: how DOM VIRUS ships",
+    "description": "How one maker ships roughly a game a week, on the side. An idea page, a playable game on your page, and sometimes a board game on its own site.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/a-game-a-week-on-the-side/",
+    "schemaPageType": "BlogPosting",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "A game a week, on the side",
+      "headingAccent": "From idea to a game you can play.",
+      "eyebrow": "Blog",
+      "body": "I make DOM VIRUS on the side, for fun, and I ship roughly a game a week. That pace works because every game follows the same path. An idea page, a playable game on this site, and sometimes a board game of its own."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Time used to be the blocker",
+      "body": [
+        "For most of my twenty years of side projects, the limit was time. A game idea needed weeks of plumbing before it did anything fun: a loop, input, collisions, sound and cleanup.",
+        "By the time the plumbing worked, the evenings were gone and the idea had gone stale.",
+        "That changed when the plumbing stopped being new each time. The loop, the pools, the page reading and Recall are solved once and shared between games.",
+        "Time used to be the blocker. Now the only limit is creativity."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Step one: the idea page",
+      "body": [
+        "Every game starts as a coming-soon page on the hub. It gets a first pass at its characters, a description, the core loop and a cartridge preview.",
+        "Then I iterate. The design, the cartridge, the gameplay and the controls all get approved before the real game is built. A clear loop on paper saves a week of guessing later.",
+        "DOM Kaiju is at this stage now: a giant pixel gorilla climbs your page from the footer to the top, smashing text while choppers swarm.",
+        "Every idea also has to clear a drama bar. The floor is the explosions in the hub's own hero and the tanks wrecking the Battlefield landing page. If a game can't hit that, it waits."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Step two: a game that plays on your page",
+      "body": [
+        "An approved idea becomes an embedded game. It gets its own repository, its own release tags and a page on this site where it plays on the real page.",
+        "Every embedded game is something you can take home. It is open source under MIT, and its README covers setup and integration. Play it here, then make it part of your own project.",
+        "Some games stop here, and that is fine. Swarm Protocol, Byte Runner and Null Invaders are embedded games, and each one stands on its own."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Step three: sometimes, a board game",
+      "body": [
+        "Some games grow. A board game takes an embedded game's characters and gives them a whole board, on its own site.",
+        "Sherman Bytes is the model. Its tanks became DOM Battlefield, a squad tactics game, and Battlefield Blitz, a free-for-all arcade brawl. Both play on the Battlefield site.",
+        "Board games are for playing on our sites. The code is still open source, but the game lives where I can look after it."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "The same pipeline, every time",
+      "body": [
+        "The engine code lives in one place. Each game gets a fingerprinted copy of it, runs its own tests and tags its own release.",
+        "The hub then pins the exact version of every game it serves. Pages serves static files: no runtime iframe, no remote content service, no client framework.",
+        "That pipeline is what makes a weekly pace safe. A new game can't break an old one, because each one ships and pins on its own."
+      ]
+    },
+    {
+      "id": "text-6",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "A fast pace with a high bar",
+      "body": [
+        "Fast does not mean rough. Nothing ships half-done, and there is no slop.",
+        "Each game has its own tests, a size check and controls for phones. Every release gets a version number and a changelog entry, so you can see exactly what changed.",
+        "The plan is to launch in November 2026 with ten games. Six are playable today. It is a plan, and I will tell you here if it slips.",
+        "Follow along. A new post lands here every week, and a new game roughly as often."
+      ]
+    },
+    {
+      "id": "features-7",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Follow along",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "The game that set the pattern: an embedded game that grew into two boards.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "What's coming next",
+          "body": "The ideas on the bench, including DOM Kaiju.",
+          "link": {
+            "label": "See the coming-soon games",
+            "href": "/games/coming-soon/"
+          }
+        },
+        {
+          "title": "The DOM VIRUS blog",
+          "body": "Every post, newest first. One a week.",
+          "link": {
+            "label": "Read the DOM VIRUS blog",
+            "href": "/blog/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "About DOM VIRUS: one maker, tiny games, a game a week",
+          "body": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+          "link": {
+            "label": "Read: About DOM VIRUS: one maker, tiny games, a game a week",
+            "href": "/about"
+          }
+        },
+        {
+          "title": "The page is the game board: how DOM VIRUS games play",
+          "body": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
+          "link": {
+            "label": "Read: The page is the game board: how DOM VIRUS games play",
+            "href": "/blog/the-page-is-the-game-board"
+          }
+        },
+        {
+          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
+            "href": "/blog/two-macs-one-network-and-bolo"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "blog",
+    "tags": [
+      "process",
+      "story",
+      "roadmap"
+    ],
+    "created": "2026-11-12"
+  },
+  "publishAt": "2026-11-12"
+}

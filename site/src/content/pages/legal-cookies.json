@@ -1,0 +1,182 @@
+{
+  "id": "legal-cookies",
+  "path": "/legal/cookies",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Cookies and storage: what the games save | DOM VIRUS",
+    "description": "DOM VIRUS sets no cookies. Here is every setting the games save in your browser's local storage, what it holds and how to clear it.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/cookies/",
+    "schemaPageType": "WebPage",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Cookies and storage",
+      "headingAccent": "No cookies. A few saved settings.",
+      "eyebrow": "Legal",
+      "body": "DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-10-29."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Cookies",
+      "body": [
+        "Neither the site nor the games set cookies. The analytics we use when it is switched on, Cloudflare Web Analytics, is cookieless too.",
+        "So there is no cookie banner. There is nothing to consent to."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Where the saved settings live",
+      "body": [
+        "Browsers keep local storage per site address. Today the DOM VIRUS hub, the DOM Battlefield site and the Fizlet site share one address, coded-dot-design.github.io.",
+        "That is why one theme choice follows you between them. Clearing that address's data clears all three.",
+        "When another site runs one of the games, the game saves its keys under that site's address instead."
+      ]
+    },
+    {
+      "id": "features-3",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Local storage: every key",
+      "items": [
+        {
+          "title": "dom-virus:theme",
+          "body": "Your colour theme: system, dark or light. Shared by the hub, Battlefield and Fizlet sites."
+        },
+        {
+          "title": "dom-virus:sherman-bytes:sound",
+          "body": "Sound on or off in Sherman Bytes."
+        },
+        {
+          "title": "dom-virus:byte-runner:sound",
+          "body": "Sound on or off in Byte Runner."
+        },
+        {
+          "title": "dom-virus:null-invaders:sound",
+          "body": "Sound on or off in Null Invaders."
+        },
+        {
+          "title": "dom-virus:swarm",
+          "body": "Your best Swarm Protocol score on the hub."
+        },
+        {
+          "title": "dom-virus:swarm:sound",
+          "body": "Sound on or off in Swarm Protocol on the hub."
+        },
+        {
+          "title": "dom-virus:battlefield:sound",
+          "body": "Sound on or off in DOM Battlefield."
+        },
+        {
+          "title": "dom-battlefield:setup",
+          "body": "Your last DOM Battlefield setup: mission, side, density, map seed, formation and squad roles. A rematch starts where you left off."
+        },
+        {
+          "title": "dom-battlefield:intro",
+          "body": "Marks the DOM Battlefield intro card as seen, so it shows only once on phones and tablets."
+        },
+        {
+          "title": "dom-battlefield:tips",
+          "body": "Remembers that you switched DOM Battlefield tips off."
+        },
+        {
+          "title": "dom-battlefield:battle-cards",
+          "body": "Whether the DOM Battlefield plan and orders cards are folded or pinned."
+        },
+        {
+          "title": "dom-battlefield:roster",
+          "body": "The layout of the DOM Battlefield platoon card in full screen: grid, column or row."
+        },
+        {
+          "title": "dom-battlefield:dock",
+          "body": "Whether the DOM Battlefield full-screen cards show icons only or labels."
+        },
+        {
+          "title": "blitz:mode",
+          "body": "The Battlefield Blitz mode you picked last: solo, platoon or practice."
+        },
+        {
+          "title": "blitz:pad",
+          "body": "Where you dragged the Battlefield Blitz touch pad."
+        }
+      ]
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Session storage: gone when the tab closes",
+      "items": [
+        {
+          "title": "dom-virus:doors",
+          "body": "Set for a moment when you launch DOM Battlefield from the hub, so the board opens behind the same shut doors. Removed as soon as the board loads."
+        }
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "How to clear them",
+      "body": [
+        "Clear this site's data in your browser settings to remove every key at once. Most browsers list it under privacy or site settings, by site address.",
+        "Clearing does no harm. The theme goes back to its default, sound comes back on and DOM Battlefield starts from a fresh setup.",
+        "Developers can also open the browser's developer tools, find Local Storage under Application or Storage, and delete single keys."
+      ]
+    },
+    {
+      "id": "text-6",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "If we ever add cookies",
+      "body": [
+        "Anything that sets cookies or tracks you across sites would come with a consent banner first. Nothing like that would run until you agree.",
+        "This page and the privacy policy would change before it ships, with a new date."
+      ]
+    },
+    {
+      "id": "features-7",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related pages",
+      "items": [
+        {
+          "title": "Privacy policy",
+          "body": "What we collect, who hosts the site and how analytics works.",
+          "link": {
+            "label": "Read the privacy policy",
+            "href": "/legal/privacy/"
+          }
+        },
+        {
+          "title": "Questions",
+          "body": "Reach us through the contact page.",
+          "link": {
+            "label": "Contact DOM VIRUS",
+            "href": "/contact/"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "legal",
+    "tags": [
+      "legal",
+      "privacy",
+      "cookies"
+    ],
+    "created": "2026-10-29"
+  }
+}

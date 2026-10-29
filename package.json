@@ -47,7 +47,7 @@
     "dev:playground": "node scripts/prepare-playground.mjs && vite --config vite.config.js",
     "site:prepare": "node site-kit/scripts/prepare.mjs",
     "engine:heads": "node scripts/engine-heads.mjs",
-    "site:build": "npm run site:typecheck && node site-kit/scripts/prepare.mjs && astro build --config site/astro.config.mjs && node site-kit/scripts/verify.mjs",
+    "site:build": "npm run site:typecheck && node site-kit/scripts/prepare.mjs && astro build --config site/astro.config.mjs && node site-kit/scripts/sitemap.mjs && node site-kit/scripts/verify.mjs",
     "site:preview": "astro preview --config site/astro.config.mjs",
     "sync:sites": "node scripts/sync-sites.mjs",
     "site:typecheck": "tsc -p site-kit/tsconfig.json",

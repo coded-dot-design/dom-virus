@@ -1,0 +1,7 @@
+{
+  "$comment": "The one redirect source for this site (brand/SITEMAP.md E4). Old path -> new path, both relative to the site root. GitHub Pages: built as static redirect pages. Cloudflare: import as bulk 301s.",
+  "under-the-hood/": "engine/",
+  "style-guide/": "about/brand/",
+  "archive/": "about/brand/archive/",
+  "coming-soon/": "games/coming-soon/"
+}

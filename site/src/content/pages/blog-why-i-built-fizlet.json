@@ -1,0 +1,162 @@
+{
+  "id": "blog-why-i-built-fizlet",
+  "path": "/blog/why-i-built-fizlet",
+  "template": "article",
+  "status": "scheduled",
+  "seo": {
+    "title": "Why I built Fizlet: a tiny engine for games on the page",
+    "description": "Fizlet is a micro game engine for the DOM: a 4 KB gzip kernel budget, bricks of about 1.5 KB, zero steady-state allocation. Battlefield Blitz runs on it.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/why-i-built-fizlet/",
+    "schemaPageType": "BlogPosting",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Why I built Fizlet",
+      "headingAccent": "A 4 KB kernel and a box of bricks.",
+      "eyebrow": "Blog",
+      "body": "Fizlet is the small engine I wrote so each new game starts where the last one finished. It is a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "The same lessons, written down once",
+      "body": [
+        "By the time I had four embedded games, they shared a lot: one loop, pools, cached geometry and a ledger for Recall. They shared it through a common runtime, but some of the rules lived only in my head.",
+        "Fizlet turns those rules into a contract. Every brick and every game built on it keeps the same promises, and each promise has a test.",
+        "The name is fizz, the pop of an effect, with a nod to physics. The -let is small, like an applet."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What the contract says",
+      "body": [
+        "One clock per page. Every engine on a page shares one requestAnimationFrame, with a fixed 60 Hz step and a catch-up cap. A long frame drops time; it never spirals.",
+        "Bounded everything. Pools and the event ring have a fixed capacity and refuse work when full.",
+        "Zero allocation in the steady state. One test runs a million kernel steps of a busy system and checks that no young-generation garbage collection happens.",
+        "No layout reads in the step. Read in read, simulate in step, write in render. A debug brick counts any layout read made during a step.",
+        "Change-only writes, pause by default, and own nothing you can't give back. A hidden tab, a root scrolled off screen or typing in the host's own fields all pause it.",
+        "Embed-safe: no globals, no global styles, many engines per page. And budgets in CI, so none of this quietly grows."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "A kernel plus bricks",
+      "body": [
+        "The kernel is the clock and scheduler, pools, the event ring, the ledger and a seeded random. Its budget is 4 KB gzip, and today it measures about 2.8 KB.",
+        "Everything else is a brick you import only if you need it. Input turns keys, the pointer and a touch stick into intents. Collide brings a spatial hash and swept hit tests, so fast shots don't tunnel through targets.",
+        "Fx carries pooled particles, the hero blast, pop words, scorch and shake. Sound turns game events into synthesized cues. Embed handles the drop-in, brand palettes and easter-egg triggers.",
+        "There is also the Board UI kit: the 3D keys, cards and overlays the Battlefield games wear. And no runtime dependencies, ever."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Battlefield Blitz is the proof",
+      "body": [
+        "Blitz was the first game built on Fizlet, and today it is the only one. Fizlet 0.1.0 shipped the kernel. Version 0.2.0 shipped the first bricks, the ones Blitz needed.",
+        "Blitz is a free-for-all tank brawl: parachute in, call airstrikes, most kills in three minutes wins. Its whole build has a 40 KB gzip budget, engine, art and Board UI kit included. Today it measures about 34 KB.",
+        "The four embedded games still run on the DOM VIRUS shared runtime, and Swarm Protocol keeps its own engine. Moving them onto Fizlet is the next phase, not something already done.",
+        "I won't claim Fizlet makes those games faster until I have measured it on real devices. That is the deal with every number on this site."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Why not an existing engine",
+      "body": [
+        "There are good small engines out there, and I compared a lot of them before starting. Most assume they own a canvas or the whole page. Most animation libraries have no loop, entities, collision or rules.",
+        "I wanted something else: a polite guest on a page it does not own, small enough that the page never notices it is there. That gap is what Fizlet is for.",
+        "It is MIT licensed and built to be built on. Games, yes, but also a diagram you can play with or a hero that reacts. If you make something with it, I would love to see it."
+      ]
+    },
+    {
+      "id": "features-6",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Go deeper",
+      "items": [
+        {
+          "title": "Fizlet on GitHub",
+          "body": "The kernel, the bricks, the contract and its tests. MIT licensed.",
+          "link": {
+            "label": "Get the Fizlet code on GitHub",
+            "href": "https://github.com/coded-dot-design/fizlet"
+          }
+        },
+        {
+          "title": "Battlefield Blitz",
+          "body": "The first game on Fizlet. Every tank for itself.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          }
+        },
+        {
+          "title": "How the games work",
+          "body": "One loop, a cheap read of the page and a clean exit, as live demos.",
+          "link": {
+            "label": "See how the engine works",
+            "href": "/engine/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "The page is the game board: how DOM VIRUS games play",
+          "body": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
+          "link": {
+            "label": "Read: The page is the game board: how DOM VIRUS games play",
+            "href": "/blog/the-page-is-the-game-board"
+          }
+        },
+        {
+          "title": "About DOM VIRUS: one maker, tiny games, a game a week",
+          "body": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+          "link": {
+            "label": "Read: About DOM VIRUS: one maker, tiny games, a game a week",
+            "href": "/about"
+          }
+        },
+        {
+          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "link": {
+            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
+            "href": "/news/fizlet-0-2"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "blog",
+    "tags": [
+      "fizlet",
+      "engine",
+      "performance",
+      "open-source"
+    ],
+    "created": "2026-11-26"
+  },
+  "publishAt": "2026-11-26"
+}

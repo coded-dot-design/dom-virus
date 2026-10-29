@@ -1,0 +1,152 @@
+{
+  "id": "blog-from-one-tank-to-a-whole-platoon",
+  "path": "/blog/from-one-tank-to-a-whole-platoon",
+  "template": "article",
+  "status": "scheduled",
+  "seo": {
+    "title": "From one tank to a platoon: the DOM Battlefield story",
+    "description": "Sherman Bytes put one pixel tank on a webpage. It grew into two board games: DOM Battlefield for squad tactics and Battlefield Blitz for arcade chaos.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/from-one-tank-to-a-whole-platoon/",
+    "schemaPageType": "BlogPosting",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "From one tank to a whole platoon",
+      "headingAccent": "Sherman Bytes, DOM Battlefield, Battlefield Blitz.",
+      "eyebrow": "Blog",
+      "body": "Sherman Bytes started as one pixel tank on a live webpage. Its tanks now drive two full board games: DOM Battlefield, a squad tactics game, and Battlefield Blitz, a free-for-all arcade brawl. Here is how one small game grew a family."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "One tank",
+      "body": [
+        "Sherman Bytes puts an M4-inspired pixel tank onto the page you are reading. Letters are walls, buttons are enemy bases, and you hold the page against escalating squads.",
+        "Drive with WASD or the arrows, aim with the mouse, fire with a click or Space. On phones, a joystick drives and a round Fire button shoots.",
+        "You can dig in, too. Build cover and pillboxes, capture a base, and let it repair your armour while the next wave comes.",
+        "It was built to stay small and polite. It caps tanks at 32 and shells at 120, and Recall gives the page back when you are done."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "A whole platoon",
+      "body": [
+        "Playing Sherman, I kept wanting more tanks on my side. DOM Battlefield is that wish, played out on a full board.",
+        "You pick one of four operations, a side and a formation, then a squad of 4, 8 or 12 tanks per side. A four-slot loadout of scout, medium and heavy tanks has to fit a 12-point budget.",
+        "Then you plan. Time freezes and you give each tank an order: Attack HQ, Follow me, or Command, where you plant a flag and draw the route.",
+        "Start the battle and the plan meets the enemy. Houses, hedges and parked cars break into pixel debris. Rocks and water stay. Fences stop tanks but let shells through.",
+        "Battlefield is its own app. It borrows Sherman Bytes for the tank artwork and its cached renderer, and adds zero bytes to the Sherman bundle."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Every tank for itself",
+      "body": [
+        "Battlefield is the slow, thinking version. I also wanted the loud one.",
+        "The Battlefield landing page already had a hero where tanks shell and flatten the headline while airstrikes land. Battlefield Blitz turned that hero into a game.",
+        "Blitz is free for all. You parachute in, grab blinking power tiles, call airstrikes and dodge mines. Die, drop back in. Most kills in three minutes wins.",
+        "There are three modes. Practice has a coach and targets that never shoot back. Solo is eight tanks, every tank for itself. Platoon puts you and three wingmen against two other platoons of four.",
+        "Blitz is also the first game built on Fizlet, the new engine. It still draws its tanks with Sherman Bytes sprites."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "One embedded game, two boards",
+      "body": [
+        "This is the pattern now. Build the tiny embedded game first, then grow its characters into board games of different styles.",
+        "Battlefield is the classic one: strategy and tactics. Blitz is the modern one: arcade action at battle-royale pace. Both play on the Battlefield site.",
+        "The tanks are the same tanks in all three. On a desktop the controls rhyme too: WASD or the arrows drive, and the mouse aims.",
+        "Next on the plan is DOM Battlefield multiplayer: two players, two pages, one battle. That is the Bolo classroom again, finally on a webpage. It is a plan, not a promise, and this blog will follow it."
+      ]
+    },
+    {
+      "id": "features-5",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Play the family",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "One tank on a live webpage. Breach the bases, hold the page.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "DOM Battlefield",
+          "body": "Plan every route, then command your squad under fire.",
+          "link": {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          }
+        },
+        {
+          "title": "Battlefield Blitz",
+          "body": "Parachute in, call airstrikes, most kills wins.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "The page is the game board: how DOM VIRUS games play",
+          "body": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
+          "link": {
+            "label": "Read: The page is the game board: how DOM VIRUS games play",
+            "href": "/blog/the-page-is-the-game-board"
+          }
+        },
+        {
+          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
+            "href": "/blog/two-macs-one-network-and-bolo"
+          }
+        },
+        {
+          "title": "About DOM VIRUS: one maker, tiny games, a game a week",
+          "body": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+          "link": {
+            "label": "Read: About DOM VIRUS: one maker, tiny games, a game a week",
+            "href": "/about"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "blog",
+    "tags": [
+      "sherman-bytes",
+      "dom-battlefield",
+      "battlefield-blitz",
+      "story"
+    ],
+    "created": "2026-12-03"
+  },
+  "publishAt": "2026-12-03"
+}

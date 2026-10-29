@@ -249,7 +249,7 @@ try {
   await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games" && !location.search, null, { timeout: 6000 });
   // Under the hood: each snippet has a cartridge (desktop); it plugs in at home and opens the game page.
   if ((page.viewportSize()?.width ?? 0) >= 1100) {
-    await page.goto(base + "under-the-hood/");
+    await page.goto(base + "engine/");
     const cart = page.locator('.embed-cart .cartridge[data-cart="byte-runner"]');
     assert.equal(await cart.getAttribute("href"), "/dom-virus/?load=byte-runner#console");
     assert.equal(await page.locator(".embed-title .game-sticker").count(), await page.locator(".embed-game").count());
@@ -290,16 +290,16 @@ try {
   await page.waitForFunction(() => !!document.querySelector(".board-open"), null, { timeout: 8000 });
   await page.waitForURL(/\/dom-virus\/battlefield\/$/, { timeout: 10000 });
   // The original one-page layout is archived.
-  await page.goto(base + "archive/");
+  await page.goto(base + "about/brand/archive/");
   assert.equal(await page.locator(".game-section").count(), 4);
   // Style guide: brand system + the case study, linked from the footer (desktop only).
-  await page.goto(base + "style-guide/");
+  await page.goto(base + "about/brand/");
   assert.equal(await page.locator("#case-study h2").textContent(), "From one long page to a cartridge console.");
-  assert.equal(new URL(await page.locator("#case-study a.sg-archive").evaluate((a) => a.href)).pathname, "/dom-virus/archive/");
+  assert.equal(new URL(await page.locator("#case-study a.sg-archive").evaluate((a) => a.href)).pathname, "/dom-virus/about/brand/archive/");
   assert.equal(await page.locator(".style-guide .cartridge").count(), 2);
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true);
   assert.equal(await page.locator(".footer-style-guide").getAttribute("aria-current"), "page", "style guide key is pressed on its page");
-  assert.equal(new URL(await page.locator(".footer-style-guide").evaluate((a) => a.href)).pathname, "/dom-virus/style-guide/");
+  assert.equal(new URL(await page.locator(".footer-style-guide").evaluate((a) => a.href)).pathname, "/dom-virus/about/brand/");
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true, "style guide link on phones too");
@@ -316,16 +316,16 @@ try {
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   // Coming soon: the list page, the Kaiju details page and its COMING SOON cartridge on the shelf.
   await page.goto(base);
-  assert.equal(new URL(await page.locator(".readout-next a").evaluate((a) => a.href)).pathname, "/dom-virus/coming-soon/");
+  assert.equal(new URL(await page.locator(".readout-next a").evaluate((a) => a.href)).pathname, "/dom-virus/games/coming-soon/");
   const kaijuCart = page.locator('.cartridge[data-cart="kaiju"]');
   assert.equal(await kaijuCart.locator(".soon-band").textContent(), "COMING SOON");
   assert.equal(JSON.parse(await kaijuCart.getAttribute("data-actions"))[0].href, "/dom-virus/games/kaiju/", "the soon cartridge opens its details");
-  await page.goto(base + "coming-soon/");
+  await page.goto(base + "games/coming-soon/");
   assert.deepEqual(await page.locator(".soon-game h2").allTextContents(), ["Battlefield Blitz", "DOM Crossfire", "DOM Kaiju", "DOM Flock"], "build order");
   await page.goto(base + "games/kaiju/");
   assert.equal(await page.locator(".soon-key").getAttribute("aria-disabled"), "true", "Kaiju can't be played yet");
   assert.equal(await page.locator('a[href*="docs/games/dom-kaiju.md"]').count() > 0, true, "links the design doc");
-  for (const path of ["", "under-the-hood/", "style-guide/", "games/byte-runner/", "games/battlefield/", "coming-soon/", "games/kaiju/"]) {
+  for (const path of ["", "engine/", "about/brand/", "games/byte-runner/", "games/battlefield/", "games/coming-soon/", "games/kaiju/"]) {
     await page.goto(base + path);
     assert.equal(await page.locator("h1").count(), 1, `${path || "home"} has one h1`);
     assert.match(await page.locator('meta[property="og:image"]').getAttribute("content"), /^https:\/\/.+\.png$/);
@@ -337,7 +337,7 @@ try {
   assert.match(await page.locator("h1").textContent(), /Nothing in/);
   assert.equal(await page.locator('meta[name="robots"]').getAttribute("content"), "noindex");
   assert.equal(new URL(await page.getByRole("link", { name: /Back to the games/ }).getAttribute("href"), base).pathname, "/dom-virus/");
-  await page.goto(base + "under-the-hood/");
+  await page.goto(base + "engine/");
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   for (const selector of [".uth", ".embed-section"])
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
@@ -412,7 +412,7 @@ try {
     await page.waitForFunction(() => document.querySelector("[data-shelf]").dataset.pop === "in");
     await page.waitForTimeout(900);
     await page.locator(".cartridge-shelf").screenshot({ path: `${output}/shelf-${theme}.png` });
-    await page.goto(base + "under-the-hood/");
+    await page.goto(base + "engine/");
     for (const lab of ["duel", "board", "pool", "recall", "pipeline"]) {
       const el = uth.locator(`[data-lab="${lab}"]`);
       await el.scrollIntoViewIfNeeded();
@@ -446,7 +446,7 @@ try {
       .screenshot({ path: `${output}/embed-${theme}.png` });
   }
 
-  const pages = ["", "under-the-hood/", "games/byte-runner/", "games/battlefield/", "archive/", "style-guide/"];
+  const pages = ["", "engine/", "games/byte-runner/", "games/battlefield/", "about/brand/archive/", "about/brand/"];
   for (const width of [320, 390, 430, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(base);
@@ -483,7 +483,7 @@ try {
           await page
             .locator(".hero-grid")
             .screenshot({ path: `${output}/hero-${width}-${theme}.png` });
-        if (path === "under-the-hood/")
+        if (path === "engine/")
           await uth.locator('[data-lab="duel"]').screenshot({
             path: `${output}/duel-${width}-${theme}.png`,
           });
@@ -541,7 +541,7 @@ try {
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").dataset.play);
   assert.equal(await page.locator(".hx-layer,.hx-foes").count(), 0, "reduced motion restores the poster");
   assert.equal(await promo.evaluate((el) => el.getAnimations({ subtree: true }).length), 0);
-  await page.goto(base + "under-the-hood/");
+  await page.goto(base + "engine/");
   // Reduced motion: no attract modes; the buttons still work and land instantly.
   await uth.locator('[data-lab="duel"]').scrollIntoViewIfNeeded();
   await page.waitForTimeout(1800);

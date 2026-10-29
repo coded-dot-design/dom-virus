@@ -1,0 +1,126 @@
+{
+  "id": "news-swarm-protocol-1-3",
+  "path": "/news/swarm-protocol-1-3",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Swarm Protocol 1.3: cleaner touch play, steady scoreboard",
+    "description": "Swarm Protocol 1.3 stops tap-to-select during rounds on phones and keeps pause, sound and close reachable when the scoreboard is minimized.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/swarm-protocol-1-3/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Swarm Protocol 1.3",
+      "headingAccent": "Tap bugs, not text.",
+      "eyebrow": "News",
+      "body": "Swarm Protocol 1.3 makes phone play cleaner and the scoreboard easier to reach. Tapping letters no longer starts a text selection mid-round. Swarm Protocol is the defense game where bugs eat a real page's letters into binary and drain its buttons. Squash them before the interface falls apart.",
+      "ctas": [
+        {
+          "label": "Play Swarm Protocol",
+          "href": "/games/swarm-protocol/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/swarm-protocol"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "On phones and other touch devices, page text selection and touch callouts switch off while a round runs. Tap a bug next to a word and you hit the bug.",
+        "Form fields and editable content stay selectable. Pausing, ending the round or Recall brings normal selection back.",
+        "The scoreboard uses the same action icons as the other games. Pause, sound and close stay reachable even when the scoreboard is minimized.",
+        "Sounds, palette and behavior are unchanged. The swarm still bites, grows and hunts the same way."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "The selection lock is the shared DOM VIRUS one. Swarm keeps its own established engine.",
+        "The size below is the full immediate import graph. The game itself loads on first open or start. Setup and the drop-in options are in the repository README."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "1.3.1",
+          "label": "current release (24 October 2026)"
+        },
+        {
+          "value": "34.6 kB",
+          "label": "gzip, full immediate import graph"
+        },
+        {
+          "value": "4.3 kB",
+          "label": "gzip, initial static import graph"
+        },
+        {
+          "value": "48",
+          "label": "bug cap"
+        },
+        {
+          "value": "240",
+          "label": "nearby glyph cache"
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "swarm-protocol"
+    ],
+    "created": "2026-10-24"
+  }
+}

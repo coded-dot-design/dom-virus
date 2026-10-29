@@ -1,0 +1,162 @@
+{
+  "id": "about",
+  "path": "/about",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "About DOM VIRUS: one maker, tiny games, a game a week",
+    "description": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/about/",
+    "schemaPageType": "AboutPage",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "One maker. A game a week.",
+      "headingAccent": "The story behind DOM VIRUS.",
+      "eyebrow": "About",
+      "body": "DOM VIRUS is a shelf of tiny arcade games that play on the real page you are reading. I'm Chris Cooley, and I make them on my own, under coded.design. Letters become terrain, buttons become bases, and Recall gives the page back when you are done."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Where it started",
+      "body": [
+        "I grew up in a house full of computers, at a time when few homes had one. I took that for granted.",
+        "Then, in a middle school engineering tech class, I met a room of networked Macs and a tank game called Bolo. The game was good for its day. The network is what hooked me.",
+        "We could reach across the wire and change what was happening on someone else's screen. Once that clicked, I wanted to know how all of it worked. The way to find out was to build things.",
+        "DOM VIRUS is the same trick, pointed at a webpage: a game that reaches into the page you are reading."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Twenty years of tiny games",
+      "body": [
+        "For more than twenty years I have made micro animations and small games on the side. First came embedded Flash games, then animated single-page sites back when jQuery was the best tool we had.",
+        "Then came years of building apps in Python, PHP and Angular. For the last four or five years it has mostly been TypeScript and React, with game sites and interactive work along the way.",
+        "Every one of those side projects ran into the same wall. A good game idea needed weeks of plumbing before it did anything fun. Time used to be the blocker.",
+        "Now the plumbing is solved once and shared. One loop, pooled everything, a cheap way to read the page, and a ledger to give it back. Now the only limit is creativity."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "The timeline",
+      "body": [
+        "The first idea showed up about a year ago. For months it moved in small strides: a sketch, a test page, a list of things a game could do to a paragraph.",
+        "Around April 2026 the concept took shape. The page would be the board. Every game would give the page back. Every game would stay small.",
+        "Real building started in September 2026. Six games are playable today: Sherman Bytes, DOM Battlefield, Battlefield Blitz, Swarm Protocol, Byte Runner and Null Invaders. DOM Kaiju is coming soon.",
+        "The plan is to launch in November 2026 with ten games. That is a plan, not a promise, and the blog will say so if it slips."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "A game a week, on the side",
+      "body": [
+        "I work fast and ship often: roughly a game a week, on the side, for fun. Fast does not mean rough. Nothing ships half-done, and there is no filler.",
+        "Each game follows the same path. An idea gets a coming-soon page. The approved idea becomes a playable game embedded on its own page here. Some games go further and become board games on their own sites.",
+        "Sherman Bytes set that pattern. Its tanks now drive two board games, DOM Battlefield and Battlefield Blitz."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Open source, all of it",
+      "body": [
+        "Every game and the Fizlet engine are open source under the MIT licence. Each one has its own GitHub repository with the code and the setup notes.",
+        "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples.",
+        "Fizlet is the small engine underneath: a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today. Moving the other games onto it is the next phase."
+      ]
+    },
+    {
+      "id": "text-6",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's next",
+      "body": [
+        "Next up is DOM Crossfire, a mash-up of the hub hero's interceptor and the Battlefield arena. DOM Kaiju, a giant pixel gorilla climbing your page, is coming soon.",
+        "DOM Battlefield multiplayer is on the list too: two players, two pages, one battle. That is the Bolo classroom again.",
+        "These are plans, not promises. The blog follows the work every week, in my own words: what I built, what broke and what I learned.",
+        "The best way to help is to play, fork the code and tell me what broke. If you want to back the project, the Support page lists the ways to do it."
+      ]
+    },
+    {
+      "id": "features-7",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Start here",
+      "items": [
+        {
+          "title": "Play the first cartridge",
+          "body": "Sherman Bytes: a pixel tank on a live webpage, the game that set the pattern.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "See every game",
+          "body": "Six playable today, by stage, plus what is coming next.",
+          "link": {
+            "label": "Browse all DOM VIRUS games",
+            "href": "/games/"
+          }
+        },
+        {
+          "title": "Read the devlog",
+          "body": "A new post every week on how the games get made, in my own words.",
+          "link": {
+            "label": "Read the DOM VIRUS blog",
+            "href": "/blog/"
+          }
+        },
+        {
+          "title": "Command a platoon",
+          "body": "DOM Battlefield: plan every route, then lead your squad under fire.",
+          "link": {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          }
+        },
+        {
+          "title": "Build on the engine",
+          "body": "Fizlet is MIT licensed and meant to be built on.",
+          "link": {
+            "label": "Get the Fizlet code on GitHub",
+            "href": "https://github.com/coded-dot-design/fizlet"
+          }
+        },
+        {
+          "title": "Back the project",
+          "body": "One maker, a game a week, all of it open source. Support keeps the servers and the next cartridge coming.",
+          "link": {
+            "label": "Support DOM VIRUS",
+            "href": "/support/"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "about-home",
+    "tags": [
+      "about",
+      "story",
+      "open-source"
+    ],
+    "created": "2026-10-29"
+  }
+}

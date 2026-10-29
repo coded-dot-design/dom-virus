@@ -1,0 +1,170 @@
+{
+  "id": "blog-the-page-is-the-game-board",
+  "path": "/blog/the-page-is-the-game-board",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "The page is the game board: how DOM VIRUS games play",
+    "description": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/the-page-is-the-game-board/",
+    "schemaPageType": "BlogPosting",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "The page is the game board",
+      "headingAccent": "Letters are terrain. Buttons are bases.",
+      "eyebrow": "Blog",
+      "body": "Most browser games bring their own world: a canvas, a level, a map someone drew. DOM VIRUS games use the one already in front of you. The page you are reading is the board, and the game plays on its real letters and buttons."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Real elements, real collisions",
+      "body": [
+        "When a game starts, it reads the page. It finds the text and the buttons, measures where they sit and builds a map from them. Then the simulation plays against that map.",
+        "The letters stay real. A hit does not paint a fake letter on top of the page. It rewrites the character inside the existing text node to a literal 0 or 1.",
+        "There are no clones and no per-letter wrappers. I tried the other way first. Early builds drew replacement glyphs on a canvas. Hub 0.7.0 removed them and made real text the only path.",
+        "That choice made the engine harder and the game better. When the page is real, every hit is real too, and so is every repair."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Same page, different rules",
+      "body": [
+        "Each cartridge maps the same page onto its own rules.",
+        "In Sherman Bytes, letters are walls. They block your tank and your shells, and blasting them leaves faint binary rubble you can drive across. Buttons spawn enemy tanks, so you breach them and take them.",
+        "In Null Invaders you fly an interceptor through the page. You turn letters into binary, break the button factories and clear the aliens they release.",
+        "In Byte Runner, a round pixel frog races through food pipes in the page's whitespace. It jumps out to eat real text and hunts escaping flies.",
+        "Swarm Protocol flips it around. You release a swarm onto the page, then defend it. Bugs eat letters into binary and drain your buttons.",
+        "Same page, different rules. That line is on the hub for a reason."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Reading the page without slowing it down",
+      "body": [
+        "A webpage makes a good map, but asking the browser for layout is expensive. So the games read geometry, cache it and refresh it on a schedule.",
+        "The limits are hard numbers. The games index up to 8,000 glyphs and measure at most 900 of them per refresh. They pick up to 160 text containers and 32 button targets.",
+        "Geometry refreshes at most 12.5 times a second while the page is changing, and twice a second once it settles. A shell never asks the browser where a letter is. It asks the cache.",
+        "Turning a letter into a digit can reflow the line, because most fonts are proportional. When that happens, the cache is marked dirty and refreshed within the same limits.",
+        "These limits constrain work. They are not frame-rate promises. Real frame time still depends on the page, its fonts and your device."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "The game UI stays out of your way",
+      "body": [
+        "The game's own canvas and controls live in a Shadow Root on a custom host element. That keeps the game's styles from leaking into your page.",
+        "It is a style boundary, nothing more. The letters and buttons the game plays on stay in your real document.",
+        "The rest of the hub page is excluded on purpose. Menus, code examples and the launcher are not targets, so the game never eats the controls you need to stop it."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Then Recall gives the page back",
+      "body": [
+        "A game that breaks your page and leaves it broken is a bug, not a feature. So every game keeps an ownership ledger: what was there before, and what the game wrote.",
+        "Press Recall and the game restores what it still owns. If your app changed something since, your app wins.",
+        "That rule is the heart of the whole project, and it gets its own post next month. For now, go wreck a paragraph. Then press Recall and watch it come back."
+      ]
+    },
+    {
+      "id": "features-6",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Try it on this site",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "Breach the button bases, build cover, hold the page. Then hit Recall.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "Null Invaders",
+          "body": "Fly an interceptor through a real webpage and break the button factories.",
+          "link": {
+            "label": "Play Null Invaders",
+            "href": "/games/null-invaders/"
+          }
+        },
+        {
+          "title": "Byte Runner",
+          "body": "A hungry pixel frog races through the page's whitespace.",
+          "link": {
+            "label": "Play Byte Runner",
+            "href": "/games/byte-runner/"
+          }
+        },
+        {
+          "title": "Swarm Protocol",
+          "body": "Release a swarm onto the page, then defend it.",
+          "link": {
+            "label": "Play Swarm Protocol",
+            "href": "/games/swarm-protocol/"
+          }
+        },
+        {
+          "title": "Two Macs, one network, and Bolo",
+          "body": "Where the idea of a game that reaches into your page came from.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo",
+            "href": "/blog/two-macs-one-network-and-bolo/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
+            "href": "/blog/two-macs-one-network-and-bolo"
+          }
+        },
+        {
+          "title": "Sherman Bytes 0.5: phone controls, building and sound",
+          "body": "Sherman Bytes 0.5 adds a joystick, a held Fire button, tap-to-build cover, pillboxes and mines on phones, and battle sound. 27.0 kB gzip.",
+          "link": {
+            "label": "Read: Sherman Bytes 0.5: phone controls, building and sound",
+            "href": "/news/sherman-bytes-0-5"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "blog",
+    "tags": [
+      "engine",
+      "recall",
+      "performance",
+      "sherman-bytes"
+    ],
+    "created": "2026-10-29"
+  }
+}
