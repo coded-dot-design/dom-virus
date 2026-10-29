@@ -686,6 +686,14 @@ try {
       gesture: (() => { const e = new Event("gesturestart", { cancelable: true }); document.dispatchEvent(e); return e.defaultPrevented; })(),
     }));
     assert.deepEqual(policy, { touch: "pan-x pan-y", select: "none", gesture: true });
+    // The first tap on the hero tank loads the game and is replayed into it after the finger is
+    // up: that replay must not throw (it did on setPointerCapture, every time, on phones).
+    const tapErrors = [];
+    touch.on("pageerror", (error) => tapErrors.push(error.message));
+    const stage = await touch.locator(".hero-crossover .promo-stage").boundingBox();
+    await touch.touchscreen.tap(stage.x + stage.width * 0.5, stage.y + stage.height * 0.75);
+    await touch.waitForFunction(() => document.querySelector(".hero-crossover").dataset.play === "true");
+    assert.deepEqual(tapErrors, [], "the replayed first tap does not throw");
     await touch.close();
   }
 } catch (e) {

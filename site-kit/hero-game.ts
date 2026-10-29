@@ -364,7 +364,10 @@ export function startHeroGame(hero: HTMLElement, first?: PointerEvent) {
     }
     if ((p.x - tank.x) ** 2 + (p.y - tank.y) ** 2 < 60 ** 2) {
       drag = { id: e.pointerId, dx: p.x - tank.x, moved: false };
-      stage.setPointerCapture(e.pointerId);
+      // The tap that loaded the game is replayed after its pointer may be gone: capture can throw.
+      try {
+        stage.setPointerCapture(e.pointerId);
+      } catch {}
     }
   }
   function move(e: PointerEvent) {
