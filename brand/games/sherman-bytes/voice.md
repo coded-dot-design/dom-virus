@@ -53,14 +53,13 @@ Military-arcade, clipped, in commands. Breach. Build. Hold.
 
 The boards link back with **"Explore the original Sherman Bytes"** (rulebook §7).
 
-## Avoid
-
+## What we never do
 - Install, `npm pack` or configuration steps on the page; they live in the README ("Embed"
   section).
 - Calling it a "battle royale" or "squad" game: that is Blitz and Battlefield. Sherman is one tank,
   single player (`README.md:7`).
 
-## Limits
+## Claims: what we may and may not say
 
 - **May say:** the numbers in `game.json` (`facts`: 32 enemy tank cap, 120 pooled shells, 3
   buildable defences; chapters: 16 starting scrap, 0.7 s to capture, at most 40 enemies per wave and
@@ -87,6 +86,33 @@ simulation", `game.json:68`), the code card and the README link.
 ## Credit
 
 **By Chris Cooley · [coded.design](https://coded.design)**.
+
+## Avoid
+
+<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
+appears in page copy. The reasons are in "Words we use / avoid" and "What we never do" above. -->
+
+- revolutionary
+- game-changing
+- cutting-edge
+- best-in-class
+- world-class
+- seamless
+- synergy
+- security sandbox
+- secure sandbox
+- undo everything
+- guaranteed fps
+- ghosts
+- power orbs
+- corrupt letters
+
+## Limits
+
+<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
+
+- max sentence words: 25
+- max exclamations: 1
 
 ## Open questions
 

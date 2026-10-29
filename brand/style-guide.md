@@ -1,5 +1,7 @@
 # DOM VIRUS: style guide (parent)
 
+Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+
 The visual summary for the **DOM VIRUS parent brand** (`domvirus.com`, today
 `coded-dot-design.github.io/dom-virus/`). It is an input for the marketing engine: it says what the
 look is and where the live source lives. It does not replace the source.

@@ -1,5 +1,7 @@
 # Swarm Protocol: style guide
 
+Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+
 **#04 · DOM DEFENSE · Embedded · Released.** "The original DOM experiment." (its version note,
 `swarm-protocol/site/game.json:11`). Bugs eat the page; you squash them.
 

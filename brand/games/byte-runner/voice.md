@@ -48,13 +48,12 @@ Hungry, bouncy, a little cute. Food words and small-creature words.
 
 No board game is built from Byte Runner today, so no "Play [Board Game]" link.
 
-## Avoid
-
+## What we never do
 - The "Embed without a build system" and npm steps on the page; they live in the README.
 - Promising more food on every page. The maze uses available safe whitespace: "no overlap is
   introduced just to meet a numeric target" (`docs/performance-audit-2026-10.md:33`).
 
-## Limits
+## Claims: what we may and may not say
 
 - **May say:** the `game.json` facts (6–8 power squares, 3 starting lives, 9 s power ceiling) and
   "Byte Runner caps flies at 12" (`site-kit/components/UnderTheHood.astro:120`,
@@ -79,6 +78,33 @@ the engine line ("Shared TypeScript runtime", `game.json:58`), the code card and
 ## Credit
 
 **By Chris Cooley · [coded.design](https://coded.design)**.
+
+## Avoid
+
+<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
+appears in page copy. The reasons are in "Words we use / avoid" and "What we never do" above. -->
+
+- revolutionary
+- game-changing
+- cutting-edge
+- best-in-class
+- world-class
+- seamless
+- synergy
+- security sandbox
+- secure sandbox
+- undo everything
+- guaranteed fps
+- ghosts
+- power orbs
+- corrupt letters
+
+## Limits
+
+<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
+
+- max sentence words: 25
+- max exclamations: 1
 
 ## Open questions
 

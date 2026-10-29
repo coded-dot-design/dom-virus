@@ -50,15 +50,14 @@ Defensive, urgent, a little mischievous. Short orders.
 
 No board game is built from Swarm today, so no "Play [Board Game]" link.
 
-## Avoid
-
+## What we never do
 - Drop-in ZIP, Astro component or npm steps on the page; they live in the README ("Install the
   drop-in ZIP in Astro").
 - FPS claims. Swarm's optimisation is stated as operations, not frame rate: "reduced ancestry
   checks by 81.8% and distance calls by 90.4% … That measures operations in a repeatable workload,
   not universal FPS." (`site-kit/components/Site.astro:100`).
 
-## Limits
+## Claims: what we may and may not say
 
 - **May say:** the `game.json` facts (48 bug cap, 36 Range reads per frame, 240 nearby glyph
   cache) and "Swarm caps bugs at 48." (`site-kit/components/UnderTheHood.astro:120`).
@@ -84,6 +83,33 @@ the size fact, the engine line and the README link.
 ## Credit
 
 **By Chris Cooley · [coded.design](https://coded.design)**.
+
+## Avoid
+
+<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
+appears in page copy. The reasons are in "Words we use / avoid" and "What we never do" above. -->
+
+- revolutionary
+- game-changing
+- cutting-edge
+- best-in-class
+- world-class
+- seamless
+- synergy
+- security sandbox
+- secure sandbox
+- undo everything
+- guaranteed fps
+- ghosts
+- power orbs
+- corrupt letters
+
+## Limits
+
+<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
+
+- max sentence words: 25
+- max exclamations: 1
 
 ## Open questions
 

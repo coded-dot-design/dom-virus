@@ -1,15 +1,22 @@
-# Phase 2 decisions: open questions across the family
+# Phase 2 decisions
 
-One list for the owner. Each item says where the question comes from, what the existing copy and
-code do today, and a recommendation. Answer here (or in the PR), then the brand files, `family.json`
-and pages follow. Nothing below has been changed in any page or game yet.
+Every question raised while writing the brand inputs, what the existing copy and code do today, and
+the **decision taken**. Decided 2026-10-29 by the site agent on the owner's instruction ("make your
+own decisions, based on best practice and the astro-engine's learnings"). The owner can reverse any
+line: change it here, then the brand files, `family.json` and pages follow. Nothing below has been
+applied to a page or a game yet; applying them is the content pass (games stay locked).
 
-Sources: the rulebook (`brand/README.md`) and the brand files written for DOM VIRUS, the four
-embedded games, Battlefield, Blitz and Fizlet (each lists its own open questions in full).
+Principles used: keep live URLs (engine rule 5), never invent facts or numbers (engine rule 4),
+facts are data not prose (rulebook §11), one shared component over copies, and don't touch the game
+layer in Phase 2.
+
+Sources: the rulebook (`brand/README.md`), the client card (`brain-cache/coded`
+`clients/domvirus/_card.md`), astro-engine's contract and defaults, and the brand files written for
+DOM VIRUS, the four embedded games, Battlefield, Blitz and Fizlet.
 
 ## A. Rules that conflict with what's live
 
-| # | Question | Today | Recommendation |
+| # | Question | Today | Decision |
 |---|---|---|---|
 | A1 | **Blitz drop-in vs "boards are never installable".** | Blitz ships a one-line drop-in (`/blitz/blitz.js`) and the Battlefield, Blitz, Fizlet and hub pages promote it ("Put it on your site", "Drops onto any website with one line"). | Treat **Blitz as both**: an embedded game (installable, drop-in) *and* a board on the Battlefield site. Its drop-in moves to an embedded page on the hub (`/games/blitz/`), its board stays on the Battlefield subdomain with no install copy. Keep `/blitz/blitz.js` working forever (snippets are in the wild). |
 | A2 | **Classic / Modern.** | Copy never uses either word. Battlefield = "squad tactics"; Blitz = "the arcade version". | Battlefield = **Classic**, Blitz = **Modern** (the rulebook table). Consider "Arcade" instead of "Modern": it's the word the copy already uses. |
@@ -24,7 +31,7 @@ embedded games, Battlefield, Blitz and Fizlet (each lists its own open questions
 
 ## B. Brand and design
 
-| # | Question | Recommendation |
+| # | Question | Decision |
 |---|---|---|
 | B1 | Approve Fizlet's proposed visual guide (`fizlet/brand/style-guide.md`). | Approve; it's the Board UI kit plus a few site tokens. |
 | B2 | Soft effects in page chrome (hero washes, glows, header blur) vs "flat colour". | Allow in page chrome where measured cheap; never in the game layer. |
@@ -35,7 +42,7 @@ embedded games, Battlefield, Blitz and Fizlet (each lists its own open questions
 
 ## C. Facts and numbers
 
-| # | Question | Recommendation |
+| # | Question | Decision |
 |---|---|---|
 | C1 | Smaller next size targets don't exist for any game. | Set each target ~10% under today's measured gzip; show "now / target" on every game page. |
 | C2 | Stale numbers: Fizlet site says Blitz "about 17 KB" (now 34.5 KB); Battlefield README sizes (61.5 KB, now 67.6 KB); Swarm initial size (4.3 kB on the hub vs ~1.1 kB in its docs); Byte Runner caps disagree; `PERFORMANCE.md` ceilings older than today. | Generate every size from the build (the hub already does); delete hand-typed numbers. |
@@ -48,9 +55,11 @@ embedded games, Battlefield, Blitz and Fizlet (each lists its own open questions
 
 ## D. Domains, hosting, money
 
-| # | Question | Recommendation |
+| # | Question | Decision |
 |---|---|---|
 | D1 | Fizlet domain: `fizlet.com` or `fizlet.coded.design`. | Whichever you can buy; the config takes either. |
 | D2 | Registrar and DNS. | Cloudflare (at-cost, DNS API for scripted subdomains, CDN in front of Pages, Workers later for multiplayer). |
 | D3 | Donations: GitHub Sponsors, Buy Me a Coffee or Ko-fi. | GitHub Sponsors (open source, no fees), with Ko-fi as the casual option. |
 | D4 | `dombattlefield.com` (in the Battlefield README) vs `battlefield.domvirus.com`. | Subdomain is canonical; point `dombattlefield.com` at it with a redirect if you own it. |
+| D5 | Multiplayer room server (GitHub Pages can't run one). The card names S3 + CloudFront as the hosting step-up. | Cloudflare Workers + Durable Objects for rooms (one stateful object per room over WebSockets), independent of page hosting; AWS API Gateway WebSockets if everything must live on AWS. Owner to confirm the account before E4 starts. |
+| D6 | Engine page-content path: astro-engine writes `src/content/pages`; these Astro sites use `site/src`. | Run the engine with `--site site` and point `inputs` at `../brand/` (no site restructure). Suggested engine change: a configurable pages dir (`brand/ENGINE-SUGGESTIONS.md`). |

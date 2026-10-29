@@ -1,5 +1,7 @@
 # Sherman Bytes: style guide
 
+Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+
 **#01 · DOM TANK · Embedded · Classic · Released.** The tank game that started the pattern: its
 characters grow into DOM Battlefield and Battlefield Blitz (rulebook
 [`../../README.md`](../../README.md) §3, [`family.json`](../../family.json) → `builtFrom`).

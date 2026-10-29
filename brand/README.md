@@ -9,8 +9,8 @@ site, every game and the Fizlet engine. It decides structure and voice. The visu
 - Phase: **2** (marketing clean-up and cut-over). Phase 1 is frozen: see
   [`docs/phase-1/`](../docs/phase-1/README.md).
 - Owner: Chris Cooley · [coded.design](https://coded.design). Ask before changing anything marked
-  **Decision** or **Open question**. Every open question across the family, with a recommendation:
-  [`DECISIONS.md`](DECISIONS.md).
+  **Decision**. Every question raised so far, with the decision taken and why (owner may reverse
+  any line): [`DECISIONS.md`](DECISIONS.md).
 
 ---
 
@@ -67,7 +67,7 @@ Rules:
   our sites, where we control it.
 
 **Two styles**: **Classic** (strategy and tactics) and **Modern** (arcade action, battle-royale
-pace). (Working names; **Open question**: keep "Modern"?)
+pace). (Working names; Modern may become "Arcade", the copy's own word: DECISIONS A2.)
 
 **The pattern** (set by Sherman Bytes): build the tiny embedded game first, then grow its
 characters into board games of different styles.
@@ -84,9 +84,11 @@ characters into board games of different styles.
 | 06 | DOM SHOOTER | Null Invaders | Embedded | — | — | Released |
 | 07 | CLIMB + SMASH | DOM Kaiju | Board | — | — | Coming soon |
 
-- **Open question:** your brief listed DOM Battlefield as Board/Modern and Blitz as Board/Classic,
-  but also described the strategy game as Classic and the battle royale as Modern. The table follows
-  the description (Battlefield = Classic strategy, Blitz = Modern battle royale). Confirm.
+- **Decided (A2):** Battlefield = Classic (strategy), Blitz = Modern (battle royale), following the
+  owner's description of the two styles.
+- **Decided (A1):** Blitz is **both** an embedded game (its one-line drop-in, on the hub at
+  `/games/blitz/`) and a board on the Battlefield site. Board pages carry no install copy; the
+  drop-in URL `/blitz/blitz.js` never moves.
 - The gameplay tag is the cartridge kicker (`01 / DOM TANK`). Today Sherman Bytes reads
   "DOM TANK TACTICS"; the target is "DOM TANK" (content change only, applied in the clean-up).
 - Coming-soon ideas (DOM Crossfire, DOM Flock) get a number and tag when approved.
@@ -115,13 +117,11 @@ characters into board games of different styles.
 | Playable boards (several on one subdomain) | `<game>.domvirus.com/play/<board>/` |
 | Fizlet | `fizlet.com` (preferred) · `fizlet.coded.design` (fallback); configurable |
 
-- **Open question (embedded path):** your URL tables say `/games/<game>/`; the site-agent
-  handoff's engine config says `/embedded/<slug>/`. Today's pages already live at `/games/<id>/`,
-  so `/games/` needs no redirects. Pick one; if `/embedded/` wins, redirect every `/games/<id>/`.
-- **Open question (Blitz):** Blitz and Battlefield share the Battlefield brand and site. Proposed:
-  `battlefield.domvirus.com/play/battlefield/` and `/play/blitz/` (several boards, one subdomain),
-  Blitz's landing at `battlefield.domvirus.com/blitz/`. The alternative is its own
-  `blitz.domvirus.com`.
+- **Decided (A3):** embedded pages live at `/games/<game>/` (live today, matches the owner's URL
+  table, no redirects; "keep URLs" is an engine rule). The engine config's embedded type uses it.
+- **Decided (A4):** Blitz stays on the Battlefield brand: `battlefield.domvirus.com/blitz/`
+  (landing) and `battlefield.domvirus.com/play/blitz/` (board), with `/blitz/play/` redirected and
+  Battlefield's board at `/play/battlefield/` (two boards, one subdomain).
 
 **Environments.** The production URLs above are targets. Until each domain is pointed, the
 GitHub Pages addresses keep working, and local dev keeps working:
@@ -152,7 +152,7 @@ brand, animation in slots. No one-off pages.
 **General marketing (parent):** home (hero animation, interactive cartridge library and console to
 reach every game), coming soon (index + one page per idea), blog (index + post), news (index +
 post: press releases, events, launches, game updates, white papers), submit your idea (form),
-support the project (donations; **Decision:** GitHub Sponsors / Buy Me a Coffee / Ko-fi), plus the
+support the project (donations: GitHub Sponsors, plus Ko-fi as the casual option, D3), plus the
 standard set: about, contact, privacy, terms, 404, sitemap, campaign landing pages.
 
 **Game templates**
@@ -281,11 +281,14 @@ posts, without one-off work.
 
 - **Now:** GitHub Pages per site (free, HTTPS, custom domain per repo). Good for every static page.
 - **Domains:** each site sets `SITE_URL` / `SITE_BASE` and a `CNAME`. A game subdomain is its
-  board repo's Pages site with `<game>.domvirus.com` as its custom domain. **Decision:** registrar
-  and DNS. Recommended: Cloudflare (at-cost domains, DNS API for scripted subdomains, free CDN in
-  front of Pages, room for headers later).
-- **Later (multiplayer):** a room server is needed; GitHub Pages can't run one. Recommended:
-  Cloudflare Workers + Durable Objects (WebSocket rooms) on the same account.
+  board repo's Pages site with `<game>.domvirus.com` as its custom domain.
+- **Registrar and DNS (D2):** Cloudflare: at-cost domains and a DNS API, so a new game's subdomain
+  is one scripted call (the owner's "simplest and cheapest to automate").
+- **Hosting step-up (owner):** S3 + CloudFront when Pages is outgrown (custom headers, prerender
+  opt-in, one origin for many subdomains).
+- **Multiplayer (D5):** a room server is needed; Pages can't run one. Recommended: Cloudflare Workers
+  + Durable Objects (one stateful object per room, WebSockets), independent of where pages are
+  hosted; AWS API Gateway WebSockets is the alternative if everything should live on AWS.
 
 ## 13. Phase rules
 

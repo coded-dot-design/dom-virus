@@ -1,5 +1,7 @@
 # Byte Runner: style guide
 
+Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+
 **#05 · DOM CHASE · Embedded · Released.** A round, hungry pixel frog runs food trails through the
 page's whitespace and eats real text.
 

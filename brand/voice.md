@@ -131,8 +131,7 @@ code & setup instructions" goes to GitHub (rulebook §7).
 
 ---
 
-## Avoid
-
+## What we never do
 - Instructions on pages. Setup, configuration and integration live in each game's README; the page
   only points there (rulebook §6).
 - Reuse invitations for board games ("drop it on your site", "install", "embed") (rulebook §3).
@@ -144,7 +143,7 @@ code & setup instructions" goes to GitHub (rulebook §7).
 
 ---
 
-## Limits: what we may and may not claim
+## Claims: what we may and may not claim
 
 **We may say** (each backed by a source):
 - The games change the **real** page: hits write literal 0 or 1 into the existing Text nodes; no
@@ -262,6 +261,33 @@ Visible on every page: **By Chris Cooley · [coded.design](https://coded.design)
 coded.design linked to <https://coded.design> (rulebook §2; `family.json` → `credit`).
 
 ---
+
+## Avoid
+
+<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
+appears in page copy. The reasons are in "Words we use / avoid" and "What we never do" above. -->
+
+- revolutionary
+- game-changing
+- cutting-edge
+- best-in-class
+- world-class
+- seamless
+- synergy
+- security sandbox
+- secure sandbox
+- undo everything
+- guaranteed fps
+- ghosts
+- power orbs
+- corrupt letters
+
+## Limits
+
+<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
+
+- max sentence words: 25
+- max exclamations: 1
 
 ## Open questions
 

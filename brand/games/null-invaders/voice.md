@@ -46,12 +46,11 @@ Arcade shooter: fast, escalating, a little deadpan. Waves and upgrades.
 
 No board game is built from Null Invaders today, so no "Play [Board Game]" link.
 
-## Avoid
-
+## What we never do
 - The "Embed without a build system" and npm steps on the page; they live in the README.
 - Long weapon tables on the page; the README holds the full gun table (`README.md:16-21`).
 
-## Limits
+## Claims: what we may and may not say
 
 - **May say:** the `game.json` facts (4 weapon tiers, 48 alien cap, 80 bullet cap) and "Null
   Invaders caps aliens at 48 and bullets at 80" (`site-kit/components/UnderTheHood.astro:120`,
@@ -78,6 +77,33 @@ link.
 ## Credit
 
 **By Chris Cooley · [coded.design](https://coded.design)**.
+
+## Avoid
+
+<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
+appears in page copy. The reasons are in "Words we use / avoid" and "What we never do" above. -->
+
+- revolutionary
+- game-changing
+- cutting-edge
+- best-in-class
+- world-class
+- seamless
+- synergy
+- security sandbox
+- secure sandbox
+- undo everything
+- guaranteed fps
+- ghosts
+- power orbs
+- corrupt letters
+
+## Limits
+
+<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
+
+- max sentence words: 25
+- max exclamations: 1
 
 ## Open questions
 

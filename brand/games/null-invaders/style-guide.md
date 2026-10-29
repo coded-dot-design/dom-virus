@@ -1,5 +1,7 @@
 # Null Invaders: style guide
 
+Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+
 **#06 · DOM SHOOTER · Embedded · Released.** Fly an interceptor through a real webpage, shoot
 letters into binary and break the button factories.
 
