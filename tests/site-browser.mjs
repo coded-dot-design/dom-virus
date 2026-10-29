@@ -200,7 +200,7 @@ try {
   assert.equal(page.url(), homeUrl.replace(/#.*$/, "") + "#games");
   // It should be back in its bay with no offset. On GitHub's headless runners it has sometimes kept
   // the seat offset (never reproduced in a real browser); record that instead of failing, and
-  // reload so the rest of the flow starts clean.
+  // reload so the rest of the flow starts clean. See FUTURE.md.
   await page.waitForTimeout(300);
   const left = await bf.evaluate((el) => getComputedStyle(el).transform);
   if (left !== "none") {
