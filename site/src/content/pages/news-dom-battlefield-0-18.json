@@ -1,0 +1,144 @@
+{
+  "id": "news-dom-battlefield-0-18",
+  "path": "/news/dom-battlefield-0-18",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+    "description": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-battlefield-0-18/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "DOM Battlefield 0.18",
+      "headingAccent": "Go live. Plan sharper.",
+      "eyebrow": "News",
+      "body": "DOM Battlefield 0.18 is the go-live line: clearer planning cards, a sharper surrender moment and full screen that stays on. Battlefield also has its own site now. DOM Battlefield is the squad-tactics board game: command up to twelve Sherman tanks on a grid built from real page elements.",
+      "ctas": [
+        {
+          "label": "Play DOM Battlefield",
+          "href": "https://coded-dot-design.github.io/dom-battlefield/play/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/dom-battlefield"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "The game has a home of its own. The Battlefield site opens with a live battle in the hero, and the game plays one key away.",
+        "Planning reads better. Each plan card carries an order pill in the order's colour, with radio talk and an HQ badge.",
+        "Your own tank's card now shows its real order, such as ATTACKING HQ or a grid square. With no order, it reads YOU'RE DRIVING.",
+        "Phones get bigger round planning keys. Surrender, rematch and new operation keep full screen on.",
+        "Surrender has its moment: a team-colour white flag, a white-out, a wave, a burst and a losing sound. The desktop platoon row no longer wraps when room runs short."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "Coming from the hub, the doors stay shut until the game has loaded, then open.",
+        "The compressed app budget is 68,000 bytes, enforced in CI. Battlefield draws its tanks with Sherman Bytes art and adds zero bytes to the Sherman Bytes bundle."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.18.12",
+          "label": "current release (28 October 2026)"
+        },
+        {
+          "value": "67.6 kB",
+          "label": "gzip, page + script + styles"
+        },
+        {
+          "value": "68.0 kB",
+          "label": "enforced gzip budget"
+        },
+        {
+          "value": "12",
+          "label": "tanks per side, at most"
+        },
+        {
+          "value": "4",
+          "label": "seeded operations"
+        }
+      ]
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "cards",
+      "heading": "Built from Sherman Bytes",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "The original pixel tank, on a live webpage. Breach button bases, build cover, hold the page.",
+          "link": {
+            "label": "Explore the original Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        }
+      ],
+      "headingAccent": "Where the tanks come from."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        },
+        {
+          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "link": {
+            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
+            "href": "/news/fizlet-0-2"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "dom-battlefield"
+    ],
+    "created": "2026-10-28"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "id": "legal-terms",
+  "path": "/legal/terms",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Terms of use for the site and games | DOM VIRUS",
+    "description": "The DOM VIRUS terms in plain English: free to play, the games change only your page, Recall gives it back, and the code is open source under MIT.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/terms/",
+    "schemaPageType": "WebPage",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Terms of use",
+      "headingAccent": "Play fair. Get the page back.",
+      "eyebrow": "Legal",
+      "body": "These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-29."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Using the site",
+      "body": [
+        "You can use the site and play the games for free, without an account. By using them, you agree to these terms.",
+        "If you do not agree, please do not use the site. These terms also cover the DOM Battlefield and Fizlet sites."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What the games do to a page",
+      "body": [
+        "The games run in your browser and play on the page you have open. While you play, they change that page: hits can turn letters into 0 and 1, and buttons become enemy bases.",
+        "Recall gives back what the game changed and still owns. If something else on the page changed the same part since, that change stays.",
+        "The games change only what your browser shows. They do not touch the website's server, its files or anyone else's copy of the page."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Open-source code",
+      "body": [
+        "The games, the Fizlet engine and this site are open source under the MIT licence. The licences page lists each repository and its third-party notices.",
+        "The MIT licence, not these terms, sets what you may do with the code. You may use, copy, change and share it, keeping the copyright and licence notice.",
+        "If you put a game on your own site, you are responsible for that site and for what you tell its visitors."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Acceptable use",
+      "body": [
+        "Please do not attack, overload or disrupt the site or the services that host it. Do not use the site to break the law or to harm other people.",
+        "In GitHub issues, be respectful. GitHub's own terms apply there too."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "No warranty",
+      "body": [
+        "The site and the games are provided as is, without any warranty. They are free experiments: they may have bugs, change or go offline at any time.",
+        "To the extent the law allows, we are not liable for any loss or damage from using the site or the games."
+      ]
+    },
+    {
+      "id": "text-6",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Links to other sites",
+      "body": [
+        "The site links to GitHub, Cloudflare and other sites we do not run. Their own terms and privacy policies apply there."
+      ]
+    },
+    {
+      "id": "text-7",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Changes to these terms",
+      "body": [
+        "We may update these terms. When we do, the date at the top changes, and every change is public in the site's GitHub history.",
+        "Using the site after a change means you accept the updated terms."
+      ]
+    },
+    {
+      "id": "features-8",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related pages",
+      "items": [
+        {
+          "title": "Open-source licences",
+          "body": "Every repository's licence and the third-party notices.",
+          "link": {
+            "label": "See the open-source licences",
+            "href": "/legal/licenses/"
+          }
+        },
+        {
+          "title": "Privacy policy",
+          "body": "What we collect and what the games keep on your device.",
+          "link": {
+            "label": "Read the privacy policy",
+            "href": "/legal/privacy/"
+          }
+        },
+        {
+          "title": "Questions about these terms",
+          "body": "Reach us through the contact page.",
+          "link": {
+            "label": "Contact DOM VIRUS",
+            "href": "/contact/"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "legal",
+    "tags": [
+      "legal",
+      "terms"
+    ],
+    "created": "2026-10-29"
+  }
+}

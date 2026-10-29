@@ -1,0 +1,155 @@
+{
+  "id": "news-sherman-bytes-0-5",
+  "path": "/news/sherman-bytes-0-5",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Sherman Bytes 0.5: phone controls, building and sound",
+    "description": "Sherman Bytes 0.5 adds a joystick, a held Fire button, tap-to-build cover, pillboxes and mines on phones, and battle sound. 27.0 kB gzip.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/sherman-bytes-0-5/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Sherman Bytes 0.5",
+      "headingAccent": "Build your line on a phone.",
+      "eyebrow": "News",
+      "body": "Sherman Bytes 0.5 brings the whole game to phones. Drive with a joystick, hold Fire, and tap to build cover, pillboxes and mines. Battles now have sound. Sherman Bytes is the pixel tank game that plays on a live webpage: breach button bases, build cover, hold the page.",
+      "ctas": [
+        {
+          "label": "Play Sherman Bytes",
+          "href": "/games/sherman-bytes/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/sherman-bytes"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "Phones get the full defensive line. Cover, Pillbox and Mine sit beside the drive and fire controls as 3D arcade buttons that act on press.",
+        "Movement is an analog joystick with eight-way drive. You can drive and hold Fire at the same time. Fire is the round crosshair button from DOM Battlefield.",
+        "Battles have synthesized sound cues. The scoreboard shares its controls with the other games: sound, pause or resume, minimize and Recall.",
+        "Direct hits still clear letters into faint binary rubble, and Recall still gives the page back."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "The new controls come from the shared DOM VIRUS runtime, snapshot 0.21.0. The gzip budget grew by 2 KB to pay for them and now sits at 28,000 bytes.",
+        "Structure counts no longer build temporary snapshot arrays. Setup, configuration and integration examples live in the repository README."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.5.2",
+          "label": "current release (25 October 2026)"
+        },
+        {
+          "value": "27.0 kB",
+          "label": "gzip, complete game + engine"
+        },
+        {
+          "value": "28.0 kB",
+          "label": "enforced gzip budget"
+        },
+        {
+          "value": "32",
+          "label": "enemy tank cap"
+        },
+        {
+          "value": "120",
+          "label": "pooled shells"
+        },
+        {
+          "value": "3",
+          "label": "buildable defenses"
+        }
+      ]
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "cards",
+      "heading": "Built from Sherman Bytes",
+      "items": [
+        {
+          "title": "DOM Battlefield",
+          "body": "Same tanks, a whole platoon. Plan every route, then command your squad under fire.",
+          "link": {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          }
+        },
+        {
+          "title": "Battlefield Blitz",
+          "body": "Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          }
+        }
+      ],
+      "headingAccent": "The same tanks, two board games."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "sherman-bytes"
+    ],
+    "created": "2026-10-25"
+  }
+}

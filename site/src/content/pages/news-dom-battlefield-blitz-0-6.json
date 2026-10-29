@@ -1,0 +1,148 @@
+{
+  "id": "news-dom-battlefield-blitz-0-6",
+  "path": "/news/dom-battlefield-blitz-0-6",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+    "description": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-battlefield-blitz-0-6/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Battlefield Blitz 0.6",
+      "headingAccent": "Give up in style.",
+      "eyebrow": "News",
+      "body": "Battlefield Blitz 0.6 brings DOM Battlefield's pause and result screens to the free-for-all, plus better spacing on phones. Battlefield Blitz is the arcade tank game: every tank for itself, parachute in, call airstrikes, and most kills in three minutes wins.",
+      "ctas": [
+        {
+          "label": "Play Battlefield Blitz",
+          "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/dom-battlefield-blitz"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "Pause is the surrender question, just like DOM Battlefield. The white flag key dims the board and slams up BATTLE PAUSED / GIVE UP? with KEEP FIGHTING and SURRENDER.",
+        "Surrender whites out your team grid, waves the flag, bursts and ends the match. In practice it goes back to the start screen.",
+        "Results use the same overlays. STAGE CLEAR when you win, INSERT COIN when someone else wins, WHITE FLAG and GAME OVER when you gave up. Then the standings, REMATCH and NEW GAME.",
+        "On short, landscape phones, the controls strip steps aside so the start sticker and keys fit. Phones also get more room between the start sticker, the mode keys and PRESS START.",
+        "The pad's drag handle is now the Battlefield card grip, with a bigger touch area."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "Blitz is the one game built on the Fizlet engine today. The new overlays and the grip come from Fizlet's Board UI kit, versions 0.2.3 and 0.2.4.",
+        "The whole game arrived in one day. It went from 0.1.0 to 0.6.5 on 28 October 2026."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.6.5",
+          "label": "current release (28 October 2026)"
+        },
+        {
+          "value": "34.5 kB",
+          "label": "gzip, game + engine + art + Board UI styles"
+        },
+        {
+          "value": "41.0 kB",
+          "label": "enforced gzip budget (40,960 bytes)"
+        },
+        {
+          "value": "8",
+          "label": "tanks in SOLO"
+        },
+        {
+          "value": "3",
+          "label": "modes: PRACTICE, SOLO, PLATOON"
+        },
+        {
+          "value": "3 min",
+          "label": "match length"
+        }
+      ]
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "cards",
+      "heading": "Built from Sherman Bytes",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "The original pixel tank, on a live webpage. Breach button bases, build cover, hold the page.",
+          "link": {
+            "label": "Explore the original Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        }
+      ],
+      "headingAccent": "Where the tanks come from."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        },
+        {
+          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "link": {
+            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
+            "href": "/news/fizlet-0-2"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "dom-battlefield-blitz"
+    ],
+    "created": "2026-10-28"
+  }
+}

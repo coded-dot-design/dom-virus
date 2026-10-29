@@ -62,7 +62,7 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
 
       </div>
       <p class="soon-note"><i aria-hidden="true"></i><b>Coming soon</b> Multiplayer: two players, two pages, one battle.</p>
-      <p class="credit">Created by <a href="https://www.linkedin.com/in/chriscooleyme" rel="author">Chris Cooley</a> · <a href="https://coded.design">coded.design</a></p>
+      <p class="credit">Created by <a href="https://coded.design/" rel="author">Chris Cooley</a> · <a href="https://coded.design">coded.design</a></p>
     </div>
     <div data-byte-obstacle class="game-display battlefield-display" style="view-transition-name: game-screen" role="img" aria-label="DOM Battlefield: two squads of tanks trade fire across a grid of cover">
       <div class="display-top"><span class="led"></span> SQUAD TACTICS<span class="display-note">DOM / GRID BATTLE</span></div>
@@ -106,12 +106,12 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
   <div class="game-facts">{facts.map((f) => <div><b>{f.value}{f.small && <small> {f.small}</small>}</b><span>{f.label}</span></div>)}</div>
   <div class="layers">
     <div class="eyebrow">HOW IT IS LAYERED</div>
-    <h3>Four layers. One borrowed tank.</h3>
-    <ol>{layers.map((l) => <li class="card"><span class="tag">{l.tag}</span><div><h4>{l.title}</h4><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="github" size={14}/></a></div></li>)}</ol>
+    <h2>Four layers. One borrowed tank.</h2>
+    <ol>{layers.map((l) => <li class="card"><span class="tag">{l.tag}</span><div><h3>{l.title}</h3><p>{l.body}</p><a href={`${repo}/blob/main/${l.file}`} data-virus-ignore data-swarm-ignore>{l.file} <UiIcon name="github" size={14}/></a></div></li>)}</ol>
   </div>
   <div class="board-design">
     <div class="eyebrow">ITS OWN SITE · GAME BOARD DESIGN</div>
-    <h3>Battlefield has its own base now.</h3>
+    <h2>Battlefield has its own base now.</h2>
     <p>The game has its own site: a landing page with a live battle in the hero, and the Board UI style guide every key, card, overlay and launch burst in Battlefield follows. Same game, same cartridge; its design lives with it.</p>
     <a class="nerd-link card" href={site}><span class="eyebrow">DOM BATTLEFIELD · WEBSITE</span><strong>The Battlefield site: watch the tanks wreck the hero</strong><span>The game, how a battle plays, the four fronts and the cockpit on every screen</span><UiIcon name="globe" size={20}/></a>
     <a class="nerd-link card" href={`${site}blitz/`}><span class="eyebrow">NEW · THE BLITZ VERSION</span><strong>Battlefield Blitz: every tank for itself</strong><span>Free for all, parachute respawns, the blinking grid and airstrikes. Built on Fizlet; drops onto any page</span><UiIcon name="play" size={20}/></a>
@@ -147,14 +147,14 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
 /* Layer cards share the site's .card style. */
 .layers{margin-top:42px}
 .board-design{margin-top:42px}
-.board-design h3{margin:8px 0 10px;font-size:22px}
+.board-design h2{margin:8px 0 10px;font-size:22px}
 .board-design p{max-width:720px;margin:0 0 16px;font-size:14px;line-height:1.65;color:var(--muted)}
 .board-design .nerd-link + .nerd-link{margin-top:14px}
-.layers h3{margin:8px 0 18px;font-size:22px}
+.layers h2{margin:8px 0 18px;font-size:22px}
 .layers ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .layers li{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:18px}
 .tag{align-self:start;padding:4px 8px;font:700 10px var(--mono);letter-spacing:1px;color:var(--accent-ink);background:var(--accent);border:2px solid var(--ink);border-radius:4px}
-h4{margin:0 0 6px;font-size:16px}
+h3{margin:0 0 6px;font-size:16px;line-height:inherit;letter-spacing:inherit}
 .layers p{margin:0 0 8px;font-size:13px;line-height:1.6;color:var(--muted)}
 .layers a{font:11px var(--mono);color:var(--accent-text,var(--accent))}
 @media (max-width:760px){.layers ol{grid-template-columns:1fr}}

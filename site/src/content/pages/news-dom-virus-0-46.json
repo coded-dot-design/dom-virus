@@ -1,0 +1,120 @@
+{
+  "id": "news-dom-virus-0-46",
+  "path": "/news/dom-virus-0-46",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+    "description": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-0-46/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "DOM VIRUS 0.46",
+      "headingAccent": "Blitz is playable. The engine has a name.",
+      "eyebrow": "News",
+      "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny open-source arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back.",
+      "ctas": [
+        {
+          "label": "Choose your game",
+          "href": "/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/dom-virus"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "Battlefield Blitz is out. The coming-soon page now marks it PLAYABLE with a Play it now key, and the DOM Battlefield page links to it. Blitz lives on the DOM Battlefield site.",
+        "The release before this one, 0.45, opened the coming-soon page: the next games in build order and the next engine phase. It also added the DOM Kaiju details page and a COMING SOON cartridge on the shelf."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "The engine has a name and a release: Fizlet 0.2, a kernel plus input, collide, fx, sound and embed bricks. The engine plan logs phase E1 as done and E2 as started.",
+        "The hub ships site kit 1.49.0. The four embedded games still run on the shared DOM VIRUS runtime; moving them onto Fizlet is the next phase."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.46.0",
+          "label": "current release (28 October 2026)"
+        },
+        {
+          "value": "1.49.0",
+          "label": "site kit"
+        },
+        {
+          "value": "6",
+          "label": "games released"
+        },
+        {
+          "value": "1",
+          "label": "game coming soon: DOM Kaiju"
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "link": {
+            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
+            "href": "/news/fizlet-0-2"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "dom-virus"
+    ],
+    "created": "2026-10-28"
+  }
+}
