@@ -1,0 +1,48 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "754a7f42b3e10943"
+  },
+  "collection": "pages",
+  "id": "news",
+  "slug": "news",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "news",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "section",
+    "slug": "news",
+    "title": "News",
+    "subtitle": "Fresh off the bench.",
+    "eyebrow": "NEWS / RELEASES",
+    "tags": [
+      "news"
+    ],
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Every release, launch and game update from DOM VIRUS, newest first. Release notes for each game and the Fizlet engine, plus what is coming next. Tiny open-source arcade games that play on a real webpage, made by one person, one game at a time."
+    ],
+    "blocks": [
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Choose your game",
+            "href": "/"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "DOM VIRUS news: releases, launches and game updates",
+      "description": "Release notes for every DOM VIRUS game and the Fizlet engine, launch news and what is coming next. Tiny open-source arcade games for real pages."
+    }
+  }
+}

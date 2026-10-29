@@ -40,6 +40,7 @@
     "test:browser": "node tests/browser.mjs && node tests/character-browser.mjs && node tests/swarm-color-browser.mjs && node tests/byte-whitespace.mjs && node tests/controls-audio-browser.mjs && node tests/byte-pipes.mjs",
     "check": "npm run typecheck && npm test && npm run build && npm run test:package",
     "typecheck": "tsc --noEmit",
+    "validate:content": "node site/src/content/model/_contract/gate.mjs",
     "build:engine": "node scripts/build-engine.mjs",
     "build:playground": "node scripts/prepare-playground.mjs && vite build --config vite.config.js",
     "sync:games": "npm run build:engine && node scripts/sync-games.mjs",

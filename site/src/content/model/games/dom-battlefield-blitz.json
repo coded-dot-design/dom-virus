@@ -1,0 +1,62 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "6694eace5b1539e1"
+  },
+  "collection": "games",
+  "id": "dom-battlefield-blitz",
+  "slug": "dom-battlefield-blitz",
+  "status": "published",
+  "relations": {
+    "brand": "battlefield",
+    "builtFrom": [
+      "sherman-bytes"
+    ],
+    "posts": [
+      "news-dom-battlefield-blitz-0-6"
+    ],
+    "pages": []
+  },
+  "data": {
+    "id": "dom-battlefield-blitz",
+    "name": "Battlefield Blitz",
+    "number": "03",
+    "tag": "DOM BLITZ",
+    "type": "board",
+    "style": "modern",
+    "status": "released",
+    "brand": "battlefield",
+    "repo": "https://github.com/coded-dot-design/dom-battlefield-blitz",
+    "builtFrom": [
+      "sherman-bytes"
+    ],
+    "engine": {
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "fx",
+        "sound",
+        "embed",
+        "ui"
+      ]
+    },
+    "budget": {
+      "gzipBytes": 40960,
+      "source": "scripts/size.mjs (40 KB gzip per bundle, enforced)"
+    },
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dom-battlefield/blitz/",
+      "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
+      "production": "https://battlefield.domvirus.com/blitz/",
+      "productionPlay": "https://battlefield.domvirus.com/play/blitz/"
+    },
+    "site": {
+      "kind": "DOM BLITZ",
+      "tagline": "Free-for-all tank chaos.",
+      "description": "Every tank for itself. Parachute in, grab the blinking power tiles, call airstrikes, dodge the mines. Most kills in three minutes wins.",
+      "accent": "pink",
+      "icon": "tank"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "44b322e1e59ffd71"
+  },
+  "collection": "posts",
+  "id": "news-fizlet-0-2",
+  "slug": "fizlet-0-2",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "news-fizlet-0-2",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "news",
+    "slug": "fizlet-0-2",
+    "title": "Fizlet 0.2",
+    "subtitle": "The engine gets its first bricks.",
+    "tags": [
+      "release",
+      "fizlet"
+    ],
+    "date": "2026-10-28",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Fizlet 0.2 adds the first five bricks on top of the kernel: input, collide, fx, sound and embed. Fizlet is the tiny game and animation engine for the DOM behind the DOM VIRUS family. One shared loop, bounded everything, and page changes given back on Recall."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "What's new",
+        "body": [
+          {
+            "type": "p",
+            "text": "Input turns keys, pointer and a touch stick into intents. Keys typed into the host page's own fields never count."
+          },
+          {
+            "type": "p",
+            "text": "Collide is a fixed-capacity spatial hash with overlap tests and swept circle checks, so fast shots don't tunnel through thin targets."
+          },
+          {
+            "type": "p",
+            "text": "Fx brings pooled particles, the hero blast, pop words, scorch and shake. Sound maps engine events to synth cues and unlocks on a gesture."
+          },
+          {
+            "type": "p",
+            "text": "Embed handles the drop-in: a hex-only palette, easter-egg triggers, lazy load, an open and close toggle, and Escape to close. Since 0.2.1 it can wait closed behind a PLAY key."
+          },
+          {
+            "type": "p",
+            "text": "The Board UI kit got two fixes. The surrender flag keeps its grid and outline, and the card grip matches DOM Battlefield's."
+          },
+          {
+            "type": "p",
+            "text": "Every brick has tests in Node and Chromium, and every size budget runs in CI."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Where it runs",
+        "body": [
+          {
+            "type": "p",
+            "text": "Battlefield Blitz runs on Fizlet today. The four embedded games and DOM Battlefield move onto it next."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "0.2.4",
+            "label": "current release (28 October 2026)"
+          },
+          {
+            "value": "2.8 kB",
+            "label": "kernel, gzip (2,839 bytes)"
+          },
+          {
+            "value": "4.1 kB",
+            "label": "kernel budget (4,096 bytes)"
+          },
+          {
+            "value": "5",
+            "label": "new bricks in 0.2"
+          },
+          {
+            "value": "0",
+            "label": "runtime dependencies"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/fizlet"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+      "description": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI."
+    }
+  }
+}

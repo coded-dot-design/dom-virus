@@ -1,0 +1,192 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "6b9dedb7677d9731"
+  },
+  "collection": "pages",
+  "id": "licenses",
+  "slug": "licenses",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "licenses",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "legal",
+    "slug": "licenses",
+    "title": "Open-source licences",
+    "subtitle": "Open code. MIT.",
+    "tags": [
+      "legal",
+      "open-source",
+      "licenses"
+    ],
+    "date": "2026-10-29",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Every DOM VIRUS game, the Fizlet engine and this site are open source under the MIT licence, copyright 2026 Chris Cooley. One icon outline carries its own ISC licence, listed below. Last updated 2026-10-29."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "The MIT licence in short",
+        "body": [
+          {
+            "type": "p",
+            "text": "You may use the code for anything, including commercial projects. You may copy, change, merge, publish and share it."
+          },
+          {
+            "type": "p",
+            "text": "Keep the copyright line and the licence text with every copy. The code comes without any warranty. The full text is in each repository's LICENSE file, and it is the version that counts."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Repositories and their licences",
+        "items": [
+          {
+            "title": "DOM VIRUS",
+            "body": "MIT, copyright 2026 Chris Cooley. The hub site, its artwork and the shared runtime the embedded games are built on.",
+            "link": {
+              "label": "DOM VIRUS licence on GitHub",
+              "href": "https://github.com/coded-dot-design/dom-virus/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Sherman Bytes",
+            "body": "MIT, copyright 2026 Chris Cooley. The tank game and its Sherman sprites.",
+            "link": {
+              "label": "Sherman Bytes licence on GitHub",
+              "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "DOM Battlefield",
+            "body": "MIT, copyright 2026 Chris Cooley. The squad tactics board game and the Battlefield site.",
+            "link": {
+              "label": "DOM Battlefield licence on GitHub",
+              "href": "https://github.com/coded-dot-design/dom-battlefield/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Battlefield Blitz",
+            "body": "MIT, copyright 2026 Chris Cooley. The arcade tank board game.",
+            "link": {
+              "label": "Battlefield Blitz licence on GitHub",
+              "href": "https://github.com/coded-dot-design/dom-battlefield-blitz/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Swarm Protocol",
+            "body": "MIT, copyright 2026 Chris Cooley, except the bug icon outline (ISC, below).",
+            "link": {
+              "label": "Swarm Protocol licence on GitHub",
+              "href": "https://github.com/coded-dot-design/swarm-protocol/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Byte Runner",
+            "body": "MIT, copyright 2026 Chris Cooley.",
+            "link": {
+              "label": "Byte Runner licence on GitHub",
+              "href": "https://github.com/coded-dot-design/byte-runner/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Null Invaders",
+            "body": "MIT, copyright 2026 Chris Cooley.",
+            "link": {
+              "label": "Null Invaders licence on GitHub",
+              "href": "https://github.com/coded-dot-design/null-invaders/blob/main/LICENSE"
+            }
+          },
+          {
+            "title": "Fizlet",
+            "body": "MIT, copyright 2026 Chris Cooley. The small game engine and its site.",
+            "link": {
+              "label": "Fizlet licence on GitHub",
+              "href": "https://github.com/coded-dot-design/fizlet/blob/main/LICENSE"
+            }
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Third-party notices",
+        "items": [
+          {
+            "title": "Lucide bug icon (ISC licence)",
+            "body": "The Swarm Protocol bug outline is adapted from Lucide's bug icon and stays under the ISC licence. The hub's Swarm artwork uses the same outline. Copyright Cole Bemis 2013 to 2022 (Feather, MIT) and Lucide Contributors 2022.",
+            "link": {
+              "label": "Swarm Protocol third-party notices",
+              "href": "https://github.com/coded-dot-design/swarm-protocol/blob/main/THIRD_PARTY_NOTICES.md"
+            }
+          },
+          {
+            "title": "DOM VIRUS runtime inside the games",
+            "body": "Sherman Bytes, Byte Runner and Null Invaders each bundle the MIT-licensed DOM VIRUS runtime. Each game's own LICENSE covers it, and none has a third-party runtime dependency.",
+            "link": {
+              "label": "Sherman Bytes third-party notices",
+              "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/THIRD_PARTY_NOTICES.md"
+            }
+          },
+          {
+            "title": "Site artwork notice",
+            "body": "The hub's ship, runner, fly and tank artwork follows the games' own renderers. The notice includes the Lucide licence text.",
+            "link": {
+              "label": "DOM VIRUS site artwork notices",
+              "href": "https://github.com/coded-dot-design/dom-virus/blob/main/site-kit/THIRD_PARTY_NOTICES.md"
+            }
+          },
+          {
+            "title": "React (optional)",
+            "body": "The optional React adapter imports React from your own app. React is not included in any game."
+          },
+          {
+            "title": "Fonts",
+            "body": "No fonts are bundled. The site and games use fonts already on your device."
+          },
+          {
+            "title": "Build and test tools",
+            "body": "Development tools keep their own licences and are not shipped in the games."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Related pages",
+        "items": [
+          {
+            "title": "Terms of use",
+            "body": "How the site and games may be used.",
+            "link": {
+              "label": "Read the terms of use",
+              "href": "/legal/terms/"
+            }
+          },
+          {
+            "title": "Licence questions",
+            "body": "Reach us through the contact page.",
+            "link": {
+              "label": "Contact DOM VIRUS",
+              "href": "/contact/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Open-source licences: MIT for every game | DOM VIRUS",
+      "description": "Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes."
+    }
+  }
+}

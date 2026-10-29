@@ -1,0 +1,81 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "270542b3e84b8534"
+  },
+  "collection": "brands",
+  "id": "domvirus",
+  "slug": "domvirus",
+  "status": null,
+  "relations": {
+    "games": [
+      "byte-runner",
+      "kaiju",
+      "null-invaders",
+      "sherman-bytes",
+      "swarm-protocol"
+    ],
+    "posts": [
+      "blog-a-game-a-week-on-the-side",
+      "blog-from-one-tank-to-a-whole-platoon",
+      "blog-recall-leave-the-page-as-you-found-it",
+      "blog-the-page-is-the-game-board",
+      "blog-twenty-years-of-tiny-games",
+      "blog-two-macs-one-network-and-bolo",
+      "blog-why-i-built-fizlet",
+      "news-byte-runner-0-10",
+      "news-coming-next",
+      "news-dom-battlefield-0-18",
+      "news-dom-battlefield-blitz-0-6",
+      "news-dom-virus-0-46",
+      "news-dom-virus-launch",
+      "news-fizlet-0-2",
+      "news-null-invaders-0-7",
+      "news-sherman-bytes-0-5",
+      "news-swarm-protocol-1-3"
+    ],
+    "pages": [
+      "about",
+      "accessibility",
+      "blog",
+      "contact",
+      "cookies",
+      "games",
+      "legal",
+      "licenses",
+      "news",
+      "press",
+      "privacy",
+      "support",
+      "terms"
+    ]
+  },
+  "data": {
+    "id": "domvirus",
+    "name": "DOM VIRUS",
+    "level": "parent",
+    "credit": {
+      "text": "By Chris Cooley · coded.design",
+      "name": "Chris Cooley",
+      "agency": "coded.design",
+      "href": "https://coded.design"
+    },
+    "repo": "https://github.com/coded-dot-design/dom-virus",
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dom-virus/",
+      "production": "https://domvirus.com/"
+    },
+    "styleGuide": "dom-virus/brand/style-guide.md",
+    "voice": "dom-virus/brand/voice.md",
+    "paths": {
+      "home": "/",
+      "comingSoon": "/coming-soon/{slug}/",
+      "embedded": "/games/{slug}/",
+      "blog": "/blog/{slug}/",
+      "news": "/news/{slug}/",
+      "styleGuide": "/style-guide/",
+      "underTheHood": "/under-the-hood/"
+    },
+    "openQuestion": "embedded path: /games/{slug}/ (today, no redirects) or /embedded/{slug}/ (site-agent handoff)"
+  }
+}

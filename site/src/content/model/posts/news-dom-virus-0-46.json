@@ -1,0 +1,102 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "b2323f9938e42716"
+  },
+  "collection": "posts",
+  "id": "news-dom-virus-0-46",
+  "slug": "dom-virus-0-46",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "news-dom-virus-0-46",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "news",
+    "slug": "dom-virus-0-46",
+    "title": "DOM VIRUS 0.46",
+    "subtitle": "Blitz is playable. The engine has a name.",
+    "tags": [
+      "release",
+      "dom-virus"
+    ],
+    "date": "2026-10-28",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny open-source arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "What's new for players",
+        "body": [
+          {
+            "type": "p",
+            "text": "Battlefield Blitz is out. The coming-soon page now marks it PLAYABLE with a Play it now key, and the DOM Battlefield page links to it. Blitz lives on the DOM Battlefield site."
+          },
+          {
+            "type": "p",
+            "text": "The release before this one, 0.45, opened the coming-soon page: the next games in build order and the next engine phase. It also added the DOM Kaiju details page and a COMING SOON cartridge on the shelf."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "For developers",
+        "body": [
+          {
+            "type": "p",
+            "text": "The engine has a name and a release: Fizlet 0.2, a kernel plus input, collide, fx, sound and embed bricks. The engine plan logs phase E1 as done and E2 as started."
+          },
+          {
+            "type": "p",
+            "text": "The hub ships site kit 1.49.0. The four embedded games still run on the shared DOM VIRUS runtime; moving them onto Fizlet is the next phase."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "0.46.0",
+            "label": "current release (28 October 2026)"
+          },
+          {
+            "value": "1.49.0",
+            "label": "site kit"
+          },
+          {
+            "value": "6",
+            "label": "games released"
+          },
+          {
+            "value": "1",
+            "label": "game coming soon: DOM Kaiju"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Choose your game",
+            "href": "/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/dom-virus"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+      "description": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2."
+    }
+  }
+}

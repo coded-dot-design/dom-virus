@@ -1,0 +1,122 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "698481eff05ffaf8"
+  },
+  "collection": "posts",
+  "id": "news-byte-runner-0-10",
+  "slug": "byte-runner-0-10",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "byte-runner"
+    ]
+  },
+  "data": {
+    "id": "news-byte-runner-0-10",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "byte-runner"
+    ],
+    "type": "news",
+    "slug": "byte-runner-0-10",
+    "title": "Byte Runner 0.10",
+    "subtitle": "Ride the pipes. Jump for letters.",
+    "tags": [
+      "release",
+      "byte-runner"
+    ],
+    "date": "2026-10-25",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Byte Runner 0.10 turns the food trails into magnetic pipes. The frog races along them, jumps out to eat real text and grabs flies with its tongue. Byte Runner is the chase game where a round pixel frog eats a real webpage, one letter and one power square at a time."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "What's new for players",
+        "body": [
+          {
+            "type": "p",
+            "text": "The frog sticks to the centerline of each pipe, carries speed through bends and queues turns at junctions."
+          },
+          {
+            "type": "p",
+            "text": "Press Space, tap Jump or double-tap a direction to jump out anywhere. Eat real letters on the detour, then touch a trail to reattach."
+          },
+          {
+            "type": "p",
+            "text": "Pink power squares turn flies blue for six seconds, stacking up to nine. A quick red tongue grabs vulnerable flies up to two pellets ahead."
+          },
+          {
+            "type": "p",
+            "text": "On phones, the arrow pad becomes a four-way joystick that follows the dominant direction, so maze turns stay clean. Jump is the large round button and acts on press. Refresh maze has its own button."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "For developers",
+        "body": [
+          {
+            "type": "p",
+            "text": "The controls come from the shared DOM VIRUS runtime, snapshot 0.21.0. The gzip budget grew by 2 KB to pay for them and now sits at 30,000 bytes."
+          },
+          {
+            "type": "p",
+            "text": "Setup, configuration and integration examples live in the repository README."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "0.10.2",
+            "label": "current release (25 October 2026)"
+          },
+          {
+            "value": "29.2 kB",
+            "label": "gzip, complete game + engine"
+          },
+          {
+            "value": "30.0 kB",
+            "label": "enforced gzip budget"
+          },
+          {
+            "value": "12",
+            "label": "fly cap, where space permits"
+          },
+          {
+            "value": "6–8",
+            "label": "power squares"
+          },
+          {
+            "value": "3",
+            "label": "starting lives"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Play Byte Runner",
+            "href": "/games/byte-runner/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/byte-runner"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Byte Runner 0.10: magnetic pipes, jumps and a tongue",
+      "description": "Byte Runner 0.10 adds magnetic pipe running, jump-out escapes to eat real text, tongue grabs on flies and a four-way phone joystick. 29.2 kB gzip."
+    }
+  }
+}
