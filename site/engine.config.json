@@ -180,6 +180,9 @@
     "/.well-known/security.txt",
     "/CNAME"
   ],
+  "llms": {
+    "summary": "Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design."
+  },
   "sitemap": {
     "$comment": "Site-owned indexable routes (not engine pages) for the production sitemap.xml from `abe site-files`. The build fails if an indexable built page is missing from the sitemap or a sitemap URL is not built.",
     "extra": [

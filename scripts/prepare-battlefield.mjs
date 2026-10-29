@@ -68,6 +68,13 @@ if (!app.includes('rel="canonical"'))
       `<meta property="og:url" content="${siteUrl}battlefield/">`,
       `<meta property="og:image" content="${siteUrl}og/dom-virus.png">`,
       '<meta name="twitter:card" content="summary_large_image">',
+      // The playable game as a VideoGame (same shape as the hub's game pages; facts from its head).
+      `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org", "@type": "VideoGame", "@id": `${siteUrl}battlefield/`, url: `${siteUrl}battlefield/`,
+        name: title.split(" · ")[0], description: description.replace(/&quot;/g, '"').replace(/&amp;/g, "&"), inLanguage: "en",
+        isPartOf: { "@type": "WebSite", name: "DOM VIRUS", url: siteUrl.replace(/\/$/, "") }, gamePlatform: "Web browser", applicationCategory: "Game",
+        image: `${siteUrl}og/dom-virus.png`,
+      }).replace(/</g, "\\u003c")}</script>`,
       "</head>",
     ].join("\n"),
   );
