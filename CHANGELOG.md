@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.47.0
+
+Site kit 1.50.0:
+- **TEST A RELEASE lists every past release** of every game (49 builds, from each game's first hub-compatible tag up to the current pin), each served from its own immutable path `releases/<game>/<version>/` and checked against its tag's commit.
+- `npm run sync:releases` rebuilds `site/releases.json` from the games' tags; run it after pinning a new game version.
+- CI runs on `ubuntu-24.04` (from main).
+
 ## 0.46.0
 
 Site kit 1.49.0:

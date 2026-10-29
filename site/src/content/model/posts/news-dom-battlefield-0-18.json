@@ -1,0 +1,140 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "7fce56eec6546799"
+  },
+  "collection": "posts",
+  "id": "news-dom-battlefield-0-18",
+  "slug": "dom-battlefield-0-18",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "dom-battlefield",
+      "sherman-bytes"
+    ]
+  },
+  "data": {
+    "id": "news-dom-battlefield-0-18",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "dom-battlefield",
+      "sherman-bytes"
+    ],
+    "type": "news",
+    "slug": "dom-battlefield-0-18",
+    "title": "DOM Battlefield 0.18",
+    "subtitle": "Go live. Plan sharper.",
+    "tags": [
+      "release",
+      "dom-battlefield"
+    ],
+    "date": "2026-10-28",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "DOM Battlefield 0.18 is the go-live line: clearer planning cards, a sharper surrender moment and full screen that stays on. Battlefield also has its own site now. DOM Battlefield is the squad-tactics board game: command up to twelve Sherman tanks on a grid built from real page elements."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "What's new for players",
+        "body": [
+          {
+            "type": "p",
+            "text": "The game has a home of its own. The Battlefield site opens with a live battle in the hero, and the game plays one key away."
+          },
+          {
+            "type": "p",
+            "text": "Planning reads better. Each plan card carries an order pill in the order's colour, with radio talk and an HQ badge."
+          },
+          {
+            "type": "p",
+            "text": "Your own tank's card now shows its real order, such as ATTACKING HQ or a grid square. With no order, it reads YOU'RE DRIVING."
+          },
+          {
+            "type": "p",
+            "text": "Phones get bigger round planning keys. Surrender, rematch and new operation keep full screen on."
+          },
+          {
+            "type": "p",
+            "text": "Surrender has its moment: a team-colour white flag, a white-out, a wave, a burst and a losing sound. The desktop platoon row no longer wraps when room runs short."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "For developers",
+        "body": [
+          {
+            "type": "p",
+            "text": "Coming from the hub, the doors stay shut until the game has loaded, then open."
+          },
+          {
+            "type": "p",
+            "text": "The compressed app budget is 68,000 bytes, enforced in CI. Battlefield draws its tanks with Sherman Bytes art and adds zero bytes to the Sherman Bytes bundle."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "0.18.12",
+            "label": "current release (28 October 2026)"
+          },
+          {
+            "value": "67.6 kB",
+            "label": "gzip, page + script + styles"
+          },
+          {
+            "value": "68.0 kB",
+            "label": "enforced gzip budget"
+          },
+          {
+            "value": "12",
+            "label": "tanks per side, at most"
+          },
+          {
+            "value": "4",
+            "label": "seeded operations"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "cards",
+        "heading": "Built from Sherman Bytes",
+        "headingAccent": "Where the tanks come from.",
+        "items": [
+          {
+            "title": "Sherman Bytes",
+            "body": "The original pixel tank, on a live webpage. Breach button bases, build cover, hold the page.",
+            "link": {
+              "label": "Explore the original Sherman Bytes",
+              "href": "/games/sherman-bytes/"
+            }
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/dom-battlefield"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+      "description": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip."
+    }
+  }
+}

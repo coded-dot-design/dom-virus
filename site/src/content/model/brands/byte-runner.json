@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "9e18e14dcb90f1da"
+  },
+  "collection": "brands",
+  "id": "byte-runner",
+  "slug": "byte-runner",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "byte-runner",
+    "name": "Byte Runner",
+    "level": "game",
+    "parent": "domvirus",
+    "site": {
+      "repo": "dom-virus",
+      "config": null,
+      "voice": "brand/games/byte-runner/voice.md",
+      "styleGuide": "brand/games/byte-runner/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}

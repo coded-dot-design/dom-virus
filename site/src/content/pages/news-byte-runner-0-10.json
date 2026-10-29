@@ -1,0 +1,130 @@
+{
+  "id": "news-byte-runner-0-10",
+  "path": "/news/byte-runner-0-10",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Byte Runner 0.10: magnetic pipes, jumps and a tongue",
+    "description": "Byte Runner 0.10 adds magnetic pipe running, jump-out escapes to eat real text, tongue grabs on flies and a four-way phone joystick. 29.2 kB gzip.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/byte-runner-0-10/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Byte Runner 0.10",
+      "headingAccent": "Ride the pipes. Jump for letters.",
+      "eyebrow": "News",
+      "body": "Byte Runner 0.10 turns the food trails into magnetic pipes. The frog races along them, jumps out to eat real text and grabs flies with its tongue. Byte Runner is the chase game where a round pixel frog eats a real webpage, one letter and one power square at a time.",
+      "ctas": [
+        {
+          "label": "Play Byte Runner",
+          "href": "/games/byte-runner/",
+          "variant": "primary"
+        },
+        {
+          "label": "Get the code & setup instructions",
+          "href": "https://github.com/coded-dot-design/byte-runner"
+        }
+      ]
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What's new for players",
+      "body": [
+        "The frog sticks to the centerline of each pipe, carries speed through bends and queues turns at junctions.",
+        "Press Space, tap Jump or double-tap a direction to jump out anywhere. Eat real letters on the detour, then touch a trail to reattach.",
+        "Pink power squares turn flies blue for six seconds, stacking up to nine. A quick red tongue grabs vulnerable flies up to two pellets ahead.",
+        "On phones, the arrow pad becomes a four-way joystick that follows the dominant direction, so maze turns stay clean. Jump is the large round button and acts on press. Refresh maze has its own button."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "For developers",
+      "body": [
+        "The controls come from the shared DOM VIRUS runtime, snapshot 0.21.0. The gzip budget grew by 2 KB to pay for them and now sits at 30,000 bytes.",
+        "Setup, configuration and integration examples live in the repository README."
+      ]
+    },
+    {
+      "id": "stats-3",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.10.2",
+          "label": "current release (25 October 2026)"
+        },
+        {
+          "value": "29.2 kB",
+          "label": "gzip, complete game + engine"
+        },
+        {
+          "value": "30.0 kB",
+          "label": "enforced gzip budget"
+        },
+        {
+          "value": "12",
+          "label": "fly cap, where space permits"
+        },
+        {
+          "value": "6–8",
+          "label": "power squares"
+        },
+        {
+          "value": "3",
+          "label": "starting lives"
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
+          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "link": {
+            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
+            "href": "/news/dom-battlefield-0-18"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
+          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
+            "href": "/news/dom-battlefield-blitz-0-6"
+          }
+        },
+        {
+          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "link": {
+            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
+            "href": "/news/dom-virus-0-46"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "byte-runner"
+    ],
+    "created": "2026-10-25"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "55af4ecf49e353a8"
+  },
+  "collection": "brands",
+  "id": "null-invaders",
+  "slug": "null-invaders",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "null-invaders",
+    "name": "Null Invaders",
+    "level": "game",
+    "parent": "domvirus",
+    "site": {
+      "repo": "dom-virus",
+      "config": null,
+      "voice": "brand/games/null-invaders/voice.md",
+      "styleGuide": "brand/games/null-invaders/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "37b9b74eb81f3719"
+  },
+  "collection": "pages",
+  "id": "legal",
+  "slug": "legal",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "legal",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "legal-home",
+    "slug": "legal",
+    "title": "Legal",
+    "subtitle": "Plain English. Short pages.",
+    "tags": [
+      "legal"
+    ],
+    "date": "2026-10-29",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "The legal side of DOM VIRUS, in plain English. We collect as little as we can, set no cookies, and publish every game as open source under the MIT licence. Each page below covers one topic."
+    ],
+    "blocks": [
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Pick a page",
+        "items": [
+          {
+            "title": "Privacy",
+            "body": "What we collect (very little), what the games keep on your device, and who hosts the site.",
+            "link": {
+              "label": "Read the privacy policy",
+              "href": "/legal/privacy/"
+            }
+          },
+          {
+            "title": "Cookies and storage",
+            "body": "We set no cookies. Here is every setting the games save in your browser, and how to clear it.",
+            "link": {
+              "label": "See cookies and storage",
+              "href": "/legal/cookies/"
+            }
+          },
+          {
+            "title": "Terms of use",
+            "body": "The rules for using the site and playing the games, written simply.",
+            "link": {
+              "label": "Read the terms of use",
+              "href": "/legal/terms/"
+            }
+          },
+          {
+            "title": "Open-source licences",
+            "body": "Every repository's licence, plus the third-party notices that ship with the games.",
+            "link": {
+              "label": "See the open-source licences",
+              "href": "/legal/licenses/"
+            }
+          },
+          {
+            "title": "Accessibility",
+            "body": "What works today, where the games still fall short, and how to report a barrier.",
+            "link": {
+              "label": "Read the accessibility statement",
+              "href": "/legal/accessibility/"
+            }
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Still have a question?",
+        "items": [
+          {
+            "title": "Contact",
+            "body": "Bugs, ideas, press and security reports each have their own channel.",
+            "link": {
+              "label": "Contact DOM VIRUS",
+              "href": "/contact/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Legal: privacy, cookies, terms and licences | DOM VIRUS",
+      "description": "The DOM VIRUS legal pages in plain English: privacy, cookies and storage, terms of use, open-source licences and accessibility."
+    }
+  }
+}

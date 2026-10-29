@@ -1,0 +1,58 @@
+# DOM VIRUS
+
+> Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.
+
+## About
+
+- [DOM VIRUS press kit: facts, roster and logos](https://domvirus.com/about/press/): Press kit for DOM VIRUS, tiny open-source arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.
+
+## About Home
+
+- [About DOM VIRUS: one maker, tiny games, a game a week](https://domvirus.com/about/): Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.
+
+## Blog
+
+- [The page is the game board: how DOM VIRUS games play](https://domvirus.com/blog/the-page-is-the-game-board/): DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.
+- [Two Macs, one network, and Bolo: where DOM VIRUS began](https://domvirus.com/blog/two-macs-one-network-and-bolo/): Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.
+
+## Contact
+
+- [Contact DOM VIRUS: bugs, press and security](https://domvirus.com/contact/): Reach DOM VIRUS through GitHub: issues for bugs and ideas, private reports for security, and the press kit for media. Email coming soon.
+
+## Game
+
+- [Sherman Bytes: a pixel tank game that plays on your page](https://domvirus.com/games/sherman-bytes/): Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.
+
+## Legal
+
+- [Accessibility statement: keys, touch, motion | DOM VIRUS](https://domvirus.com/legal/accessibility/): How DOM VIRUS games support keyboard play, touch controls, reduced motion and Escape to Recall, their known limits, and how to report a barrier.
+- [Cookies and storage: what the games save | DOM VIRUS](https://domvirus.com/legal/cookies/): DOM VIRUS sets no cookies. Here is every setting the games save in your browser's local storage, what it holds and how to clear it.
+- [Open-source licences: MIT for every game | DOM VIRUS](https://domvirus.com/legal/licenses/): Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes.
+- [Privacy policy: no accounts, no cookies | DOM VIRUS](https://domvirus.com/legal/privacy/): What DOM VIRUS collects (almost nothing), what the games keep in your browser, hosting logs, cookieless analytics and how to clear it all.
+- [Terms of use for the site and games | DOM VIRUS](https://domvirus.com/legal/terms/): The DOM VIRUS terms in plain English: free to play, the games change only your page, Recall gives it back, and the code is open source under MIT.
+
+## Legal Home
+
+- [Legal: privacy, cookies, terms and licences | DOM VIRUS](https://domvirus.com/legal/): The DOM VIRUS legal pages in plain English: privacy, cookies and storage, terms of use, open-source licences and accessibility.
+
+## News
+
+- [Byte Runner 0.10: magnetic pipes, jumps and a tongue](https://domvirus.com/news/byte-runner-0-10/): Byte Runner 0.10 adds magnetic pipe running, jump-out escapes to eat real text, tongue grabs on flies and a four-way phone joystick. 29.2 kB gzip.
+- [Coming next to DOM VIRUS: Crossfire, Kaiju, Flock](https://domvirus.com/news/coming-next/): Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.
+- [DOM Battlefield 0.18: go-live, plan cards and full screen](https://domvirus.com/news/dom-battlefield-0-18/): DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.
+- [Battlefield Blitz 0.6: surrender, results and phone fixes](https://domvirus.com/news/dom-battlefield-blitz-0-6/): Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.
+- [DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet](https://domvirus.com/news/dom-virus-0-46/): DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.
+- [Fizlet 0.2: input, collide, fx, sound and embed bricks](https://domvirus.com/news/fizlet-0-2/): Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.
+- [Null Invaders 0.7: combat sound and a phone joystick](https://domvirus.com/news/null-invaders-0-7/): Null Invaders 0.7 adds firing, hit, upgrade and wave sounds, an analog joystick and a held Fire button on phones. 22.9 kB gzip, game + engine.
+- [Sherman Bytes 0.5: phone controls, building and sound](https://domvirus.com/news/sherman-bytes-0-5/): Sherman Bytes 0.5 adds a joystick, a held Fire button, tap-to-build cover, pillboxes and mines on phones, and battle sound. 27.0 kB gzip.
+- [Swarm Protocol 1.3: cleaner touch play, steady scoreboard](https://domvirus.com/news/swarm-protocol-1-3/): Swarm Protocol 1.3 stops tap-to-select during rounds on phones and keeps pause, sound and close reachable when the scoreboard is minimized.
+
+## Section
+
+- [DOM VIRUS blog: the devlog behind tiny page games](https://domvirus.com/blog/): A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny open-source arcade games that play on a real webpage, and the engine under them.
+- [Every DOM VIRUS game: play free on your page](https://domvirus.com/games/): Tiny open-source arcade games that play on a real webpage: embedded games, board games and what's coming next. Play free in your browser.
+- [DOM VIRUS news: releases, launches and game updates](https://domvirus.com/news/): Release notes for every DOM VIRUS game and the Fizlet engine, launch news and what is coming next. Tiny open-source arcade games for real pages.
+
+## Support
+
+- [Support DOM VIRUS: free games, one maker](https://domvirus.com/support/): DOM VIRUS is a one-person, open-source passion project. See what support will pay for and how to help today: play, star, share and report bugs.

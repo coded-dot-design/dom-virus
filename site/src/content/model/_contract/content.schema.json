@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/brain-cache/fizlet-engine/spec/content.schema.json",
+  "title": "Fizlet content model",
+  "description": "One JSON file per entry: content/posts/<id>.json, content/pages/<id>.json; brands are brands/brands.json records. Games are their spec (games/<id>/spec.json, spec/game.schema.json); their lifecycle is read from spec.status. Body copy is a closed set of blocks, never HTML. Limits are enforced, never truncated. Rules a schema can't say (unique ids and routes, relations, lifecycle dates): factory/validate.mjs checkModel.",
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,79}$" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,59}$" },
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "status": { "enum": ["idea", "draft", "scheduled", "published"], "description": "idea → draft → scheduled (publishAt) → published. Production shows published, and scheduled once publishAt passes." },
+    "href": { "type": "string", "pattern": "^(/|#|https://|mailto:)", "maxLength": 300 },
+    "line": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "paragraph": { "type": "string", "minLength": 1, "maxLength": 1200 },
+    "link": {
+      "type": "object", "required": ["label", "href"], "additionalProperties": false,
+      "properties": { "label": { "$ref": "#/$defs/line" }, "href": { "$ref": "#/$defs/href" } }
+    },
+    "seo": {
+      "type": "object", "required": ["title", "description"], "additionalProperties": false,
+      "properties": { "title": { "type": "string", "minLength": 30, "maxLength": 60 }, "description": { "type": "string", "minLength": 70, "maxLength": 155 } }
+    },
+    "inline": {
+      "oneOf": [
+        { "type": "object", "required": ["type", "text"], "additionalProperties": false, "properties": { "type": { "const": "p" }, "text": { "$ref": "#/$defs/paragraph" } } },
+        { "type": "object", "required": ["type", "text"], "additionalProperties": false, "properties": { "type": { "const": "h" }, "text": { "$ref": "#/$defs/line" } } },
+        { "type": "object", "required": ["type", "items"], "additionalProperties": false, "properties": { "type": { "const": "ul" }, "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/paragraph" } } } },
+        { "type": "object", "required": ["type", "items"], "additionalProperties": false, "properties": { "type": { "const": "ol" }, "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/paragraph" } } } }
+      ]
+    },
+    "block": {
+      "description": "Shared blocks, one per astro-base-engine brief block. `heading: A | B` is a heading with its accent (headingAccent). Markdown-lite inside text: [label](/path), **strong**, *em*.",
+      "oneOf": [
+        { "type": "object", "required": ["type", "body"], "additionalProperties": false, "properties": {
+          "type": { "const": "text" }, "heading": { "$ref": "#/$defs/line" }, "headingAccent": { "$ref": "#/$defs/line" },
+          "body": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/inline" } } } },
+        { "type": "object", "required": ["type", "items"], "additionalProperties": false, "properties": {
+          "type": { "const": "stats" }, "heading": { "$ref": "#/$defs/line" }, "headingAccent": { "$ref": "#/$defs/line" },
+          "items": { "type": "array", "minItems": 2, "maxItems": 6, "items": { "type": "object", "required": ["value", "label"], "additionalProperties": false,
+            "properties": { "value": { "type": "string", "minLength": 1, "maxLength": 24 }, "label": { "$ref": "#/$defs/line" } } } } } },
+        { "type": "object", "required": ["type", "links"], "additionalProperties": false, "properties": {
+          "type": { "const": "cta" }, "links": { "type": "array", "minItems": 1, "maxItems": 3, "items": { "$ref": "#/$defs/link" } } } },
+        { "type": "object", "required": ["type", "layout", "heading", "items"], "additionalProperties": false, "properties": {
+          "type": { "const": "features" }, "layout": { "enum": ["rows", "cards", "steps", "grid"] },
+          "heading": { "$ref": "#/$defs/line" }, "headingAccent": { "$ref": "#/$defs/line" }, "subhead": { "$ref": "#/$defs/paragraph" },
+          "items": { "type": "array", "minItems": 1, "maxItems": 16, "items": { "type": "object", "required": ["title", "body"], "additionalProperties": false,
+            "properties": { "title": { "$ref": "#/$defs/line" }, "body": { "$ref": "#/$defs/paragraph" }, "link": { "$ref": "#/$defs/link" } } } } } },
+        { "type": "object", "required": ["type", "items"], "additionalProperties": false, "properties": {
+          "type": { "const": "faq" },
+          "items": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["q", "a"], "additionalProperties": false,
+            "properties": { "q": { "$ref": "#/$defs/line" }, "a": { "$ref": "#/$defs/paragraph" } } } } } }
+      ]
+    },
+    "entry": {
+      "description": "Fields every post and page has. Key order is the brief's.",
+      "properties": {
+        "$schema": { "type": "string" },
+        "id": { "$ref": "#/$defs/id" },
+        "site": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Which website renders it (dom-virus, dom-battlefield, …)." },
+        "brand": { "$ref": "#/$defs/id", "description": "content/brands/<id>.json" },
+        "games": { "type": "array", "items": { "$ref": "#/$defs/id" }, "description": "Related games (games/<id>/spec.json)." },
+        "slug": { "$ref": "#/$defs/slug" },
+        "title": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "subtitle": { "type": "string", "maxLength": 80, "description": "Second title line (brief: `title: A | B`)." },
+        "eyebrow": { "type": "string", "maxLength": 40 },
+        "tags": { "type": "array", "maxItems": 8, "items": { "$ref": "#/$defs/slug" } },
+        "date": { "$ref": "#/$defs/date" },
+        "status": { "$ref": "#/$defs/status" },
+        "publishAt": { "$ref": "#/$defs/date" },
+        "image": { "type": "string", "pattern": "^https://" },
+        "lead": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/paragraph" }, "description": "Answer-first lead paragraph(s)." },
+        "blocks": { "type": "array", "items": { "$ref": "#/$defs/block" } },
+        "seo": { "$ref": "#/$defs/seo" }
+      }
+    },
+    "post": {
+      "type": "object", "required": ["id", "site", "brand", "type", "slug", "title", "status", "tags"], "additionalProperties": false,
+      "properties": {
+        "$schema": { "type": "string" }, "id": { "$ref": "#/$defs/id" }, "site": { "$ref": "#/$defs/entry/properties/site" }, "brand": { "$ref": "#/$defs/id" },
+        "games": { "$ref": "#/$defs/entry/properties/games" },
+        "type": { "enum": ["news", "blog", "devlog"], "description": "news: press, launches, game updates. blog: essays. devlog: the weekly build log (renders as a blog post tagged devlog)." },
+        "slug": { "$ref": "#/$defs/slug" }, "title": { "$ref": "#/$defs/entry/properties/title" }, "subtitle": { "$ref": "#/$defs/entry/properties/subtitle" },
+        "eyebrow": { "$ref": "#/$defs/entry/properties/eyebrow" }, "tags": { "$ref": "#/$defs/entry/properties/tags" }, "date": { "$ref": "#/$defs/date" },
+        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/date" }, "image": { "$ref": "#/$defs/entry/properties/image" },
+        "lead": { "$ref": "#/$defs/entry/properties/lead" }, "blocks": { "$ref": "#/$defs/entry/properties/blocks" }, "seo": { "$ref": "#/$defs/seo" }
+      }
+    },
+    "page": {
+      "type": "object", "required": ["id", "site", "brand", "type", "slug", "title", "status", "tags"], "additionalProperties": false,
+      "properties": {
+        "$schema": { "type": "string" }, "id": { "$ref": "#/$defs/id" }, "site": { "$ref": "#/$defs/entry/properties/site" }, "brand": { "$ref": "#/$defs/id" },
+        "games": { "$ref": "#/$defs/entry/properties/games" },
+        "type": { "type": "string", "pattern": "^[a-z][a-z-]{1,30}$", "description": "astro-base-engine page type in the site's engine.config.json (section, about, legal, …)." },
+        "slug": { "$ref": "#/$defs/slug" }, "title": { "$ref": "#/$defs/entry/properties/title" }, "subtitle": { "$ref": "#/$defs/entry/properties/subtitle" },
+        "eyebrow": { "$ref": "#/$defs/entry/properties/eyebrow" }, "tags": { "$ref": "#/$defs/entry/properties/tags" }, "date": { "$ref": "#/$defs/date" },
+        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/date" }, "image": { "$ref": "#/$defs/entry/properties/image" },
+        "lead": { "$ref": "#/$defs/entry/properties/lead" }, "blocks": { "$ref": "#/$defs/entry/properties/blocks" }, "seo": { "$ref": "#/$defs/seo" }
+      }
+    },
+    "brand": {
+      "description": "One record per brand in brands/brands.json (the content model reads it as its brands collection, with author attached). Ids match the specs.",
+      "type": "object", "required": ["id", "name", "level", "site", "author"], "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "level": { "enum": ["parent", "game", "engine"] },
+        "parent": { "$ref": "#/$defs/id", "description": "The family brand a game brand belongs to." },
+        "repo": { "type": "string", "pattern": "^https://github\\.com/" },
+        "urls": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^https://" } },
+        "paths": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^/" } },
+        "openQuestion": { "type": "string" },
+        "site": { "type": "object", "required": ["repo", "config", "voice", "styleGuide"], "additionalProperties": false,
+          "properties": { "repo": { "type": "string", "pattern": "^[a-z0-9-]+$" }, "config": { "type": ["string", "null"] }, "voice": { "type": "string" }, "styleGuide": { "type": "string" } } },
+        "author": { "type": "object", "required": ["name", "url", "line"], "additionalProperties": false,
+          "properties": { "name": { "const": "Chris Cooley" }, "url": { "$ref": "#/$defs/href" }, "agency": { "type": "string" }, "line": { "$ref": "#/$defs/line" } } }
+      }
+    }
+  }
+}

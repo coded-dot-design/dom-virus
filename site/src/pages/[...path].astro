@@ -1,0 +1,32 @@
+---
+// Every astro-base-engine page that has no route of its own (blog, news, about, legal, contact,
+// support, section indexes), plus the redirect pages from site/redirects.json (brand/SITEMAP.md E4, E6).
+import Site from '@site-kit/components/Site.astro';
+import data from '@site-data';
+import { routable, routeOf } from '@site-kit/engine-content';
+import redirects from '../../redirects.json';
+export function getStaticPaths() {
+  const pages = routable().map((p) => ({ params: { path: routeOf(p).replace(/\/$/, '') || undefined }, props: { id: p.id } }));
+  const moved = Object.entries(redirects).filter(([from]) => !from.startsWith('$')).map(([from, to]) => ({ params: { path: from.replace(/\/$/, '') }, props: { to } }));
+  return [...pages, ...moved];
+}
+const { id, to } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+const target = to ? base + to : '';
+---
+{to ? (
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Moved — DOM VIRUS</title>
+  <meta name="description" content="This page moved. You are being sent to its new address on DOM VIRUS."/>
+  <meta name="robots" content="noindex,follow"/>
+  <link rel="canonical" href={new URL(target, Astro.site).href}/>
+  <meta http-equiv="refresh" content={`0; url=${target}`}/>
+</head>
+<body><main><h1>This page moved</h1><p><a href={target}>Go to its new address</a></p></main></body>
+</html>
+) : (
+<Site data={data} page="engine" engineId={id}/>
+)}
+{!to && <script>import "@site-kit/client.ts";</script>}

@@ -1,0 +1,169 @@
+{
+  "id": "blog-recall-leave-the-page-as-you-found-it",
+  "path": "/blog/recall-leave-the-page-as-you-found-it",
+  "template": "article",
+  "status": "scheduled",
+  "seo": {
+    "title": "Recall: how DOM VIRUS games give your page back",
+    "description": "Every DOM VIRUS game keeps an ownership ledger. Recall restores what the game still owns, and if your app changed something since, your app wins.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/recall-leave-the-page-as-you-found-it/",
+    "schemaPageType": "BlogPosting",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Recall: leaving the page the way you found it",
+      "headingAccent": "An ownership ledger, not a reset button.",
+      "eyebrow": "Blog",
+      "body": "Every DOM VIRUS game breaks the page you are reading, on purpose. Then you press Recall and the page comes back. That second half is the part I care about most, and it is harder than it looks."
+    },
+    {
+      "id": "text-1",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "A game is a guest",
+      "body": [
+        "A game that runs on your real page is a guest. It gets to rearrange the furniture for a while. It does not get to leave a mess.",
+        "If a game rewrites your headline and forgets to put it back, that is now a bug in your site, not just in mine. Nobody would embed a game that did that twice.",
+        "So Recall is not an extra. It is the reason the rest of the project is allowed to exist."
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What the ledger records",
+      "body": [
+        "Every change a game makes goes through an ownership ledger. For each text node it touches, the ledger keeps two values: the original, and the latest value the game wrote.",
+        "Hits rewrite characters inside the existing text node to a literal 0 or 1. The node stays the same node. Nothing is cloned, wrapped or swapped out.",
+        "Styles work the same way. When a game paints a button it is attacking, it records what was there first. When a target is removed, its effect records are released and its owned styles restored."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Compare before you restore",
+      "body": [
+        "Here is the subtle part. Your page is alive. Your app might update a price, a counter or a headline while the game is running.",
+        "So Recall does not blindly write the old values back. It compares the current value with the last value the game wrote.",
+        "If they still match, the game still owns that change, and Recall restores the original. If they differ, your app changed it since. Your app wins, and Recall leaves it alone.",
+        "That is also why I'm careful about what Recall promises. It gives back what the game changed and still owns. It cannot roll back unrelated changes made by your application.",
+        "Recall never replaces a container's HTML and never recreates a button. The elements your app knows about are the same elements after the game leaves."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Leaving means all of it",
+      "body": [
+        "Giving the page back is more than text. Recall stops the frame loop, takes the game's controls off the page and releases the audio context.",
+        "On the hub, switching cartridges runs Recall first and loads the next game after. One game should never leave scraps for the next one.",
+        "I test this the boring way. The browser tests switch games over and over and check the cleanup each time, including on mobile and inside scrolling containers."
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Recall in Fizlet",
+      "body": [
+        "Fizlet, the engine behind Battlefield Blitz, makes the same rule part of its contract. Every page change goes through engine.ledger: text, styles, attributes, classes and added nodes.",
+        "Writes are change-only, so the ledger skips anything that would not change the page. Calling destroy restores the page, style text byte for byte, and a newer edit by the host page always wins.",
+        "One AbortSignal removes every listener and observer the engine added. Each of those rules has a test.",
+        "Blitz shows it best when you drop it onto a page. Shells knock your headings around, treads flatten them, and Escape gives the page back."
+      ]
+    },
+    {
+      "id": "text-6",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Try it yourself",
+      "body": [
+        "The engine page on the hub has a small live demo. Fire at a sentence, let a pretend app edit one of the hit letters, then press Recall. Only the game's own edits come back.",
+        "Then try it on a real game. Play Sherman Bytes for a minute, wreck a paragraph or two and press Recall. The page you came for will be right where you left it."
+      ]
+    },
+    {
+      "id": "features-7",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Keep reading",
+      "items": [
+        {
+          "title": "Sherman Bytes",
+          "body": "Wreck a paragraph, then hit Recall and watch it come back.",
+          "link": {
+            "label": "Play Sherman Bytes",
+            "href": "/games/sherman-bytes/"
+          }
+        },
+        {
+          "title": "Try the Recall demo",
+          "body": "Fire at a sentence, let a pretend app edit a letter, then Recall.",
+          "link": {
+            "label": "See the Recall demo",
+            "href": "/engine/"
+          }
+        },
+        {
+          "title": "The page is the game board",
+          "body": "How the games read the page in the first place.",
+          "link": {
+            "label": "Read: The page is the game board",
+            "href": "/blog/the-page-is-the-game-board/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "The page is the game board: how DOM VIRUS games play",
+          "body": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
+          "link": {
+            "label": "Read: The page is the game board: how DOM VIRUS games play",
+            "href": "/blog/the-page-is-the-game-board"
+          }
+        },
+        {
+          "title": "Fizlet 0.2: input, collide, fx, sound and embed bricks",
+          "body": "Fizlet 0.2 adds five bricks to the 2.8 kB kernel: input, collide, fx, sound and embed. Tested in Node and Chromium, with size budgets in CI.",
+          "link": {
+            "label": "Read: Fizlet 0.2: input, collide, fx, sound and embed bricks",
+            "href": "/news/fizlet-0-2"
+          }
+        },
+        {
+          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
+          "link": {
+            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
+            "href": "/blog/two-macs-one-network-and-bolo"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "blog",
+    "tags": [
+      "recall",
+      "engine",
+      "fizlet"
+    ],
+    "created": "2026-11-19"
+  },
+  "publishAt": "2026-11-19"
+}

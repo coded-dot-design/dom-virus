@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { gzipSync } from "node:zlib";
@@ -27,6 +27,10 @@ if (config.id === "dom-virus") {
     pathToFileURL(resolve(root, "scripts/game-paths.mjs")).href
   );
   roots = Object.fromEntries(names.map((name) => [name, gameRoot(name)]));
+  // Stable share-image URL for engine page heads (og:image must be absolute and must not change
+  // when Vite re-hashes the asset): /og/dom-virus.png.
+  mkdirSync(resolve(root, "site/generated/public/og"), { recursive: true });
+  copyFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../assets/og-dom-virus.png"), resolve(root, "site/generated/public/og/dom-virus.png"));
 } else roots[config.id] = root;
 const read = (file) => JSON.parse(readFileSync(file, "utf8"));
 function size(file) {

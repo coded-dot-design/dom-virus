@@ -1,0 +1,55 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "53c9b848934fec56"
+  },
+  "collection": "games",
+  "id": "dom-battlefield",
+  "slug": "dom-battlefield",
+  "status": "published",
+  "relations": {
+    "brand": "battlefield",
+    "builtFrom": [
+      "sherman-bytes"
+    ],
+    "posts": [
+      "blog-from-one-tank-to-a-whole-platoon",
+      "news-dom-battlefield-0-18"
+    ],
+    "pages": []
+  },
+  "data": {
+    "id": "dom-battlefield",
+    "name": "DOM Battlefield",
+    "number": "02",
+    "tag": "SQUAD TACTICS",
+    "type": "board",
+    "style": "classic",
+    "status": "released",
+    "brand": "battlefield",
+    "repo": "https://github.com/coded-dot-design/dom-battlefield",
+    "builtFrom": [
+      "sherman-bytes"
+    ],
+    "engine": {
+      "runtime": "own"
+    },
+    "budget": {
+      "gzipBytes": 68000,
+      "source": "scripts/size.mjs (68 KB compressed app budget, enforced)"
+    },
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dom-battlefield/",
+      "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/play/",
+      "production": "https://battlefield.domvirus.com/",
+      "productionPlay": "https://battlefield.domvirus.com/play/battlefield/"
+    },
+    "site": {
+      "kind": "SQUAD TACTICS",
+      "tagline": "Squad tactics in a browser tab.",
+      "description": "Command a platoon of up to twelve tanks. Pick the ground, freeze time to plan every route, then radio your squad through a live firefight. No install, no account.",
+      "accent": "cyan",
+      "icon": "tank"
+    }
+  }
+}

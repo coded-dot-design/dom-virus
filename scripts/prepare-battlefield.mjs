@@ -50,5 +50,34 @@ cpSync(resolve(root, "dist"), dest, { recursive: true });
 // make them same-origin so Eject never bounces through a redirect (e.g. on a custom domain).
 const hubBase = (process.env.SITE_BASE || "/dom-virus").replace(/\/?$/, "/");
 const page = resolve(dest, "index.html");
-writeFileSync(page, readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase));
+let app = readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase);
+// Head tags for the hub's copy (canonical, Open Graph), from the app's own title and description:
+// the hub serves this page, so it is its canonical address. Head only; the app itself is untouched.
+const siteUrl = new URL(hubBase, process.env.SITE_URL || "https://coded-dot-design.github.io").href;
+const title = app.match(/<title>([^<]*)<\/title>/)?.[1]?.trim();
+const description = app.match(/<meta\s+name="description"\s+content="([^"]*)"/)?.[1];
+if (!title || !description) throw Error("Battlefield page lost its title or description");
+if (!app.includes('rel="canonical"'))
+  app = app.replace(
+    "</head>",
+    [
+      `<link rel="canonical" href="${siteUrl}battlefield/">`,
+      '<meta property="og:type" content="website">',
+      `<meta property="og:title" content="${title}">`,
+      `<meta property="og:description" content="${description}">`,
+      `<meta property="og:url" content="${siteUrl}battlefield/">`,
+      `<meta property="og:image" content="${siteUrl}og/dom-virus.png">`,
+      '<meta name="twitter:card" content="summary_large_image">',
+      // The playable game as a VideoGame (same shape as the hub's game pages; facts from its head).
+      `<script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org", "@type": "VideoGame", "@id": `${siteUrl}battlefield/`, url: `${siteUrl}battlefield/`,
+        name: title.split(" · ")[0], description: description.replace(/&quot;/g, '"').replace(/&amp;/g, "&"), inLanguage: "en",
+        isPartOf: { "@type": "WebSite", name: "DOM VIRUS", url: siteUrl.replace(/\/$/, "") }, gamePlatform: "Web browser", applicationCategory: "Game",
+        image: `${siteUrl}og/dom-virus.png`,
+      }).replace(/</g, "\\u003c")}</script>`,
+      "</head>",
+    ].join("\n"),
+  );
+writeFileSync(page, app);
+
 console.log(`Battlefield ${pin.version}: verified standalone app copied to /battlefield/.`);

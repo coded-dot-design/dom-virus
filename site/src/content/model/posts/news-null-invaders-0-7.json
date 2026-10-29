@@ -1,0 +1,122 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "f9645767898564eb"
+  },
+  "collection": "posts",
+  "id": "news-null-invaders-0-7",
+  "slug": "null-invaders-0-7",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "null-invaders"
+    ]
+  },
+  "data": {
+    "id": "news-null-invaders-0-7",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "null-invaders"
+    ],
+    "type": "news",
+    "slug": "null-invaders-0-7",
+    "title": "Null Invaders 0.7",
+    "subtitle": "Louder, and ready for thumbs.",
+    "tags": [
+      "release",
+      "null-invaders"
+    ],
+    "date": "2026-10-25",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Null Invaders 0.7 adds sound and a proper phone cockpit: an analog joystick and a round Fire button you can hold while you fly. Null Invaders is the shooter where you fly an interceptor through a real webpage, turn letters into binary and break the button factories."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "What's new for players",
+        "body": [
+          {
+            "type": "p",
+            "text": "Firing, hits, weapon upgrades and new waves now have synthesized sound cues."
+          },
+          {
+            "type": "p",
+            "text": "On phones, the arrow pad becomes an analog joystick with eight-way flight. Fire is the round crosshair button from DOM Battlefield, with a 3D press. Fly and hold Fire together."
+          },
+          {
+            "type": "p",
+            "text": "The scoreboard shares its controls with the other games: sound, pause or resume, minimize and Recall."
+          },
+          {
+            "type": "p",
+            "text": "Pulse, Twin, Trident and Overdrive still unlock as you earn combat XP. Destroyed factories still stop spawning for the rest of the wave."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "For developers",
+        "body": [
+          {
+            "type": "p",
+            "text": "The controls come from the shared DOM VIRUS runtime, snapshot 0.21.0. The gzip budget grew by 2 KB to pay for them and now sits at 24,000 bytes."
+          },
+          {
+            "type": "p",
+            "text": "Setup, configuration and integration examples live in the repository README."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "0.7.2",
+            "label": "current release (25 October 2026)"
+          },
+          {
+            "value": "22.9 kB",
+            "label": "gzip, complete game + engine"
+          },
+          {
+            "value": "24.0 kB",
+            "label": "enforced gzip budget"
+          },
+          {
+            "value": "48",
+            "label": "alien cap"
+          },
+          {
+            "value": "80",
+            "label": "bullet cap"
+          },
+          {
+            "value": "4",
+            "label": "weapon tiers"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Play Null Invaders",
+            "href": "/games/null-invaders/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/null-invaders"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Null Invaders 0.7: combat sound and a phone joystick",
+      "description": "Null Invaders 0.7 adds firing, hit, upgrade and wave sounds, an analog joystick and a held Fire button on phones. 22.9 kB gzip, game + engine."
+    }
+  }
+}

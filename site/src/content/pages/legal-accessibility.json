@@ -1,0 +1,121 @@
+{
+  "id": "legal-accessibility",
+  "path": "/legal/accessibility",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Accessibility statement: keys, touch, motion | DOM VIRUS",
+    "description": "How DOM VIRUS games support keyboard play, touch controls, reduced motion and Escape to Recall, their known limits, and how to report a barrier.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/accessibility/",
+    "schemaPageType": "WebPage",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Accessibility",
+      "headingAccent": "Keys, touch and less motion.",
+      "eyebrow": "Legal",
+      "body": "We want everyone to be able to play. The games work with a keyboard or touch, follow your reduced-motion setting, and give the page back on Escape or Recall. Fast action games still have limits, listed below. Last updated 2026-10-29."
+    },
+    {
+      "id": "features-1",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "What works today",
+      "items": [
+        {
+          "title": "Keyboard play",
+          "body": "The embedded games move with the arrow keys or W, A, S and D, and fire with Space where the game has firing. DOM Battlefield and Battlefield Blitz have keys for their commands too."
+        },
+        {
+          "title": "Escape and Recall",
+          "body": "Press Escape at any time to stop a game and give the page back. Recall returns focus to the Play button you started from."
+        },
+        {
+          "title": "Spoken status",
+          "body": "Starting and ending a game is announced in a polite live region, so screen readers hear it without losing their place."
+        },
+        {
+          "title": "Reduced motion",
+          "body": "If your device asks for less motion, the games drop screen shake and drifting effects, and the hub keeps its hero still."
+        },
+        {
+          "title": "Touch controls",
+          "body": "On touch screens the games show an on-screen thumbstick and a Fire button. Different fingers can hold each one at the same time."
+        },
+        {
+          "title": "Light and dark themes",
+          "body": "The site follows your system colour scheme. A theme key switches between light and dark and remembers your choice."
+        },
+        {
+          "title": "Sound you control",
+          "body": "Every game has a sound switch, and it remembers your choice."
+        },
+        {
+          "title": "Forms stay yours",
+          "body": "The games leave form fields, live regions and dialogs alone, so they keep working while you play."
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Known limits",
+      "body": [
+        "These are fast action games. They ask for quick reactions and steady control of keys, a pointer or touch, and not everyone has that.",
+        "While a game runs, the page's text changes on screen. A screen reader reading that text will hear the changes. Press Escape or Recall to restore it.",
+        "Some accent colours in the board games' light theme fall short of the recommended contrast for small text. A fix is planned.",
+        "We do not claim a formal conformance level yet. We fix barriers as people report them."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Report a barrier",
+      "body": [
+        "If something stops you from playing or reading, open an issue on GitHub. Tell us the page, your device and browser, and any assistive technology you use.",
+        "Issues are public, so please leave out anything private."
+      ]
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Get in touch",
+      "items": [
+        {
+          "title": "Report an accessibility barrier",
+          "body": "Open an issue on the DOM VIRUS repository.",
+          "link": {
+            "label": "Open a DOM VIRUS issue",
+            "href": "https://github.com/coded-dot-design/dom-virus/issues"
+          }
+        },
+        {
+          "title": "Other ways to reach us",
+          "body": "Every channel, in one place.",
+          "link": {
+            "label": "Contact DOM VIRUS",
+            "href": "/contact/"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "legal",
+    "tags": [
+      "legal",
+      "accessibility"
+    ],
+    "created": "2026-10-29"
+  }
+}

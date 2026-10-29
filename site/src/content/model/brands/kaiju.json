@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "4db499a956dca17e"
+  },
+  "collection": "brands",
+  "id": "kaiju",
+  "slug": "kaiju",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "kaiju",
+    "name": "DOM Kaiju",
+    "level": "game",
+    "parent": "domvirus",
+    "site": {
+      "repo": "dom-virus",
+      "config": null,
+      "voice": "brand/games/kaiju/voice.md",
+      "styleGuide": "brand/games/kaiju/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}

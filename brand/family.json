@@ -1,0 +1,111 @@
+{
+  "$comment": "The DOM VIRUS family as data: brands, games, relationships and URLs. Pages and agents read this for links, labels and hosts instead of copying them. Rules and reasons: brand/README.md. 'current' URLs are live today (GitHub Pages); 'production' URLs are targets, used once the domain is pointed. Fields marked openQuestion are not final.",
+  "phase": 2,
+  "credit": { "text": "By Chris Cooley · coded.design", "name": "Chris Cooley", "agency": "coded.design", "href": "https://coded.design" },
+  "brands": {
+    "domvirus": {
+      "name": "DOM VIRUS",
+      "level": "parent",
+      "repo": "https://github.com/coded-dot-design/dom-virus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/", "production": "https://domvirus.com/" },
+      "styleGuide": "dom-virus/brand/style-guide.md",
+      "voice": "dom-virus/brand/voice.md",
+      "paths": {
+        "home": "/",
+        "comingSoon": "/coming-soon/{slug}/",
+        "embedded": "/games/{slug}/",
+        "blog": "/blog/{slug}/",
+        "news": "/news/{slug}/",
+        "styleGuide": "/style-guide/",
+        "underTheHood": "/under-the-hood/"
+      },
+      "openQuestion": "embedded path: /games/{slug}/ (today, no redirects) or /embedded/{slug}/ (site-agent handoff)"
+    },
+    "battlefield": {
+      "name": "DOM Battlefield",
+      "level": "game",
+      "repo": "https://github.com/coded-dot-design/dom-battlefield",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-battlefield/", "production": "https://battlefield.domvirus.com/" },
+      "styleGuide": "dom-battlefield/brand/style-guide.md",
+      "voice": "dom-battlefield/brand/voice.md",
+      "games": ["dom-battlefield", "dom-battlefield-blitz"]
+    },
+    "fizlet": {
+      "name": "Fizlet",
+      "level": "engine",
+      "repo": "https://github.com/coded-dot-design/fizlet",
+      "urls": { "current": "https://coded-dot-design.github.io/fizlet/", "production": "https://fizlet.com/", "productionFallback": "https://fizlet.coded.design/" },
+      "styleGuide": "fizlet/brand/style-guide.md",
+      "voice": "fizlet/brand/voice.md",
+      "openQuestion": "domain: fizlet.com (preferred) or fizlet.coded.design"
+    }
+  },
+  "gameTypes": {
+    "embedded": "Runs inside any web page, breaks it as you play, gives it back on Recall. Installable: the page links to the repo for setup.",
+    "board": "A full game on an embedded game's characters plus a board. Played on our sites only; no install directions."
+  },
+  "gameStyles": {
+    "classic": "Strategy and tactics.",
+    "modern": "Arcade action, battle-royale pace. (Working name.)"
+  },
+  "games": [
+    {
+      "id": "sherman-bytes", "number": "01", "tag": "DOM TANK", "name": "Sherman Bytes", "type": "embedded", "style": "classic", "status": "released",
+      "accent": "amber", "repo": "https://github.com/coded-dot-design/sherman-bytes", "brand": "domvirus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/sherman-bytes/", "production": "https://domvirus.com/games/sherman-bytes/" }
+    },
+    {
+      "id": "dom-battlefield", "number": "02", "tag": "SQUAD TACTICS", "name": "DOM Battlefield", "type": "board", "style": "classic", "status": "released",
+      "accent": "cyan", "repo": "https://github.com/coded-dot-design/dom-battlefield", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
+      "urls": {
+        "current": "https://coded-dot-design.github.io/dom-battlefield/",
+        "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/play/",
+        "production": "https://battlefield.domvirus.com/",
+        "productionPlay": "https://battlefield.domvirus.com/play/battlefield/"
+      },
+      "openQuestion": "style: brief listed Board/Modern; the description says the strategy game is Classic"
+    },
+    {
+      "id": "dom-battlefield-blitz", "number": "03", "tag": "DOM BLITZ", "name": "Battlefield Blitz", "type": "board", "style": "modern", "status": "released",
+      "accent": "pink", "repo": "https://github.com/coded-dot-design/dom-battlefield-blitz", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
+      "urls": {
+        "current": "https://coded-dot-design.github.io/dom-battlefield/blitz/",
+        "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
+        "production": "https://battlefieldblitz.domvirus.com/",
+        "productionPlay": "https://battlefieldblitz.domvirus.com/play/"
+      },
+      "openQuestion": "home: under battlefield.domvirus.com (proposed) or its own blitz.domvirus.com; style per brief was Board/Classic"
+    },
+    {
+      "id": "swarm-protocol", "number": "04", "tag": "DOM DEFENSE", "name": "Swarm Protocol", "type": "embedded", "style": null, "status": "released",
+      "accent": "violet", "repo": "https://github.com/coded-dot-design/swarm-protocol", "brand": "domvirus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/swarm-protocol/", "production": "https://domvirus.com/games/swarm-protocol/" }
+    },
+    {
+      "id": "byte-runner", "number": "05", "tag": "DOM CHASE", "name": "Byte Runner", "type": "embedded", "style": null, "status": "released",
+      "accent": "lime", "repo": "https://github.com/coded-dot-design/byte-runner", "brand": "domvirus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/byte-runner/", "production": "https://domvirus.com/games/byte-runner/" }
+    },
+    {
+      "id": "null-invaders", "number": "06", "tag": "DOM SHOOTER", "name": "Null Invaders", "type": "embedded", "style": null, "status": "released",
+      "accent": "cyan", "repo": "https://github.com/coded-dot-design/null-invaders", "brand": "domvirus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/null-invaders/", "production": "https://domvirus.com/games/null-invaders/" }
+    },
+    {
+      "id": "kaiju", "number": "07", "tag": "CLIMB + SMASH", "name": "DOM Kaiju", "type": "board", "style": null, "status": "coming-soon",
+      "accent": "pink", "repo": null, "brand": "domvirus",
+      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/kaiju/", "production": "https://domvirus.com/coming-soon/kaiju/" },
+      "note": "Coming soon pages move from /games/kaiju/ to /coming-soon/kaiju/ with a redirect."
+    }
+  ],
+  "ideas": [
+    { "id": "crossfire", "name": "DOM Crossfire", "status": "next-up" },
+    { "id": "flock", "name": "DOM Flock", "status": "idea" }
+  ],
+  "links": {
+    "playBoard": "Play {board}",
+    "exploreEmbedded": "Explore the original {embedded}",
+    "getCode": "Get the code & setup instructions",
+    "getCodeSupport": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "1769764fdf4b435e"
+  },
+  "collection": "brands",
+  "id": "swarm-protocol",
+  "slug": "swarm-protocol",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "swarm-protocol",
+    "name": "Swarm Protocol",
+    "level": "game",
+    "parent": "domvirus",
+    "site": {
+      "repo": "dom-virus",
+      "config": null,
+      "voice": "brand/games/swarm-protocol/voice.md",
+      "styleGuide": "brand/games/swarm-protocol/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}

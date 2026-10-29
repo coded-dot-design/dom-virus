@@ -89,7 +89,7 @@ export const SOON_GAMES: SoonGame[] = [
 ];
 
 export const NEXT_PHASE = [
-  { tag: "E0", title: "Baseline and archives", body: "Perf harness and baseline numbers are in. Next: play any past Battlefield build from its page, and test any release of every game." },
+  { tag: "E0", title: "Baseline and archives", body: "Perf harness and baseline numbers are in. Every past release of every game is playable from its page (TEST A RELEASE). Next: play any past Battlefield build." },
   { tag: "E1", title: "One tiny kernel", body: "One scheduler, a fixed step, clean start and stop, pools and the Recall ledger, in about 4 KB." },
   { tag: "E2", title: "Harnesses", body: "Input, collisions, steering, page and grid boards, camera, effects, a sound adapter, the embed config (palette and easter eggs) and Board UI." },
   { tag: "E3", title: "Port every game", body: "Each cartridge gets an engine cut: less code, same feel, at least as fast as today. The old builds stay playable." },

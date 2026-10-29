@@ -1,0 +1,138 @@
+{
+  "id": "support",
+  "path": "/support",
+  "template": "marketing",
+  "status": "published",
+  "seo": {
+    "title": "Support DOM VIRUS: free games, one maker",
+    "description": "DOM VIRUS is a one-person, open-source passion project. See what support will pay for and how to help today: play, star, share and report bugs.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/support/",
+    "schemaPageType": "WebPage",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Support DOM VIRUS",
+      "headingAccent": "Keep the games coming.",
+      "eyebrow": "Support",
+      "body": "DOM VIRUS is a one-person, open-source passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.",
+      "ctas": [
+        {
+          "label": "Star DOM VIRUS on GitHub",
+          "href": "https://github.com/coded-dot-design/dom-virus",
+          "variant": "primary"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Why support matters",
+      "body": [
+        "One person designs, codes, tests and ships every game. There is no studio behind them, no ads and no paywall.",
+        "Support turns spare hours into more games, faster fixes and the servers that multiplayer will need."
+      ]
+    },
+    {
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "What support will pay for",
+      "body": [
+        "A move from GitHub Pages to the site's own domain, domvirus.com, behind Cloudflare.",
+        "Domains for the family: domvirus.com, its game subdomains and a home for the Fizlet engine.",
+        "Servers for multiplayer rooms. Multiplayer is planned, and rooms need a small server that a static host cannot run."
+      ],
+      "headingAccent": "Plans, not promises."
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Ways to help today, for free",
+      "items": [
+        {
+          "title": "Play the games",
+          "body": "Every play counts. Find a cartridge and press start.",
+          "link": {
+            "label": "Play the DOM VIRUS games",
+            "href": "/"
+          }
+        },
+        {
+          "title": "Star the repositories",
+          "body": "Stars help other developers find the games on GitHub.",
+          "link": {
+            "label": "Star DOM VIRUS on GitHub",
+            "href": "https://github.com/coded-dot-design/dom-virus"
+          }
+        },
+        {
+          "title": "Share a game",
+          "body": "Send a game to a friend, or post it where your people hang out."
+        },
+        {
+          "title": "Report bugs and ideas",
+          "body": "Every report makes the next release better.",
+          "link": {
+            "label": "Contact DOM VIRUS",
+            "href": "/contact/"
+          }
+        },
+        {
+          "title": "Contribute",
+          "body": "Every game is open source under MIT. Read the code, suggest a fix or open a pull request.",
+          "link": {
+            "label": "Browse the code on GitHub",
+            "href": "https://github.com/coded-dot-design"
+          }
+        }
+      ]
+    },
+    {
+      "id": "text-5",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Sponsorship and tips",
+      "body": [
+        "GitHub Sponsors comes first, for monthly or one-time support through GitHub.",
+        "A tip jar, such as Ko-fi or Buy Me a Coffee, follows for one-off thanks.",
+        "The links appear on this page as soon as the accounts are live."
+      ],
+      "headingAccent": "Coming soon."
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "heading": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Can I sponsor DOM VIRUS today?",
+          "answer": "Not yet. The sponsorship and tip links appear here once the accounts are live. Until then, a star or a share helps most."
+        },
+        {
+          "question": "Where will the money go?",
+          "answer": "Into the plans above: the move to domvirus.com, domains for the family and servers for multiplayer rooms."
+        },
+        {
+          "question": "Can I help without money?",
+          "answer": "Yes. Play the games, star the repositories, share a game, report bugs or contribute code."
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "support",
+    "tags": [
+      "support"
+    ],
+    "created": "2026-10-29"
+  }
+}

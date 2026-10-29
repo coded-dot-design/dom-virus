@@ -1,0 +1,91 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "417152b7b39e250e"
+  },
+  "collection": "pages",
+  "id": "games",
+  "slug": "games",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "kaiju"
+    ]
+  },
+  "data": {
+    "id": "games",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "kaiju"
+    ],
+    "type": "section",
+    "slug": "games",
+    "title": "Every game",
+    "subtitle": "From idea to board.",
+    "tags": [
+      "games"
+    ],
+    "date": "2026-10-29",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Every DOM VIRUS game starts as an idea page and becomes a tiny game you play right on the page. The best ones grow into a full board game on their own site. Pick a cartridge, press Play, and hit Recall to give the page back."
+    ],
+    "blocks": [
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Board games",
+        "headingAccent": "The big versions, on their own sites.",
+        "items": [
+          {
+            "title": "DOM Battlefield",
+            "body": "Squad tactics: Sherman Bytes with a whole platoon. Plan every route, then command your squad under fire.",
+            "link": {
+              "label": "Play DOM Battlefield",
+              "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            }
+          },
+          {
+            "title": "Battlefield Blitz",
+            "body": "The arcade version: every crew for itself, parachute drops, airstrikes, most kills wins.",
+            "link": {
+              "label": "Play Battlefield Blitz",
+              "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            }
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Coming soon",
+        "headingAccent": "Ideas on the bench.",
+        "items": [
+          {
+            "title": "DOM Kaiju",
+            "body": "A giant pixel gorilla climbs your page from the footer to the top while helicopters swarm.",
+            "link": {
+              "label": "See DOM Kaiju",
+              "href": "/games/kaiju/"
+            }
+          },
+          {
+            "title": "Everything next",
+            "body": "The next cartridges in build order and the engine work behind them.",
+            "link": {
+              "label": "See what's coming",
+              "href": "/games/coming-soon/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Every DOM VIRUS game: play free on your page",
+      "description": "Tiny open-source arcade games that play on a real webpage: embedded games, board games and what's coming next. Play free in your browser."
+    }
+  }
+}
