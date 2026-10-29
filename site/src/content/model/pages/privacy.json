@@ -1,0 +1,249 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "61f92f0a213e658a"
+  },
+  "collection": "pages",
+  "id": "privacy",
+  "slug": "privacy",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": []
+  },
+  "data": {
+    "id": "privacy",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [],
+    "type": "legal",
+    "slug": "privacy",
+    "title": "Privacy policy",
+    "subtitle": "We collect as little as we can.",
+    "tags": [
+      "legal",
+      "privacy"
+    ],
+    "date": "2026-10-29",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "DOM VIRUS has no accounts, sets no cookies and sells nothing. The games save a few settings in your own browser, and our web host keeps standard request logs. Last updated 2026-10-29."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "Who we are",
+        "body": [
+          {
+            "type": "p",
+            "text": "DOM VIRUS is a family of small open-source arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, \"we\" means the people behind that project."
+          },
+          {
+            "type": "p",
+            "text": "This policy covers the DOM VIRUS site, the DOM Battlefield site, the Fizlet site and the games on them."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What we collect",
+        "body": [
+          {
+            "type": "p",
+            "text": "Nothing that identifies you. There is no sign-up, no login and no form, and the site never asks for your name or email address."
+          },
+          {
+            "type": "p",
+            "text": "The games do not send your scores, settings or play to anyone. They make no network requests of their own while you play."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What the games keep on your device",
+        "body": [
+          {
+            "type": "p",
+            "text": "The games save a few settings in your browser's local storage: the theme, sound on or off, a best score and some game setup choices."
+          },
+          {
+            "type": "p",
+            "text": "One short-lived value sits in session storage when you launch DOM Battlefield from the hub. It is removed as soon as the board opens."
+          },
+          {
+            "type": "p",
+            "text": "These values stay on your device. We cannot see them. The cookies and storage page lists every one, with what it holds and why."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Hosting and request logs",
+        "body": [
+          {
+            "type": "p",
+            "text": "The site is hosted on GitHub Pages today. Like any web host, GitHub receives the details every browser sends with a request, such as your IP address."
+          },
+          {
+            "type": "p",
+            "text": "GitHub may log those details to run and protect its service. It handles them under its own privacy statement, not ours."
+          },
+          {
+            "type": "p",
+            "text": "We plan to move the site to domvirus.com behind Cloudflare. From then on, Cloudflare also receives these request details, under its own privacy policy. We will update this page when that happens."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Analytics",
+        "body": [
+          {
+            "type": "p",
+            "text": "The analytics we use, when switched on, is Cloudflare Web Analytics. It sets no cookies, saves nothing on your device and does not follow you to other sites."
+          },
+          {
+            "type": "p",
+            "text": "It gives us totals: which pages were read, which sites sent visitors, and broad browser, device and country figures. We use them to see which games people play and what to fix."
+          },
+          {
+            "type": "p",
+            "text": "When analytics is on, a small script loads from Cloudflare. It is the only outside script the site loads."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What we never do",
+        "body": [
+          {
+            "type": "p",
+            "text": "We do not sell, rent or share personal data. We run no ads, no ad trackers and no social media widgets."
+          },
+          {
+            "type": "p",
+            "text": "The site loads no outside fonts. Text uses fonts already on your device."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Device features the games use",
+        "body": [
+          {
+            "type": "p",
+            "text": "Some games use your device while you play: sound, vibration on phones, full screen, and the clipboard for the Copy code button."
+          },
+          {
+            "type": "p",
+            "text": "All of this happens inside your browser. The Copy code button only writes to your clipboard; it never reads it. Nothing from these features leaves your device."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "When you contact us",
+        "body": [
+          {
+            "type": "p",
+            "text": "Bug reports and ideas go through GitHub issues, which are public. What you write there, and your GitHub username, can be seen by anyone and is handled under GitHub's terms."
+          },
+          {
+            "type": "p",
+            "text": "Please keep private details out of public issues. Security reports go through GitHub's private vulnerability reporting instead, which only the maintainer can read."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Children",
+        "body": [
+          {
+            "type": "p",
+            "text": "The games are for a general audience and ask nobody for personal information, children included."
+          },
+          {
+            "type": "p",
+            "text": "Did a child post something personal in one of our GitHub issues? Tell us, and we will remove it where we can."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Your choices",
+        "body": [
+          {
+            "type": "p",
+            "text": "Clear this site's data in your browser settings to remove everything the games saved. Private or incognito windows forget it when you close them."
+          },
+          {
+            "type": "p",
+            "text": "You can also block local storage. The games still play; they just forget your settings each time."
+          },
+          {
+            "type": "p",
+            "text": "A content blocker can stop the analytics script. The site works the same without it."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Changes to this policy",
+        "body": [
+          {
+            "type": "p",
+            "text": "If what we collect changes, we update this page and its date first. Every change is public in the site's GitHub history."
+          },
+          {
+            "type": "p",
+            "text": "Anything that would set cookies or track you across sites would need your consent first, through a consent banner, before it runs."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Related pages",
+        "items": [
+          {
+            "title": "Cookies and storage",
+            "body": "Every key the games save on your device, and how to clear it.",
+            "link": {
+              "label": "See cookies and storage",
+              "href": "/legal/cookies/"
+            }
+          },
+          {
+            "title": "GitHub privacy statement",
+            "body": "How GitHub, our host today, handles request data.",
+            "link": {
+              "label": "Read GitHub's privacy statement",
+              "href": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+            }
+          },
+          {
+            "title": "Cloudflare privacy policy",
+            "body": "How Cloudflare handles analytics and, after the move, request data.",
+            "link": {
+              "label": "Read Cloudflare's privacy policy",
+              "href": "https://www.cloudflare.com/privacypolicy/"
+            }
+          },
+          {
+            "title": "Questions about privacy",
+            "body": "Reach us through the contact page.",
+            "link": {
+              "label": "Contact DOM VIRUS",
+              "href": "/contact/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Privacy policy: no accounts, no cookies | DOM VIRUS",
+      "description": "What DOM VIRUS collects (almost nothing), what the games keep in your browser, hosting logs, cookieless analytics and how to clear it all."
+    }
+  }
+}

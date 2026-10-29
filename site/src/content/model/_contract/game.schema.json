@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/brain-cache/fizlet-engine/spec/game.schema.json",
+  "title": "Fizlet game spec",
+  "description": "One file per game (games/<id>/spec.json): the single source the factory turns into the game repo scaffold, the site data (site/game.json), the family row and the astro-base-engine page brief. Facts only; measured numbers come from the build, not from here.",
+  "type": "object",
+  "required": ["id", "name", "number", "tag", "type", "status", "brand", "repo", "engine", "budget", "site"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,40}$", "description": "Repo name and URL slug." },
+    "name": { "type": "string", "minLength": 2, "maxLength": 40 },
+    "number": { "type": "string", "pattern": "^[0-9]{2}$", "description": "Shelf number, from the roster." },
+    "tag": { "type": "string", "pattern": "^[A-Z0-9 +]+$", "description": "Gameplay tag, e.g. DOM TANK." },
+    "type": { "enum": ["embedded", "board"] },
+    "style": { "enum": ["classic", "modern"] },
+    "status": { "enum": ["idea", "in-progress", "released"] },
+    "brand": { "type": "string", "description": "Brand key in the family (domvirus, battlefield, …)." },
+    "repo": { "type": "string", "pattern": "^https://github\\.com/coded-dot-design/[a-z0-9-]+$" },
+    "builtFrom": { "type": "array", "items": { "type": "string" } },
+    "engine": {
+      "type": "object", "required": ["runtime"], "additionalProperties": false,
+      "properties": {
+        "runtime": { "enum": ["fizlet", "dom-virus-core", "own"], "description": "fizlet for every new game." },
+        "bricks": { "type": "array", "items": { "enum": ["input", "collide", "fx", "sound", "embed", "ui", "debug"] } }
+      }
+    },
+    "budget": {
+      "type": "object", "required": ["gzipBytes"], "additionalProperties": false,
+      "properties": { "gzipBytes": { "type": "integer", "minimum": 1024, "maximum": 102400 }, "source": { "type": "string", "description": "Where the number comes from (the size script that enforces it, or why it is provisional)." } }
+    },
+    "urls": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^https://" } },
+    "site": {
+      "type": "object",
+      "description": "The game's site data, in the shape site-kit reads (site/game.json minus id/author/license). Key order is kept.",
+      "required": ["kind", "tagline", "description", "accent", "icon"],
+      "properties": {
+        "kind": { "type": "string" }, "tagline": { "type": "string" }, "description": { "type": "string" },
+        "accent": { "enum": ["amber", "cyan", "lime", "violet", "pink"] }, "icon": { "type": "string" }
+      }
+    },
+    "page": {
+      "type": "object",
+      "description": "The marketing layer of the game's page, rendered into an astro-base-engine brief.",
+      "required": ["site", "type", "slug", "lead", "seo"],
+      "additionalProperties": false,
+      "properties": {
+        "site": { "type": "string", "description": "Which website renders it (dom-virus, dom-battlefield, …)." },
+        "type": { "type": "string", "description": "astro-base-engine page type in that site's engine.config.json." },
+        "slug": { "type": "string" },
+        "eyebrow": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "image": { "type": "string", "pattern": "^https://" },
+        "slots": { "type": "array", "items": { "enum": ["characters", "palette", "related", "embed"] }, "description": "Optional site slots for the astro-base-engine game preset (play, loop, controls and facts are always placed)." },
+        "lead": { "type": "string" },
+        "support": { "type": "string" },
+        "play": { "type": "string", "description": "Label of the Play control (it starts the game; href #play)." },
+        "related": {
+          "type": "object", "required": ["heading", "items"],
+          "properties": {
+            "heading": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "object", "required": ["title", "body", "label", "href"] } }
+          }
+        },
+        "faq": { "type": "array", "items": { "type": "object", "required": ["q", "a"] } },
+        "seo": {
+          "type": "object", "required": ["title", "description"],
+          "properties": { "title": { "type": "string", "minLength": 30, "maxLength": 60 }, "description": { "type": "string", "minLength": 70, "maxLength": 155 } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "c7bea8d7433f3021"
+  },
+  "collection": "brands",
+  "id": "fizlet",
+  "slug": "fizlet",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "fizlet",
+    "name": "Fizlet",
+    "level": "engine",
+    "credit": {
+      "text": "By Chris Cooley · coded.design",
+      "name": "Chris Cooley",
+      "agency": "coded.design",
+      "href": "https://coded.design"
+    },
+    "repo": "https://github.com/coded-dot-design/fizlet",
+    "urls": {
+      "current": "https://coded-dot-design.github.io/fizlet/",
+      "production": "https://fizlet.com/",
+      "productionFallback": "https://fizlet.coded.design/"
+    },
+    "styleGuide": "fizlet/brand/style-guide.md",
+    "voice": "fizlet/brand/voice.md",
+    "openQuestion": "domain: fizlet.com (preferred) or fizlet.coded.design"
+  }
+}

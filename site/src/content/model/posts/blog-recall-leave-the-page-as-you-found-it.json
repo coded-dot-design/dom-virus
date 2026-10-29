@@ -1,0 +1,193 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "23df6887f4e0bc25"
+  },
+  "collection": "posts",
+  "id": "blog-recall-leave-the-page-as-you-found-it",
+  "slug": "recall-leave-the-page-as-you-found-it",
+  "status": "scheduled",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "sherman-bytes"
+    ]
+  },
+  "data": {
+    "id": "blog-recall-leave-the-page-as-you-found-it",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "sherman-bytes"
+    ],
+    "type": "blog",
+    "slug": "recall-leave-the-page-as-you-found-it",
+    "title": "Recall: leaving the page the way you found it",
+    "subtitle": "An ownership ledger, not a reset button.",
+    "tags": [
+      "recall",
+      "engine",
+      "fizlet"
+    ],
+    "date": "2026-11-19",
+    "status": "scheduled",
+    "publishAt": "2026-11-19",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Every DOM VIRUS game breaks the page you are reading, on purpose. Then you press Recall and the page comes back. That second half is the part I care about most, and it is harder than it looks."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "A game is a guest",
+        "body": [
+          {
+            "type": "p",
+            "text": "A game that runs on your real page is a guest. It gets to rearrange the furniture for a while. It does not get to leave a mess."
+          },
+          {
+            "type": "p",
+            "text": "If a game rewrites your headline and forgets to put it back, that is now a bug in your site, not just in mine. Nobody would embed a game that did that twice."
+          },
+          {
+            "type": "p",
+            "text": "So Recall is not an extra. It is the reason the rest of the project is allowed to exist."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What the ledger records",
+        "body": [
+          {
+            "type": "p",
+            "text": "Every change a game makes goes through an ownership ledger. For each text node it touches, the ledger keeps two values: the original, and the latest value the game wrote."
+          },
+          {
+            "type": "p",
+            "text": "Hits rewrite characters inside the existing text node to a literal 0 or 1. The node stays the same node. Nothing is cloned, wrapped or swapped out."
+          },
+          {
+            "type": "p",
+            "text": "Styles work the same way. When a game paints a button it is attacking, it records what was there first. When a target is removed, its effect records are released and its owned styles restored."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Compare before you restore",
+        "body": [
+          {
+            "type": "p",
+            "text": "Here is the subtle part. Your page is alive. Your app might update a price, a counter or a headline while the game is running."
+          },
+          {
+            "type": "p",
+            "text": "So Recall does not blindly write the old values back. It compares the current value with the last value the game wrote."
+          },
+          {
+            "type": "p",
+            "text": "If they still match, the game still owns that change, and Recall restores the original. If they differ, your app changed it since. Your app wins, and Recall leaves it alone."
+          },
+          {
+            "type": "p",
+            "text": "That is also why I'm careful about what Recall promises. It gives back what the game changed and still owns. It cannot roll back unrelated changes made by your application."
+          },
+          {
+            "type": "p",
+            "text": "Recall never replaces a container's HTML and never recreates a button. The elements your app knows about are the same elements after the game leaves."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Leaving means all of it",
+        "body": [
+          {
+            "type": "p",
+            "text": "Giving the page back is more than text. Recall stops the frame loop, takes the game's controls off the page and releases the audio context."
+          },
+          {
+            "type": "p",
+            "text": "On the hub, switching cartridges runs Recall first and loads the next game after. One game should never leave scraps for the next one."
+          },
+          {
+            "type": "p",
+            "text": "I test this the boring way. The browser tests switch games over and over and check the cleanup each time, including on mobile and inside scrolling containers."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Recall in Fizlet",
+        "body": [
+          {
+            "type": "p",
+            "text": "Fizlet, the engine behind Battlefield Blitz, makes the same rule part of its contract. Every page change goes through engine.ledger: text, styles, attributes, classes and added nodes."
+          },
+          {
+            "type": "p",
+            "text": "Writes are change-only, so the ledger skips anything that would not change the page. Calling destroy restores the page, style text byte for byte, and a newer edit by the host page always wins."
+          },
+          {
+            "type": "p",
+            "text": "One AbortSignal removes every listener and observer the engine added. Each of those rules has a test."
+          },
+          {
+            "type": "p",
+            "text": "Blitz shows it best when you drop it onto a page. Shells knock your headings around, treads flatten them, and Escape gives the page back."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Try it yourself",
+        "body": [
+          {
+            "type": "p",
+            "text": "The engine page on the hub has a small live demo. Fire at a sentence, let a pretend app edit one of the hit letters, then press Recall. Only the game's own edits come back."
+          },
+          {
+            "type": "p",
+            "text": "Then try it on a real game. Play Sherman Bytes for a minute, wreck a paragraph or two and press Recall. The page you came for will be right where you left it."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Keep reading",
+        "items": [
+          {
+            "title": "Sherman Bytes",
+            "body": "Wreck a paragraph, then hit Recall and watch it come back.",
+            "link": {
+              "label": "Play Sherman Bytes",
+              "href": "/games/sherman-bytes/"
+            }
+          },
+          {
+            "title": "Try the Recall demo",
+            "body": "Fire at a sentence, let a pretend app edit a letter, then Recall.",
+            "link": {
+              "label": "See the Recall demo",
+              "href": "/engine/"
+            }
+          },
+          {
+            "title": "The page is the game board",
+            "body": "How the games read the page in the first place.",
+            "link": {
+              "label": "Read: The page is the game board",
+              "href": "/blog/the-page-is-the-game-board/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Recall: how DOM VIRUS games give your page back",
+      "description": "Every DOM VIRUS game keeps an ownership ledger. Recall restores what the game still owns, and if your app changed something since, your app wins."
+    }
+  }
+}

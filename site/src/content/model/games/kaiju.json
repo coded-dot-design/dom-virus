@@ -1,0 +1,59 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "c3d4bca7b7d00e86"
+  },
+  "collection": "games",
+  "id": "kaiju",
+  "slug": "kaiju",
+  "status": "idea",
+  "relations": {
+    "brand": "domvirus",
+    "builtFrom": [],
+    "posts": [
+      "news-coming-next",
+      "news-dom-virus-launch"
+    ],
+    "pages": [
+      "games",
+      "press"
+    ]
+  },
+  "data": {
+    "id": "kaiju",
+    "name": "DOM Kaiju",
+    "number": "07",
+    "tag": "CLIMB + SMASH",
+    "type": "embedded",
+    "status": "idea",
+    "brand": "domvirus",
+    "repo": "https://github.com/coded-dot-design/dom-kaiju",
+    "engine": {
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "fx",
+        "sound",
+        "embed",
+        "ui"
+      ]
+    },
+    "budget": {
+      "gzipBytes": 30000,
+      "source": "docs/games/dom-kaiju.md embed target (≤30 KB gzip; not built yet)"
+    },
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dom-virus/games/kaiju/",
+      "production": "https://domvirus.com/coming-soon/kaiju/"
+    },
+    "site": {
+      "name": "DOM Kaiju",
+      "kind": "CLIMB + SMASH",
+      "tagline": "Climb the page. Wreck the page.",
+      "description": "A giant pixel gorilla falls onto your page and climbs it from the footer to the top, smashing as he goes.",
+      "accent": "pink",
+      "icon": "kaiju"
+    }
+  }
+}

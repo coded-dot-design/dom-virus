@@ -1,0 +1,171 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "cc444f51fdacc800"
+  },
+  "collection": "posts",
+  "id": "news-dom-virus-launch",
+  "slug": "dom-virus-launch",
+  "status": "draft",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "byte-runner",
+      "kaiju",
+      "null-invaders",
+      "sherman-bytes",
+      "swarm-protocol"
+    ]
+  },
+  "data": {
+    "id": "news-dom-virus-launch",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "byte-runner",
+      "kaiju",
+      "null-invaders",
+      "sherman-bytes",
+      "swarm-protocol"
+    ],
+    "type": "news",
+    "slug": "dom-virus-launch",
+    "title": "DOM VIRUS launches with 10 games",
+    "subtitle": "Your page. Their playground.",
+    "tags": [
+      "launch",
+      "dom-virus"
+    ],
+    "status": "draft",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "DOM VIRUS launches with ten tiny arcade games that play on a real webpage. Letters become points, buttons become enemy factories, and Recall gives the page back. No install to play. Every game is open source under the MIT licence."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "One maker, a game a week",
+        "body": [
+          {
+            "type": "p",
+            "text": "DOM VIRUS is made by one person, Chris Cooley, a game a week on the side."
+          },
+          {
+            "type": "p",
+            "text": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "The ten games",
+        "headingAccent": "Pick a cartridge.",
+        "items": [
+          {
+            "title": "Sherman Bytes",
+            "body": "A pixel tank on a live webpage. Breach button bases, build cover, hold the page.",
+            "link": {
+              "label": "Play Sherman Bytes",
+              "href": "/games/sherman-bytes/"
+            }
+          },
+          {
+            "title": "DOM Battlefield",
+            "body": "Squad tactics. Command up to twelve Sherman tanks on a grid built from real page elements.",
+            "link": {
+              "label": "Play DOM Battlefield",
+              "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            }
+          },
+          {
+            "title": "Battlefield Blitz",
+            "body": "Every tank for itself. Parachute in, call airstrikes, most kills in three minutes wins.",
+            "link": {
+              "label": "Play Battlefield Blitz",
+              "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            }
+          },
+          {
+            "title": "Swarm Protocol",
+            "body": "Bugs eat letters into binary and drain your buttons. Squash them before the interface falls apart.",
+            "link": {
+              "label": "Play Swarm Protocol",
+              "href": "/games/swarm-protocol/"
+            }
+          },
+          {
+            "title": "Byte Runner",
+            "body": "A round pixel frog races through food pipes, eats real text and hunts escaping flies.",
+            "link": {
+              "label": "Play Byte Runner",
+              "href": "/games/byte-runner/"
+            }
+          },
+          {
+            "title": "Null Invaders",
+            "body": "Fly an interceptor through a real webpage. Break the button factories and clear the aliens they release.",
+            "link": {
+              "label": "Play Null Invaders",
+              "href": "/games/null-invaders/"
+            }
+          },
+          {
+            "title": "DOM Kaiju",
+            "body": "TO CONFIRM. A giant pixel gorilla climbs your page from the footer to the top, smashing as he goes.",
+            "link": {
+              "label": "See DOM Kaiju",
+              "href": "/games/kaiju/"
+            }
+          },
+          {
+            "title": "DOM Crossfire",
+            "body": "TO CONFIRM. The DOM VIRUS hero meets the Battlefield arena: interceptor and tank against everything."
+          },
+          {
+            "title": "DOM Flock",
+            "body": "TO CONFIRM. Pixel birds burst out of the page in pairs. You are the crosshair."
+          },
+          {
+            "title": "Game ten",
+            "body": "TO CONFIRM. Name and one line from the owner before this post is scheduled."
+          }
+        ]
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "10",
+            "label": "games at launch"
+          },
+          {
+            "value": "6",
+            "label": "playable today"
+          },
+          {
+            "value": "MIT",
+            "label": "open source, every game"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "Choose your game",
+            "href": "/"
+          },
+          {
+            "label": "Get the code & setup instructions",
+            "href": "https://github.com/coded-dot-design/dom-virus"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "DOM VIRUS launches with 10 games that play on your page",
+      "description": "Ten tiny open-source arcade games that play on a real webpage. No install to play, Recall gives the page back, and every game is MIT licensed."
+    }
+  }
+}

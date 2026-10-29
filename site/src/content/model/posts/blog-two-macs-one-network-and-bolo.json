@@ -1,0 +1,171 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "b368d3b5d1056ede"
+  },
+  "collection": "posts",
+  "id": "blog-two-macs-one-network-and-bolo",
+  "slug": "two-macs-one-network-and-bolo",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "sherman-bytes"
+    ]
+  },
+  "data": {
+    "id": "blog-two-macs-one-network-and-bolo",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "sherman-bytes"
+    ],
+    "type": "blog",
+    "slug": "two-macs-one-network-and-bolo",
+    "title": "Two Macs, one network, and Bolo",
+    "subtitle": "Where the itch started.",
+    "tags": [
+      "origin",
+      "bolo",
+      "multiplayer",
+      "sherman-bytes"
+    ],
+    "date": "2026-10-29",
+    "status": "published",
+    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "lead": [
+      "Every game on this site traces back to one room. It was a middle school engineering tech class, with a few networked Macs and a tank game called Bolo. The game was good. The network is what hooked me, and it still shapes how I build."
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "heading": "A house full of computers",
+        "body": [
+          {
+            "type": "p",
+            "text": "I grew up in a house full of computers, at a time when few homes had even one. I didn't think it was special. A computer was just furniture that happened to run programs."
+          },
+          {
+            "type": "p",
+            "text": "So when school sat me down in front of a Mac, the machine itself was not the surprise. The surprise was the cable coming out of the back of it."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "The game was good. The network was better.",
+        "body": [
+          {
+            "type": "p",
+            "text": "Bolo was a tank game for the Mac, written by Stuart Cheshire. You drove a tank around an island, captured bases and pillboxes, and resupplied from the bases you held. For its day, the gameplay was good."
+          },
+          {
+            "type": "p",
+            "text": "What stuck with me was something else. We weren't always supposed to be playing. But we could reach across the network and change what was happening on someone else's screen."
+          },
+          {
+            "type": "p",
+            "text": "That clicked hard. A program on my machine could talk to a program on yours, and something visible would happen over there. I wanted to know how all of it worked."
+          },
+          {
+            "type": "p",
+            "text": "The way to find out was to build things: apps, websites, games, anything that could talk to something else. I have been doing some version of that ever since."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "The same trick, pointed at a webpage",
+        "body": [
+          {
+            "type": "p",
+            "text": "DOM VIRUS is that trick again, aimed somewhere new. Instead of reaching into another Mac, the game reaches into the page you are reading."
+          },
+          {
+            "type": "p",
+            "text": "Sherman Bytes is the most direct line back to that classroom. It is an original pixel tank game, with no Bolo code or art. But it borrows three of Bolo's best ideas: terrain, base capture and resupply."
+          },
+          {
+            "type": "p",
+            "text": "On a webpage those ideas map almost one to one. Letters block your tank and your shells, so text is terrain. Buttons spawn enemy tanks, so buttons are bases."
+          },
+          {
+            "type": "p",
+            "text": "Shoot a base down, then sit on it for 0.7 seconds to capture it. A captured base stops spawning and repairs your armour while you hold it."
+          },
+          {
+            "type": "p",
+            "text": "That is resupply, rebuilt out of a button that was only ever meant to submit a form. It still makes me grin every time."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Why the network still matters",
+        "body": [
+          {
+            "type": "p",
+            "text": "The part of Bolo that hooked me was never the tanks. It was two screens changing each other."
+          },
+          {
+            "type": "p",
+            "text": "That is why DOM Battlefield multiplayer is on the plan: two players, two pages, one battle. It is not built yet, so treat it as a plan, not a promise. It needs a room server, and that is its own piece of work."
+          },
+          {
+            "type": "p",
+            "text": "For now, every game here is single-player on your own page. You can still feel the old idea, though. The game reaches into something that was not built for it and plays there for a while."
+          },
+          {
+            "type": "p",
+            "text": "Then it leaves the page the way it found it. That last part is Recall, and it is the rule I care about most. It gets its own post soon."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Why I'm telling you this",
+        "body": [
+          {
+            "type": "p",
+            "text": "I have made small games on the side for more than twenty years. Most of them never left my machine, because time ran out before the idea did."
+          },
+          {
+            "type": "p",
+            "text": "DOM VIRUS is me finally making the games I wanted to make in that classroom. A new one lands roughly every week, and this blog follows along."
+          },
+          {
+            "type": "p",
+            "text": "If a game breaks your page in a way it shouldn't, tell me. If it makes you want to build your own, even better: every game is open source."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "rows",
+        "heading": "Keep reading",
+        "items": [
+          {
+            "title": "The page is the game board",
+            "body": "How letters become terrain and buttons become bases. And how the games read the page without slowing it down.",
+            "link": {
+              "label": "Read: The page is the game board",
+              "href": "/blog/the-page-is-the-game-board/"
+            }
+          },
+          {
+            "title": "Sherman Bytes",
+            "body": "The tank game that started it all, playable right on its page.",
+            "link": {
+              "label": "Play Sherman Bytes",
+              "href": "/games/sherman-bytes/"
+            }
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
+      "description": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game."
+    }
+  }
+}
