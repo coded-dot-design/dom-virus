@@ -71,11 +71,6 @@ if (!app.includes('rel="canonical"'))
       "</head>",
     ].join("\n"),
   );
-// Icon-only buttons that carry an aria-label but also whitespace between their icon tags: drop that
-// whitespace (no rendering change) so markup checks that read text before aria-label see the label.
-app = app.replace(/(<button\b[^>]*\baria-label="[^"]+"[^>]*>)((?:(?!<\/?button\b)[\s\S])*)(<\/button\s*>)/g, (m, open, inner, close) =>
-  inner.replace(/<[^>]*>/g, "").trim() ? m : open + inner.replace(/>\s+</g, "><").trim() + close,
-);
 writeFileSync(page, app);
 
 console.log(`Battlefield ${pin.version}: verified standalone app copied to /battlefield/.`);
