@@ -93,6 +93,10 @@
   ],
   "byte-runner": [
     {
+      "version": "v0.10.2",
+      "commit": "26e631ebc47d2864e455c6663cf859907b22a0c3"
+    },
+    {
       "version": "v0.10.1",
       "commit": "7b7dbd32c92c001ced0c744a3b60c466b623eca5"
     },

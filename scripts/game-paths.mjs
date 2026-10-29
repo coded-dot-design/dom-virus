@@ -31,7 +31,7 @@ export function playgroundEntry(name, react = false) {
 }
 
 /** The last release of each game that ran on this core, for games since ported onto Fizlet (E3). */
-export const LAST_CORE_RELEASE = { "null-invaders": "v0.7.2" };
+export const LAST_CORE_RELEASE = { "null-invaders": "v0.7.2", "byte-runner": "v0.10.2", "sherman-bytes": "v0.5.2" };
 /** Where the core's own tests load a game from. A game on Fizlet no longer exercises this core, so
  *  the tests use its last core release (cloned once into .games/<name>/<tag>). */
 export function coreGameRoot(name) {

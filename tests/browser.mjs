@@ -102,7 +102,8 @@ try {
     "running",
   );
   // HUD actions must release focus so subsequent keys still drive the tank.
-  await page.locator('[data-dom-virus-root] [data-action="fire"]').click();
+  // Auto fire: the core HUD's key, or fizlet/arcade's (a game on Fizlet).
+  await page.locator('[data-dom-virus-root] :is([data-action="fire"], [data-a="auto"])').click();
   assert.equal(
     await page.evaluate(() => document.activeElement === document.body),
     true,
@@ -120,7 +121,7 @@ try {
     tankAfter.angle > tankBefore.angle,
     "Sherman responds to steering after using HUD auto fire",
   );
-  await page.locator('[data-dom-virus-root] [data-action="exit"]').click();
+  await page.locator('[data-dom-virus-root] :is([data-action="exit"], [data-a="exit"])').click();
   assert.equal(await page.locator("[data-dom-virus-root]").count(), 0);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.click('[data-game="swarm-protocol"]');
