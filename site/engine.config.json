@@ -3,7 +3,11 @@
   "brand": {
     "name": "DOM VIRUS",
     "siteUrl": "https://coded-dot-design.github.io/dom-virus",
-    "defaultImage": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+    "defaultImage": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/"
+    }
   },
   "inputs": {
     "voice": "../brand/voice.md",
