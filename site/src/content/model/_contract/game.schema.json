@@ -22,7 +22,8 @@
       "type": "object", "required": ["runtime"], "additionalProperties": false,
       "properties": {
         "runtime": { "enum": ["fizlet", "dom-virus-core", "own"], "description": "fizlet for every new game." },
-        "bricks": { "type": "array", "items": { "enum": ["input", "collide", "fx", "sound", "embed", "ui", "debug"] } }
+        "bricks": { "type": "array", "items": { "enum": ["input", "collide", "fx", "sound", "embed", "ui", "debug", "hud", "pad", "sprite", "match", "grid", "slot"] } },
+        "recipe": { "enum": ["shoot", "dodge", "eat", "jump", "board"], "description": "The gameplay recipe the scaffold composes (factory/templates/recipes/); default eat." }
       }
     },
     "budget": {
@@ -68,6 +69,7 @@
           "properties": { "title": { "type": "string", "minLength": 30, "maxLength": 60 }, "description": { "type": "string", "minLength": 70, "maxLength": 155 } }
         }
       }
-    }
+    },
+    "prompt": { "type": "string", "description": "The one-line prompt the spec was composed from (fe prompt). Facts still come from the game once built." }
   }
 }

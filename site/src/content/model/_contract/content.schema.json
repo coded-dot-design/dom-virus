@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/brain-cache/fizlet-engine/spec/content.schema.json",
   "title": "Fizlet content model",
-  "description": "One JSON file per entry: content/posts/<id>.json, content/pages/<id>.json, content/brands/<id>.json. Games are their spec (games/<id>/spec.json, spec/game.schema.json); their lifecycle is read from spec.status. Body copy is a closed set of blocks, never HTML. Limits are enforced, never truncated. Rules a schema can't say (unique ids and routes, relations, lifecycle dates): factory/validate.mjs checkModel.",
+  "description": "One JSON file per entry: content/posts/<id>.json, content/pages/<id>.json; brands are brands/brands.json records. Games are their spec (games/<id>/spec.json, spec/game.schema.json); their lifecycle is read from spec.status. Body copy is a closed set of blocks, never HTML. Limits are enforced, never truncated. Rules a schema can't say (unique ids and routes, relations, lifecycle dates): factory/validate.mjs checkModel.",
   "$defs": {
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,79}$" },
     "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,59}$" },
@@ -97,18 +97,21 @@
       }
     },
     "brand": {
-      "type": "object", "required": ["id", "name", "level", "credit", "urls"], "additionalProperties": false,
+      "description": "One record per brand in brands/brands.json (the content model reads it as its brands collection, with author attached). Ids match the specs.",
+      "type": "object", "required": ["id", "name", "level", "site", "author"], "additionalProperties": false,
       "properties": {
-        "$schema": { "type": "string" }, "id": { "$ref": "#/$defs/id" },
+        "id": { "$ref": "#/$defs/id" },
         "name": { "type": "string", "minLength": 2, "maxLength": 40 },
         "level": { "enum": ["parent", "game", "engine"] },
-        "credit": { "type": "object", "required": ["text", "name", "href"], "additionalProperties": false,
-          "properties": { "text": { "$ref": "#/$defs/line" }, "name": { "const": "Chris Cooley" }, "agency": { "type": "string" }, "href": { "$ref": "#/$defs/href" } } },
+        "parent": { "$ref": "#/$defs/id", "description": "The family brand a game brand belongs to." },
         "repo": { "type": "string", "pattern": "^https://github\\.com/" },
         "urls": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^https://" } },
-        "styleGuide": { "type": "string" }, "voice": { "type": "string" },
         "paths": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^/" } },
-        "openQuestion": { "type": "string" }
+        "openQuestion": { "type": "string" },
+        "site": { "type": "object", "required": ["repo", "config", "voice", "styleGuide"], "additionalProperties": false,
+          "properties": { "repo": { "type": "string", "pattern": "^[a-z0-9-]+$" }, "config": { "type": ["string", "null"] }, "voice": { "type": "string" }, "styleGuide": { "type": "string" } } },
+        "author": { "type": "object", "required": ["name", "url", "line"], "additionalProperties": false,
+          "properties": { "name": { "const": "Chris Cooley" }, "url": { "$ref": "#/$defs/href" }, "agency": { "type": "string" }, "line": { "$ref": "#/$defs/line" } } }
       }
     }
   }

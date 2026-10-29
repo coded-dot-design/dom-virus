@@ -96,6 +96,7 @@ export function checkModel(model, { game, content }) {
     if (e.publishAt && e.date && e.publishAt < e.date) errs.push(`${at}: publishAt is before date`);
     if (e.status !== "idea") for (const k of ["lead", "seo"]) if (!e[k]?.length && !e[k]?.title) errs.push(`${at}: a ${e.status} entry needs ${k} (only ideas may leave copy out)`);
   }
+  for (const b of model.brands) if (b.parent && !brands.has(b.parent)) errs.push(`brands/${b.id}: unknown parent ${b.parent}`);
   for (const g of model.games) {
     if (!brands.has(g.brand)) errs.push(`games/${g.id}: unknown brand ${g.brand}`);
     for (const b of g.builtFrom ?? []) if (!ids.has(b)) errs.push(`games/${g.id}: builtFrom unknown game ${b}`);

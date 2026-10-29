@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "fab7033c92957b44"
+    "hash": "0bf9e87f482db32f"
   },
   "collection": "brands",
   "id": "battlefield",
@@ -19,18 +19,22 @@
     "id": "battlefield",
     "name": "DOM Battlefield",
     "level": "game",
-    "credit": {
-      "text": "By Chris Cooley · coded.design",
-      "name": "Chris Cooley",
-      "agency": "coded.design",
-      "href": "https://coded.design"
-    },
     "repo": "https://github.com/coded-dot-design/dom-battlefield",
     "urls": {
       "current": "https://coded-dot-design.github.io/dom-battlefield/",
       "production": "https://battlefield.domvirus.com/"
     },
-    "styleGuide": "dom-battlefield/brand/style-guide.md",
-    "voice": "dom-battlefield/brand/voice.md"
+    "site": {
+      "repo": "dom-battlefield",
+      "config": "site/engine.config.json",
+      "voice": "brand/voice.md",
+      "styleGuide": "brand/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
   }
 }

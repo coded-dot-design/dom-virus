@@ -1,0 +1,33 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "584e88640d12e987"
+  },
+  "collection": "brands",
+  "id": "dom-battlefield-blitz",
+  "slug": "dom-battlefield-blitz",
+  "status": null,
+  "relations": {
+    "games": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "dom-battlefield-blitz",
+    "name": "Battlefield Blitz",
+    "level": "game",
+    "parent": "battlefield",
+    "site": {
+      "repo": "dom-battlefield",
+      "config": null,
+      "voice": "brand/blitz/voice.md",
+      "styleGuide": "brand/blitz/style-guide.md"
+    },
+    "author": {
+      "name": "Chris Cooley",
+      "url": "https://coded.design/",
+      "agency": "coded.design",
+      "line": "By Chris Cooley · coded.design"
+    }
+  }
+}
