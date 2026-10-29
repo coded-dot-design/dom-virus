@@ -23,11 +23,14 @@ for (const f of readdirSync(src)) copyFileSync(resolve(src, f), join(out, f));
 
 const walk = (dir) => readdirSync(dir).flatMap((f) => { const p = join(dir, f); return statSync(p).isDirectory() ? walk(p) : p.endsWith(".html") ? [p] : []; });
 const built = new Map(); // canonical -> indexable
+const heads = new Map(); // canonical -> { title, description } (llms.txt rows for site-owned pages)
+const unesc = (s = "") => s.replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
 for (const file of walk(out)) {
   const html = readFileSync(file, "utf8");
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   const robots = html.match(/<meta name="robots" content="([^"]+)"/)?.[1] || "";
   if (canonical && canonical.startsWith(siteRoot)) built.set(canonical, !/noindex/.test(robots) || built.get(canonical) === true);
+  if (canonical && !/noindex/.test(robots)) heads.set(canonical, { title: unesc(html.match(/<title>([^<]*)<\/title>/)?.[1]), description: unesc(html.match(/<meta\s+name="description"\s+content="([^"]*)"/)?.[1]) });
 }
 if (target === "production") {
   const host = new URL(production).host;
@@ -45,8 +48,20 @@ if (target === "production") {
     writeFileSync(join(out, "sitemap.xml"), xml);
     console.warn(`sitemap: appended ${missing.length} indexable page(s) not in the engine's file (run npm run engine:heads): ${missing.join(", ")}`);
   }
+  // llms.txt lists the engine's pages; the site's own indexable pages (home, games, engine…) join
+  // them under "Site", so llms.txt covers exactly the sitemap.
+  let llms = readFileSync(join(out, "llms.txt"), "utf8");
+  const sitemapUrls = [...locs, ...missing];
+  const own = sitemapUrls.filter((u) => !llms.includes(`](${u})`)).sort();
+  if (own.length) {
+    llms = llms.trimEnd() + "\n\n## Site\n\n" + own.map((u) => `- [${heads.get(u)?.title || u}](${u}): ${heads.get(u)?.description || ""}`.trimEnd()).join("\n") + "\n";
+    writeFileSync(join(out, "llms.txt"), llms);
+  }
+  const listed = [...llms.matchAll(/^- \[[^\]]*\]\(([^)]+)\)/gm)].map((m) => m[1].replace(/\/?$/, "/"));
+  for (const u of sitemapUrls) if (!listed.includes(u)) throw new Error(`llms.txt: ${u} is in the sitemap but not listed`);
+  if (listed.length !== sitemapUrls.length) throw new Error(`llms.txt lists ${listed.length} pages, the sitemap ${sitemapUrls.length}`);
   if (!readFileSync(join(out, "robots.txt"), "utf8").includes(`Sitemap: ${production}sitemap.xml`)) throw new Error("robots.txt must point to the sitemap");
-  console.log(`Discovery (production, ${host}): sitemap ${locs.length + missing.length} URLs, robots.txt, llms.txt, CNAME`);
+  console.log(`Discovery (production, ${host}): sitemap ${locs.length + missing.length} URLs, llms.txt ${listed.length} (${own.length} site pages), robots.txt, CNAME`);
 } else {
   console.log(`Discovery (staging, ${siteRoot}): robots.txt disallows crawlers; no sitemap. ${built.size} pages built.`);
 }

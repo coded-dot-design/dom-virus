@@ -1,5 +1,7 @@
 # DOM VIRUS
 
+> Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.
+
 ## About
 
 - [DOM VIRUS press kit: facts, roster and logos](https://domvirus.com/about/press/): Press kit for DOM VIRUS, tiny open-source arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.
