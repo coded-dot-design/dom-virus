@@ -1,6 +1,6 @@
 {
   "name": "@coded-design/dom-virus",
-  "version": "0.46.0",
+  "version": "0.47.0",
   "description": "Small DOM arcade runtime and local playground by coded.design",
   "type": "module",
   "license": "MIT",
@@ -51,6 +51,7 @@
     "site:build": "npm run site:typecheck && node site-kit/scripts/prepare.mjs && astro build --config site/astro.config.mjs && node site-kit/scripts/sitemap.mjs && node site-kit/scripts/verify.mjs",
     "site:preview": "astro preview --config site/astro.config.mjs",
     "sync:sites": "node scripts/sync-sites.mjs",
+    "sync:releases": "node scripts/sync-releases.mjs",
     "site:typecheck": "tsc -p site-kit/tsconfig.json",
     "capture:characters": "node tests/capture-characters.mjs",
     "site:test:browser": "node tests/site-browser.mjs",
