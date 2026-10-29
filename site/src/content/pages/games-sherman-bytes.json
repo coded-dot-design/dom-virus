@@ -1,0 +1,101 @@
+{
+  "id": "games-sherman-bytes",
+  "path": "/games/sherman-bytes",
+  "template": "marketing",
+  "status": "published",
+  "seo": {
+    "title": "Sherman Bytes: a pixel tank game that plays on your page",
+    "description": "Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/games/sherman-bytes/",
+    "schemaPageType": "VideoGame",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Sherman Bytes",
+      "headingAccent": "Every page is a battlefield.",
+      "eyebrow": "01 / DOM TANK",
+      "body": "Deploy an M4-inspired pixel tank onto a live webpage. Breach fortified button bases, build your own cover, and hold the page against escalating squads. It plays right here: no install to play, and Recall gives the page back.",
+      "ctas": [
+        {
+          "label": "Play Sherman Bytes",
+          "href": "#play",
+          "variant": "primary"
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "richText",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "features-2",
+      "type": "featureList",
+      "variant": "cards",
+      "heading": "Built from Sherman Bytes",
+      "items": [
+        {
+          "title": "DOM Battlefield",
+          "body": "Same tanks, a whole platoon. Plan every route, then command your squad under fire.",
+          "link": {
+            "label": "Play DOM Battlefield",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+          }
+        },
+        {
+          "title": "Battlefield Blitz",
+          "body": "Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+          }
+        }
+      ],
+      "headingAccent": "The same tanks, two board games."
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "heading": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Do I need to install anything to play?",
+          "answer": "No. Sherman Bytes plays on this page in your browser. Press Play, and hit Recall when you are done to give the page back."
+        },
+        {
+          "question": "Can I put Sherman Bytes on my own site?",
+          "answer": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+        },
+        {
+          "question": "What happens to the page when I play?",
+          "answer": "Letters block tanks and shells, and direct hits turn nearby text into faint binary rubble. Recall gives back what the game changed and still owns."
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "embedded",
+    "tags": [
+      "embedded",
+      "tank",
+      "arcade"
+    ],
+    "created": "2026-10-29"
+  }
+}

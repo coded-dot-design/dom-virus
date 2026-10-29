@@ -40,21 +40,36 @@ const year=new Date().getFullYear();
 const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='soon'?'Coming soon to DOM VIRUS: Battlefield Blitz, DOM Crossfire, DOM Kaiju and DOM Flock, plus the shared engine and its performance targets.':page==='kaiju'?'DOM Kaiju (coming soon): a giant pixel gorilla climbs your page from the footer to the top, smashing text while helicopters swarm.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
 const pageUrl=new URL(Astro.url.pathname, Astro.site).href;
 const shareImage=new URL(ogImageUrl, Astro.site).href;
+// astro-base-engine pages (hub only for now): the page JSON carries the copy and SEO, the head file is
+// `abe head` output (npm run engine:heads). When both exist the engine owns title, description,
+// canonical, robots, Open Graph and JSON-LD; this layout keeps the brand-only tags.
+const enginePages=import.meta.glob('/site/src/content/pages/*.json',{eager:true,import:'default'});
+const engineHeads=import.meta.glob('/site/src/content/heads/*.html',{eager:true,query:'?raw',import:'default'});
+const engineId=page==='game'&&game?`games-${game.id}`:null;
+const enginePage=engineId?enginePages[`/site/src/content/pages/${engineId}.json`]:undefined;
+const engineHead=engineId?engineHeads[`/site/src/content/heads/${engineId}.html`]:undefined;
+if(engineHead){
+  const canonical=engineHead.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if(canonical!==pageUrl) throw new Error(`Engine head for ${engineId} has canonical ${canonical}, but this build serves ${pageUrl}. Update brand.siteUrl in site/engine.config.json and run npm run engine:heads.`);
+}
 ---
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+  {engineHead ? <Fragment set:html={engineHead}/> : <>
   <meta name="description" content={description}/>
   {page!=='notfound' && <link rel="canonical" href={pageUrl}/>}
   {page==='notfound' && <meta name="robots" content="noindex"/>}
-  <meta property="og:type" content="website"/><meta property="og:site_name" content="DOM VIRUS"/>
+  <meta property="og:type" content="website"/>
   <meta property="og:title" content={hub&&page==='home'?'DOM VIRUS — The DOM is the game board.':`${title} — DOM VIRUS`}/>
   <meta property="og:description" content={description}/><meta property="og:url" content={pageUrl}/>
-  <meta property="og:image" content={shareImage}/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="DOM VIRUS: Your page. Their playground. Pixel enemies attack a web page."/>
+  <meta property="og:image" content={shareImage}/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="theme-color" content="#100a1b"/><title>{title} — The DOM is the game board.</title>
+  <title>{title} — The DOM is the game board.</title></>}
+  <meta property="og:site_name" content="DOM VIRUS"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="DOM VIRUS: Your page. Their playground. Pixel enemies attack a web page."/>
+  <meta name="theme-color" content="#100a1b"/>
   <link rel="icon" type="image/svg+xml" href={`data:image/svg+xml,${encodeURIComponent(appIcon)}`}/>
   <link rel="apple-touch-icon" href={touchIcon}/>
   <script is:inline>
@@ -127,7 +142,7 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
     </>}
     {page==='styleguide' && <StyleGuide games={data.games} base={base}/>}
     {page==='notfound' && <NotFound base={base}/>}
-    {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games}/>}
+    {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games} content={enginePage}/>}
     {page==='soon' && <ComingSoon base={base}/>}
     {page==='kaiju' && <KaijuDetail base={base}/>}
     {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}

@@ -277,7 +277,8 @@ try {
   // Sherman Bytes can swap to Battlefield: home ejects Sherman, plugs Battlefield in, presses A,
   // and the board folds open into the full game.
   await page.goto(base + "games/sherman-bytes/");
-  const swap = page.locator(".cross-promo").getByRole("link", { name: "Swap to DOM Battlefield" });
+  // The label comes from the engine page JSON ("Play [board game]", brand/README.md §7); the link is still the swap.
+  const swap = page.locator(".cross-promo").getByRole("link", { name: "Play DOM Battlefield" });
   // Play stands alone: the cross-game swap lives in its own promo further down.
   assert.equal(await page.locator(".game-intro .actions a, .game-intro .actions .icon-key").count(), 0);
   // GitHub lives with the code: the expanding key in "Put it on your page", not beside Play.
