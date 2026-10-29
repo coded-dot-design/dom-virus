@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.48.0
+
+- **Null Invaders 1.0.0 and Byte Runner 1.0.0, the first games on Fizlet** (ENGINE.md E3), are pinned. 0.7.2 and 0.10.2, their last builds on this core, join TEST A RELEASE with every earlier release.
+- `npm run sync:games` skips games that vendor Fizlet (`vendor/fizlet/ORIGIN.json`): writing `shared/` back would undo a port.
+- The playground loads a Fizlet game's built file (it bakes in the Board UI kit CSS); core-snapshot games still load from source.
+- The core's own browser tests keep testing the core: for a ported game they use its last core release (`LAST_CORE_RELEASE`, cloned once into `.games/`).
+
 ## 0.47.0
 
 Site kit 1.50.0:
