@@ -62,7 +62,7 @@ if (existsSync("site/redirects.json")) {
   for (const f of readdirSync(pagesDir)) {
     const p = JSON.parse(readFileSync(resolve(pagesDir, f), "utf8"));
     const live = p.status === "published" || (p.status === "scheduled" && Date.parse(p.publishAt) <= Date.now());
-    if (p.meta?.pageType === "embedded") continue;
+    if (["embedded", "game"].includes(p.meta?.pageType)) continue;
     assert.equal(existsSync(resolve(output, p.path.replace(/^\//, ""), "index.html")), live, `${p.id}: built must equal live (${p.status})`);
   }
   console.log(`Routes verified: ${Object.keys(redirects).length - 1} redirects, sitemap, robots, feed, lifecycle.`);

@@ -1,10 +1,12 @@
 ---
-type: embedded
+type: game
 title: Sherman Bytes | Every page is a battlefield.
 slug: sherman-bytes
 eyebrow: 01 / DOM TANK
 tags: [embedded, tank, arcade]
 image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+slots: [characters, palette, embed]
+codeRepository: https://github.com/coded-dot-design/sherman-bytes
 ---
 Deploy an M4-inspired pixel tank onto a live webpage. Breach fortified button bases, build your own cover, and hold the page against escalating squads. It plays right here: no install to play, and Recall gives the page back.
 

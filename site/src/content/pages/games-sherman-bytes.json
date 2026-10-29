@@ -8,6 +8,13 @@
     "description": "Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.",
     "canonical": "https://coded-dot-design.github.io/dom-virus/games/sherman-bytes/",
     "schemaPageType": "VideoGame",
+    "schemaExtra": {
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "isAccessibleForFree": true,
+      "codeRepository": "https://github.com/coded-dot-design/sherman-bytes"
+    },
+    "schemaName": "Sherman Bytes",
     "openGraph": {
       "image": {
         "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
@@ -70,6 +77,55 @@
       "headingAccent": "The same tanks, two board games."
     },
     {
+      "id": "site-play",
+      "type": "siteSlot",
+      "slot": "play",
+      "required": true,
+      "target": "games-sherman-bytes#site-play"
+    },
+    {
+      "id": "site-loop",
+      "type": "siteSlot",
+      "slot": "loop",
+      "required": true,
+      "target": "games-sherman-bytes#site-loop"
+    },
+    {
+      "id": "site-controls",
+      "type": "siteSlot",
+      "slot": "controls",
+      "required": true,
+      "target": "games-sherman-bytes#site-controls"
+    },
+    {
+      "id": "site-facts",
+      "type": "siteSlot",
+      "slot": "facts",
+      "required": true,
+      "target": "games-sherman-bytes#site-facts"
+    },
+    {
+      "id": "site-characters",
+      "type": "siteSlot",
+      "slot": "characters",
+      "required": false,
+      "target": "games-sherman-bytes#site-characters"
+    },
+    {
+      "id": "site-palette",
+      "type": "siteSlot",
+      "slot": "palette",
+      "required": false,
+      "target": "games-sherman-bytes#site-palette"
+    },
+    {
+      "id": "site-embed",
+      "type": "siteSlot",
+      "slot": "embed",
+      "required": false,
+      "target": "games-sherman-bytes#site-embed"
+    },
+    {
       "id": "faq",
       "type": "faq",
       "heading": "Frequently asked questions",
@@ -90,7 +146,7 @@
     }
   ],
   "meta": {
-    "pageType": "embedded",
+    "pageType": "game",
     "tags": [
       "embedded",
       "tank",

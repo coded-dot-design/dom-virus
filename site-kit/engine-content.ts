@@ -47,4 +47,4 @@ export const headOf = (p: EnginePage | undefined) => {
 };
 
 // Pages the catch-all route renders (games have their own route).
-export const routable = () => pages.filter((p) => visible(p) && p.meta?.pageType !== 'embedded');
+export const routable = () => pages.filter((p) => visible(p) && !['embedded', 'game'].includes(p.meta?.pageType ?? ''));

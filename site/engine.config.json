@@ -41,14 +41,37 @@
         "hero"
       ]
     },
-    "embedded": {
+    "game": {
       "template": "marketing",
       "path": "/games/{slug}",
       "eyebrow": "Embedded game",
       "schemaPageType": "VideoGame",
+      "schemaNameFromHeading": true,
+      "schemaDefaults": {
+        "gamePlatform": "Web browser",
+        "applicationCategory": "Game",
+        "isAccessibleForFree": true
+      },
+      "schemaFields": [
+        "codeRepository"
+      ],
       "requires": [
         "hero"
-      ]
+      ],
+      "siteSlots": {
+        "required": [
+          "play",
+          "loop",
+          "controls",
+          "facts"
+        ],
+        "optional": [
+          "characters",
+          "palette",
+          "related",
+          "embed"
+        ]
+      }
     },
     "engine": {
       "template": "marketing",
