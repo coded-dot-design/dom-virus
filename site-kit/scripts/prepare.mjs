@@ -67,7 +67,13 @@ function swarmSize(gameRoot) {
     files: files.map((f) => f.slice(gameRoot.length + 1)),
   };
 }
-const archives = prepareArchives(root, names);
+// The release each game is served at ("Current"): the resolved tags, else games.json.
+const archives = prepareArchives(
+  root,
+  names,
+  latest?.pins ??
+    (config.id === "dom-virus" ? read(resolve(root, "games.json")) : {}),
+);
 const games = [];
 const artSets=read(resolve(dirname(fileURLToPath(import.meta.url)),'../character-art.json'));
 

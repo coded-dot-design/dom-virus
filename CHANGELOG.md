@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **TEST A RELEASE covers every game version.** `site/releases.json` now lists every released tag (from each arcade game's first hub-compatible one: 61 arcade releases, 57 archived builds beside the 4 served as Current): Null Invaders 1.0.0–1.0.2, Byte Runner 1.0.0–1.0.1, Sherman Bytes 1.0.0–1.0.1 and Swarm Protocol 1.3.1 and 1.4.0 join, plus DOM Battlefield (68 tags, v0.1.0–v1.0.1; each served by its own site at `/v/<version>/`) and Battlefield Blitz (18 tags, v0.1.0–v0.10.0; listed only). The build skips the release it serves as Current (the resolved tag on hourly builds, else `games.json`), and a tagged release newer than Current is marked `newer` instead of `archived`. `npm run sync:releases` no longer stops at the pin (`scripts/releases-catalog.mjs`, shared with the test). `npm run site:test:releases` (CI; not on the hourly Pages build, which follows new tags) fails while a released tag is missing from the file or a tag moved, checks every picker against the file and plays each game's recent builds (Null, Byte, Sherman from 1.0.0; Swarm from 1.3.1) from their archived paths.
 - **Null Invaders 1.0.2, Byte Runner 1.0.1 and Sherman Bytes 1.0.1 are pinned** (each on Fizlet
   0.19.0, up from 0.13.0). On 2x and zoomed screens the game art now lines up with the page (it
   drew 1.5–2x too big: Sherman's tank started off screen), and the in-page scoreboard can be
