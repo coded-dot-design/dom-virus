@@ -17,6 +17,8 @@ import GameSticker from './GameSticker.astro';
 import Cartridge from './Cartridge.astro';
 import EnginePage from './EnginePage.astro';
 import { byId, headOf } from '../engine-content';
+import { gameShown } from '../lifecycle.mjs';
+import { soonGames, listOf } from '../coming-soon';
 import ogImageUrl from '../assets/og-dom-virus.png?url';
 import brandIcon from '../assets/dom-virus-icon.svg?raw';
 import appIcon from '../assets/dom-virus-app-icon.svg?raw';
@@ -32,6 +34,8 @@ const game=gameId?data.games.find((g)=>g.id===gameId):null;
 const gameIndex=game?data.games.indexOf(game):0;
 // Game pages use the home shelf's numbering, where DOM Battlefield sits in slot 02.
 const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
+// Coming soon lists only the games this build shows (an unready game is staging only; lifecycle.mjs).
+const soon=soonGames(gameShown);
 const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='soon'?'Coming soon':page==='kaiju'?'DOM Kaiju (coming soon)':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
@@ -39,7 +43,7 @@ const kb=(n)=>(n/1000).toFixed(1);
 const year=new Date().getFullYear();
 // Share previews (Open Graph / X). URLs follow astro.config `site` + base, so a custom domain only
 // changes the config.
-const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='soon'?'Coming soon to DOM VIRUS: Battlefield Blitz, DOM Crossfire, DOM Kaiju and DOM Flock, plus the shared engine and its performance targets.':page==='kaiju'?'DOM Kaiju (coming soon): a giant pixel gorilla climbs your page from the footer to the top, smashing text while helicopters swarm.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':page==='archive'?'Archived one-page layout of DOM VIRUS, from before the site was split into pages: tiny, open-source arcade games that play on your actual webpage.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
+const description=game?game.description:page==='battlefield'?'DOM Battlefield: Sherman Bytes with a whole platoon. A full tactics game that runs on a webpage.':page==='engineering'?'How DOM VIRUS games read a real page cheaply, change only what they own, and give it back. Live demos inside.':page==='soon'?`Coming soon to DOM VIRUS: ${listOf(soon.map((g)=>g.name))}, plus the shared engine and its performance targets.`:page==='kaiju'?'DOM Kaiju (coming soon): a giant pixel gorilla climbs your page from the footer to the top, smashing text while helicopters swarm.':page==='styleguide'?'The DOM VIRUS brand: colour, type, the 3D press rule, motion and the cartridge console.':page==='archive'?'Archived one-page layout of DOM VIRUS, from before the site was split into pages: tiny, open-source arcade games that play on your actual webpage.':'Tiny, open-source arcade games that turn your actual webpage into the game board. By Chris Cooley / coded.design.';
 const pageUrl=new URL(Astro.url.pathname, Astro.site).href;
 const shareImage=new URL(ogImageUrl, Astro.site).href;
 // astro-base-engine pages (hub only for now): the page JSON carries the copy and SEO, the head file is
@@ -117,7 +121,7 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
         <li><b>{(data.games.length + 1).toString().padStart(2,'0')}</b><span>cartridges</span></li>
         <li><b>01</b><span>page: yours</span></li>
         <li><b aria-label="Infinite"><UiIcon name="infinity" size={28}/></b><span>infinite possibilities</span></li>
-        <li class="readout-next"><a href={`${base}games/coming-soon/`}><i class="readout-led" aria-hidden="true"></i><b>SOON</b><span>4 new games + the engine</span></a></li>
+        <li class="readout-next"><a href={`${base}games/coming-soon/`}><i class="readout-led" aria-hidden="true"></i><b>SOON</b><span>{soon.length} new games + the engine</span></a></li>
       </ul>
     </section>
     {hub ? <CartridgeShelf games={data.games} base={base}/> : <>

@@ -9,5 +9,10 @@
   "under-the-hood/": "engine/",
   "style-guide/": "about/brand/",
   "archive/": "about/brand/archive/",
-  "coming-soon/": "games/coming-soon/"
+  "coming-soon/": "games/coming-soon/",
+  "$whileHidden": {
+    "$comment": "Built only while the build hides the route (an unready game or a post about it, production only; site-kit/lifecycle.mjs). These were live on domvirus.com before DOM Kaiju went back to staging. Staging, or production once the game is published, serves the pages themselves.",
+    "games/kaiju/": "games/",
+    "news/coming-next/": "news/"
+  }
 }

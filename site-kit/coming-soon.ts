@@ -1,5 +1,6 @@
 // Coming soon: the next games and the next engine phase, in build order. One list feeds the
-// /coming-soon/ page, the Kaiju detail page and the shelf's COMING SOON cartridge.
+// /coming-soon/ page, the Kaiju detail page and the shelf's COMING SOON cartridge. A game with an
+// unready model entry (Kaiju) shows on staging builds only (site-kit/lifecycle.mjs).
 // Source of truth for the plans: GAMES.md and docs/games/*.md (keep them in step).
 const GH = "https://github.com/coded-dot-design/dom-virus/blob/main";
 
@@ -87,6 +88,11 @@ export const SOON_GAMES: SoonGame[] = [
     doc: `${GH}/GAMES.md#4-dom-flock-idea`,
   },
 ];
+
+/** The coming-soon games a build shows, in build order (`shown` is site-kit/lifecycle.mjs gameShown). */
+export const soonGames = (shown: (id: string) => boolean) => SOON_GAMES.filter((g) => shown(g.id));
+/** "A, B and C". */
+export const listOf = (names: string[]) => (names.length < 2 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`);
 
 export const NEXT_PHASE = [
   { tag: "E0", title: "Baseline and archives", body: "Perf harness and baseline numbers are in. Every past release of every game is playable from its page (TEST A RELEASE). Next: play any past Battlefield build." },

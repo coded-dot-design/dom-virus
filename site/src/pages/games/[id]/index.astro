@@ -1,11 +1,17 @@
 ---
 import Site from '@site-kit/components/Site.astro';
 import data from '@site-data';
+import { SOON_GAMES } from '@site-kit/coming-soon';
+import { gameShown } from '@site-kit/lifecycle.mjs';
 export function getStaticPaths() {
-  return data.games.map((game) => ({ params: { id: game.id } }));
+  // Playable games, plus the detail page of a coming-soon game where this build shows it
+  // (DOM Kaiju: staging only until its model status is published; site-kit/lifecycle.mjs).
+  const soon = SOON_GAMES.filter((g) => g.page === `games/${g.id}/` && gameShown(g.id)).map((g) => ({ params: { id: g.id }, props: { soon: g.id } }));
+  return [...data.games.map((game) => ({ params: { id: game.id } })), ...soon];
 }
 const { id } = Astro.params;
+const { soon } = Astro.props;
 ---
-<Site data={data} page="game" gameId={id} />
+{soon ? <Site data={data} page={soon} /> : <Site data={data} page="game" gameId={id} />}
 
 <script>import "@site-kit/client.ts";</script>

@@ -1,6 +1,7 @@
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import assert from "node:assert/strict";
+import { TARGET, HIDDEN_PAGES, HIDDEN_ROUTES, mentionsHidden } from "../lifecycle.mjs";
 const root = process.cwd();
 const { id } = JSON.parse(readFileSync("site/config.json", "utf8"));
 const base = (process.env.SITE_BASE || `/${id}`).replace(/\/$/, "");
@@ -47,7 +48,9 @@ console.log("Archived release entrypoints and commit manifests verified.");
 // Routes, redirects, sitemap and feed (hub; brand/SITEMAP.md). Skipped on sites without them.
 if (existsSync("site/redirects.json")) {
   const redirects = JSON.parse(readFileSync("site/redirects.json", "utf8"));
-  for (const [from, to] of Object.entries(redirects).filter(([k]) => !k.startsWith("$"))) {
+  const whileHidden = Object.entries(redirects.$whileHidden || {}).filter(([k]) => HIDDEN_ROUTES.includes(k));
+  const moved = [...Object.entries(redirects).filter(([k]) => !k.startsWith("$")), ...whileHidden];
+  for (const [from, to] of moved) {
     const page = readFileSync(resolve(output, from, "index.html"), "utf8");
     assert(page.includes(`url=${base}/${to}`), `Redirect ${from} must point to ${to}`);
     assert(page.includes('content="noindex,follow"'), `Redirect ${from} must be noindex`);
@@ -65,13 +68,26 @@ if (existsSync("site/redirects.json")) {
     assert(/Disallow: \/\n/.test(robots), "A staging build's robots.txt must block crawlers.");
   }
   assert(readFileSync(resolve(output, "feed.xml"), "utf8").includes("<item>"), "RSS feed must have items.");
-  // Drafts and not-yet-due scheduled pages never ship (E7).
+  // Drafts and not-yet-due scheduled pages never ship (E7), nor posts about a hidden game.
   const pagesDir = "site/src/content/pages";
   for (const f of readdirSync(pagesDir)) {
     const p = JSON.parse(readFileSync(resolve(pagesDir, f), "utf8"));
-    const live = p.status === "published" || (p.status === "scheduled" && Date.parse(p.publishAt) <= Date.now());
+    const live = !HIDDEN_PAGES.includes(p.id) && (p.status === "published" || (p.status === "scheduled" && Date.parse(p.publishAt) <= Date.now()));
     if (["embedded", "game"].includes(p.meta?.pageType)) continue;
-    assert.equal(existsSync(resolve(output, p.path.replace(/^\//, ""), "index.html")), live, `${p.id}: built must equal live (${p.status})`);
+    const page = resolve(output, p.path.replace(/^\//, ""), "index.html");
+    // A hidden post's old URL may hold its redirect page (site/redirects.json).
+    const built = existsSync(page) && !readFileSync(page, "utf8").includes('content="noindex,follow"');
+    assert.equal(built, live, `${p.id}: built must equal live (${p.status})`);
   }
-  console.log(`Routes verified: ${Object.keys(redirects).filter((k) => !k.startsWith("$")).length} redirects, sitemap, robots, feed, lifecycle.`);
+  // A game the build hides (unready in the model; production only, site-kit/lifecycle.mjs) is gone
+  // from every page, feed and discovery file; its routes are redirects or nothing.
+  if (HIDDEN_ROUTES.length) {
+    const files = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? files(resolve(dir, e.name)) : /\.(html|xml|txt)$/.test(e.name) ? [resolve(dir, e.name)] : []));
+    for (const f of files(output)) assert(!mentionsHidden(readFileSync(f, "utf8")), `${f.slice(output.length + 1)} names a game this ${TARGET} build hides`);
+    for (const r of HIDDEN_ROUTES) {
+      const page = resolve(output, r, "index.html");
+      assert(!existsSync(page) || readFileSync(page, "utf8").includes('content="noindex,follow"'), `${r} must not be a page in a ${TARGET} build`);
+    }
+  }
+  console.log(`Routes verified: ${moved.length} redirects, sitemap, robots, feed, lifecycle.`);
 }
