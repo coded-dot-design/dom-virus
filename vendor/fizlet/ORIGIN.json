@@ -1,16 +1,16 @@
 {
-  "note": "Generated snapshot (a subset: the perf overlay and the kit's Settings switch). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
+  "note": "Generated snapshot (a subset: the perf overlay, the kit's Settings switch and the timeline). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
   "repository": "https://github.com/coded-dot-design/fizlet",
-  "version": "0.15.0",
-  "commit": "c6ffc1e1e701a68e4bcb2a7023fcf14640aa228e",
+  "version": "0.20.0",
+  "commit": "bf42a8c8e642168c55f7b4bf4900c2197525874c",
   "files": [
     {
       "path": "kernel/engine.ts",
-      "sha256": "e993cb68a1944c562d082bf37a56aed91d0b7b03f7feb83bb5a20a90962c4462"
+      "sha256": "9cacf0ad396c688adec088da31a37ac50a48589083195bde2848c31488ce62d5"
     },
     {
       "path": "kernel/ledger.ts",
-      "sha256": "ba7918bc2531cc0d68953e90f59dffdaefb080bdaf6ef12d902c4b813c57233e"
+      "sha256": "f11fe030976a8ad0fccb733c4f485157990a6c75e3c57834e789b8ac0c2af3aa"
     },
     {
       "path": "kernel/need.ts",
@@ -30,11 +30,15 @@
     },
     {
       "path": "perf.ts",
-      "sha256": "1c92e0aaf1689606b798cad2f9c01e71fbc0a11f69273f2c89f40e38e9e81c14"
+      "sha256": "83eb2ffd66fa31a6d96c3d954240519f0c8e00e13fdba0102b2ae16a537c7bc6"
+    },
+    {
+      "path": "timeline.ts",
+      "sha256": "e593520cdbab21e8dc3e377bf7c6f710ee2f3158cb15a9addadb5d5277754cc8"
     },
     {
       "path": "ui/board-ui.ts",
-      "sha256": "6b3bafbd0892fc0d42474c21f31b9b7ea6f74b3657d976bede2ddce957e5ca2f"
+      "sha256": "aff234dee4004fe07c0c3e39c7ebd5f20b5edf3f116668ba70910df0d78c1b33"
     }
   ]
 }
