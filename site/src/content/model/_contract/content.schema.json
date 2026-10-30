@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/brain-cache/fizlet-engine/spec/content.schema.json",
   "title": "Fizlet content model",
-  "description": "One JSON file per entry: content/posts/<id>.json, content/pages/<id>.json; brands are brands/brands.json records. Games are their spec (games/<id>/spec.json, spec/game.schema.json); their lifecycle is read from spec.status. Body copy is a closed set of blocks, never HTML. Limits are enforced, never truncated. Rules a schema can't say (unique ids and routes, relations, lifecycle dates): factory/validate.mjs checkModel.",
+  "description": "One JSON file per entry: content/posts/<id>.json, content/pages/<id>.json, content/contest/<date>.json (contest days); brands are brands/brands.json records. Games are their spec (games/<id>/spec.json, spec/game.schema.json); their lifecycle is read from spec.status. Body copy is a closed set of blocks, never HTML. Limits are enforced, never truncated. Rules a schema can't say (unique ids and routes, relations, lifecycle dates): factory/validate.mjs checkModel.",
   "$defs": {
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,79}$" },
     "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,59}$" },
@@ -94,6 +94,19 @@
         "eyebrow": { "$ref": "#/$defs/entry/properties/eyebrow" }, "tags": { "$ref": "#/$defs/entry/properties/tags" }, "date": { "$ref": "#/$defs/date" },
         "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/date" }, "image": { "$ref": "#/$defs/entry/properties/image" },
         "lead": { "$ref": "#/$defs/entry/properties/lead" }, "blocks": { "$ref": "#/$defs/entry/properties/blocks" }, "seo": { "$ref": "#/$defs/seo" }
+      }
+    },
+    "contestDay": {
+      "description": "One day of the fizlet.com daily contest: content/contest/<date>.json (id = date). Its entries are the fizlet gallery entries stamped \"contest\": \"<date>\"; the winner is one of them. Rules a schema can't say (prompt ≤ 60 characters, one entry per person per day, a winner needs 12 entries and a closed day): factory/contest.mjs checkDays. Generated into fizlet site/contest/days/ by `fe content contest days --write`.",
+      "type": "object", "required": ["id", "date", "theme", "brief", "status", "winner"], "additionalProperties": false,
+      "properties": {
+        "$schema": { "type": "string" },
+        "id": { "$ref": "#/$defs/date" },
+        "date": { "$ref": "#/$defs/date" },
+        "theme": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "brief": { "type": "string", "minLength": 10, "maxLength": 200 },
+        "status": { "enum": ["upcoming", "open", "judging", "closed"], "description": "upcoming → open (entries in) → judging → closed (winner set)." },
+        "winner": { "type": ["string", "null"], "description": "The winning gallery entry id, once the day is closed." }
       }
     },
     "brand": {

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "584e88640d12e987"
+    "hash": "c1e92ccfcc18cb1e"
   },
   "collection": "brands",
   "id": "dom-battlefield-blitz",
@@ -17,11 +17,16 @@
     "name": "Battlefield Blitz",
     "level": "game",
     "parent": "battlefield",
+    "repo": "https://github.com/coded-dot-design/dom-battlefield-blitz",
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dom-battlefield-blitz/",
+      "production": "https://battlefieldblitz.domvirus.com/"
+    },
     "site": {
-      "repo": "dom-battlefield",
-      "config": null,
-      "voice": "brand/blitz/voice.md",
-      "styleGuide": "brand/blitz/style-guide.md"
+      "repo": "dom-battlefield-blitz",
+      "config": "site/engine.config.json",
+      "voice": "brand/voice.md",
+      "styleGuide": "brand/style-guide.md"
     },
     "author": {
       "name": "Chris Cooley",

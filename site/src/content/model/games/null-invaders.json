@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "a11ad82d183911b4"
+    "hash": "19eb26f4ed8b70db"
   },
   "collection": "games",
   "id": "null-invaders",
@@ -11,6 +11,7 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-dom-virus-launch",
       "news-null-invaders-0-7"
@@ -154,6 +155,122 @@
           "color": "#ee6875"
         }
       ]
+    },
+    "page": {
+      "site": "dom-virus",
+      "type": "game",
+      "slug": "null-invaders",
+      "eyebrow": "05 / DOM SHOOTER",
+      "tags": [
+        "embedded",
+        "shooter",
+        "arcade"
+      ],
+      "slots": [
+        "characters",
+        "palette",
+        "embed"
+      ],
+      "genre": [
+        "Shooter",
+        "Arcade"
+      ],
+      "playMode": [
+        "SinglePlayer"
+      ],
+      "players": "1",
+      "lead": "Fly an interceptor through a real webpage. Shoot letters into binary, break the button factories, and clear the aliens they release over four waves. It plays right here in your browser: no install, and Recall gives the page back.",
+      "support": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples.",
+      "play": "Play Null Invaders",
+      "poster": {
+        "src": "/shots/null-invaders.jpg",
+        "alt": "Null Invaders in play on its own DOM VIRUS page: the interceptor flies over the page, the title is shot into binary and the scoreboard shows Trident online"
+      },
+      "howToPlay": [
+        {
+          "title": "Press Play",
+          "body": "The interceptor launches over this page. Buttons become alien factories, and the headings and paragraphs are the battlefield."
+        },
+        {
+          "title": "Fly and fire",
+          "body": "Steer with the mouse, WASD or the arrow keys, and hold click or Space to fire. On a phone the thumbstick flies and the round Fire key shoots; hold both together."
+        },
+        {
+          "title": "Upgrade your gun",
+          "body": "Combat XP upgrades the weapon during the run. Pulse starts with one shot; Twin unlocks at 8 XP, Trident at 24 and four-shot Overdrive at 50."
+        },
+        {
+          "title": "Break the factories",
+          "body": "Shoot a button until its health level drains. A destroyed factory stops spawning for the rest of that wave; factories reactivate between waves."
+        },
+        {
+          "title": "Clear four waves",
+          "body": "You have three shields. Finish wave four to clear the page. Press Escape or Recall at any time to give the page back."
+        }
+      ],
+      "tips": [
+        {
+          "title": "Shoot the text",
+          "body": "A letter gives 1 XP and keeps the three-second combo window open, so page text is the quickest way to the next weapon tier."
+        },
+        {
+          "title": "Chain your kills",
+          "body": "Three chained alien kills raise the combo multiplier, up to ×5. Losing a shield clears the combo but keeps your weapon."
+        },
+        {
+          "title": "Hit the factories",
+          "body": "A factory hit gives 2 XP and a destroyed factory another 8, and it shuts that spawn source for the wave."
+        },
+        {
+          "title": "Keep moving",
+          "body": "The squid is the fastest alien shape, and alien health rises with the wave. G jumps to the next factory; P pauses."
+        }
+      ],
+      "whatsNew": {
+        "version": "1.0.2",
+        "date": "2026-10-30",
+        "title": "Right on 2× screens",
+        "items": [
+          {
+            "title": "Right on 2× and zoomed screens",
+            "body": "On a 1.5× or 2× screen, the ship, the invaders and the factories' beacon rings used to draw 1.5–2× too big. Now they sit exactly on the page."
+          },
+          {
+            "title": "The scoreboard drags",
+            "body": "Grab the scoreboard anywhere that isn't a key, with mouse or touch. It stays inside the window, also when the window shrinks."
+          },
+          {
+            "title": "Readable keys",
+            "body": "The scoreboard's key labels pass WCAG AA contrast in both light and dark themes."
+          },
+          {
+            "title": "On the Fizlet engine",
+            "body": "Since 1.0.0, Null Invaders runs on the Fizlet engine with the same rules and numbers, and a scoreboard in the Board UI kit."
+          }
+        ]
+      },
+      "faq": [
+        {
+          "q": "Do I need to install anything to play Null Invaders?",
+          "a": "No. Null Invaders plays on this page in your browser. Press Play, and press Escape or Recall when you are done to give the page back."
+        },
+        {
+          "q": "Can I play Null Invaders on a phone?",
+          "a": "Yes. Phones get a thumbstick to fly and a round Fire key, and you can hold both at once."
+        },
+        {
+          "q": "What happens to the page when I play?",
+          "a": "Shots write a literal 0 or 1 into the page's own text, and buttons become alien factories. Recall restores what the game changed and still owns."
+        },
+        {
+          "q": "Can I put Null Invaders on my own site?",
+          "a": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+        }
+      ],
+      "seo": {
+        "title": "Null Invaders: a browser shooter you play on the page",
+        "description": "Fly an interceptor through a real webpage: shoot letters into binary, break button factories and clear four waves. Free in your browser."
+      }
     }
   }
 }
