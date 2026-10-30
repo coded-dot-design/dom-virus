@@ -10,6 +10,10 @@ Each game owns `site/game.json`: gameplay facts, controls, source links and inte
 
 The kit's preparation script measures built distributions and generates a static data file plus a dynamic-import registry. The browser loads only the chosen game. Astro renders content without a client framework; the small TypeScript launcher handles themes, loading races, Pause, Recall and code copying. `site/**` and `site-kit/**` are marked as side-effectful so bundlers retain page scripts and styles; shipped game entrypoints remain tree-shakable.
 
+## Staging and production
+
+A build is **production** when it serves the URL in `targets.production` of `site/engine.config.json` (https://domvirus.com), **staging** otherwise (github.io, local and PR builds). `site-kit/lifecycle.mjs` reads the content model: a game whose status is not `published` (DOM Kaiju) shows on staging only. Production leaves out its cartridge, cards, page, the posts its model relations tie to it, its sitemap and llms.txt rows, and any engine-page sentence, card or stat that names it; `$whileHidden` in `site/redirects.json` keeps its old URLs while it is hidden. `npm run site:test:lifecycle` checks the built site for either target.
+
 ## Release discipline
 
 Use SemVer for the package version and immutable `vX.Y.Z` tags for tested releases. Update lockfiles with every dependency change. Null Invaders, Byte Runner and DOM VIRUS tag new versions only after their check workflow passes. Swarm's existing release workflow verifies the exact version and source before publishing a tag and downloadable assets. Site-kit metadata versions the reusable UI separately.

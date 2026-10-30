@@ -3,8 +3,12 @@
 import UiIcon from './UiIcon.astro';
 import Icon from './AbstractIcon.astro';
 import kaijuIcon from '../assets/kaiju-icon.svg?raw';
-import { SOON_GAMES, NEXT_PHASE, OPTIMIZE, GAMES_DOC, ENGINE_DOC } from '../coming-soon';
+import { soonGames, listOf, NEXT_PHASE, OPTIMIZE, GAMES_DOC, ENGINE_DOC } from '../coming-soon';
+import { gameShown } from '../lifecycle.mjs';
 const { base = '/' } = Astro.props;
+// The games this build shows (an unready game is staging only; lifecycle.mjs), numbered in build order.
+const games = soonGames(gameShown);
+const count = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][games.length] ?? String(games.length);
 const art = { blitz: 'tank', crossfire: 'ship', flock: 'fly-roamer' };
 const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
 ---
@@ -12,15 +16,15 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
   <div class="section-heading"><span class="eyebrow"><span class="index">NEXT</span> COMING SOON / ON THE BENCH</span><span class="version">PLANS, NOT PROMISES</span></div>
   <div class="soon-intro">
     <h1 id="soon-title">Coming soon.<br/><em>Louder.</em></h1>
-    <p class="lead">Four new cartridges and a shared engine. The first one is already out. The bar for every one of them: the explosions on our home page and the tanks wrecking the DOM Battlefield site. That is the floor.</p>
+    <p class="lead">{count} new cartridges and a shared engine. The first one is already out. The bar for every one of them: the explosions on our home page and the tanks wrecking the DOM Battlefield site. That is the floor.</p>
   </div>
 
   <ol class="soon-games">
-    {SOON_GAMES.map((g) => (
+    {games.map((g, i) => (
       <li class:list={['card', 'soon-game', accent(g.accent), { lead: g.status === 'NEXT UP' }]} id={g.id}>
         <div class="soon-top">
           <span class="soon-art" aria-hidden="true">{g.id === 'kaiju' ? <Fragment set:html={kaijuIcon}/> : <Icon kind={art[g.id]} size={44}/>}</span>
-          <span class="soon-n">{g.n}</span>
+          <span class="soon-n">{String(i + 1).padStart(2, '0')}</span>
           <span class:list={['soon-status', g.status.toLowerCase().replace(' ', '-')]}>{g.status}</span>
         </div>
         <span class="eyebrow">{g.kind}</span>
@@ -46,7 +50,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
       <thead><tr><th>Game</th><th>Now (4x CPU throttle)</th><th>Goal</th><th>Why</th></tr></thead>
       <tbody>{OPTIMIZE.map((o) => <tr><td>{o.name}</td><td><code>{o.now}</code></td><td><code>{o.goal}</code></td><td>{o.note}</td></tr>)}</tbody>
     </table></div>
-    <a class="nerd-link card" href={GAMES_DOC}><span class="eyebrow">GAME IDEAS · GITHUB</span><strong>GAMES.md: every planned game, in build order</strong><span>Loops, drama bar, builds and status for Blitz, Crossfire, Kaiju and Flock</span><UiIcon name="github" size={20}/></a>
+    <a class="nerd-link card" href={GAMES_DOC}><span class="eyebrow">GAME IDEAS · GITHUB</span><strong>GAMES.md: every planned game, in build order</strong><span>Loops, drama bar, builds and status for {listOf(games.map((g) => g.name.split(' ').at(-1)))}</span><UiIcon name="github" size={20}/></a>
     <a class="nerd-link card" href={ENGINE_DOC}><span class="eyebrow">ENGINE PLAN · GITHUB</span><strong>ENGINE.md: the plan for the shared engine</strong><span>The contract, the harnesses, the phases and the progress log</span><UiIcon name="github" size={20}/></a>
   </div>
 </section>

@@ -4,10 +4,13 @@
 import Site from '@site-kit/components/Site.astro';
 import data from '@site-data';
 import { routable, routeOf } from '@site-kit/engine-content';
+import { HIDDEN_ROUTES } from '@site-kit/lifecycle.mjs';
 import redirects from '../../redirects.json';
 export function getStaticPaths() {
   const pages = routable().map((p) => ({ params: { path: routeOf(p).replace(/\/$/, '') || undefined }, props: { id: p.id } }));
-  const moved = Object.entries(redirects).filter(([from]) => !from.startsWith('$')).map(([from, to]) => ({ params: { path: from.replace(/\/$/, '') }, props: { to } }));
+  // $whileHidden redirects build only while this build hides their route (site-kit/lifecycle.mjs).
+  const whileHidden = Object.entries(redirects.$whileHidden).filter(([from]) => HIDDEN_ROUTES.includes(from));
+  const moved = [...Object.entries(redirects).filter(([from]) => !from.startsWith('$')), ...whileHidden].map(([from, to]) => ({ params: { path: from.replace(/\/$/, '') }, props: { to } }));
   return [...pages, ...moved];
 }
 const { id, to } = Astro.props;
