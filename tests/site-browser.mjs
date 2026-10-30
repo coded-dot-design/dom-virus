@@ -365,7 +365,9 @@ try {
   assert.equal(await page.locator(".code-example .astro-code").count(), 4);
   for (const selector of [".uth", ".embed-section"])
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
-  // Under the hood is a lab: one shared engine loop runs the labs on screen and sleeps the rest.
+  // Under the hood is a lab: Fizlet scenes on one shared clock; those on screen run, the rest sleep.
+  // A lab writes the page in its engine's render phase, so a check waits a frame after a click.
+  const frames = () => page.evaluate(() => new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok))));
   assert.equal(await uth.locator("[data-lab]").count(), 5);
   assert.match(await uth.locator("#origin-title").textContent(), /Bolo/);
   const hud = uth.locator("[data-engine-hud]");
@@ -378,11 +380,12 @@ try {
   // Board: X-ray draws what the game reads; the factory spawns bugs up to the cap; bugs move.
   const boardLab = uth.locator('[data-lab="board"]');
   await boardLab.scrollIntoViewIfNeeded();
-  await boardLab.locator("[data-xray]").click();
+  await boardLab.locator("[data-xray]").click(); await frames();
   assert.equal(await boardLab.locator("[data-xray]").getAttribute("aria-pressed"), "true");
   assert.equal(await boardLab.locator(".xray b").count(), 4);
   assert.equal(await boardLab.locator(".xray b span").first().evaluate((el) => el.children.length), 0, "labels are text, not tags");
   for (let i = 0; i < 8; i++) await boardLab.locator("[data-factory]").click();
+  await frames();
   assert.equal(await boardLab.locator("[data-bug-count]").textContent(), "BUGS 6 / 6 · CAP");
   const bugAt = () => boardLab.locator(".bugs i").first().evaluate((el) => el.style.transform);
   const firstBug = await bugAt();
@@ -393,6 +396,7 @@ try {
   await poolLab.scrollIntoViewIfNeeded();
   const sparks = await poolLab.locator(".arena i").count();
   for (let i = 0; i < 6; i++) await poolLab.locator("[data-spawn]").click();
+  await frames();
   assert.equal(sparks, 32);
   assert.equal(await poolLab.locator(".arena i").count(), 32, "no new nodes");
   assert.match(await poolLab.locator("[data-pool-readout]").textContent(), /ACTIVE 32 \/ 32 · REJECTED [1-9]\d* · ALLOCATIONS 0/);
@@ -402,16 +406,17 @@ try {
   const victim = recallLab.locator("[data-victim]");
   const original = await victim.textContent();
   for (let i = 0; i < 3; i++) await recallLab.locator("[data-hit]").click();
+  await frames();
   const hitText = await victim.textContent();
   assert.equal(hitText.length, original.length);
   assert.equal([...hitText].filter((c, i) => c !== original[i] && /[01]/.test(c)).length, 3);
-  assert.equal(await victim.evaluate((el) => el.childNodes.length), 1, "still one text node");
-  await recallLab.locator("[data-app-edit]").click();
-  await recallLab.locator("[data-recall]").click();
+  assert.equal(await victim.evaluate((el) => el.children.length), 0, "letters are Text nodes, no wrapper elements");
+  await recallLab.locator("[data-app-edit]").click(); await frames();
+  await recallLab.locator("[data-recall]").click(); await frames();
   const after = await victim.textContent();
   assert.equal([...after].filter((c, i) => c !== original[i]).length, 1, "only the app's edit is left");
   assert.ok(after.includes("*"));
-  await recallLab.locator("[data-recall]").click();
+  await recallLab.locator("[data-recall]").click(); await frames();
   assert.equal(await victim.textContent(), original, "second Recall reloads the page text");
   // Pipeline ships itself once when it comes into view.
   const shipLab = uth.locator('[data-lab="pipeline"]');
@@ -571,7 +576,8 @@ try {
   await page.waitForTimeout(1800);
   assert.equal(await page.locator('[data-score="1"]').textContent(), "00", "no auto duel");
   await page.locator('[data-fire="1"]').click();
-  assert.equal(await page.locator('[data-score="1"]').textContent(), "01");
+  await frames();
+  assert.equal(await page.locator('[data-score="1"]').textContent(), "01", "a hit at once, on the next frame");
   const bugBefore = await uth.locator(".bugs i").first().evaluate((el) => el.style.transform);
   await page.waitForTimeout(200);
   assert.equal(await uth.locator(".bugs i").first().evaluate((el) => el.style.transform), bugBefore, "bugs stay put");
