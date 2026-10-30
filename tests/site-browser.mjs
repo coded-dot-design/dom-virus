@@ -308,6 +308,17 @@ try {
   await page.setViewportSize({ width: 320, height: 700 });
   assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
   await page.setViewportSize(footerWidth);
+  // Performance overlay switch (fizlet/perf): off by default and not loaded; the header key loads
+  // it and measures the page's frames; F9 hides it and the key follows; shared key dom-virus:perf.
+  await page.goto(base);
+  assert.deepEqual(await page.evaluate(() => [!!document.querySelector(".fizlet-perf"), document.querySelector("[data-perf-toggle]").getAttribute("aria-pressed"), localStorage.getItem("dom-virus:perf")]), [false, "false", null], "perf overlay off by default");
+  await page.locator("[data-perf-toggle]").click();
+  await page.waitForSelector(".fizlet-perf:not([hidden])");
+  await page.waitForTimeout(700);
+  const meter = await page.evaluate(() => ({ fps: +document.querySelector(".fizlet-perf b").textContent, stored: localStorage.getItem("dom-virus:perf"), pressed: document.querySelector("[data-perf-toggle]").getAttribute("aria-pressed") }));
+  assert.ok(meter.fps > 10 && meter.stored === "1" && meter.pressed === "true", `page meter on (${JSON.stringify(meter)})`);
+  await page.keyboard.press("F9");
+  assert.deepEqual(await page.evaluate(() => [document.querySelector(".fizlet-perf").hidden, localStorage.getItem("dom-virus:perf")]), [true, "0"], "F9 hides the perf overlay");
   // Battlefield links out to its own site (landing page and the Board UI style guide).
   await page.goto(base + "games/battlefield/");
   const outs = await page.locator(".board-design a.nerd-link").evaluateAll((as) => as.map((a) => a.href));
