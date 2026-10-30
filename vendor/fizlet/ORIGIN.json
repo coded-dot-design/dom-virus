@@ -1,8 +1,8 @@
 {
   "note": "Generated snapshot (a subset: the perf overlay, the kit's Settings switch and the Under the hood labs from site/labs/, kernel imports pointed at ../). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
   "repository": "https://github.com/coded-dot-design/fizlet",
-  "version": "0.18.0",
-  "commit": "5888e9a4a2972702252aacbe797912f4805b3e47",
+  "version": "0.20.0",
+  "commit": "bf42a8c8e642168c55f7b4bf4900c2197525874c",
   "files": [
     {
       "path": "kernel/index.ts",
@@ -10,7 +10,7 @@
     },
     {
       "path": "kernel/engine.ts",
-      "sha256": "e993cb68a1944c562d082bf37a56aed91d0b7b03f7feb83bb5a20a90962c4462"
+      "sha256": "9cacf0ad396c688adec088da31a37ac50a48589083195bde2848c31488ce62d5"
     },
     {
       "path": "kernel/ledger.ts",
@@ -38,7 +38,7 @@
     },
     {
       "path": "ui/board-ui.ts",
-      "sha256": "8718ae7038d18e56637bd55169f4fcd91167e70a3b7f3c37d2692daf0f862e66"
+      "sha256": "aff234dee4004fe07c0c3e39c7ebd5f20b5edf3f116668ba70910df0d78c1b33"
     },
     {
       "path": "labs/lab.ts",
