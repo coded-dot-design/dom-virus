@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- **Swarm Protocol's hub facts describe 1.4.0.** The 1.3.1 copy is gone: 36 Range reads a
+  frame, a 240-glyph nearby cache, and "keeps its established engine". The game page now shows
+  48 bug cap · 600 Range reads / refresh · 0 allocations / rules step, and the engine line reads
+  "Fizlet kernel · board-page". This content comes from swarm-protocol `site/game.json`, pinned in
+  `site/config.json` `contentRefs`, so the game stays at the v1.4.0 tag. Under the hood is
+  updated too: the Swarm column of the budget table (board-page grid, 600 reads a refresh,
+  12.5 Hz / 2 Hz, 64 buttons and 32 UI areas), the engine paragraph, and the workload numbers
+  against 1.3.1 (ancestry checks −90.1%, computed-style reads −91.5%, more Range reads). The same
+  update reaches the Swarm lines in README, SITE.md and `docs/dom-ownership.md`, and the Swarm
+  brand inputs are re-synced (`fe brand write swarm-protocol`).
 - **Swarm Protocol 1.4.0 and DOM Battlefield 1.0.1 are pinned.** Swarm runs on Fizlet 0.17.0
   (kernel and `fizlet/board-page`): same swarm, rules and visuals, every page change through the
   engine's ledger and Recall byte for byte. Battlefield (Fizlet 0.19.0) adds a performance overlay

@@ -30,7 +30,7 @@ Enable GitHub Actions as the Pages source once per repository. The `Deploy produ
 
 Raw and gzip package byte counts are generated at build time, not hard-coded. Swarm's complete immediate import graph includes dynamically reached game chunks, with each reachable file counted once; its static graph is shown separately. Counts exclude Astro, React adapters, network headers and caching. They are package download estimates, not this site's chunk layout or device FPS.
 
-Swarm keeps its established simulation. The two newer games share the DOM VIRUS engine snapshot. Shadow DOM provides style encapsulation, not a security boundary. Visual text mode requires CSS Custom Highlights; static hosts can explicitly opt into direct text mode. Recall restores only still-owned mutations and cannot undo application writes.
+Swarm runs its rules on the Fizlet kernel since 1.4.0. The two newer games share the DOM VIRUS engine snapshot. Shadow DOM provides style encapsulation, not a security boundary. Visual text mode requires CSS Custom Highlights; static hosts can explicitly opt into direct text mode. Recall restores only still-owned mutations and cannot undo application writes.
 
 ## Release testing and automatic refresh
 

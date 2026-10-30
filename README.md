@@ -164,7 +164,7 @@ MIT © 2026 Chris Cooley. Brand: coded.design.
 
 After checks pass on `main`, CI creates the tag matching `package.json` (for example `v0.2.0`) if it does not already exist. Existing tags never move. Bump the package version for the next release.
 
-Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel tank. The three shared-engine games use the same real-text mutation pipeline. Sherman’s opt-in `binaryOpacity` fades the actual mutated digits where CSS Highlights are available. Swarm retains its own established runtime.
+Sherman Bytes is the fourth game: capture button bases with an M4-inspired pixel tank. The three shared-engine games use the same real-text mutation pipeline. Sherman’s opt-in `binaryOpacity` fades the actual mutated digits where CSS Highlights are available. Swarm runs on the Fizlet kernel and board-page since 1.4.0.
 
 ## Native DOM ownership
 

@@ -18,7 +18,7 @@ Game-owned background writes do not rebuild the text index. The style ledger dis
 
 ## Bounded rendering
 
-The existing 32-target cap also bounds attached hosts to 32 and their native animations to 64. Offscreen targets do not start new visuals. The shared engine reuses entity pools; Null Invaders and Sherman cache their sprite frames. Swarm keeps its established independent runtime. Repeated Recall must leave no owned hosts, live animations or style changes behind.
+The existing 32-target cap also bounds attached hosts to 32 and their native animations to 64. Offscreen targets do not start new visuals. The shared engine reuses entity pools; Null Invaders and Sherman cache their sprite frames. Swarm (1.4.0) runs on the Fizlet kernel, and its page changes go through the engine's ledger. Repeated Recall must leave no owned hosts, live animations or style changes behind.
 
 Browser regression checks exercise native nested scrolling and transforms without another board draw, unchanged target dimensions and label identity, pause/mobile behavior, observer invalidation, repeated cleanup, real-text mutation, Unicode offsets and newer host edits.
 
