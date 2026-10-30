@@ -16,6 +16,7 @@ import NotFound from './NotFound.astro';
 import GameSticker from './GameSticker.astro';
 import Cartridge from './Cartridge.astro';
 import EnginePage from './EnginePage.astro';
+import BoardGamePage from './BoardGamePage.astro';
 import { byId, headOf } from '../engine-content';
 import { gameShown } from '../lifecycle.mjs';
 import { soonGames, listOf } from '../coming-soon';
@@ -27,7 +28,7 @@ import touchIcon from '../assets/dom-virus-app-icon-180.png?inline';
 import '../style.css';
 // page: 'home' | 'game' | 'battlefield' | 'engineering' | 'archive'. Only the hub (dom-virus) uses the multi-page
 // layout; single-game sites keep the one-page layout under 'home'.
-const {data, page='home', gameId, engineId: engineRoute}=Astro.props;
+const {data, page='home', gameId, engineId: engineRoute, boardGame}=Astro.props;
 const hub=data.id==='dom-virus';
 const base=import.meta.env.BASE_URL.endsWith('/')?import.meta.env.BASE_URL:import.meta.env.BASE_URL+'/';
 const game=gameId?data.games.find((g)=>g.id===gameId):null;
@@ -36,7 +37,7 @@ const gameIndex=game?data.games.indexOf(game):0;
 const shelfIndex=hub&&gameIndex>0?gameIndex+1:gameIndex;
 // Coming soon lists only the games this build shows (an unready game is staging only; lifecycle.mjs).
 const soon=soonGames(gameShown);
-const title=game?game.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='soon'?'Coming soon':page==='kaiju'?'DOM Kaiju (coming soon)':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
+const title=game?game.name:page==='board'?boardGame.name:page==='battlefield'?'DOM Battlefield':page==='engineering'?'Under the hood':page==='archive'?'DOM VIRUS (one-page archive)':page==='styleguide'?'Style guide':page==='soon'?'Coming soon':page==='kaiju'?'DOM Kaiju (coming soon)':page==='notfound'?'Page not found':hub?'DOM VIRUS':data.games[0].name;
 const repo=`https://github.com/coded-dot-design/${data.id}`;
 const kb=(n)=>(n/1000).toFixed(1);
 // Stamped at build time; a fresh build (e.g. on January 1) rolls the copyright year.
@@ -50,7 +51,8 @@ const shareImage=new URL(ogImageUrl, Astro.site).href;
 // `abe head` output (npm run engine:heads). When both exist the engine owns title, description,
 // canonical, robots, Open Graph and JSON-LD; this layout keeps the brand-only tags.
 // page="engine" renders any engine page (blog, news, about, legal…) through EnginePage.
-const engineId=engineRoute||(page==='game'&&game?`games-${game.id}`:null);
+// Game pages (embedded, board and Battlefield's own) take head, guide and FAQ from their engine page.
+const engineId=engineRoute||(page==='game'&&game?`games-${game.id}`:page==='battlefield'?'games-battlefield':null);
 const enginePage=engineId?byId(engineId):undefined;
 const engineHead=headOf(enginePage,pageUrl);
 // Cookieless analytics (brand/SITEMAP.md E8): only when the repository variable is set.
@@ -107,7 +109,7 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
   <header data-byte-obstacle class="site-header" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'https://coded-dot-design.github.io/dom-virus/'} aria-label="DOM VIRUS home"><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>by coded.design</small></span></a>
     <div class="header-panel">
-      <nav aria-label="Main navigation"><a data-games-link href={hub?`${base}#games`:'#games'} aria-current={hub&&(page==='game'||page==='battlefield'||page==='kaiju')?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}engine/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
+      <nav aria-label="Main navigation"><a data-games-link href={hub?`${base}#games`:'#games'} aria-current={hub&&(page==='game'||page==='board'||page==='battlefield'||page==='kaiju')?'page':undefined} title="Games"><UiIcon name="cartridge" size={20} class="nav-icon"/><span class="nav-label">Games</span> <span class="nav-count">{(data.games.length + (hub ? 1 : 0)).toString().padStart(2,'0')}</span></a><a href={hub?`${base}engine/`:'#engineering'} aria-current={page==='engineering'?'page':undefined} title="Under the hood"><UiIcon name="chip" size={20} class="nav-icon"/><span class="nav-label">Under the hood</span></a></nav>
       <button class="theme-toggle" data-perf-toggle aria-pressed="false" aria-label="Performance overlay (F9)" title="Performance overlay (F9)"><UiIcon name="perf" size={20}/></button>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme"><UiIcon name="sun" size={20} class="theme-sun"/><UiIcon name="moon" size={20} class="theme-moon"/></button>
     </div>
@@ -168,8 +170,9 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
     {page==='game' && game && <GameSection game={game} index={shelfIndex} mode="page" base={base} games={data.games} content={enginePage}/>}
     {page==='soon' && <ComingSoon base={base}/>}
     {page==='engine' && enginePage && <EnginePage page={enginePage} base={base} games={data.games}/>}
+    {page==='board' && enginePage && <BoardGamePage content={enginePage} game={boardGame} base={base}/>}
     {page==='kaiju' && <KaijuDetail base={base}/>}
-    {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')}/>}
+    {page==='battlefield' && <BattlefieldDetail base={base} version={Astro.props.battlefield?.version} sherman={data.games.find((g)=>g.id==='sherman-bytes')} content={enginePage}/>}
     {page==='engineering' && <>
     <UnderTheHood data={data}/>
     <section class="embed-section" id="embed"><div class="section-heading"><span class="eyebrow"><span class="index">DEV</span> BRING YOUR OWN PLAYGROUND</span><span class="version">MIT LICENSED</span></div><h2>Your page is next.</h2><p class="embed-lead">Import a game, choose the targets, and start a session. The launcher is optional. React adapters are separate exports so plain JavaScript consumers do not pay for React.</p>{data.games.map((game,i)=><article class={`embed-game with-cart accent-${game.accent}`}><div class="embed-copy"><div class="embed-title"><GameSticker kind={game.icon} index={i}/><div><h3>{game.name}</h3><p>{game.engine}</p></div></div><div class="embed-cart" data-virus-ignore data-swarm-ignore title={`Plug in ${game.name}: opens the console on the home page`}><Cartridge id={game.id} href={`${base}?load=${game.id}#console`} accent={game.accent} index={i === 0 ? 0 : i + 1} kind={game.kind} name={game.name} tagline={game.tagline}><Icon kind={game.icon} size={44}/></Cartridge></div></div><CodePreview game={game} repo={`https://github.com/coded-dot-design/${game.id}`}/></article>)}<p class="install-note">Package names show the import after installation. Use each repository’s README for its available install or release route; registry publication is separate from this demo. Start with a static content container and exclude application controls you want to preserve.</p></section>

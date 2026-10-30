@@ -1,0 +1,74 @@
+---
+// The player's guide on a game page, from the game's engine page JSON (brain-cache/fizlet-engine
+// spec → `fe brief` → `abe produce`): a real screenshot, how to play, controls, modes, tips, what's
+// new and the FAQ. The brief marks each block with its eyebrow, so the site finds blocks by eyebrow,
+// never by position. Copy comes only from the page JSON; nothing here is typed by hand.
+import UiIcon from './UiIcon.astro';
+import { SHOTS } from '../shots';
+import { formatDate } from '../engine-content';
+const { content, base = '/', id, poster = true, faq = true, level = 'h2' } = Astro.props;
+const H = level;
+const Sub = level === 'h2' ? 'h3' : 'h4';
+const sections = content?.sections || [];
+const byEyebrow = (e) => sections.find((s) => s.type === 'featureList' && s.eyebrow === e);
+const figure = poster ? sections.find((s) => s.type === 'mediaFigure' && s.eyebrow === 'SCREENSHOT') : undefined;
+const shot = figure ? SHOTS[figure.image.src.replace(/^\/shots\//, '')] : undefined;
+const src = (s) => (s.startsWith('/') ? base + s.slice(1) : s);
+const blocks = [
+  { s: byEyebrow('HOW TO PLAY'), kind: 'steps' },
+  { s: byEyebrow('CONTROLS'), kind: 'grid' },
+  { s: byEyebrow('MODES'), kind: 'rows' },
+  { s: byEyebrow('TIPS'), kind: 'grid' },
+].filter((b) => b.s);
+const news = byEyebrow("WHAT'S NEW");
+// "Version 1.0.2, released 2026-10-30." → the version and an ISO date for <time>.
+const [, version, released] = news?.subhead?.match(/^Version (\S+), released (\d{4}-\d{2}-\d{2})\.$/) || [];
+const questions = faq ? sections.find((s) => s.type === 'faq') : undefined;
+const hid = (s) => `${id}-${s.id}`;
+---
+{(figure || blocks.length > 0 || news || questions) && <div class="game-guide">
+  {figure && <figure class="guide-poster card">
+    <img src={src(figure.image.src)} alt={figure.image.alt} width={shot?.[0]} height={shot?.[1]} loading="lazy" decoding="async"/>
+    {figure.caption && <figcaption>{figure.caption}</figcaption>}
+  </figure>}
+  {blocks.map(({ s, kind }) => <section class:list={['guide-block', `guide-${kind}`]} aria-labelledby={hid(s)}>
+    <div class="eyebrow">{s.eyebrow}</div>
+    <H id={hid(s)}>{s.heading}{s.headingAccent && <em> {s.headingAccent}</em>}</H>
+    {kind === 'steps'
+      ? <ol>{s.items.map((i, n) => <li class="card"><span class="guide-tag" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span><div><Sub>{i.title}</Sub><p>{i.body}</p></div></li>)}</ol>
+      : <ul>{s.items.map((i) => <li class="card"><Sub>{i.title}</Sub><p>{i.body}</p></li>)}</ul>}
+  </section>)}
+  {news && <section class="guide-block guide-news" aria-labelledby={hid(news)}>
+    <div class="eyebrow">{news.eyebrow}</div>
+    <H id={hid(news)}>{news.heading}{news.headingAccent && <em> {news.headingAccent}</em>}</H>
+    {version && <p class="guide-sub">Version {version} · <time datetime={released}>{formatDate(released)}</time></p>}
+    <ul>{news.items.map((i) => <li><strong>{i.title}.</strong> {i.body}</li>)}</ul>
+  </section>}
+  {questions && <section class="guide-block game-faq" aria-labelledby={`${id}-faq`}>
+    <div class="eyebrow">FAQ</div>
+    <H id={`${id}-faq`}>{questions.heading}</H>
+    {questions.items.map((item) => <details class="deep-dive"><summary data-virus-ignore data-swarm-ignore>{item.question} <UiIcon name="chevron-down" class="disclosure-icon"/></summary><p>{item.answer}</p></details>)}
+  </section>}
+</div>}
+<style>
+.game-guide{display:grid;gap:56px;margin-top:56px}
+.guide-poster{margin:0;overflow:hidden;padding:0}
+.guide-poster img{display:block;width:100%;height:auto}
+.guide-poster figcaption{padding:10px 14px;font:11px/1.5 var(--mono);color:var(--muted)}
+.guide-block h2,.guide-block > h3{margin:8px 0 18px;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em}
+.guide-block h2 em,.guide-block > h3 em{font-style:normal;color:var(--accent-text,var(--accent));display:block}
+.guide-block ol,.guide-block ul{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+.guide-steps ol,.guide-grid ul{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.guide-rows ul{grid-template-columns:1fr;gap:14px}
+.guide-block li.card{padding:18px 20px}
+.guide-steps li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.guide-block li h3,.guide-block li h4{margin:0 0 6px;font-size:17px;letter-spacing:-.01em}
+.guide-block li p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+.guide-tag{padding:4px 8px;font:700 10px var(--mono);letter-spacing:1px;color:var(--accent-ink);background:var(--accent);border:2px solid var(--ink);border-radius:4px}
+.guide-sub{margin:-8px 0 16px;font:12px/1.6 var(--mono);color:var(--muted)}
+.guide-news ul{gap:10px;max-width:760px}
+.guide-news li{font-size:15px;line-height:1.6;color:var(--muted);padding-left:18px;position:relative}
+.guide-news li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;background:var(--accent);border:1px solid var(--ink)}
+.guide-news li strong{color:var(--text,inherit)}
+@media (max-width:760px){.game-guide{gap:44px;margin-top:44px}.guide-block li.card{padding:16px}}
+</style>

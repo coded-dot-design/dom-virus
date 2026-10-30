@@ -1,0 +1,230 @@
+{
+  "id": "games-battlefield",
+  "path": "/games/battlefield",
+  "template": "marketing",
+  "status": "published",
+  "seo": {
+    "title": "DOM Battlefield: a squad tactics tank game in your browser",
+    "description": "Command up to twelve tanks: freeze time to plan every route, then radio your squad through the firefight. Free tank tactics in your browser.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/games/battlefield/",
+    "schemaPageType": "VideoGame",
+    "schemaExtra": {
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "isAccessibleForFree": true,
+      "codeRepository": "https://github.com/coded-dot-design/dom-battlefield",
+      "genre": [
+        "Strategy",
+        "Tactics",
+        "Tank"
+      ],
+      "playMode": [
+        "SinglePlayer"
+      ]
+    },
+    "schemaName": "DOM Battlefield",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/dom-battlefield.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "DOM Battlefield",
+      "headingAccent": "Squad tactics in a browser tab.",
+      "eyebrow": "02 / SQUAD TACTICS",
+      "body": "Command a platoon of up to twelve tanks on a grid built from real page elements. Pick the ground, freeze time to plan every route, then radio your squad through a live firefight. Free in your browser: no install, no account.",
+      "ctas": [
+        {
+          "label": "Play DOM Battlefield",
+          "href": "https://battlefield.domvirus.com/play/",
+          "variant": "primary"
+        },
+        {
+          "label": "Visit battlefield.domvirus.com",
+          "href": "https://battlefield.domvirus.com/"
+        }
+      ]
+    },
+    {
+      "id": "figure-2",
+      "type": "mediaFigure",
+      "variant": "featured",
+      "image": {
+        "src": "/shots/dom-battlefield.jpg",
+        "alt": "DOM Battlefield mid-battle: the green platoon pushes across the grid toward HQ B while pink tanks hold the cover, with the sector map in the corner"
+      },
+      "eyebrow": "SCREENSHOT"
+    },
+    {
+      "id": "features-3",
+      "type": "featureList",
+      "variant": "steps",
+      "heading": "How to play DOM Battlefield",
+      "items": [
+        {
+          "title": "Pick the ground",
+          "body": "Choose one of four operations, a terrain density and your side, or press Quick start and anything you have not picked is rolled at random."
+        },
+        {
+          "title": "Plan the battle",
+          "body": "Time is frozen. Set your formation and a squad of 4, 8 or 12 tanks. Fill a four-slot scout, medium and heavy loadout within 12 points, then give each tank an order."
+        },
+        {
+          "title": "Fight",
+          "body": "Press Start battle. Drive your command tank with WASD or the arrows, aim with the pointer and hold Space or click to fire. Your command tank must survive."
+        },
+        {
+          "title": "Command under fire",
+          "body": "Press O for Command mode: time runs at half speed and your gun is off while you send tanks to new squares. F, R and E order fall in, retreat and advance."
+        },
+        {
+          "title": "Win",
+          "body": "Capture the enemy HQ, hold the contested crossroads, or eliminate their platoon."
+        }
+      ],
+      "eyebrow": "HOW TO PLAY"
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "grid",
+      "heading": "Controls",
+      "items": [
+        {
+          "title": "Drive",
+          "body": "WASD or the arrow keys. On phones, the analog thumbstick."
+        },
+        {
+          "title": "Aim and fire",
+          "body": "Aim with the pointer; hold Space, click or right-click to fire. On phones, aim goes to the nearest visible enemy: hold Fire."
+        },
+        {
+          "title": "Squad orders",
+          "body": "F fall in, R retreat, E advance. On phones, the labeled buttons."
+        },
+        {
+          "title": "Pick a wingman",
+          "body": "1–9 or click a tank. On phones, tap the tank or its platoon key."
+        },
+        {
+          "title": "Command mode",
+          "body": "O, then a tank and a square. Enter locks the order, Backspace clears it, N moves to the next tank and H attacks the HQ."
+        },
+        {
+          "title": "Pause and camera",
+          "body": "P or the white flag pauses: Keep fighting or Surrender. M and drag pans, C recenters."
+        }
+      ],
+      "eyebrow": "CONTROLS"
+    },
+    {
+      "id": "features-5",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "DOM Battlefield modes",
+      "items": [
+        {
+          "title": "Quick start",
+          "body": "Anything you have not picked is rolled at random, and the battle starts."
+        },
+        {
+          "title": "Plan battle",
+          "body": "Time stays frozen while three cards set your platoon, your loadout and every tank's route. Start battle when you are ready."
+        },
+        {
+          "title": "Four operations",
+          "body": "Hedgerow breach, Desert spearhead, Winter crossroads and Twin bridges, each with Light, Normal or Heavy terrain and a dice for a new layout."
+        },
+        {
+          "title": "Three ways to win",
+          "body": "Capture an opposing HQ, hold a contested crossroads, or eliminate a platoon."
+        }
+      ],
+      "eyebrow": "MODES"
+    },
+    {
+      "id": "features-6",
+      "type": "featureList",
+      "variant": "grid",
+      "heading": "Tips",
+      "items": [
+        {
+          "title": "Retreat to repair",
+          "body": "Retreat sends your squad back to headquarters, where tanks repair. Advance returns them to the objective."
+        },
+        {
+          "title": "Bend the route",
+          "body": "Drag a route line or its flag to change where a tank goes. Every map has alternate connected routes."
+        },
+        {
+          "title": "Know your cover",
+          "body": "Houses, hedges and parked cars break into debris and rubble. Rocks and water are permanent; fences stop tanks but let shells through."
+        },
+        {
+          "title": "True full screen on phones",
+          "body": "On iPhone, Add to Home Screen; on Android, Install. The first visit on a phone explains how."
+        }
+      ],
+      "eyebrow": "TIPS"
+    },
+    {
+      "id": "features-7",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "What's new in DOM Battlefield 1.0.0",
+      "items": [
+        {
+          "title": "Same battles",
+          "body": "DOM Battlefield now runs on the Fizlet engine. Gameplay is unchanged: the new step plays the 0.18.13 battles identically."
+        },
+        {
+          "title": "Same seed, same battle",
+          "body": "Every random roll in play comes from the map's seed, so a map replays the same way from the same inputs."
+        },
+        {
+          "title": "No garbage-collection hitches",
+          "body": "Once warm, a battle step allocates nothing (tested: no minor GC over 20,000 busy steps)."
+        }
+      ],
+      "eyebrow": "WHAT'S NEW",
+      "subhead": "Version 1.0.0, released 2026-10-29.",
+      "headingAccent": "On the Fizlet engine"
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "heading": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Is DOM Battlefield free to play?",
+          "answer": "Yes. It plays in your browser with no install and no account, and it is open source (MIT)."
+        },
+        {
+          "question": "Can I play DOM Battlefield on a phone?",
+          "answer": "Yes. Phone battles put a see-through rail on each side of a full-screen field, with an analog thumbstick and labeled buttons."
+        },
+        {
+          "question": "How is it related to Sherman Bytes?",
+          "answer": "Same tanks: Sherman Bytes draws every tank with its own sprite code. DOM Battlefield adds zero bytes to the Sherman game."
+        },
+        {
+          "question": "Is there a two-player mode?",
+          "answer": "Not in DOM Battlefield yet. Battlefield Blitz, its arcade version, has a two-player mode."
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "board",
+    "tags": [
+      "board",
+      "tactics",
+      "tank"
+    ],
+    "created": "2026-10-30"
+  }
+}
