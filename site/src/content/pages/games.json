@@ -4,13 +4,13 @@
   "template": "marketing",
   "status": "published",
   "seo": {
-    "title": "Every DOM VIRUS game: play free on your page",
-    "description": "Tiny open-source arcade games that play on a real webpage: embedded games, board games and what's coming next. Play free in your browser.",
+    "title": "Browser games you play on the page: every DOM VIRUS game",
+    "description": "Six free browser games that play on a real webpage: a shooter, tank battles, a maze chase, a bug defense and a two-player tank arena.",
     "canonical": "https://coded-dot-design.github.io/dom-virus/games/",
     "schemaPageType": "CollectionPage",
     "openGraph": {
       "image": {
-        "sourceUrl": "/og/dom-virus.png"
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
       }
     }
   },
@@ -19,36 +19,11 @@
       "id": "hero",
       "type": "hero",
       "heading": "Every game",
-      "headingAccent": "From idea to board.",
-      "body": "Every DOM VIRUS game starts as an idea page and becomes a tiny game you play right on the page. The best ones grow into a full board game on their own site. Pick a cartridge, press Play, and hit Recall to give the page back."
+      "headingAccent": "Free browser games that play on the page.",
+      "body": "Every DOM VIRUS game is free to play in your browser. Four arcade games play right on this site and turn the page into the board. The two Battlefield tank games run full screen on their own sites. Filter by genre, see what's new, and press Play."
     },
     {
       "id": "features-1",
-      "type": "featureList",
-      "variant": "rows",
-      "heading": "Board games",
-      "items": [
-        {
-          "title": "DOM Battlefield",
-          "body": "Squad tactics: Sherman Bytes with a whole platoon. Plan every route, then command your squad under fire.",
-          "link": {
-            "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
-          }
-        },
-        {
-          "title": "Battlefield Blitz",
-          "body": "The arcade version: every crew for itself, parachute drops, airstrikes, most kills wins.",
-          "link": {
-            "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
-          }
-        }
-      ],
-      "headingAccent": "The big versions, on their own sites."
-    },
-    {
-      "id": "features-2",
       "type": "featureList",
       "variant": "rows",
       "heading": "Coming soon",

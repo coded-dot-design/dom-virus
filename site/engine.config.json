@@ -65,7 +65,9 @@
         "isAccessibleForFree": true
       },
       "schemaFields": [
-        "codeRepository"
+        "codeRepository",
+        "genre",
+        "playMode"
       ],
       "requires": [
         "hero"
@@ -84,6 +86,26 @@
           "embed"
         ]
       }
+    },
+    "board": {
+      "template": "marketing",
+      "path": "/games/{slug}",
+      "eyebrow": "Board game",
+      "schemaPageType": "VideoGame",
+      "schemaNameFromHeading": true,
+      "schemaDefaults": {
+        "gamePlatform": "Web browser",
+        "applicationCategory": "Game",
+        "isAccessibleForFree": true
+      },
+      "schemaFields": [
+        "codeRepository",
+        "genre",
+        "playMode"
+      ],
+      "requires": [
+        "hero"
+      ]
     },
     "engine": {
       "template": "marketing",

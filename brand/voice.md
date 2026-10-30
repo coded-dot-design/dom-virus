@@ -5,8 +5,7 @@ its home, games shelf, engine page (Under the Hood), about, blog and news, and t
 around every game page. Each game's voice ([`games/`](games/)) is in the same family and inherits
 this file.
 
-Persona source: Chris Cooley's persona story (`coded`
-`clients/domvirus/cd-domvirus-persona-story.md`, "The voice"). Family rules [`README.md`](README.md),
+Persona source: Chris Cooley's public story (the About page and the blog). Family rules [`README.md`](README.md),
 decisions [`DECISIONS.md`](DECISIONS.md) (E14: the public story), look
 [`style-guide.md`](style-guide.md). Labels, URLs and the credit come from [`family.json`](family.json).
 

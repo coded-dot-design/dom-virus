@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "87ddc522115508d5"
+    "hash": "11512eace92513c3"
   },
   "collection": "brands",
   "id": "fizlet",
@@ -9,7 +9,9 @@
   "status": null,
   "relations": {
     "games": [],
-    "posts": [],
+    "posts": [
+      "blog-moving-the-games-onto-a-4-kb-kernel"
+    ],
     "pages": []
   },
   "data": {

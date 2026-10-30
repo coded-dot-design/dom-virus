@@ -96,14 +96,15 @@ try {
   assert.equal(await promo.getAttribute("data-motion"), "false");
   await promo.getByRole("button", { name: "Resume scene animation" }).click();
   // First kill (interceptor) lands 4.24s in, the tank's 5.24s: each target explodes and vanishes.
-  const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = ms; }), ms);
-  const opacity = (loc) => loc.evaluate((el) => Number(getComputedStyle(el).opacity));
-  await at(4300);
-  assert.ok((await opacity(promo.locator(".boom").nth(0).locator(".boom-flash"))) > 0.5);
-  await at(4550);
-  assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
-  await at(5300);
-  assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
+  // Seek and read in one task: the flash fades in ~100 ms, so a separate read raced the running clock
+  // (a busy runner read it 60–240 ms late and saw it gone).
+  const opacityAt = (sel, n, ms) => promo.evaluate((el, [sel, n, ms]) => {
+    el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = ms; });
+    return Number(getComputedStyle(el.querySelectorAll(sel)[n]).opacity);
+  }, [sel, n, ms]);
+  assert.ok((await opacityAt(".boom .boom-flash", 0, 4300)) > 0.5);
+  assert.ok((await opacityAt(".die", 0, 4550)) < 0.2, "first target is destroyed");
+  assert.ok((await opacityAt(".boom .boom-flash", 1, 5300)) > 0.5);
   // Tap the card: the contained mini-game takes over (auto-aim, spawns, squash, nuke cycle).
   await promo.locator(".promo-stage").click({ position: { x: 240, y: 200 } });
   await page.waitForFunction(() => document.querySelector(".hero-crossover").dataset.play === "true");
@@ -319,11 +320,23 @@ try {
   assert.ok(meter.fps > 10 && meter.stored === "1" && meter.pressed === "true", `page meter on (${JSON.stringify(meter)})`);
   await page.keyboard.press("F9");
   assert.deepEqual(await page.evaluate(() => [document.querySelector(".fizlet-perf").hidden, localStorage.getItem("dom-virus:perf")]), [true, "0"], "F9 hides the perf overlay");
-  // Battlefield links out to its own site (landing page and the Board UI style guide).
+  // Battlefield links out to its own site (landing page and the Board UI style guide) and to Blitz's hub page.
   await page.goto(base + "games/battlefield/");
   const outs = await page.locator(".board-design a.nerd-link").evaluateAll((as) => as.map((a) => a.href));
-  assert.deepEqual(outs, ["https://coded-dot-design.github.io/dom-battlefield/", "https://coded-dot-design.github.io/dom-battlefield/blitz/", "https://coded-dot-design.github.io/dom-battlefield/style-guide/"]);
-  assert.equal(await page.locator('.actions a[href="https://coded-dot-design.github.io/dom-battlefield/"]').count(), 1, "Battlefield has a website key");
+  assert.deepEqual(outs, ["https://battlefield.domvirus.com/", `${base}games/battlefield-blitz/`, "https://battlefield.domvirus.com/style-guide/"]);
+  assert.equal(await page.locator('.actions a[href="https://battlefield.domvirus.com/"]').count(), 1, "Battlefield has a website key");
+  // The player's guide from its engine page: screenshot, how to play, modes, controls, tips, what's new, FAQ.
+  for (const e of ["HOW TO PLAY", "CONTROLS", "MODES", "TIPS", "WHAT'S NEW", "FAQ"]) assert.equal(await page.locator(".game-guide .eyebrow", { hasText: new RegExp(`^${e}$`) }).count(), 1, `Battlefield guide: ${e}`);
+  // Blitz's hub page: Play and two players go to its own site.
+  await page.goto(base + "games/battlefield-blitz/");
+  assert.deepEqual(await page.locator(".board-page .actions a").evaluateAll((as) => as.map((a) => a.href)), ["https://battlefieldblitz.domvirus.com/play/", "https://battlefieldblitz.domvirus.com/play/two/"]);
+  // The catalog: six games, a genre filter narrows it, Multiplayer leaves Blitz.
+  await page.goto(base + "games/");
+  assert.equal(await page.locator(".catalog-card").count(), 6);
+  await page.locator(".catalog-chip", { hasText: /^Multiplayer$/ }).click();
+  assert.deepEqual(await page.locator(".catalog-card:visible h3").allTextContents(), ["Battlefield Blitz"]);
+  await page.locator(".catalog-chip", { hasText: /^All$/ }).click();
+  assert.equal(await page.locator(".catalog-card:visible").count(), 6);
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   // Coming soon: the list page, the Kaiju details page and its COMING SOON cartridge on the shelf.
   await page.goto(base);
@@ -339,7 +352,7 @@ try {
   for (const path of ["", "engine/", "about/brand/", "games/byte-runner/", "games/battlefield/", "games/coming-soon/", "games/kaiju/"]) {
     await page.goto(base + path);
     assert.equal(await page.locator("h1").count(), 1, `${path || "home"} has one h1`);
-    assert.match(await page.locator('meta[property="og:image"]').getAttribute("content"), /^https:\/\/.+\.png$/);
+    assert.match(await page.locator('meta[property="og:image"]').getAttribute("content"), /^https:\/\/.+\.(png|jpg)$/);
     assert.equal(await page.locator('meta[name="twitter:card"]').getAttribute("content"), "summary_large_image");
     assert.match(await page.locator('link[rel="canonical"]').getAttribute("href"), /^https:\/\//);
   }

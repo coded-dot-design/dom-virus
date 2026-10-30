@@ -20,6 +20,7 @@ jobs:
       - run: npm run test:browser
       - run: npm run site:test:browser
       - run: npm run site:test:lifecycle
+      - run: npm run site:test:releases
       - name: Production build hides unready games (site-kit/lifecycle.mjs)
         run: npm run site:build && npm run site:test:lifecycle
         env:

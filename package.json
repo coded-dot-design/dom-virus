@@ -56,6 +56,7 @@
     "capture:characters": "node tests/capture-characters.mjs",
     "site:test:browser": "node tests/site-browser.mjs",
     "site:test:lifecycle": "node tests/site-lifecycle.mjs",
+    "site:test:releases": "node tests/site-releases.mjs",
     "perf:baseline": "node scripts/perf-baseline.mjs"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { execFileSync } from "node:child_process";
 import { gzipSync } from "node:zlib";
@@ -31,6 +31,10 @@ if (config.id === "dom-virus") {
   // when Vite re-hashes the asset): /og/dom-virus.png.
   mkdirSync(resolve(root, "site/generated/public/og"), { recursive: true });
   copyFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../assets/og-dom-virus.png"), resolve(root, "site/generated/public/og/dom-virus.png"));
+  // Game screenshots (real play captures), stable URLs for posters, share images and JSON-LD: /shots/<game>.jpg.
+  const shots = resolve(dirname(fileURLToPath(import.meta.url)), "../assets/shots");
+  mkdirSync(resolve(root, "site/generated/public/shots"), { recursive: true });
+  for (const f of readdirSync(shots).filter((n) => n.endsWith(".jpg"))) copyFileSync(resolve(shots, f), resolve(root, "site/generated/public/shots", f));
 } else roots[config.id] = root;
 const read = (file) => JSON.parse(readFileSync(file, "utf8"));
 function size(file) {
@@ -67,7 +71,13 @@ function swarmSize(gameRoot) {
     files: files.map((f) => f.slice(gameRoot.length + 1)),
   };
 }
-const archives = prepareArchives(root, names);
+// The release each game is served at ("Current"): the resolved tags, else games.json.
+const archives = prepareArchives(
+  root,
+  names,
+  latest?.pins ??
+    (config.id === "dom-virus" ? read(resolve(root, "games.json")) : {}),
+);
 const games = [];
 const artSets=read(resolve(dirname(fileURLToPath(import.meta.url)),'../character-art.json'));
 

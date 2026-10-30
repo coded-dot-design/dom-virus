@@ -10,8 +10,7 @@ Principles used: keep live URLs (engine rule 5), never invent facts or numbers (
 facts are data not prose (rulebook §11), one shared component over copies, and don't touch the game
 layer in Phase 2.
 
-Sources: the rulebook (`brand/README.md`), the client card (`brain-cache/coded`
-`clients/domvirus/_card.md`), astro-engine's contract and defaults, and the brand files written for
+Sources: the rulebook (`brand/README.md`), the owner's brief for the family, astro-engine's contract and defaults, and the brand files written for
 DOM VIRUS, the four embedded games, Battlefield, Blitz and Fizlet.
 
 ## A. Rules that conflict with what's live
@@ -62,7 +61,7 @@ DOM VIRUS, the four embedded games, Battlefield, Blitz and Fizlet.
 | D3 | Donations: GitHub Sponsors, Buy Me a Coffee or Ko-fi. | GitHub Sponsors (open source, no fees), with Ko-fi as the casual option. |
 | D4 | `dombattlefield.com` (in the Battlefield README) vs `battlefield.domvirus.com`. | Subdomain is canonical; point `dombattlefield.com` at it with a redirect if you own it. |
 | D5 | Multiplayer room server (GitHub Pages can't run one). The card names S3 + CloudFront as the hosting step-up. | Cloudflare Workers + Durable Objects for rooms (one stateful object per room over WebSockets), independent of page hosting; AWS API Gateway WebSockets if everything must live on AWS. Owner to confirm the account before E4 starts. |
-| D6 | Engine page-content path: astro-engine writes `src/content/pages`; these Astro sites use `site/src`. | Run the engine with `--site site` and point `inputs` at `../brand/` (no site restructure). Suggested engine change: a configurable pages dir (`brand/ENGINE-SUGGESTIONS.md`). |
+| D6 | Engine page-content path: astro-engine writes `src/content/pages`; these Astro sites use `site/src`. | Run the engine with `--site site` and point `inputs` at `../brand/` (no site restructure). Suggested engine change: a configurable pages dir. |
 | D7 | Who owns which words on an embedded game page. | The engine page JSON owns the marketing layer: SEO, lead, Play label, related-game cards, FAQ, the "get the code" line. Gameplay facts (loop, controls, characters, sizes, caps) stay in the game repo's `site/game.json` and the build-time size measurement, so they can't go stale. |
 | D8 | Engine `<head>` in the layout. | `npm run engine:heads` writes `abe head` output to `site/src/content/heads/<id>.html` (committed; CI can't run the private engine). The layout uses it instead of its own tags and fails the build if its canonical is not the URL being built. |
 | D9 | Hero actions and cross-links on game pages. | Play stands alone in the hero (existing tested rule); GitHub stays with the install key. Related boards with a shelf cartridge still go through the cartridge swap; the label follows §7 ("Play DOM Battlefield"). |
