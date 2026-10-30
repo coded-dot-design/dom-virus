@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "types": []
   },
-  "files": ["client.ts", "client-contracts.d.ts", "perf-switch.ts"]
+  "files": ["client.ts", "client-contracts.d.ts", "perf-switch.ts", "loops/architecture.ts", "loops/battlefield.ts", "loops/kaiju.ts", "loops/style-guide.ts"]
 }

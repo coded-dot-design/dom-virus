@@ -576,8 +576,12 @@ try {
   await page.waitForTimeout(1800);
   assert.equal(await page.locator('[data-score="1"]').textContent(), "00", "no auto duel");
   await page.locator('[data-fire="1"]').click();
-  await frames();
-  assert.equal(await page.locator('[data-score="1"]').textContent(), "01", "a hit at once, on the next frame");
+  // Fixed step: the first frame after a wake advances 0 s and the next can fall a hair short of one
+  // step, so the hit may land a frame later (6 of 30 local runs on main missed two rAFs). Up to 8
+  // frames (~133 ms) is still "at once": with motion on, a packet flies 0.56 s first.
+  let hit = "";
+  for (let i = 0; i < 4 && hit !== "01"; i++) (await frames(), (hit = await page.locator('[data-score="1"]').textContent()));
+  assert.equal(hit, "01", "a hit at once (no 0.56 s flight)");
   const bugBefore = await uth.locator(".bugs i").first().evaluate((el) => el.style.transform);
   await page.waitForTimeout(200);
   assert.equal(await uth.locator(".bugs i").first().evaluate((el) => el.style.transform), bugBefore, "bugs stay put");

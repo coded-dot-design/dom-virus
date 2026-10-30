@@ -44,7 +44,7 @@ const motion = [
   ['Cartridge swap', 'Eject, then plug in · A pressed after 1.1s', 'A link from one game to another ejects the current cartridge and plugs in the next.'],
   ['Screen → page', 'View Transition 600ms cubic-bezier(.2,.8,.2,1)', 'The console screen morphs into the game display.'],
   ['Full game', 'Board 600ms clip + 550ms fold', 'The screen grows to the viewport; the board folds open.'],
-  ['Idle loops', 'CSS steps(), paused offscreen', 'data-motion pauses anything you can’t see.'],
+  ['Idle loops', 'Fizlet timeline, asleep offscreen', 'The engine sleeps anything you can’t see; Recall gives the page back.'],
 ];
 ---
 <section class="style-guide" aria-labelledby="sg-title">
@@ -249,6 +249,7 @@ const motion = [
   </section>
 </section>
 
+<script>import "../loops/style-guide";</script>
 <style>
 .style-guide{max-width:1200px;margin:0 auto;padding:56px 30px 90px}
 .sg-hero{padding-bottom:28px;border-bottom:1px solid var(--line)}
@@ -329,8 +330,8 @@ code{font:11px var(--mono);color:var(--faint)}
 .sg-depth{position:relative;height:84px;margin-top:24px}
 .sg-depth span{position:absolute;display:grid;place-items:center;width:150px;height:50px;border:2px solid var(--ink);border-radius:8px;font:11px var(--mono);letter-spacing:.1em}
 .sg-depth .base{left:14px;top:14px;background:var(--ink);color:var(--bg)}
-.sg-depth .top{left:0;top:0;z-index:1;background:var(--surface);animation:sg-press 2.4s cubic-bezier(.2,.8,.2,1) infinite}
-@keyframes sg-press{0%,30%{transform:none}45%,55%{transform:translate(-4px,-4px)}70%,85%{transform:translate(14px,14px)}100%{transform:none}}
+/* The press loop runs on Fizlet (loops/style-guide.ts); under reduced motion the key sits still. */
+.sg-depth .top{left:0;top:0;z-index:1;background:var(--surface)}
 
 /* Components */
 .sg-carts{grid-template-columns:minmax(0,220px) minmax(0,220px) minmax(0,1fr);margin-bottom:22px;align-items:start}
@@ -414,5 +415,5 @@ code{font:11px var(--mono);color:var(--faint)}
   .sg-carts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .sg-touch .stick{width:88px;height:88px}.sg-touch .stick i{width:36px;height:36px}
 }
-@media (prefers-reduced-motion:reduce){.sg-depth .top,.sg-screen span{animation:none}}
+@media (prefers-reduced-motion:reduce){.sg-screen span{animation:none}}
 </style>

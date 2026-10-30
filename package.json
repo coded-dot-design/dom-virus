@@ -54,7 +54,7 @@
     "sync:releases": "node scripts/sync-releases.mjs",
     "site:typecheck": "tsc -p site-kit/tsconfig.json",
     "capture:characters": "node tests/capture-characters.mjs",
-    "site:test:browser": "node tests/site-browser.mjs",
+    "site:test:browser": "node tests/site-browser.mjs && node tests/site-loops.mjs && node tests/site-choreo.mjs",
     "site:test:lifecycle": "node tests/site-lifecycle.mjs",
     "site:test:releases": "node tests/site-releases.mjs",
     "perf:baseline": "node scripts/perf-baseline.mjs"

@@ -539,6 +539,10 @@
   ],
   "dom-battlefield-blitz": [
     {
+      "version": "v0.11.0",
+      "commit": "0de52c7ccac3534fad23b74c972daec8582a9c21"
+    },
+    {
       "version": "v0.10.0",
       "commit": "27e3967997732d178b25661526746258f01e41a5"
     },
