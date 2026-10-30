@@ -2409,32 +2409,6 @@ html[data-theme="light"] .embed-section {
 }
 
 /* One quiet cycle tells the story; no additional timers or frame loops. */
-@keyframes geometry-read {
-  0%,
-  20%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.6;
-  }
-  35%,
-  55% {
-    transform: translateY(4px);
-    opacity: 1;
-  }
-}
-@keyframes geometry-write {
-  0%,
-  50%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.6;
-  }
-  65%,
-  80% {
-    transform: translateY(-4px);
-    opacity: 1;
-  }
-}
 @keyframes dom-scramble {
   0%,
   35%,
@@ -2470,30 +2444,7 @@ html[data-theme="light"] .embed-section {
     transform: translateY(0);
   }
 }
-@keyframes owned-bits {
-  0%,
-  30%,
-  100% {
-    opacity: 1;
-  }
-  45%,
-  65% {
-    opacity: 0.55;
-  }
-}
-.map-exchange span:first-child .ui-icon {
-  animation: geometry-read 6s ease-in-out infinite paused;
-}
-.map-exchange span:last-child .ui-icon {
-  animation: geometry-write 6s ease-in-out infinite paused;
-}
-.ownership-map em {
-  animation: owned-bits 6s ease-in-out infinite paused;
-}
-:is(.system-map, .tick-map, .ownership-map)[data-motion="true"]
-  :is(.map-exchange .ui-icon, em) {
-  animation-play-state: running;
-}
+/* The exchange icons' nod runs on Fizlet with the rest of the diagram (loops/architecture.ts). */
 
 /* Build-time syntax colors, with real selectable code and no client highlighter. */
 .code-example {
