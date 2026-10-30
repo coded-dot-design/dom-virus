@@ -7,6 +7,8 @@
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,79}$" },
     "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,59}$" },
     "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "publishAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}(:\\d{2})?(Z|[+-]\\d{2}:\\d{2}))?$", "description": "When a scheduled entry goes live: an ISO 8601 date (YYYY-MM-DD, 00:00 UTC) or a datetime that names its zone, e.g. 2026-10-31T09:00:00-04:00 (a zone-less time would go live at a machine-dependent moment). factory/validate.mjs publishMs also refuses impossible dates and times." },
+    "isoWeek": { "type": "string", "pattern": "^\\d{4}-W(0[1-9]|[1-4]\\d|5[0-3])$", "description": "An ISO 8601 week, e.g. 2026-W44 (Monday to Sunday, UTC)." },
     "status": { "enum": ["idea", "draft", "scheduled", "published"], "description": "idea → draft → scheduled (publishAt) → published. Production shows published, and scheduled once publishAt passes." },
     "href": { "type": "string", "pattern": "^(/|#|https://|mailto:)", "maxLength": 300 },
     "line": { "type": "string", "minLength": 1, "maxLength": 160 },
@@ -65,7 +67,7 @@
         "tags": { "type": "array", "maxItems": 8, "items": { "$ref": "#/$defs/slug" } },
         "date": { "$ref": "#/$defs/date" },
         "status": { "$ref": "#/$defs/status" },
-        "publishAt": { "$ref": "#/$defs/date" },
+        "publishAt": { "$ref": "#/$defs/publishAt" },
         "image": { "type": "string", "pattern": "^https://" },
         "lead": { "type": "array", "maxItems": 3, "items": { "$ref": "#/$defs/paragraph" }, "description": "Answer-first lead paragraph(s)." },
         "blocks": { "type": "array", "items": { "$ref": "#/$defs/block" } },
@@ -80,7 +82,7 @@
         "type": { "enum": ["news", "blog", "devlog"], "description": "news: press, launches, game updates. blog: essays. devlog: the weekly build log (renders as a blog post tagged devlog)." },
         "slug": { "$ref": "#/$defs/slug" }, "title": { "$ref": "#/$defs/entry/properties/title" }, "subtitle": { "$ref": "#/$defs/entry/properties/subtitle" },
         "eyebrow": { "$ref": "#/$defs/entry/properties/eyebrow" }, "tags": { "$ref": "#/$defs/entry/properties/tags" }, "date": { "$ref": "#/$defs/date" },
-        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/date" }, "image": { "$ref": "#/$defs/entry/properties/image" },
+        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/publishAt" }, "image": { "$ref": "#/$defs/entry/properties/image" },
         "lead": { "$ref": "#/$defs/entry/properties/lead" }, "blocks": { "$ref": "#/$defs/entry/properties/blocks" }, "seo": { "$ref": "#/$defs/seo" }
       }
     },
@@ -92,21 +94,21 @@
         "type": { "type": "string", "pattern": "^[a-z][a-z-]{1,30}$", "description": "astro-base-engine page type in the site's engine.config.json (section, about, legal, …)." },
         "slug": { "$ref": "#/$defs/slug" }, "title": { "$ref": "#/$defs/entry/properties/title" }, "subtitle": { "$ref": "#/$defs/entry/properties/subtitle" },
         "eyebrow": { "$ref": "#/$defs/entry/properties/eyebrow" }, "tags": { "$ref": "#/$defs/entry/properties/tags" }, "date": { "$ref": "#/$defs/date" },
-        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/date" }, "image": { "$ref": "#/$defs/entry/properties/image" },
+        "status": { "$ref": "#/$defs/status" }, "publishAt": { "$ref": "#/$defs/publishAt" }, "image": { "$ref": "#/$defs/entry/properties/image" },
         "lead": { "$ref": "#/$defs/entry/properties/lead" }, "blocks": { "$ref": "#/$defs/entry/properties/blocks" }, "seo": { "$ref": "#/$defs/seo" }
       }
     },
-    "contestDay": {
-      "description": "One day of the fizlet.com daily contest: content/contest/<date>.json (id = date). Its entries are the fizlet gallery entries stamped \"contest\": \"<date>\"; the winner is one of them. Rules a schema can't say (prompt ≤ 60 characters, one entry per person per day, a winner needs 12 entries and a closed day): factory/contest.mjs checkDays. Generated into fizlet site/contest/days/ by `fe content contest days --write`.",
-      "type": "object", "required": ["id", "date", "theme", "brief", "status", "winner"], "additionalProperties": false,
+    "contestWeek": {
+      "description": "One ISO week of the fizlet.com weekly contest: content/contest/<YYYY-Www>.json (id = week). Its entries are that week's dailies: the live fizlet gallery entries dated inside it (at most one new piece a day: CADENCE.newPerDay in factory/anim.mjs; archived entries never); the winner is one of them. Rules a schema can't say (size decides, not the prompt: a winner's live chunk is ≤ 10,240 B gzip, bigger is posted but too big to win; a winner needs a closed week): factory/contest.mjs checkWeeks. Generated into fizlet site/contest/weeks/ by `fe content contest weeks --write`.",
+      "type": "object", "required": ["id", "week", "theme", "brief", "status", "winner"], "additionalProperties": false,
       "properties": {
         "$schema": { "type": "string" },
-        "id": { "$ref": "#/$defs/date" },
-        "date": { "$ref": "#/$defs/date" },
+        "id": { "$ref": "#/$defs/isoWeek" },
+        "week": { "$ref": "#/$defs/isoWeek" },
         "theme": { "type": "string", "minLength": 2, "maxLength": 40 },
         "brief": { "type": "string", "minLength": 10, "maxLength": 200 },
-        "status": { "enum": ["upcoming", "open", "judging", "closed"], "description": "upcoming → open (entries in) → judging → closed (winner set)." },
-        "winner": { "type": ["string", "null"], "description": "The winning gallery entry id, once the day is closed." }
+        "status": { "enum": ["upcoming", "open", "judging", "closed"], "description": "upcoming → open (the week's dailies come in) → judging → closed (winner set)." },
+        "winner": { "type": ["string", "null"], "description": "The winning gallery entry id (one of the week's dailies), once the week is closed." }
       }
     },
     "brand": {
