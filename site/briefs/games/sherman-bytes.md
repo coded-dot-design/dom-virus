@@ -51,12 +51,12 @@ item: Find the next base | G jumps to a hostile base and P pauses. XP upgrades t
 
 [features rows]
 eyebrow: WHAT'S NEW
-heading: What's new in Sherman Bytes 1.0.1 | Right on 2× screens
-subhead: Version 1.0.1, released 2026-10-30.
-item: Right on 2× and zoomed screens | On a 1.5× or 2× screen, the tank, enemies, shells and the bases' beacon rings used to draw 1.5–2× too big. Now they sit exactly on the page.
-item: The scoreboard drags | Grab the scoreboard anywhere that isn't a key, with mouse or touch. It stays inside the window, also when the window shrinks.
-item: Readable keys | The scoreboard's key labels pass WCAG AA contrast in both light and dark themes.
-item: On the Fizlet engine | Since 1.0.0, Sherman Bytes runs on the Fizlet engine with the same rules and numbers, and a scoreboard in the Board UI kit.
+heading: What's new in Sherman Bytes 1.1.0 | The Board UI scoreboard
+subhead: Version 1.1.0, released 2026-10-30.
+item: A new scoreboard | A bar across the top: score, wave, armor (red at 30%), scrap and a cannon bar that fills toward the next tier. Auto fire, Next gate (G) and Restart stay on it.
+item: GET READY, pause and the end | A 3, 2, 1 countdown starts each run, and the waves wait for it. Pause offers KEEP FIGHTING or SURRENDER. The end shows score, wave, kills, bases captured and your best on this device.
+item: No zoom mid-run | While a run is live, a pinch or a double tap no longer zooms the page out of shape. One finger still drives and taps; the end of the run gives the zoom back.
+item: Same game | The rules are unchanged; Sherman Bytes runs on Fizlet 0.20.0.
 [/features]
 
 [features cards]
