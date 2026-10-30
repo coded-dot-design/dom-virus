@@ -1,12 +1,12 @@
 ---
-// Under the hood: the engineering page, rebuilt as a lab. Every diagram is a tiny live demo run
-// by site-kit/lab.ts (one rAF loop per visible lab, pooled nodes, transforms only, paused offscreen,
-// no autoplay with reduced motion). It opens with where this all started: Bolo.
+// Under the hood: the engineering page, rebuilt as a lab. Every diagram is a tiny live demo: a
+// Fizlet scene (vendor/fizlet/labs, the same as the Fizlet gallery's; markup, look and behaviour
+// come from there), mounted by site-kit/lab.ts. It opens with where this all started: Bolo.
 import UiIcon from './UiIcon.astro';
-import Icon from './AbstractIcon.astro';
+import '../../vendor/fizlet/labs/labs.css';
+import { boardFigure, duelFigure, pipelineFigure, poolFigure, recallFigure } from '../../vendor/fizlet/labs/index';
 const { data } = Astro.props;
 const kb = (n) => (n / 1000).toFixed(1);
-const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v-6H0V24h5v-6h6v-6h8ZM11 29v14h15V29Zm26 0v14h15V29Z';
 const specs = [
   ['1', 'rAF loop', 'One frame loop drives the whole game.'],
   ['100', 'particle slots', 'Reused, never re-allocated.'],
@@ -16,13 +16,6 @@ const specs = [
   ['10 Hz', 'HUD updates', 'Separate from the canvas.'],
   ['1.5×', 'canvas DPR cap', 'Sharp enough, never wasteful.'],
   ['24', 'score popups', 'Pooled, like everything else.'],
-];
-const pipeline = [
-  ['src/', 'engine'],
-  ['sync:games', 'snapshot + ORIGIN.json'],
-  ['game repo', 'test · tag vX'],
-  ['games.json', 'hub pin'],
-  ['Pages', 'static, no server'],
 ];
 ---
 <section class="uth" id="engineering" data-lab-page>
@@ -42,21 +35,7 @@ const pipeline = [
       <p>DOM VIRUS is the same trick, pointed at a webpage: a game that reaches into the page you’re reading.</p>
       <p class="origin-next"><UiIcon name="target" size={16}/> Coming soon: DOM Battlefield multiplayer. Two players, two pages, one battle.</p>
     </div>
-    <figure class="lab-stage duel" aria-label="Two computers joined by a network cable. Fire from either side: a packet crosses the cable and hits the other tank.">
-      <div class="machine" data-side="0">
-        <span class="mac"><span class="crt"><span class="tank-sprite"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">MAC 01 · YOU</span>
-        <span class="duel-score" data-score="0">00</span>
-        <button class="lab-key" data-fire="0" aria-label="Fire from Mac 01">FIRE</button>
-      </div>
-      <div class="cable" aria-hidden="true"><i></i><span>THE NETWORK</span></div>
-      <div class="machine" data-side="1">
-        <span class="mac"><span class="crt mirror"><span class="tank-sprite flip"><Icon kind="tank" size={34}/></span><b class="hit-flash"></b></span><span class="chin"><b></b><i></i></span></span>
-        <span class="machine-label">MAC 02<span class="long"> · THEM</span></span>
-        <span class="duel-score" data-score="1">00</span>
-        <button class="lab-key" data-fire="1" aria-label="Fire from Mac 02">FIRE</button>
-      </div>
-    </figure>
+    <Fragment set:html={duelFigure()}/>
   </article>
 
   <!-- 01 THE PAGE BECOMES THE BOARD -->
@@ -67,18 +46,7 @@ const pipeline = [
       <p>A custom host attaches a Shadow Root for the canvas and controls, so game UI styles never leak into your page. The board adapter reads real DOM geometry once, caches it, and the simulation plays against that map. Letters and buttons stay in the real document.</p>
       <p>Turn on X-ray to see what the game sees. The bug walks around real elements. Click the button: buttons are enemy factories.</p>
     </div>
-    <figure class="lab-stage board" aria-label="A miniature web page. X-ray shows the rectangles a game reads; bugs bounce off them; the button spawns more bugs.">
-      <div class="mini-page" data-board>
-        <div class="mini-chrome"><i></i><i></i><i></i><span>your.page</span></div>
-        <div class="mini-title" data-solid>Hello, world.</div>
-        <p data-solid>Paragraphs become terrain.</p>
-        <p data-solid class="short">Text is cover.</p>
-        <button class="mini-button" data-solid data-factory>BUTTON_01</button>
-        <div class="xray" aria-hidden="true"></div>
-        <div class="bugs" aria-hidden="true"></div>
-      </div>
-      <div class="lab-keys"><button class="lab-key" data-xray aria-pressed="false">X-RAY</button><span class="lab-readout" data-bug-count>BUGS 1 / 6</span></div>
-    </figure>
+    <Fragment set:html={boardFigure()}/>
   </article>
 
   <!-- 02 ONE LOOP. BOUNDED WORK. -->
@@ -89,12 +57,7 @@ const pipeline = [
       <p>One requestAnimationFrame loop. A spatial grid narrows collisions. Bullets, enemies and particles live in fixed pools with hard ceilings, so a long session never grows its memory. Projectiles query cached geometry instead of asking the browser for layout every shot.</p>
       <p>Spawn as much as you like. The pool holds 32: past that the engine says no, and the frame stays inside its budget.</p>
     </div>
-    <figure class="lab-stage pool" aria-label="A pool of 32 reusable slots. Spawn particles until the cap rejects new ones; the frame-time meter stays within budget.">
-      <div class="arena" data-arena></div>
-      <div class="slots" data-slots>{Array.from({ length: 32 }, () => <i></i>)}</div>
-      <div class="meter"><span>FRAME</span><b><i data-frame-bar></i><em></em></b><code data-frame-ms>16.7ms</code></div>
-      <div class="lab-keys"><button class="lab-key" data-spawn>SPAWN ×8</button><span class="lab-readout" data-pool-readout>ACTIVE 00 / 32 · REJECTED 0 · ALLOCATIONS 0</span></div>
-    </figure>
+    <Fragment set:html={poolFigure()}/>
   </article>
 
   <!-- 03 RECALL -->
@@ -102,14 +65,10 @@ const pipeline = [
     <div class="lab-copy">
       <span class="eyebrow"><span class="lab-no">03</span> THE PART WE CARE ABOUT MOST</span>
       <h2 id="recall-title">Recall gives the page back.</h2>
-      <p>Hits rewrite characters inside the existing Text node to a literal 0 or 1. No clones, no per-letter wrappers. An ownership ledger records the original and what the game wrote. Recall restores only what is still the game’s; if your app changed it since, your app wins.</p>
+      <p>Hits rewrite letters in place, in the page’s own Text nodes, to a literal 0 or 1. No clones, no wrapper elements. An ownership ledger records the original and what the game wrote. Recall restores only what is still the game’s; if your app changed it since, your app wins.</p>
       <p>Fire at the sentence, let “your app” edit a hit letter, then Recall.</p>
     </div>
-    <figure class="lab-stage recall" aria-label="A real sentence in a text node. Fire turns letters into digits and logs them; App edit changes one; Recall restores only the game's own edits.">
-      <p class="victim" data-victim>Hello, world. Same page, different rules.</p>
-      <ol class="ledger" data-ledger aria-label="Ownership ledger"></ol>
-      <div class="lab-keys"><button class="lab-key" data-hit>FIRE</button><button class="lab-key" data-app-edit>APP EDIT</button><button class="lab-key primary-key" data-recall>RECALL</button><span class="lab-readout" data-owned>OWNED 0</span></div>
-    </figure>
+    <Fragment set:html={recallFigure()}/>
   </article>
 
   <!-- SPEC SHEET -->
@@ -127,11 +86,7 @@ const pipeline = [
       <h2 id="ship-title">Build once. Ship each.</h2>
       <p>The engine lives here. Each game gets a fingerprinted snapshot, tests itself and tags its own release. The hub pins exact versions and Pages serves static files: no runtime iframe, no remote content service, no client framework.</p>
     </div>
-    <figure class="lab-stage pipeline" aria-label="Release pipeline from engine source to the live site. Ship it sends a release through each stage.">
-      <ol class="stages">{pipeline.map(([t, s]) => <li><b>{t}</b><span>{s}</span></li>)}</ol>
-      <i class="parcel" aria-hidden="true"><svg viewBox="0 0 64 64" shape-rendering="crispEdges"><path fill-rule="evenodd" d={SKULL}/></svg></i>
-      <div class="lab-keys"><button class="lab-key" data-ship>SHIP IT</button><span class="lab-readout" data-ship-readout>READY</span></div>
-    </figure>
+    <Fragment set:html={pipelineFigure()}/>
   </article>
 
   <div class="engine-hud" data-engine-hud data-idle aria-hidden="true"><span class="hud-led"></span><span>ENGINE</span><span>FPS <b data-hud-fps>--</b></span><span><span class="long">ENTITIES</span><span class="short">ENT</span> <b data-hud-entities>0</b></span><span><span class="long">LABS AWAKE</span><span class="short">AWAKE</span> <b data-hud-awake>0</b>/<b data-hud-total>5</b></span></div>
@@ -153,78 +108,6 @@ const pipeline = [
 .lab-no{display:inline-block;margin-right:8px;padding:2px 6px;font:700 10px/1.3 var(--mono);color:var(--accent-ink);background:var(--accent);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);rotate:-5deg}
 .origin-next{display:flex;align-items:center;gap:8px;color:var(--ink)!important;font:600 12px/1.4 var(--mono)!important;letter-spacing:.02em}
 .origin-next :global(.ui-icon){color:var(--accent-text,var(--accent));flex-shrink:0}
-/* The stage: a card in the lab's accent with the site's hard shadow. */
-.lab-stage{position:relative;margin:0;padding:18px;background:var(--surface);border:2px solid var(--ink);border-radius:10px;box-shadow:6px 6px 0 var(--accent)}
-.lab-keys{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
-.lab-key{min-height:38px;padding:8px 14px;font:700 11px/1 var(--mono);letter-spacing:.08em;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
-.lab-key[aria-pressed="true"],.primary-key{background:var(--accent);color:var(--accent-ink)}
-.lab-key[aria-pressed="true"],.lab-key[aria-pressed="true"]:hover{transform:translate(3px,3px)!important;box-shadow:0 0 0 var(--ink)!important}
-.lab-key:disabled{opacity:.45;cursor:default}
-.lab-readout{font:600 10px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted)}
-
-/* 00 duel */
-.duel{display:grid;grid-template-columns:1fr 70px 1fr;align-items:start;gap:0}
-.machine{display:grid;justify-items:center;gap:8px;text-align:center}
-.mac{display:grid;width:100%;max-width:170px;padding:9px 9px 0;background:#d9d3c3;border:2px solid var(--ink);border-radius:10px 10px 6px 6px;box-shadow:3px 3px 0 var(--ink)}
-.crt{position:relative;display:grid;place-items:center;aspect-ratio:4/3;background:repeating-linear-gradient(0deg,#ffffff08 0 2px,transparent 2px 4px),#0b0a1a;border:2px solid #8f8879;border-radius:6px;color:var(--accent);overflow:hidden}
-/* A scrap of a Bolo map: walls, a pillbox and a dot grid. */
-.crt::before{content:"";position:absolute;inset:0;background:linear-gradient(#3d3566,#3d3566) 10% 18%/22% 9% no-repeat,linear-gradient(#3d3566,#3d3566) 10% 18%/7% 30% no-repeat,linear-gradient(#3d3566,#3d3566) 88% 82%/26% 9% no-repeat,linear-gradient(#3d3566,#3d3566) 72% 14%/9% 9% no-repeat,linear-gradient(#ffd16655,#ffd16655) 16% 84%/8% 11% no-repeat,radial-gradient(#ffffff16 1px,transparent 1.5px) 0 0/10px 10px}
-.crt.mirror::before{scale:-1 1}
-.chin{display:flex;align-items:center;gap:8px;height:24px;padding:0 6px}
-.chin b{width:5px;height:5px;border-radius:1px;background:#4bce82;box-shadow:0 0 0 1px #5d574b}
-.chin i{width:32px;height:4px;margin-left:auto;border-radius:2px;background:#5d574b}
-.tank-sprite{display:block;transition:translate .12s}
-.tank-sprite.flip{scale:-1 1}
-.tank-sprite :global(svg){display:block;width:44px;height:44px}
-.hit-flash{position:absolute;inset:5px;border-radius:6px;background:#ffd166;opacity:0;pointer-events:none}
-.machine-label{font:600 9px/1.3 var(--mono);letter-spacing:.08em;color:var(--muted)}
-.duel-score{font:700 22px/1 var(--mono);color:var(--ink)}
-.cable{position:relative;height:100%;display:grid;place-items:center}
-.cable i{position:absolute;left:-4px;right:-4px;top:38%;height:3px;background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 9px)}
-.cable span{position:absolute;top:calc(38% + 10px);left:50%;translate:-50% 0;width:90px;text-align:center;font:600 7px/1.3 var(--mono);color:var(--faint);letter-spacing:.05em}
-.duel :global(.packet){position:absolute;top:0;left:0;width:11px;height:11px;margin-left:-5px;background:#ffd166;border:2px solid var(--ink);border-radius:2px}
-
-/* 01 board */
-.mini-page{position:relative;padding:44px 22px 22px;min-height:250px;background:var(--bg);border:2px solid var(--ink);border-radius:8px;overflow:hidden}
-.mini-chrome{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:5px;padding:9px 12px;border-bottom:1px solid var(--line);font:9px var(--mono);color:var(--faint)}
-.mini-chrome i{width:6px;height:6px;border-radius:50%;background:#f4457a}.mini-chrome i:nth-child(2){background:#ffb547}.mini-chrome i:nth-child(3){background:#4bce82}
-.mini-chrome span{margin-left:auto}
-.mini-page .mini-title{display:inline-block;margin:6px 0 14px;font:800 30px/1 var(--mono);letter-spacing:-.02em}
-.mini-page p{width:fit-content;margin:0 0 10px;font-size:14px;color:var(--muted)}
-.mini-page p.short{margin-left:80px}
-.mini-button{margin-top:10px;min-height:34px;padding:6px 14px;font:700 11px var(--mono);color:var(--ink);background:var(--raised);border:2px solid var(--ink);border-radius:6px;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
-.xray{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s}
-.board[data-xray-on] .xray{opacity:1}
-.xray :global(b){position:absolute;border:2px dashed var(--accent);border-radius:3px;background:color-mix(in srgb,var(--accent) 10%,transparent)}
-.xray :global(b span){position:absolute;left:calc(100% + 6px);top:50%;translate:0 -50%;padding:1px 5px;font:700 8px/1.3 var(--mono);color:var(--accent-ink);background:var(--accent);white-space:nowrap}
-.bugs{position:absolute;inset:0;pointer-events:none}
-.bugs :global(i){position:absolute;left:0;top:0;width:20px;height:20px;color:#8573ee;will-change:transform}
-.bugs :global(i svg){display:block;width:20px;height:20px}
-
-/* 02 pool */
-.arena{position:relative;height:170px;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#0b0a1a;border:2px solid var(--ink);border-radius:8px;overflow:hidden}
-.arena :global(i){position:absolute;left:50%;bottom:0;width:6px;height:6px;margin-left:-3px;background:var(--c,#4bce82);box-shadow:0 0 8px var(--c,#4bce82);opacity:0;will-change:transform}
-.slots{display:grid;grid-template-columns:repeat(16,1fr);gap:4px;margin-top:12px}
-.slots i{aspect-ratio:1;border:1px solid var(--line);border-radius:2px;background:transparent;transition:background .12s}
-.slots i:global(.on){background:var(--accent);border-color:var(--ink)}
-.pool:global(.capped) .slots{animation:cap-shake .3s}
-@keyframes cap-shake{25%{translate:-3px 0}75%{translate:3px 0}}
-.meter{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-top:12px;font:600 9px var(--mono);color:var(--muted)}
-.meter b{position:relative;height:8px;background:var(--raised);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.meter i{position:absolute;inset:0;background:var(--accent);transform:scaleX(.5);transform-origin:left;transition:transform .1s linear}
-.meter em{position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
-.meter code{min-width:46px;text-align:right;color:var(--ink)}
-
-/* 03 recall */
-.victim{margin:6px 0 16px;font:700 clamp(20px,2.6vw,28px)/1.35 var(--mono);color:var(--ink);overflow-wrap:anywhere}
-::highlight(lab-owned){color:#8573ee}
-::highlight(lab-app){color:#ffb547}
-.ledger{display:grid;gap:4px;min-height:96px;margin:0;padding:10px 12px;list-style:none;font:600 10px/1.5 var(--mono);color:var(--muted);background:var(--bg);border:1px dashed var(--line);border-radius:6px}
-.ledger:empty::before{content:"LEDGER EMPTY. FIRE TO OWN A LETTER.";color:var(--faint)}
-.ledger :global(li b){color:var(--accent-text,var(--accent))}
-.ledger :global(li.app b){color:#c98a14}
-.ledger :global(li.back){opacity:.45;text-decoration:line-through}
-
 /* spec */
 .spec{margin:0 0 56px}
 .spec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 40px;align-items:end;margin-bottom:20px}
@@ -243,15 +126,6 @@ const pipeline = [
 .size-chips small{font-weight:500;color:var(--muted)}
 .spec-note{margin:0;max-width:820px;font-size:12px;color:var(--faint)}
 
-/* 05 pipeline */
-.stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:8px 0 0;padding:0;list-style:none;counter-reset:s}
-.stages li{position:relative;display:grid;gap:2px;padding:10px 8px;text-align:center;background:var(--bg);border:2px solid var(--line);border-radius:8px;transition:border-color .15s,background-color .15s}
-.stages li:global(.lit){border-color:var(--ink);background:color-mix(in srgb,var(--accent) 22%,var(--surface))}
-.stages b{font:700 11px/1.2 var(--mono);color:var(--ink);overflow-wrap:anywhere}
-.stages span{font-size:10px;color:var(--muted)}
-.parcel{position:absolute;left:0;top:0;z-index:2;width:22px;height:22px;opacity:0;pointer-events:none}
-.parcel svg{width:100%;height:100%;fill:#f4457a;filter:drop-shadow(1px 1px 0 var(--ink))}
-
 .engine-hud{pointer-events:none;position:sticky;bottom:14px;z-index:6;display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;width:fit-content;margin:0 0 0 auto;padding:8px 12px;font:600 10px/1.2 var(--mono);letter-spacing:.06em;color:var(--muted);background:var(--surface);border:2px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--accent)}
 .engine-hud .short{display:none}
 .engine-hud b{color:var(--ink);font-variant-numeric:tabular-nums}
@@ -266,19 +140,12 @@ const pipeline = [
   .lab.reverse .lab-copy{order:0}
   .lab{margin-bottom:44px}
   .spec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stages{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stages li:last-child{grid-column:1/-1}
 }
 @media (max-width:420px){
-  .duel{grid-template-columns:1fr 34px 1fr}
-  .cable span{display:none}
-  .lab-stage{padding:14px}
-  .mini-page .mini-title{font-size:24px}
-  .slots{grid-template-columns:repeat(8,1fr)}
   .spec-card b{font-size:24px}
   .engine-hud{gap:4px 10px;padding:6px 10px;font-size:9px;bottom:10px}
-  .engine-hud .long,.machine-label .long{display:none}
+  .engine-hud .long{display:none}
   .engine-hud .short{display:inline}
 }
-@media (prefers-reduced-motion:reduce){.pool:global(.capped) .slots{animation:none}.meter i{transition:none}.hud-led{animation:none}}
+@media (prefers-reduced-motion:reduce){.hud-led{animation:none}}
 </style>
