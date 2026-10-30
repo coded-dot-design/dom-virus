@@ -77,7 +77,8 @@ function build(root: HTMLElement, loops: [Element | ArrayLike<Element>, Keyframe
       // Off screen or in a hidden tab the engine pauses and calls each system's pause(): a timeline's
       // own pause() would then stop the loop for good. Run it through its step and render only, so
       // it carries on where it was when the engine wakes. (Fizlet 0.20.0: Timeline.pause doubles as
-      // the System pause hook.)
+      // the System pause hook.) Workaround: fizlet#170 fixes this in Fizlet 0.21.0; once 0.21.0 is
+      // vendored (scripts/sync-fizlet.mjs), drop these two lines and keep the timeline as added.
       engine.remove(tl);
       engine.add({ step: tl.step, render: tl.render });
       lines.set(key, [tl, phase]);
