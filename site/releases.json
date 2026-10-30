@@ -1,6 +1,10 @@
 {
   "sherman-bytes": [
     {
+      "version": "v0.5.2",
+      "commit": "714b5e6b7ec0bd7d9eb70a4cbe9804dbe86941db"
+    },
+    {
       "version": "v0.5.1",
       "commit": "dfa105828e6f7d653c2565aa03d1515cf2641ef1"
     },

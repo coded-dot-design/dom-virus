@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Sherman Bytes 1.0.0 on Fizlet** (ENGINE.md E3) is pinned; 0.5.2, its last build on this core, joins TEST A RELEASE. All three embedded arcade games now run on Fizlet.
+- **DOM Battlefield 1.0.0** (on Fizlet; its Board UI comes from `fizlet/ui`): `battlefield.json` moves to the 1.x line, so hourly builds follow the newest 1.x tag.
+
 ## 0.48.0
 
 - **Null Invaders 1.0.0 and Byte Runner 1.0.0, the first games on Fizlet** (ENGINE.md E3), are pinned. 0.7.2 and 0.10.2, their last builds on this core, join TEST A RELEASE with every earlier release.
