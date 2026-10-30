@@ -1,0 +1,118 @@
+{
+  "app": "swarm-protocol",
+  "version": "1.4.0",
+  "hub": "0.48.0",
+  "date": "2026-10-30T15:32:22.161Z",
+  "started": true,
+  "setup": {
+    "cpuThrottle": 4,
+    "seconds": 10,
+    "warmMs": 2000,
+    "viewport": "1440x900",
+    "browser": "153.0.8010.12",
+    "runs": 3
+  },
+  "load1": 28.08,
+  "frames": {
+    "count": 129,
+    "fps": 12.9,
+    "avgMs": 77.77,
+    "p50Ms": 66.7,
+    "p95Ms": 166.7,
+    "maxMs": 349.9,
+    "over33ms": 97
+  },
+  "longTasks": {
+    "count": 70,
+    "totalMs": 6481,
+    "maxMs": 335
+  },
+  "heapMB": 3.77,
+  "domNodes": 3481,
+  "perSecond": {
+    "layouts": 9.6,
+    "styleRecalcs": 23.8,
+    "scriptMs": 241.81,
+    "layoutMs": 20.39,
+    "styleMs": 171.01,
+    "taskMs": 932.56
+  },
+  "errors": [],
+  "runs": [
+    {
+      "load1": 28.99,
+      "frames": {
+        "count": 132,
+        "fps": 13.2,
+        "avgMs": 76.64,
+        "p50Ms": 66.6,
+        "p95Ms": 166.7,
+        "maxMs": 516.7,
+        "over33ms": 97
+      },
+      "longTasks": {
+        "count": 70,
+        "totalMs": 6481,
+        "maxMs": 395
+      },
+      "perSecond": {
+        "layouts": 8.5,
+        "styleRecalcs": 24.5,
+        "scriptMs": 240.67,
+        "layoutMs": 18.2,
+        "styleMs": 171.01,
+        "taskMs": 932.56
+      }
+    },
+    {
+      "load1": 28.08,
+      "frames": {
+        "count": 125,
+        "fps": 12.5,
+        "avgMs": 79.33,
+        "p50Ms": 66.7,
+        "p95Ms": 150.1,
+        "maxMs": 333.4,
+        "over33ms": 100
+      },
+      "longTasks": {
+        "count": 71,
+        "totalMs": 6704,
+        "maxMs": 322
+      },
+      "perSecond": {
+        "layouts": 9.6,
+        "styleRecalcs": 23.8,
+        "scriptMs": 241.81,
+        "layoutMs": 27.34,
+        "styleMs": 195.84,
+        "taskMs": 949.54
+      }
+    },
+    {
+      "load1": 27.37,
+      "frames": {
+        "count": 129,
+        "fps": 12.9,
+        "avgMs": 77.77,
+        "p50Ms": 66.7,
+        "p95Ms": 233.2,
+        "maxMs": 349.9,
+        "over33ms": 93
+      },
+      "longTasks": {
+        "count": 66,
+        "totalMs": 6318,
+        "maxMs": 335
+      },
+      "perSecond": {
+        "layouts": 9.6,
+        "styleRecalcs": 23.8,
+        "scriptMs": 270.18,
+        "layoutMs": 20.39,
+        "styleMs": 157.69,
+        "taskMs": 915.21
+      }
+    }
+  ]
+}
