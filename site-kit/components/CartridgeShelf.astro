@@ -5,7 +5,7 @@ import battlefieldIcon from '../assets/battlefield-icon.svg?raw';
 import kaijuIcon from '../assets/kaiju-icon.svg?raw';
 import { gameShown } from '../lifecycle.mjs';
 /*
-  Home-page game picker, played like a tiny game (logic in client.ts):
+  Home-page game picker, played like a tiny game (logic in site-kit/console/, on Fizlet):
   cartridges pop up as the shelf scrolls in → pick one → it flies over and slides down behind the
   console's top edge →
   power LED, PRESS START, A pulses → press A / tap the screen / Enter (or wait) → the console
@@ -19,7 +19,7 @@ import { gameShown } from '../lifecycle.mjs';
 const { games, base = '/' } = Astro.props;
 // Idle screen roster: good guys and bad guys from the games roll by on a loop. With nothing
 // plugged in the console is a tiny game: red (A) fires at the crosshair, blue (B) or a tap on the
-// screen makes the middle character jump (client.ts).
+// screen makes the middle character jump (site-kit/console/).
 const attract = [
   { kind: 'ship', color: '#06c4ff', side: 'good' },
   { kind: 'bug', color: '#8573ee', side: 'bad' },
@@ -84,15 +84,16 @@ const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v
     </div>
   </div>
 </section>
+{/* The hub's wiring (site-kit/shelf.ts). A site that vendors this console mounts site-kit/console/ with its own options instead. */}
+<script>import "../shelf.ts";</script>
 <style>
 .cartridge-shelf{position:relative;padding:56px 24px 80px;text-align:center}
 h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
 .shelf{display:grid;grid-template-columns:repeat(var(--carts,6),minmax(0,186px));justify-content:center;gap:20px}
-/* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). */
+/* Pop-up from the bottom when the shelf scrolls in (JS opts in, so no-JS stays visible). Hidden
+   until the pop-in (a Fizlet timeline, site-kit/console/) writes its first frame. */
 .shelf[data-pop="wait"] :global(.cartridge){opacity:0;transform:translateY(90px) rotate(6deg)}
-.shelf[data-pop="in"] :global(.cartridge){animation:cart-pop .7s cubic-bezier(.3,1.5,.5,1) calc(var(--i) * 110ms) backwards}
-@keyframes cart-pop{from{opacity:0;transform:translateY(90px) rotate(6deg)}}
 
 /* Unbranded handheld-style console, drawn with the same 3D rules as the cartridges: front face and
    a hard pink right/bottom side; the top face isn't visible, so the cartridge slides in behind the
@@ -154,7 +155,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 /* Booted: power on, cartridge name, PRESS START, A pulses. */
 .console:global(.booting) .screen{background-color:var(--boot);color:#07060f;box-shadow:inset 0 0 40px #0006,0 0 30px var(--boot)}
 .console:global(.booting) :is(.boot,.attract,.hits){display:none}
-.console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px;animation:boot .42s steps(3) both}
+.console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px}
 /* Loading: after start, PRESS START gives way to LOADING… (and sometimes a cartridge joke). */
 .loading{display:none}
 .console:global(.is-loading) .start{display:none!important}
@@ -171,16 +172,13 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting) .btn.a{cursor:pointer;animation:press-me .7s ease-in-out infinite}
 /* Full game: the second LED kicks on too. */
 .console:global(.booting.full) .led.two{background:#f4457a;box-shadow:0 0 10px #f4457a;transition-delay:.38s}
-/* Start: the screen flashes; the console itself never moves (launch and return mirror exactly). */
-.console:global(.starting) .screen{animation:flash .18s steps(2)}
+/* Start: the screen flashes (timeline); the console itself never moves (launch and return mirror exactly). */
 .console:global(.starting) .btn.a{animation:none;transform:translate(calc(3px * var(--sx)), calc(3px * var(--sy)));box-shadow:0 0 0 var(--sc)}
 @keyframes blink{50%{opacity:.25}}
-@keyframes boot{from{opacity:0;letter-spacing:12px}}
 .console:global(.booting.choice) .btn.b{animation:press-me-b .7s .35s ease-in-out infinite}
 .console:global(.starting) .btn{animation:none}
 @keyframes press-me-b{50%{transform:scale(1.15);box-shadow:calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--sc),0 0 0 6px #06c4ff44}}
 @keyframes press-me{50%{transform:scale(1.15);box-shadow:calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--sc),0 0 0 6px #f4457a44}}
-@keyframes flash{50%{background-color:#fff}}
 
 /* Full-game launch: the screen grows into the whole viewport and the game board folds open. */
 /* The full window width (under any scrollbar), as on the game page, so the doors' seam never jumps at the handoff. */
@@ -188,29 +186,24 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 :global(html.board-full){scrollbar-width:none}
 :global(html.board-full)::-webkit-scrollbar{display:none}
 :global(.board-open > b){position:absolute;width:var(--w);height:var(--h);left:var(--x);top:var(--y);background:#3a3f5c;border:2px solid #06c4ff55}
-:global(.board-open > em){position:absolute;left:var(--x);top:var(--y);width:22px;height:22px;background:var(--c);border:2px solid #07060f;box-shadow:0 0 14px var(--c);opacity:0;animation:board-text .2s calc(.75s + var(--d)) steps(2) forwards}
-:global(.board-open > span){opacity:0;animation:board-text .3s .8s steps(3) forwards;text-shadow:0 0 12px #06c4ff}
-:global(.board-open > i){position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(135deg,#0000 0 14px,#ffffff14 14px 17px),#ff2e88;border:3px solid #07060f;animation:board-fold .55s .62s cubic-bezier(.6,0,.3,1) forwards}
+:global(.board-open > em){position:absolute;left:var(--x);top:var(--y);width:22px;height:22px;background:var(--c);border:2px solid #07060f;box-shadow:0 0 14px var(--c)}
+:global(.board-open > span){text-shadow:0 0 12px #06c4ff}
+:global(.board-open > i){position:absolute;top:0;bottom:0;width:50%;background:repeating-linear-gradient(135deg,#0000 0 14px,#ffffff14 14px 17px),#ff2e88;border:3px solid #07060f}
 :global(.board-open > i.l){left:0;transform-origin:0 50%}
 :global(.board-open > i.r){right:0;transform-origin:100% 50%;--fold:100deg}
-/* Reverse: the board arrives open, covers fold shut, then it shrinks back into the screen. */
+/* The board is always up with its doors shut (hold: launching; shut: coming back, where the doors
+   start folded open and fold shut on a timeline, then it shrinks back into the screen). */
 :global(.board-open:is(.hold,.shut) > :is(b,em,span)){display:none}
-:global(.board-open.hold > i){animation:none}
-:global(.board-open.shut > i){animation:none;transform:rotateY(var(--fold,-100deg));opacity:.4}
-:global(.board-open.shut > :is(span,em)){animation:none;opacity:1}
-:global(.board-open.shut.closing > i){animation:board-fold .5s .1s cubic-bezier(.6,0,.3,1) reverse both}
-:global(.board-open.shut.closing > :is(span,em)){opacity:0;transition:opacity .2s .35s}
+:global(.board-open.shut > i){transform:rotateY(var(--fold,-100deg));opacity:.4}
 /* Returning from a game (state from the URL, set before first paint by Site.astro): the screen is
    ready to morph back from the game page. */
 :global(html[data-return-mode="screen"]) .screen{view-transition-name:game-screen}
 :global(html[data-return-mode="board"] body)::after{content:"";position:fixed;inset:0;z-index:9998;background:#07060f}
-@keyframes board-fold{to{transform:rotateY(var(--fold,-100deg));opacity:.4}}
-@keyframes board-text{to{opacity:1}}
 
 @media (max-width:1260px){.shelf{grid-template-columns:repeat(3,minmax(0,210px))}}
 /* Phones / small tablets: one horizontal row you swipe through, snapping a cartridge to the
    middle with its neighbours peeking in. It runs edge to edge; the padding lets the first and last
-   cartridge centre. A scroller clips its content, so client.ts lifts a cartridge out of the row
+   cartridge centre. A scroller clips its content, so the console module lifts a cartridge out of the row
    (into .flight-deck, same spot) before it flies to the console, and puts it back after. */
 @media (max-width:860px){
   /* Cartridges are sized from the console (half its width, desktop proportions), so a plugged

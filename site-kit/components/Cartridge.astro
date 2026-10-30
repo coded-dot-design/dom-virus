@@ -4,7 +4,7 @@
 // pad ({ pad: 'a' | 'b' | 'start', label, href, launch: 'screen' | 'board' }) and shows them on
 // screen. No actions = one: open `href` (PRESS START). A cartridge that launches a full game
 // ('board') is a special edition: a sticker, and both console LEDs light.
-// Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / client.ts.
+// Shelf-level behaviour (pop-in, plug-in flight) lives in CartridgeShelf / site-kit/console/.
 // placeholder: just the empty bay (dashed outline + muted cover), as left behind when it's plugged in.
 // soon: a COMING SOON cartridge (its one action opens the game's details page).
 const { id, href, accent, index = 0, kind, name, tagline, actions, placeholder = false, soon = false } = Astro.props;
