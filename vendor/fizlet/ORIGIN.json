@@ -1,16 +1,20 @@
 {
-  "note": "Generated snapshot (a subset: the perf overlay and the kit's Settings switch). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
+  "note": "Generated snapshot (a subset: the perf overlay, the kit's Settings switch and the Under the hood labs from site/labs/, kernel imports pointed at ../). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
   "repository": "https://github.com/coded-dot-design/fizlet",
-  "version": "0.15.0",
-  "commit": "c6ffc1e1e701a68e4bcb2a7023fcf14640aa228e",
+  "version": "0.18.0",
+  "commit": "5888e9a4a2972702252aacbe797912f4805b3e47",
   "files": [
+    {
+      "path": "kernel/index.ts",
+      "sha256": "35bd584659e5b83e9e68cc6615c25c20090f237f6b06c96d8d3c6f95e6e251e3"
+    },
     {
       "path": "kernel/engine.ts",
       "sha256": "e993cb68a1944c562d082bf37a56aed91d0b7b03f7feb83bb5a20a90962c4462"
     },
     {
       "path": "kernel/ledger.ts",
-      "sha256": "ba7918bc2531cc0d68953e90f59dffdaefb080bdaf6ef12d902c4b813c57233e"
+      "sha256": "f11fe030976a8ad0fccb733c4f485157990a6c75e3c57834e789b8ac0c2af3aa"
     },
     {
       "path": "kernel/need.ts",
@@ -30,11 +34,43 @@
     },
     {
       "path": "perf.ts",
-      "sha256": "1c92e0aaf1689606b798cad2f9c01e71fbc0a11f69273f2c89f40e38e9e81c14"
+      "sha256": "83eb2ffd66fa31a6d96c3d954240519f0c8e00e13fdba0102b2ae16a537c7bc6"
     },
     {
       "path": "ui/board-ui.ts",
-      "sha256": "6b3bafbd0892fc0d42474c21f31b9b7ea6f74b3657d976bede2ddce957e5ca2f"
+      "sha256": "8718ae7038d18e56637bd55169f4fcd91167e70a3b7f3c37d2692daf0f862e66"
+    },
+    {
+      "path": "labs/lab.ts",
+      "sha256": "c6ca536623a9884880b3144c69f53d91085f26c950832bbd38748b2139f1eebf"
+    },
+    {
+      "path": "labs/index.ts",
+      "sha256": "78e2f44700f24815a55683360d0a20ddc02f81d918728a6e52644b0dc6a479a8"
+    },
+    {
+      "path": "labs/board.ts",
+      "sha256": "abb545e9cede37a27ad96e1b68d9b8786ca5fb18e812b8ea393f76d52953c88d"
+    },
+    {
+      "path": "labs/duel.ts",
+      "sha256": "d0869f7ae962349a1edc57d6fa6ee1fd6b4160e2d10c6a736447e2aaf02f6b61"
+    },
+    {
+      "path": "labs/pipeline.ts",
+      "sha256": "c1f2a5c6d6b7470936a0c010f6f27fa689b166302fcd6ea940985a0b10488d04"
+    },
+    {
+      "path": "labs/pool.ts",
+      "sha256": "2276540187004a815d5b444cb55493f25ca24727225a68eeeb3f6db429f48cbf"
+    },
+    {
+      "path": "labs/recall.ts",
+      "sha256": "c0e31baf08b2255b5f6bfa90b1b4c2b3f5e1c4ce7e6977ace5f14cb29770ebb6"
+    },
+    {
+      "path": "labs/labs.css",
+      "sha256": "6b6c8483093d064ae47597bda336ae80d46dbf34a248aa917d7d5092560dbc2b"
     }
   ]
 }
