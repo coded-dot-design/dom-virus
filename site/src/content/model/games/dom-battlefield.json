@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "4fdbceb15c973fcc"
+    "hash": "f978a670648bbe73"
   },
   "collection": "games",
   "id": "dom-battlefield",
@@ -43,8 +43,8 @@
       ]
     },
     "budget": {
-      "gzipBytes": 68000,
-      "source": "scripts/size.mjs (68 KB compressed app budget, enforced)"
+      "gzipBytes": 73000,
+      "source": "scripts/size.mjs (73 KB compressed app budget, enforced; 72,745 B measured at 1.0.1)"
     },
     "urls": {
       "current": "https://coded-dot-design.github.io/dom-battlefield/",
@@ -176,21 +176,25 @@
         }
       ],
       "whatsNew": {
-        "version": "1.0.0",
-        "date": "2026-10-29",
-        "title": "On the Fizlet engine",
+        "version": "1.0.1",
+        "date": "2026-10-30",
+        "title": "Performance overlay",
         "items": [
           {
+            "title": "See your frame rate",
+            "body": "A bar-chart key in the header, or F9, shows fps, frame times, dropped frames and engine work in the map's corner. It is off by default and loads only when you turn it on."
+          },
+          {
+            "title": "Readable keys",
+            "body": "The key chips, the back tab, the PLAN label and the aim key pass WCAG AA contrast."
+          },
+          {
+            "title": "A steady setup card",
+            "body": "The setup card no longer slides across the screen while the game page loads."
+          },
+          {
             "title": "Same battles",
-            "body": "DOM Battlefield now runs on the Fizlet engine. Gameplay is unchanged: the new step plays the 0.18.13 battles identically."
-          },
-          {
-            "title": "Same seed, same battle",
-            "body": "Every random roll in play comes from the map's seed, so a map replays the same way from the same inputs."
-          },
-          {
-            "title": "No garbage-collection hitches",
-            "body": "Once warm, a battle step allocates nothing (tested: no minor GC over 20,000 busy steps)."
+            "body": "No gameplay change: the engine underneath moves to Fizlet 0.19.0."
           }
         ]
       },

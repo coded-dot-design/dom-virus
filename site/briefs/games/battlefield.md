@@ -62,11 +62,12 @@ item: True full screen on phones | On iPhone, Add to Home Screen; on Android, In
 
 [features rows]
 eyebrow: WHAT'S NEW
-heading: What's new in DOM Battlefield 1.0.0 | On the Fizlet engine
-subhead: Version 1.0.0, released 2026-10-29.
-item: Same battles | DOM Battlefield now runs on the Fizlet engine. Gameplay is unchanged: the new step plays the 0.18.13 battles identically.
-item: Same seed, same battle | Every random roll in play comes from the map's seed, so a map replays the same way from the same inputs.
-item: No garbage-collection hitches | Once warm, a battle step allocates nothing (tested: no minor GC over 20,000 busy steps).
+heading: What's new in DOM Battlefield 1.0.1 | Performance overlay
+subhead: Version 1.0.1, released 2026-10-30.
+item: See your frame rate | A bar-chart key in the header, or F9, shows fps, frame times, dropped frames and engine work in the map's corner. It is off by default and loads only when you turn it on.
+item: Readable keys | The key chips, the back tab, the PLAN label and the aim key pass WCAG AA contrast.
+item: A steady setup card | The setup card no longer slides across the screen while the game page loads.
+item: Same battles | No gameplay change: the engine underneath moves to Fizlet 0.19.0.
 [/features]
 
 [faq]

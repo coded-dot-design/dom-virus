@@ -126,24 +126,28 @@
       "id": "features-5",
       "type": "featureList",
       "variant": "rows",
-      "heading": "What's new in Swarm Protocol 1.3.0",
+      "heading": "What's new in Swarm Protocol 1.4.0",
       "items": [
         {
-          "title": "Shared scoreboard icons",
-          "body": "The scoreboard uses the family's shared action icons for sound, pause, minimize and Recall."
-        },
-        {
-          "title": "Keys stay reachable",
-          "body": "Pause, sound and close stay accessible while the scoreboard is minimized."
-        },
-        {
           "title": "Same swarm",
-          "body": "Sounds, palette, engine state and behaviour are unchanged."
+          "body": "Swarm Protocol now runs on the Fizlet engine. The bugs, the buttons, every visual and the rules' numbers stay as they were."
+        },
+        {
+          "title": "Same seed, same round",
+          "body": "The rules step at a fixed 60 times a second, seeded per round: the same seed and inputs play the same round."
+        },
+        {
+          "title": "Recall, byte for byte",
+          "body": "Every change to the page goes through the engine, and Recall gives the page back exactly as it was (tested in Chromium)."
+        },
+        {
+          "title": "Light on the page",
+          "body": "A frame's work averages 0.6 ms in Chromium (one machine), and a rule step never allocates (tested)."
         }
       ],
       "eyebrow": "WHAT'S NEW",
-      "subhead": "Version 1.3.0, released 2026-10-24.",
-      "headingAccent": "Shared scoreboard keys"
+      "subhead": "Version 1.4.0, released 2026-10-30.",
+      "headingAccent": "On the Fizlet engine"
     },
     {
       "id": "site-play",

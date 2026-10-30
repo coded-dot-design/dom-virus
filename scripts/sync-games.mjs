@@ -66,13 +66,3 @@ if (!count)
   throw new Error(
     "No sibling TypeScript game checkouts found. Clone null-invaders and byte-runner beside dom-virus.",
   );
-
-// Swarm keeps its own gameplay engine and consumes only this standalone helper.
-const swarm = resolve("..", "swarm-protocol");
-if (existsSync(resolve(swarm, "src/dom-defender.ts"))) {
-  mkdirSync(resolve(swarm, "shared"), {recursive:true});
-  copyFileSync("src/game-controls.ts", resolve(swarm, "shared/game-controls.ts"));
-  copyFileSync("src/zoom-lock.ts", resolve(swarm, "shared/zoom-lock.ts"));
-  copyFileSync("src/selection-lock.ts", resolve(swarm, "shared/selection-lock.ts"));
-  copyFileSync("src/attachments.ts", resolve(swarm, "shared/attachments.ts"));
-}

@@ -44,11 +44,12 @@ item: The secret code | On sites that install the hidden activation, ↑ ↑ ↓
 
 [features rows]
 eyebrow: WHAT'S NEW
-heading: What's new in Swarm Protocol 1.3.0 | Shared scoreboard keys
-subhead: Version 1.3.0, released 2026-10-24.
-item: Shared scoreboard icons | The scoreboard uses the family's shared action icons for sound, pause, minimize and Recall.
-item: Keys stay reachable | Pause, sound and close stay accessible while the scoreboard is minimized.
-item: Same swarm | Sounds, palette, engine state and behaviour are unchanged.
+heading: What's new in Swarm Protocol 1.4.0 | On the Fizlet engine
+subhead: Version 1.4.0, released 2026-10-30.
+item: Same swarm | Swarm Protocol now runs on the Fizlet engine. The bugs, the buttons, every visual and the rules' numbers stay as they were.
+item: Same seed, same round | The rules step at a fixed 60 times a second, seeded per round: the same seed and inputs play the same round.
+item: Recall, byte for byte | Every change to the page goes through the engine, and Recall gives the page back exactly as it was (tested in Chromium).
+item: Light on the page | A frame's work averages 0.6 ms in Chromium (one machine), and a rule step never allocates (tested).
 [/features]
 
 [faq]
