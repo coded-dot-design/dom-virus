@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "a1b3f8eac9125457"
+    "hash": "4fdbceb15c973fcc"
   },
   "collection": "games",
   "id": "dom-battlefield",
@@ -34,7 +34,13 @@
       "sherman-bytes"
     ],
     "engine": {
-      "runtime": "own"
+      "runtime": "fizlet",
+      "bricks": [
+        "ui",
+        "fx",
+        "sprite",
+        "slot"
+      ]
     },
     "budget": {
       "gzipBytes": 68000,

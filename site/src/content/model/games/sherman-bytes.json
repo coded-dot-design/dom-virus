@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "583f12d6ca39c605"
+    "hash": "60b90cc17e4fec53"
   },
   "collection": "games",
   "id": "sherman-bytes",
@@ -39,11 +39,19 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/sherman-bytes",
     "engine": {
-      "runtime": "dom-virus-core"
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "sound",
+        "ui",
+        "hud",
+        "pad"
+      ]
     },
     "budget": {
-      "gzipBytes": 28000,
-      "source": "scripts/size.mjs (28 KB gzip, enforced)"
+      "gzipBytes": 41000,
+      "source": "scripts/size.mjs (41,000 B gzip, enforced)"
     },
     "urls": {
       "current": "https://coded-dot-design.github.io/dom-virus/games/sherman-bytes/",
@@ -258,25 +266,25 @@
         }
       ],
       "whatsNew": {
-        "version": "1.0.1",
+        "version": "1.1.0",
         "date": "2026-10-30",
-        "title": "Right on 2× screens",
+        "title": "The Board UI scoreboard",
         "items": [
           {
-            "title": "Right on 2× and zoomed screens",
-            "body": "On a 1.5× or 2× screen, the tank, enemies, shells and the bases' beacon rings used to draw 1.5–2× too big. Now they sit exactly on the page."
+            "title": "A new scoreboard",
+            "body": "A bar across the top: score, wave, armor (red at 30%), scrap and a cannon bar that fills toward the next tier. Auto fire, Next gate (G) and Restart stay on it."
           },
           {
-            "title": "The scoreboard drags",
-            "body": "Grab the scoreboard anywhere that isn't a key, with mouse or touch. It stays inside the window, also when the window shrinks."
+            "title": "GET READY, pause and the end",
+            "body": "A 3, 2, 1 countdown starts each run, and the waves wait for it. Pause offers KEEP FIGHTING or SURRENDER. The end shows score, wave, kills, bases captured and your best on this device."
           },
           {
-            "title": "Readable keys",
-            "body": "The scoreboard's key labels pass WCAG AA contrast in both light and dark themes."
+            "title": "No zoom mid-run",
+            "body": "While a run is live, a pinch or a double tap no longer zooms the page out of shape. One finger still drives and taps; the end of the run gives the zoom back."
           },
           {
-            "title": "On the Fizlet engine",
-            "body": "Since 1.0.0, Sherman Bytes runs on the Fizlet engine with the same rules and numbers, and a scoreboard in the Board UI kit."
+            "title": "Same game",
+            "body": "The rules are unchanged; Sherman Bytes runs on Fizlet 0.20.0."
           }
         ]
       },
