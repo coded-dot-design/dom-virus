@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **`npm run sync:games` no longer writes into Swarm Protocol** (roadmap G4). It copied four core files (`game-controls`, `zoom-lock`, `selection-lock`, `attachments`) into `../swarm-protocol/shared/`; Swarm owns them in its own `src/` since swarm-protocol#5, so the copy re-created a `shared/` folder Swarm no longer has. Swarm is unchanged.
 - **Null Invaders 1.0.3, Byte Runner 1.0.2 and Sherman Bytes 1.1.0 are pinned** (each on Fizlet
   0.20.0, up from 0.19.0). While a run is live, a pinch or double tap no longer zooms the page; the
   end of the run gives the zoom back. Sherman Bytes' scoreboard is now the Board UI bar (score, wave,
