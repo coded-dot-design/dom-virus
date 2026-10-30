@@ -19,6 +19,12 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - run: npm run site:test:browser
+      - run: npm run site:test:lifecycle
+      - name: Production build hides unready games (site-kit/lifecycle.mjs)
+        run: npm run site:build && npm run site:test:lifecycle
+        env:
+          SITE_URL: https://domvirus.com
+          SITE_BASE: /
 
   tag-version:
     needs: check

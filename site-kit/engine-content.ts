@@ -1,6 +1,7 @@
 // astro-base-engine content for the hub (brand/SITEMAP.md E6–E7). Page JSON lives in
 // site/src/content/pages, `abe head` output in site/src/content/heads. Sites without these folders
 // (the single-game repos) get empty maps, so the kit still builds there.
+import { HIDDEN_PAGES } from './lifecycle.mjs';
 export type EnginePage = {
   id: string;
   path: string;
@@ -22,10 +23,12 @@ const canonicalOf = (html: string) => html.match(/<link rel="canonical" href="([
 export const pages: EnginePage[] = Object.values(files);
 export const byId = (id: string): EnginePage | undefined => files[`/site/src/content/pages/${id}.json`];
 
-// Lifecycle (E7): published, or scheduled with its time passed at build time. Drafts never ship.
+// Lifecycle (E7): published, or scheduled with its time passed at build time. Drafts never ship, and
+// neither does a post about a game this build hides (site-kit/lifecycle.mjs: unready games, production).
 const BUILD_TIME = Date.now();
 export const visible = (p: EnginePage) =>
-  p.status === 'published' || (p.status === 'scheduled' && !!p.publishAt && Date.parse(p.publishAt) <= BUILD_TIME);
+  !HIDDEN_PAGES.includes(p.id) &&
+  (p.status === 'published' || (p.status === 'scheduled' && !!p.publishAt && Date.parse(p.publishAt) <= BUILD_TIME));
 
 // The page's date: its publish time when scheduled, otherwise the date it was produced.
 export const dateOf = (p: EnginePage) => (p.publishAt || p.meta?.created || '').slice(0, 10);

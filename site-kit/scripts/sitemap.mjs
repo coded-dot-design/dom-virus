@@ -6,16 +6,14 @@
 //   staging     robots.txt only (Disallow: /), no sitemap
 // Checks against the built HTML: every sitemap URL is built, on this host and indexable. An indexable
 // built page missing from the engine's sitemap (a scheduled page that went live after the files were
-// generated) is appended, with a note to regenerate. Run after `astro build`.
+// generated) is appended, with a note to regenerate. Routes the build hides (an unready game and the
+// posts about it; site-kit/lifecycle.mjs) come out of the engine's sitemap and llms.txt first.
+// Run after `astro build`.
 import { readdirSync, readFileSync, writeFileSync, statSync, existsSync, copyFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
+import { SITE_ROOT as siteRoot, PRODUCTION_ROOT as production, TARGET as target, HIDDEN_ROUTES } from "../lifecycle.mjs";
 const root = process.cwd();
 const out = resolve(root, "artifacts/site");
-const { id } = JSON.parse(readFileSync(resolve(root, "site/config.json"), "utf8"));
-const cfg = JSON.parse(readFileSync(resolve(root, "site/engine.config.json"), "utf8"));
-const siteRoot = new URL((process.env.SITE_BASE || `/${id}`).replace(/\/?$/, "/"), process.env.SITE_URL || "https://coded-dot-design.github.io").href;
-const production = cfg.targets.production.brand.siteUrl.replace(/\/?$/, "/");
-const target = siteRoot === production ? "production" : "staging";
 const src = resolve(root, "site/src/content/discovery", target);
 if (!existsSync(resolve(src, "robots.txt"))) throw new Error(`discovery: no ${target} files in ${src}; run npm run engine:heads`);
 for (const f of ["robots.txt", "sitemap.xml", "llms.txt", "CNAME"]) rmSync(join(out, f), { force: true });
@@ -35,7 +33,9 @@ for (const file of walk(out)) {
 if (target === "production") {
   const host = new URL(production).host;
   writeFileSync(join(out, "CNAME"), `${host}\n`);
-  let xml = readFileSync(join(out, "sitemap.xml"), "utf8");
+  const hidden = HIDDEN_ROUTES.map((r) => production + r);
+  let xml = readFileSync(join(out, "sitemap.xml"), "utf8").replace(/^\s*<url><loc>([^<]+)<\/loc>.*<\/url>\n/gm, (row, loc) => (hidden.includes(loc) ? "" : row));
+  writeFileSync(join(out, "sitemap.xml"), xml);
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
   for (const loc of locs) {
     if (!loc.startsWith(production)) throw new Error(`sitemap: ${loc} is not on ${production}`);
@@ -50,7 +50,8 @@ if (target === "production") {
   }
   // llms.txt lists the engine's pages; the site's own indexable pages (home, games, engine…) join
   // them under "Site", so llms.txt covers exactly the sitemap.
-  let llms = readFileSync(join(out, "llms.txt"), "utf8");
+  let llms = readFileSync(join(out, "llms.txt"), "utf8").replace(/^- \[[^\]]*\]\(([^)]+)\).*\n/gm, (row, u) => (hidden.includes(u.replace(/\/?$/, "/")) ? "" : row));
+  writeFileSync(join(out, "llms.txt"), llms);
   const sitemapUrls = [...locs, ...missing];
   const own = sitemapUrls.filter((u) => !llms.includes(`](${u})`)).sort();
   if (own.length) {

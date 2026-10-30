@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **DOM Kaiju is staging only** until it is ready. `site-kit/lifecycle.mjs` reads the content model: a game whose status is not `published` (Kaiju: `idea`) shows on staging builds and is hidden on the production build (https://domvirus.com): no shelf cartridge, coming-soon card or `/games/kaiju/` page, no post about it (`news/coming-next`, by its model relations), no sitemap, llms.txt or feed row, and engine copy that names it drops the sentence, card or stat. Its two old URLs redirect while it is hidden (`$whileHidden` in `site/redirects.json`). Publishing the game in the model brings it all back. `npm run site:test:lifecycle` checks either build; CI checks both.
 - **Performance overlay switch** in the site header (off by default; F9 too): `fizlet/perf`, vendored from Fizlet 0.15.0 (`scripts/sync-fizlet.mjs`, a subset: kernel, perf, the Board UI kit's `setting()`), measures the page's own frames. Nothing loads or runs until a visitor turns it on. The key reuses the header key's look and is hidden under 360px. Stored as `dom-virus:perf`, shared with DOM Battlefield (the cookies page lists keys from fizlet-engine: add it there).
 - **Sherman Bytes 1.0.0 on Fizlet** (ENGINE.md E3) is pinned; 0.5.2, its last build on this core, joins TEST A RELEASE. All three embedded arcade games now run on Fizlet.
 - **DOM Battlefield 1.0.0** (on Fizlet; its Board UI comes from `fizlet/ui`): `battlefield.json` moves to the 1.x line, so hourly builds follow the newest 1.x tag.

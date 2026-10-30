@@ -5,10 +5,12 @@
 import UiIcon from './UiIcon.astro';
 import Icon from './AbstractIcon.astro';
 import { posts, dateOf, formatDate, routeOf, type EnginePage } from '../engine-content';
+import { scrub } from '../lifecycle.mjs';
 const { page, base = '/', games = [] } = Astro.props as { page: EnginePage; base: string; games: any[] };
 const type = page.meta?.pageType || '';
 const article = page.template === 'article';
-const [hero, ...sections] = page.sections;
+// Copy that names a game this build hides drops out (site-kit/lifecycle.mjs; production only).
+const [hero, ...sections] = scrub(page.sections);
 // Hub-relative links get the base path and a trailing slash (the site's URL rule, SITEMAP E5).
 const slash = (h: string) => { const [, path, rest] = h.match(/^([^#?]*)(.*)$/)!; return (path.endsWith('/') || /\.[a-z0-9]+$/i.test(path) ? path : path + '/') + rest; };
 const href = (h: string) => (h.startsWith('/') ? base + slash(h).slice(1) : h);
@@ -18,7 +20,7 @@ const tag = ({ blog: 'BLOG', news: 'NEWS', legal: 'LEGAL', 'legal-home': 'LEGAL'
 const date = article ? dateOf(page) : '';
 const list = page.id === 'blog' ? posts('blog') : page.id === 'news' ? posts('news') : [];
 const gameList = page.id === 'games' ? games : [];
-const closing = page.meta?.closing;
+const closing = scrub(page.meta?.closing);
 const isPost = type === 'blog' || type === 'news';
 ---
 <article class:list={['engine-page', { 'is-article': article }]} aria-labelledby="page-title" data-engine-page={page.id}>
