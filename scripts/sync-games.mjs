@@ -28,6 +28,13 @@ for (const name of ["null-invaders", "byte-runner", "sherman-bytes"]) {
   );
   if (manifest.name !== `@coded-design/${name}`)
     throw new Error(`Unexpected package in ${repo}`);
+  // Ported onto Fizlet (E3): the game vendors the engine (vendor/fizlet) and has no core
+  // snapshot. Writing shared/ back would undo the port.
+  if (existsSync(resolve(repo, "vendor/fizlet/ORIGIN.json"))) {
+    console.log(`${name}: on Fizlet (vendor/fizlet), no core snapshot to sync.`);
+    count++;
+    continue;
+  }
   const shared = resolve(repo, "shared");
   rmSync(resolve(shared, "types"), { recursive: true, force: true });
   mkdirSync(resolve(shared, "types"), { recursive: true });

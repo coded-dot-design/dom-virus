@@ -3,7 +3,7 @@ import { createServer } from "vite";
 import { chromium } from "playwright";
 import { resolve } from "node:path";
 import { existsSync, mkdirSync } from "node:fs";
-import { gameRoot } from "../scripts/game-paths.mjs";
+import { coreGameRoot as gameRoot } from "../scripts/game-paths.mjs";
 const server = await createServer({
   configFile: "vite.config.js",
   server: { host: "127.0.0.1", port: 5221 },

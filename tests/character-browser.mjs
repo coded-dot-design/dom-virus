@@ -3,7 +3,7 @@ import { createServer } from "vite";
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { gameRoot } from "../scripts/game-paths.mjs";
+import { coreGameRoot as gameRoot } from "../scripts/game-paths.mjs";
 const source = (game, file) => "/@fs" + resolve(gameRoot(game), "src", file);
 const urls = {
   runner: source("byte-runner", "index.ts"),

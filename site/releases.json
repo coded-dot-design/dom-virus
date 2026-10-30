@@ -1,6 +1,10 @@
 {
   "sherman-bytes": [
     {
+      "version": "v0.5.2",
+      "commit": "714b5e6b7ec0bd7d9eb70a4cbe9804dbe86941db"
+    },
+    {
       "version": "v0.5.1",
       "commit": "dfa105828e6f7d653c2565aa03d1515cf2641ef1"
     },
@@ -93,6 +97,10 @@
   ],
   "byte-runner": [
     {
+      "version": "v0.10.2",
+      "commit": "26e631ebc47d2864e455c6663cf859907b22a0c3"
+    },
+    {
       "version": "v0.10.1",
       "commit": "7b7dbd32c92c001ced0c744a3b60c466b623eca5"
     },
@@ -154,6 +162,10 @@
     }
   ],
   "null-invaders": [
+    {
+      "version": "v0.7.2",
+      "commit": "98616482d95a4b9f2512ccfea81804538142e211"
+    },
     {
       "version": "v0.7.1",
       "commit": "af5fd7ab10ff345caf26dfcc42297d8f1551ad30"

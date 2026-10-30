@@ -2,7 +2,7 @@ import { createServer } from "vite";
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { gameRoot } from "../scripts/game-paths.mjs";
+import { coreGameRoot as gameRoot } from "../scripts/game-paths.mjs";
 const out = resolve("artifacts/characters");
 mkdirSync(out, { recursive: true });
 const s = await createServer({

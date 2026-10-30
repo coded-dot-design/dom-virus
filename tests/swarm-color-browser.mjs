@@ -3,7 +3,7 @@ import {createServer} from 'vite';
 import {chromium} from 'playwright';
 import {existsSync,mkdirSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {gameRoot} from '../scripts/game-paths.mjs';
+import { coreGameRoot as gameRoot } from '../scripts/game-paths.mjs';
 const server=await createServer({configFile:'vite.config.js',server:{port:5215,host:'127.0.0.1'}});await server.listen();
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||(existsSync('/tmp/chromium')?'/tmp/chromium':undefined),args:['--no-sandbox']});
 mkdirSync('artifacts/swarm-colors',{recursive:true});
