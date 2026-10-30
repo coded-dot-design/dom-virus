@@ -2,7 +2,7 @@
   "app": "byte-runner@v0.10.2",
   "version": "0.10.2",
   "hub": "0.48.0",
-  "date": "2026-10-30T15:36:16.117Z",
+  "date": "2026-10-30T15:52:46.726Z",
   "started": true,
   "setup": {
     "cpuThrottle": 4,
@@ -12,106 +12,106 @@
     "browser": "153.0.8010.12",
     "runs": 3
   },
-  "load1": 37.1,
+  "load1": 2.09,
   "frames": {
-    "count": 124,
-    "fps": 12.4,
-    "avgMs": 80.91,
-    "p50Ms": 50,
-    "p95Ms": 216.6,
-    "maxMs": 350,
-    "over33ms": 84
+    "count": 324,
+    "fps": 32.4,
+    "avgMs": 30.97,
+    "p50Ms": 33.3,
+    "p95Ms": 50.1,
+    "maxMs": 83.4,
+    "over33ms": 75
   },
   "longTasks": {
-    "count": 59,
-    "totalMs": 5960,
-    "maxMs": 347
+    "count": 7,
+    "totalMs": 398,
+    "maxMs": 78
   },
-  "heapMB": 4.11,
-  "domNodes": 1689,
+  "heapMB": 4.15,
+  "domNodes": 1813,
   "perSecond": {
-    "layouts": 12.5,
-    "styleRecalcs": 26.1,
-    "scriptMs": 96.44,
-    "layoutMs": 16.13,
-    "styleMs": 38.29,
-    "taskMs": 879.29
+    "layouts": 29.4,
+    "styleRecalcs": 62.4,
+    "scriptMs": 114.41,
+    "layoutMs": 17.29,
+    "styleMs": 57.23,
+    "taskMs": 920.79
   },
   "errors": [],
   "runs": [
     {
-      "load1": 37.1,
+      "load1": 1.47,
       "frames": {
-        "count": 120,
-        "fps": 12,
-        "avgMs": 84.72,
-        "p50Ms": 66.6,
-        "p95Ms": 250,
-        "maxMs": 350,
-        "over33ms": 77
+        "count": 324,
+        "fps": 32.4,
+        "avgMs": 30.97,
+        "p50Ms": 33.3,
+        "p95Ms": 50.1,
+        "maxMs": 283.3,
+        "over33ms": 75
       },
       "longTasks": {
-        "count": 61,
-        "totalMs": 6960,
-        "maxMs": 347
+        "count": 9,
+        "totalMs": 495,
+        "maxMs": 60
       },
       "perSecond": {
-        "layouts": 12.5,
-        "styleRecalcs": 26.1,
-        "scriptMs": 96.44,
-        "layoutMs": 10.83,
-        "styleMs": 47.84,
-        "taskMs": 905.65
+        "layouts": 28.3,
+        "styleRecalcs": 61.9,
+        "scriptMs": 119.27,
+        "layoutMs": 15.25,
+        "styleMs": 56,
+        "taskMs": 897.2
       }
     },
     {
-      "load1": 37.81,
+      "load1": 2.09,
       "frames": {
-        "count": 124,
-        "fps": 12.4,
-        "avgMs": 80.91,
-        "p50Ms": 50,
-        "p95Ms": 216.6,
-        "maxMs": 566.6,
-        "over33ms": 84
+        "count": 320,
+        "fps": 32,
+        "avgMs": 31.3,
+        "p50Ms": 33.3,
+        "p95Ms": 50.1,
+        "maxMs": 66.8,
+        "over33ms": 93
       },
       "longTasks": {
-        "count": 53,
-        "totalMs": 5960,
-        "maxMs": 440
+        "count": 7,
+        "totalMs": 398,
+        "maxMs": 79
       },
       "perSecond": {
-        "layouts": 11.5,
-        "styleRecalcs": 24.9,
-        "scriptMs": 89.76,
-        "layoutMs": 16.13,
-        "styleMs": 32.02,
-        "taskMs": 878.4
+        "layouts": 29.4,
+        "styleRecalcs": 62.4,
+        "scriptMs": 114.41,
+        "layoutMs": 17.29,
+        "styleMs": 57.23,
+        "taskMs": 924.9
       }
     },
     {
-      "load1": 36.94,
+      "load1": 2.15,
       "frames": {
-        "count": 189,
-        "fps": 18.9,
-        "avgMs": 53.79,
-        "p50Ms": 50,
-        "p95Ms": 133.3,
-        "maxMs": 233.3,
-        "over33ms": 110
+        "count": 326,
+        "fps": 32.6,
+        "avgMs": 30.83,
+        "p50Ms": 33.3,
+        "p95Ms": 50.1,
+        "maxMs": 83.4,
+        "over33ms": 75
       },
       "longTasks": {
-        "count": 59,
-        "totalMs": 4841,
-        "maxMs": 181
+        "count": 6,
+        "totalMs": 357,
+        "maxMs": 78
       },
       "perSecond": {
-        "layouts": 16.5,
-        "styleRecalcs": 37.2,
-        "scriptMs": 99.26,
-        "layoutMs": 17.64,
-        "styleMs": 38.29,
-        "taskMs": 879.29
+        "layouts": 29.7,
+        "styleRecalcs": 63.4,
+        "scriptMs": 109.51,
+        "layoutMs": 18.11,
+        "styleMs": 57.71,
+        "taskMs": 920.79
       }
     }
   ]

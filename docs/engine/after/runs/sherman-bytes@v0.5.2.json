@@ -2,7 +2,7 @@
   "app": "sherman-bytes@v0.5.2",
   "version": "0.5.2",
   "hub": "0.48.0",
-  "date": "2026-10-30T15:37:00.854Z",
+  "date": "2026-10-30T15:53:28.264Z",
   "started": true,
   "setup": {
     "cpuThrottle": 4,
@@ -12,106 +12,106 @@
     "browser": "153.0.8010.12",
     "runs": 3
   },
-  "load1": 29.64,
+  "load1": 2.07,
   "frames": {
-    "count": 398,
-    "fps": 39.8,
-    "avgMs": 25.08,
+    "count": 501,
+    "fps": 50.1,
+    "avgMs": 19.96,
     "p50Ms": 16.7,
-    "p95Ms": 50,
-    "maxMs": 150,
-    "over33ms": 45
+    "p95Ms": 33.4,
+    "maxMs": 66.6,
+    "over33ms": 18
   },
   "longTasks": {
-    "count": 15,
-    "totalMs": 1310,
-    "maxMs": 155
+    "count": 2,
+    "totalMs": 116,
+    "maxMs": 60
   },
-  "heapMB": 3.61,
-  "domNodes": 1500,
+  "heapMB": 4.12,
+  "domNodes": 1526,
   "perSecond": {
-    "layouts": 8.2,
-    "styleRecalcs": 48,
-    "scriptMs": 137.81,
-    "layoutMs": 11.13,
-    "styleMs": 27.29,
-    "taskMs": 844.2
+    "layouts": 9.1,
+    "styleRecalcs": 59.5,
+    "scriptMs": 160.95,
+    "layoutMs": 9.25,
+    "styleMs": 44.86,
+    "taskMs": 975.92
   },
   "errors": [],
   "runs": [
     {
-      "load1": 34.57,
+      "load1": 2.2,
       "frames": {
-        "count": 459,
-        "fps": 45.9,
-        "avgMs": 21.82,
+        "count": 501,
+        "fps": 50.1,
+        "avgMs": 19.96,
         "p50Ms": 16.7,
-        "p95Ms": 49.9,
-        "maxMs": 116.6,
-        "over33ms": 27
+        "p95Ms": 33.4,
+        "maxMs": 66.6,
+        "over33ms": 18
       },
       "longTasks": {
-        "count": 5,
-        "totalMs": 342,
-        "maxMs": 123
+        "count": 2,
+        "totalMs": 116,
+        "maxMs": 66
       },
       "perSecond": {
-        "layouts": 8.6,
-        "styleRecalcs": 54.7,
-        "scriptMs": 133.84,
-        "layoutMs": 10.91,
-        "styleMs": 27.29,
-        "taskMs": 785.02
+        "layouts": 9.1,
+        "styleRecalcs": 59.5,
+        "scriptMs": 160.95,
+        "layoutMs": 8.6,
+        "styleMs": 44.86,
+        "taskMs": 975.68
       }
     },
     {
-      "load1": 29.64,
+      "load1": 2.07,
       "frames": {
-        "count": 398,
-        "fps": 39.8,
-        "avgMs": 25.08,
+        "count": 505,
+        "fps": 50.5,
+        "avgMs": 19.83,
         "p50Ms": 16.7,
-        "p95Ms": 50,
-        "maxMs": 150,
-        "over33ms": 45
+        "p95Ms": 33.4,
+        "maxMs": 50,
+        "over33ms": 18
       },
       "longTasks": {
-        "count": 15,
-        "totalMs": 1310,
-        "maxMs": 245
+        "count": 1,
+        "totalMs": 60,
+        "maxMs": 60
       },
       "perSecond": {
-        "layouts": 8.2,
-        "styleRecalcs": 48,
-        "scriptMs": 137.81,
-        "layoutMs": 11.8,
-        "styleMs": 22.11,
-        "taskMs": 844.2
+        "layouts": 9.1,
+        "styleRecalcs": 59.7,
+        "scriptMs": 150.81,
+        "layoutMs": 9.25,
+        "styleMs": 45.48,
+        "taskMs": 975.92
       }
     },
     {
-      "load1": 25.92,
+      "load1": 1.99,
       "frames": {
-        "count": 315,
-        "fps": 31.5,
-        "avgMs": 31.85,
-        "p50Ms": 16.8,
-        "p95Ms": 83.3,
-        "maxMs": 150.1,
-        "over33ms": 66
+        "count": 460,
+        "fps": 46,
+        "avgMs": 21.77,
+        "p50Ms": 16.7,
+        "p95Ms": 33.4,
+        "maxMs": 66.6,
+        "over33ms": 19
       },
       "longTasks": {
-        "count": 26,
-        "totalMs": 2021,
-        "maxMs": 155
+        "count": 3,
+        "totalMs": 168,
+        "maxMs": 58
       },
       "perSecond": {
-        "layouts": 7.3,
-        "styleRecalcs": 39,
-        "scriptMs": 155.71,
-        "layoutMs": 11.13,
-        "styleMs": 32.5,
-        "taskMs": 871.14
+        "layouts": 9,
+        "styleRecalcs": 55.1,
+        "scriptMs": 161.25,
+        "layoutMs": 9.89,
+        "styleMs": 44.83,
+        "taskMs": 976.54
       }
     }
   ]

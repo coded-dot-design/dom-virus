@@ -2,7 +2,7 @@
   "app": "null-invaders@v0.7.2",
   "version": "0.7.2",
   "hub": "0.48.0",
-  "date": "2026-10-30T15:35:30.637Z",
+  "date": "2026-10-30T15:52:05.584Z",
   "started": true,
   "setup": {
     "cpuThrottle": 4,
@@ -12,106 +12,106 @@
     "browser": "153.0.8010.12",
     "runs": 3
   },
-  "load1": 36.8,
+  "load1": 1.49,
   "frames": {
-    "count": 287,
-    "fps": 28.7,
-    "avgMs": 34.84,
+    "count": 558,
+    "fps": 55.8,
+    "avgMs": 17.98,
     "p50Ms": 16.7,
-    "p95Ms": 100.1,
-    "maxMs": 266.6,
-    "over33ms": 62
+    "p95Ms": 33.3,
+    "maxMs": 50,
+    "over33ms": 4
   },
   "longTasks": {
-    "count": 28,
-    "totalMs": 2999,
-    "maxMs": 237
+    "count": 1,
+    "totalMs": 51,
+    "maxMs": 51
   },
-  "heapMB": 3.43,
-  "domNodes": 1241,
+  "heapMB": 3.13,
+  "domNodes": 1243,
   "perSecond": {
-    "layouts": 6,
-    "styleRecalcs": 32.2,
-    "scriptMs": 105.77,
-    "layoutMs": 12.7,
-    "styleMs": 25.41,
-    "taskMs": 736.57
+    "layouts": 4.6,
+    "styleRecalcs": 29.3,
+    "scriptMs": 83.94,
+    "layoutMs": 5.05,
+    "styleMs": 25.81,
+    "taskMs": 516.86
   },
   "errors": [],
   "runs": [
     {
-      "load1": 36,
+      "load1": 1.49,
       "frames": {
-        "count": 190,
-        "fps": 19,
-        "avgMs": 53.33,
-        "p50Ms": 33.3,
-        "p95Ms": 183.4,
-        "maxMs": 400,
-        "over33ms": 63
+        "count": 554,
+        "fps": 55.4,
+        "avgMs": 18.08,
+        "p50Ms": 16.7,
+        "p95Ms": 33.3,
+        "maxMs": 50,
+        "over33ms": 10
       },
       "longTasks": {
-        "count": 33,
-        "totalMs": 3875,
-        "maxMs": 345
+        "count": 2,
+        "totalMs": 106,
+        "maxMs": 56
       },
       "perSecond": {
-        "layouts": 4.7,
-        "styleRecalcs": 23.8,
-        "scriptMs": 105.77,
-        "layoutMs": 12.7,
-        "styleMs": 25.41,
-        "taskMs": 730.02
+        "layouts": 4.6,
+        "styleRecalcs": 29.3,
+        "scriptMs": 83.94,
+        "layoutMs": 5.05,
+        "styleMs": 25.81,
+        "taskMs": 516.86
       }
     },
     {
-      "load1": 36.8,
+      "load1": 1.59,
       "frames": {
-        "count": 287,
-        "fps": 28.7,
-        "avgMs": 34.84,
+        "count": 558,
+        "fps": 55.8,
+        "avgMs": 17.98,
         "p50Ms": 16.7,
-        "p95Ms": 100.1,
-        "maxMs": 266.6,
-        "over33ms": 62
+        "p95Ms": 33.3,
+        "maxMs": 49.9,
+        "over33ms": 4
       },
       "longTasks": {
-        "count": 28,
-        "totalMs": 2999,
-        "maxMs": 237
+        "count": 1,
+        "totalMs": 51,
+        "maxMs": 51
       },
       "perSecond": {
-        "layouts": 6.4,
-        "styleRecalcs": 35.2,
-        "scriptMs": 123.08,
-        "layoutMs": 19.45,
-        "styleMs": 28.87,
-        "taskMs": 761.63
+        "layouts": 5.8,
+        "styleRecalcs": 37.3,
+        "scriptMs": 93.82,
+        "layoutMs": 5.3,
+        "styleMs": 30.67,
+        "taskMs": 605.98
       }
     },
     {
-      "load1": 37.83,
+      "load1": 1.47,
       "frames": {
-        "count": 329,
-        "fps": 32.9,
-        "avgMs": 30.7,
+        "count": 579,
+        "fps": 57.9,
+        "avgMs": 17.33,
         "p50Ms": 16.7,
-        "p95Ms": 83.2,
-        "maxMs": 250,
-        "over33ms": 47
+        "p95Ms": 16.8,
+        "maxMs": 50,
+        "over33ms": 3
       },
       "longTasks": {
-        "count": 24,
-        "totalMs": 1854,
-        "maxMs": 220
+        "count": 1,
+        "totalMs": 51,
+        "maxMs": 51
       },
       "perSecond": {
-        "layouts": 6,
-        "styleRecalcs": 32.2,
-        "scriptMs": 101.45,
-        "layoutMs": 7.4,
-        "styleMs": 22.69,
-        "taskMs": 736.57
+        "layouts": 4.2,
+        "styleRecalcs": 28,
+        "scriptMs": 66.57,
+        "layoutMs": 4.03,
+        "styleMs": 21.63,
+        "taskMs": 452.48
       }
     }
   ]

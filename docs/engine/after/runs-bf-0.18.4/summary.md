@@ -6,4 +6,4 @@ from the built hub for 10s (after a 2s warm-up) at 1440x900 under a 4x CPU throt
 
 | App | Version | fps | avg frame ms | p50 ms | p95 ms | frames > 33ms | long tasks | heap MB | DOM nodes | layouts/s | script ms/s | task ms/s | load avg (1 min) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| dom-battlefield | 0.18.4 | 30.9 | 32.36 | 16.8 | 83.3 | 73 | 41 (3044 ms) | 2.76 | 2780 | 31 | 120.56 | 936.77 | 24.72 |
+| dom-battlefield | 0.18.4 | 26.8 | 37.44 | 33.3 | 66.7 | 98 | 43 (2905 ms) | 3.84 | 2915 | 27.2 | 136.73 | 1001 | 1.77 |

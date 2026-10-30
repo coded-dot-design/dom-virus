@@ -2,7 +2,7 @@
   "app": "dom-battlefield-blitz",
   "version": "0.10.0",
   "hub": "0.48.0",
-  "date": "2026-10-30T15:38:26.324Z",
+  "date": "2026-10-30T15:54:49.344Z",
   "started": true,
   "setup": {
     "cpuThrottle": 4,
@@ -12,106 +12,106 @@
     "browser": "153.0.8010.12",
     "runs": 3
   },
-  "load1": 24.35,
+  "load1": 1.74,
   "frames": {
-    "count": 343,
-    "fps": 34.3,
-    "avgMs": 29.06,
-    "p50Ms": 16.7,
-    "p95Ms": 66.7,
-    "maxMs": 233.3,
-    "over33ms": 56
+    "count": 353,
+    "fps": 35.3,
+    "avgMs": 28.37,
+    "p50Ms": 33.3,
+    "p95Ms": 50,
+    "maxMs": 83.3,
+    "over33ms": 61
   },
   "longTasks": {
-    "count": 20,
-    "totalMs": 2126,
-    "maxMs": 208
+    "count": 11,
+    "totalMs": 657,
+    "maxMs": 72
   },
-  "heapMB": 3.44,
-  "domNodes": 292,
+  "heapMB": 3.61,
+  "domNodes": 299,
   "perSecond": {
-    "layouts": 5.5,
-    "styleRecalcs": 8.5,
-    "scriptMs": 166.72,
-    "layoutMs": 4.76,
-    "styleMs": 3.51,
-    "taskMs": 877.31
+    "layouts": 6.2,
+    "styleRecalcs": 9.8,
+    "scriptMs": 173.04,
+    "layoutMs": 6.88,
+    "styleMs": 7.66,
+    "taskMs": 981.72
   },
   "errors": [],
   "runs": [
     {
-      "load1": 23.28,
+      "load1": 1.87,
       "frames": {
-        "count": 305,
-        "fps": 30.5,
-        "avgMs": 32.84,
-        "p50Ms": 16.7,
-        "p95Ms": 100,
-        "maxMs": 233.3,
-        "over33ms": 56
-      },
-      "longTasks": {
-        "count": 26,
-        "totalMs": 2473,
-        "maxMs": 197
-      },
-      "perSecond": {
-        "layouts": 3.1,
-        "styleRecalcs": 7.1,
-        "scriptMs": 169.31,
-        "layoutMs": 3.72,
-        "styleMs": 2.83,
-        "taskMs": 788.78
-      }
-    },
-    {
-      "load1": 24.37,
-      "frames": {
-        "count": 343,
-        "fps": 34.3,
-        "avgMs": 29.06,
-        "p50Ms": 16.7,
-        "p95Ms": 66.7,
-        "maxMs": 233.3,
-        "over33ms": 51
-      },
-      "longTasks": {
-        "count": 20,
-        "totalMs": 2126,
-        "maxMs": 208
-      },
-      "perSecond": {
-        "layouts": 5.5,
-        "styleRecalcs": 8.5,
-        "scriptMs": 160.11,
-        "layoutMs": 4.76,
-        "styleMs": 3.51,
-        "taskMs": 877.31
-      }
-    },
-    {
-      "load1": 24.35,
-      "frames": {
-        "count": 367,
-        "fps": 36.7,
-        "avgMs": 27.29,
-        "p50Ms": 16.7,
+        "count": 353,
+        "fps": 35.3,
+        "avgMs": 28.37,
+        "p50Ms": 33.3,
         "p95Ms": 50,
-        "maxMs": 283.3,
-        "over33ms": 63
+        "maxMs": 66.7,
+        "over33ms": 68
       },
       "longTasks": {
-        "count": 14,
-        "totalMs": 1218,
-        "maxMs": 298
+        "count": 11,
+        "totalMs": 657,
+        "maxMs": 72
       },
       "perSecond": {
-        "layouts": 6.5,
-        "styleRecalcs": 9.7,
-        "scriptMs": 166.72,
-        "layoutMs": 5.71,
-        "styleMs": 6.29,
-        "taskMs": 936.55
+        "layouts": 5.3,
+        "styleRecalcs": 8.6,
+        "scriptMs": 178.73,
+        "layoutMs": 6.88,
+        "styleMs": 7.19,
+        "taskMs": 981.6
+      }
+    },
+    {
+      "load1": 1.74,
+      "frames": {
+        "count": 336,
+        "fps": 33.6,
+        "avgMs": 29.76,
+        "p50Ms": 33.3,
+        "p95Ms": 50,
+        "maxMs": 83.3,
+        "over33ms": 61
+      },
+      "longTasks": {
+        "count": 12,
+        "totalMs": 709,
+        "maxMs": 72
+      },
+      "perSecond": {
+        "layouts": 6.2,
+        "styleRecalcs": 9.8,
+        "scriptMs": 171.28,
+        "layoutMs": 7.22,
+        "styleMs": 7.68,
+        "taskMs": 987.94
+      }
+    },
+    {
+      "load1": 1.7,
+      "frames": {
+        "count": 419,
+        "fps": 41.9,
+        "avgMs": 23.87,
+        "p50Ms": 16.7,
+        "p95Ms": 33.4,
+        "maxMs": 83.3,
+        "over33ms": 31
+      },
+      "longTasks": {
+        "count": 4,
+        "totalMs": 263,
+        "maxMs": 80
+      },
+      "perSecond": {
+        "layouts": 6.7,
+        "styleRecalcs": 10.9,
+        "scriptMs": 173.04,
+        "layoutMs": 6.35,
+        "styleMs": 7.66,
+        "taskMs": 981.72
       }
     }
   ]
