@@ -16,7 +16,14 @@ const command = (cwd, ...args) =>
     encoding: "utf8",
     stdio: ["ignore", "pipe", "inherit"],
   }).trim();
-export function prepareArchives(root, names) {
+// current: { game: "vX.Y.Z" } the build serves as "Current"; that release is not archived again.
+// A listed release newer than current (tagged, not yet served) is marked newer.
+const parse = (v) => v.slice(1).split(".").map(Number);
+const newer = (a, b) => {
+  const [x, y] = [parse(a), parse(b)];
+  return (x[0] - y[0] || x[1] - y[1] || x[2] - y[2]) > 0;
+};
+export function prepareArchives(root, names, current = {}) {
   const manifest = resolve(root, "site/releases.json");
   if (!existsSync(manifest)) return {};
   const catalog = JSON.parse(readFileSync(manifest, "utf8"));
@@ -28,6 +35,7 @@ export function prepareArchives(root, names) {
     prepared[name] = [];
     for (const entry of catalog[name] || []) {
       const { version, commit } = entry;
+      if (version === current[name]) continue;
       if (!/^v\d+\.\d+\.\d+$/.test(version) || !/^[a-f0-9]{40}$/.test(commit))
         throw Error(`Invalid release pin: ${name}`);
       const checkout = resolve(root, ".site-releases", name, version);
@@ -89,6 +97,7 @@ export function prepareArchives(root, names) {
         version,
         commit,
         key: `${name}@${version}`,
+        newer: Boolean(current[name]) && newer(version, current[name]),
         path: `releases/${name}/${version}/index.js`,
       });
       console.log(
