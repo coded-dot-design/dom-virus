@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "0a587314137be5e7"
+    "hash": "315fe66aaf3cf47e"
   },
   "collection": "posts",
   "id": "blog-twenty-years-of-tiny-games",
@@ -32,7 +32,7 @@
     "date": "2026-11-05",
     "status": "scheduled",
     "publishAt": "2026-11-05",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/sherman-bytes.jpg",
     "lead": [
       "I have made small games and micro animations on the side for more than twenty years. The tools changed every few years. The lesson did not: on a webpage, speed comes from doing less, on purpose, every single frame."
     ],

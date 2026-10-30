@@ -86,6 +86,7 @@
         "controls": { "$ref": "#/$defs/items", "description": "Controls, for a page with no controls slot (boards)." },
         "modes": { "$ref": "#/$defs/items" },
         "tips": { "$ref": "#/$defs/items" },
+        "strategy": { "$ref": "#/$defs/items", "description": "Strategy for a game with real depth (STRATEGY block after TIPS): each item follows from the game rules in its repo; nothing invented." },
         "whatsNew": {
           "type": "object", "required": ["version", "date", "items"], "additionalProperties": false,
           "properties": {

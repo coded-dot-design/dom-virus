@@ -6,7 +6,7 @@ tags: [launch, dom-virus, arcade]
 date: 2026-10-31
 status: scheduled
 publishAt: 2026-10-31
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT).
 

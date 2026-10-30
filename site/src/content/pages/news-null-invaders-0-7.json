@@ -10,7 +10,7 @@
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
-        "sourceUrl": "/og/dom-virus.png"
+        "sourceUrl": "/shots/null-invaders.jpg"
       }
     }
   },
@@ -93,27 +93,27 @@
       "heading": "Related",
       "items": [
         {
-          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
-          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
+          "title": "Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+          "body": "Null Invaders 1.0 patch notes: the move to the Fizlet engine, sharp drawing on 2× screens and a scoreboard you can drag.",
           "link": {
-            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
-            "href": "/news/dom-battlefield-0-18"
+            "label": "Read: Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+            "href": "/news/null-invaders-1-0-patch-notes"
           }
         },
         {
-          "title": "Battlefield Blitz 0.6: surrender, results and phone fixes",
-          "body": "Battlefield Blitz 0.6 adds the surrender pause, STAGE CLEAR and INSERT COIN results, and roomier phone start screens. 34.5 kB gzip on Fizlet.",
+          "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
           "link": {
-            "label": "Read: Battlefield Blitz 0.6: surrender, results and phone fixes",
-            "href": "/news/dom-battlefield-blitz-0-6"
+            "label": "Read: Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/byte-runner-1-0-patch-notes"
           }
         },
         {
-          "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
-          "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
+          "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
           "link": {
-            "label": "Read: DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
-            "href": "/news/dom-virus-0-46"
+            "label": "Read: DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/dom-battlefield-1-0-patch-notes"
           }
         }
       ]

@@ -1,0 +1,255 @@
+{
+  "id": "news-sherman-bytes-1-0-patch-notes",
+  "path": "/news/sherman-bytes-1-0-patch-notes",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Sherman Bytes 1.0 patch notes: 1.0.0 to 1.0.1",
+    "description": "Sherman Bytes 1.0 patch notes: the tank game on the Fizlet engine, the same waves and cannon, and sharp drawing on 2× screens.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/sherman-bytes-1-0-patch-notes/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/sherman-bytes.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Sherman Bytes 1.0 patch notes",
+      "headingAccent": "Versions 1.0.0 to 1.0.1, from the changelog.",
+      "eyebrow": "News",
+      "body": "Sherman Bytes 1.0 is the same pixel tank on a new engine. 1.0.0 moved it onto Fizlet with the same waves, drops and cannon, and 1.0.1 (30 October 2026) fixes drawing on 2× and zoomed screens and lets you drag the scoreboard.",
+      "ctas": [
+        {
+          "label": "Play Sherman Bytes",
+          "href": "/games/sherman-bytes/",
+          "variant": "primary"
+        },
+        {
+          "label": "Read the full changelog",
+          "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/CHANGELOG.md"
+        },
+        {
+          "label": "How the games run on Fizlet",
+          "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+        }
+      ]
+    },
+    {
+      "id": "stats-1",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "1.0.1",
+          "label": "current release (30 October 2026)"
+        },
+        {
+          "value": "2",
+          "label": "releases in these notes"
+        },
+        {
+          "value": "33,601 B",
+          "label": "gzip, the current build"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "richText",
+      "heading": "Version 1.0.1",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Same game and rules. The engine update is the only code change."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Fixed: the game draws in the right place on 2× and zoomed screens.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " On a 1.5× or 2× screen, the tank, enemies, shells and the bases' beacon rings drew too big and away from the page: the tank started off screen and enemies fired at empty space. Now the art sits on your tank and around the bases (checked in Chromium at 2×)."
+              }
+            ],
+            [
+              {
+                "text": "The scoreboard drags.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Grab the card anywhere that isn't a key, with mouse or touch. It stays inside the window, even when the window shrinks."
+              }
+            ],
+            [
+              {
+                "text": "Easier-to-read keys.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The scoreboard's key labels pass WCAG AA contrast in light and dark."
+              }
+            ],
+            [
+              {
+                "text": "Under the hood.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Fizlet 0.19.0 (was 0.13.0). The game is 33,601 B gzip (1.0.0: 32,606 B); the budget moves to 34,000 B."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-3",
+      "type": "richText",
+      "heading": "Version 1.0.0: on Fizlet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Sherman Bytes moves from the DOM VIRUS core onto Fizlet 0.13.0. Same game, same numbers."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Same waves, drops and cannon.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The wave clock and the airdrops keep their numbers, and the cannon still levels up at 20 and 60 XP."
+              }
+            ],
+            [
+              {
+                "text": "A new scoreboard.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Score, wave, armor and scrap, the cannon meter, the Cover, Pillbox and Mine keys and a comms toast for waves, in the Board UI kit."
+              }
+            ],
+            [
+              {
+                "text": "Bases show their health",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " as a level inside the button (full green at full health) and a beacon ring."
+              }
+            ],
+            [
+              {
+                "text": "A base is the whole button.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " A button half off screen keeps walls fitted to its whole box, and a letter exactly at the tank's radius now blocks."
+              }
+            ],
+            [
+              {
+                "text": "Same seed, same run.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " A step never allocates (tested: 20,000 busy steps with waves, builds, mines and pillboxes, no minor GC), and a run replays from its seed (tested)."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 32,606 B gzip (0.5.2: 26,994 B). The Board UI kit's CSS is 3,060 B of it."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
+          "link": {
+            "label": "Read: Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/byte-runner-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
+          "link": {
+            "label": "Read: DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/dom-battlefield-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+          "body": "Battlefield Blitz patch notes 0.7.0 to 0.10.0: two players in lockstep, a real lobby, replayable matches and no GC hitches.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+            "href": "/news/dom-battlefield-blitz-0-10-patch-notes"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "patch-notes",
+      "sherman-bytes"
+    ],
+    "created": "2026-10-30"
+  }
+}

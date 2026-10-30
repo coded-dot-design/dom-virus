@@ -1,0 +1,208 @@
+{
+  "$generated": {
+    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
+    "hash": "0713c440ae2215a5"
+  },
+  "collection": "posts",
+  "id": "blog-how-we-build-games-on-a-4-kb-kernel",
+  "slug": "how-we-build-games-on-a-4-kb-kernel",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "games": [
+      "byte-runner",
+      "dom-battlefield",
+      "dom-battlefield-blitz",
+      "null-invaders",
+      "sherman-bytes",
+      "swarm-protocol"
+    ]
+  },
+  "data": {
+    "id": "blog-how-we-build-games-on-a-4-kb-kernel",
+    "site": "dom-virus",
+    "brand": "domvirus",
+    "games": [
+      "byte-runner",
+      "dom-battlefield",
+      "dom-battlefield-blitz",
+      "null-invaders",
+      "sherman-bytes",
+      "swarm-protocol"
+    ],
+    "type": "blog",
+    "slug": "how-we-build-games-on-a-4-kb-kernel",
+    "title": "How we build games on a 4 KB kernel",
+    "subtitle": "What a tiny engine means when you play.",
+    "tags": [
+      "fizlet",
+      "engine",
+      "performance"
+    ],
+    "date": "2026-10-30",
+    "status": "published",
+    "image": "/og/dom-virus.png",
+    "lead": [
+      "Every game in the DOM VIRUS arcade runs on Fizlet, a game engine for the page whose kernel has a 4 KB gzip budget. The kernel runs the loop: read the page, step the rules, write the page back. Each game adds only the bricks it needs. Here is what that means when you play."
+    ],
+    "blocks": [
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "3,422 B",
+            "label": "the Fizlet kernel, gzip (budget 4,096 B), on Fizlet 0.17.0"
+          },
+          {
+            "value": "6",
+            "label": "arcade games on Fizlet"
+          },
+          {
+            "value": "0",
+            "label": "minor GCs in 20,000 busy steps, in each port's test"
+          },
+          {
+            "value": "27,499 B",
+            "label": "all of Null Invaders 1.0.2, gzip"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "One loop for every game",
+        "body": [
+          {
+            "type": "p",
+            "text": "A game on Fizlet is a set of rules and a loop. Each frame the engine reads the page: where the letters and the buttons are. Then it steps the rules on typed arrays. Then it writes the page back through a ledger."
+          },
+          {
+            "type": "p",
+            "text": "The ledger is why Recall works. Every change the game makes to the page is recorded, so the page comes back byte for byte when you are done."
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What you notice as a player",
+        "body": [
+          {
+            "type": "ul",
+            "items": [
+              "**No hitches.** A step never allocates, so the garbage collector has nothing to clean up mid-fight. Each port proves it: 20,000 busy steps, 0 minor GCs.",
+              "**Same seed, same run.** Every random roll comes from the run's seed, so a run replays exactly. That is what lets [Battlefield Blitz](/games/battlefield-blitz/) play two players in lockstep: only inputs travel, and two peers stay identical, with 0 desyncs in its tests.",
+              "**One button language.** The scoreboards share the Board UI kit, so a key in [Null Invaders](/games/null-invaders/) presses like a key in [DOM Battlefield](/games/battlefield/).",
+              "**The page comes back.** Recall restores the page byte for byte, tested in Chromium for every port."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "What it costs",
+        "body": [
+          {
+            "type": "p",
+            "text": "Small is not free. Moving onto Fizlet made the games bigger in gzip bytes, by 7 to 21%. Most of that is the shared Board UI kit each game bakes in. The patch notes give every game's size, before and after."
+          },
+          {
+            "type": "p",
+            "text": "The full story, with the size ledger game by game and what the ports taught the engine, is on fizlet.com."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "layout": "cards",
+        "heading": "The games on the kernel",
+        "items": [
+          {
+            "title": "Null Invaders",
+            "body": "Fly an interceptor through the page. 27,499 B gzip for the whole game (1.0.2).",
+            "link": {
+              "label": "Play Null Invaders",
+              "href": "/games/null-invaders/"
+            }
+          },
+          {
+            "title": "Byte Runner",
+            "body": "A frog on the page's trails. 34,859 B gzip (1.0.1).",
+            "link": {
+              "label": "Play Byte Runner",
+              "href": "/games/byte-runner/"
+            }
+          },
+          {
+            "title": "Sherman Bytes",
+            "body": "The pixel tank that breaches button bases. 33,601 B gzip (1.0.1).",
+            "link": {
+              "label": "Play Sherman Bytes",
+              "href": "/games/sherman-bytes/"
+            }
+          },
+          {
+            "title": "Swarm Protocol",
+            "body": "Defend the page from a swarm. 39,132 B gzip on first open (1.4.0).",
+            "link": {
+              "label": "Play Swarm Protocol",
+              "href": "/games/swarm-protocol/"
+            }
+          },
+          {
+            "title": "DOM Battlefield",
+            "body": "Squad tactics on a full board. 71,911 B gzip (1.0.0).",
+            "link": {
+              "label": "Play DOM Battlefield",
+              "href": "/games/battlefield/"
+            }
+          },
+          {
+            "title": "Battlefield Blitz",
+            "body": "Every tank for itself, or two players in lockstep. 40,507 B gzip (0.10.0).",
+            "link": {
+              "label": "Play Battlefield Blitz",
+              "href": "/games/battlefield-blitz/"
+            }
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "items": [
+          {
+            "q": "How big is the Fizlet kernel?",
+            "a": "3,422 B gzip on Fizlet 0.17.0, as Swarm Protocol 1.4.0's size check measures it. Its budget is 4,096 B."
+          },
+          {
+            "q": "Which games run on Fizlet?",
+            "a": "All six in the arcade: Null Invaders, Byte Runner, Sherman Bytes, Swarm Protocol, DOM Battlefield and Battlefield Blitz."
+          },
+          {
+            "q": "Where are the technical details?",
+            "a": "On fizlet.com: the kernel, the bricks and the size ledger for every port."
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "links": [
+          {
+            "label": "The full story on fizlet.com",
+            "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+          },
+          {
+            "label": "Browse the games",
+            "href": "/games/"
+          },
+          {
+            "label": "Read the patch notes",
+            "href": "/news/"
+          }
+        ]
+      }
+    ],
+    "seo": {
+      "title": "How we build games on a 4 KB kernel | DOM VIRUS",
+      "description": "Every DOM VIRUS game runs on Fizlet, whose kernel is 3,422 B gzip. What that buys players: no hitches, replayable runs, the page back."
+    }
+  }
+}

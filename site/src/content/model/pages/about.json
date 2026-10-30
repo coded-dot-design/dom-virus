@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "c29b42a791764533"
+    "hash": "abfe78adc71aef33"
   },
   "collection": "pages",
   "id": "about",
@@ -31,7 +31,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "DOM VIRUS is a shelf of tiny arcade games that play on the real page you are reading. I'm Chris Cooley, and I make them on my own, under coded.design. Letters become terrain, buttons become bases, and Recall gives the page back when you are done."
     ],

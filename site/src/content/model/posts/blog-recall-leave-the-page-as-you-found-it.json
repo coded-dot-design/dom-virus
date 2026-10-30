@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "23df6887f4e0bc25"
+    "hash": "9bf55e047339369c"
   },
   "collection": "posts",
   "id": "blog-recall-leave-the-page-as-you-found-it",
@@ -32,7 +32,7 @@
     "date": "2026-11-19",
     "status": "scheduled",
     "publishAt": "2026-11-19",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/sherman-bytes.jpg",
     "lead": [
       "Every DOM VIRUS game breaks the page you are reading, on purpose. Then you press Recall and the page comes back. That second half is the part I care about most, and it is harder than it looks."
     ],

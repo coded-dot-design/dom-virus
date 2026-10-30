@@ -6,7 +6,7 @@ tags: [performance, engine, story]
 date: 2026-11-05
 status: scheduled
 publishAt: 2026-11-05
-image: /og/dom-virus.png
+image: /shots/sherman-bytes.jpg
 ---
 I have made small games and micro animations on the side for more than twenty years. The tools changed every few years. The lesson did not: on a webpage, speed comes from doing less, on purpose, every single frame.
 

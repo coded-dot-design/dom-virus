@@ -1,0 +1,288 @@
+{
+  "id": "news-null-invaders-1-0-patch-notes",
+  "path": "/news/null-invaders-1-0-patch-notes",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+    "description": "Null Invaders 1.0 patch notes: the move to the Fizlet engine, sharp drawing on 2× screens and a scoreboard you can drag.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/null-invaders-1-0-patch-notes/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/null-invaders.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Null Invaders 1.0 patch notes",
+      "headingAccent": "Versions 1.0.0 to 1.0.2, from the changelog.",
+      "eyebrow": "News",
+      "body": "Null Invaders 1.0 is the same shooter on a new engine. 1.0.0 moved it onto Fizlet, 1.0.1 proved its step allocates nothing, and 1.0.2 (30 October 2026) fixes drawing on 2× and zoomed screens and lets you drag the scoreboard.",
+      "ctas": [
+        {
+          "label": "Play Null Invaders",
+          "href": "/games/null-invaders/",
+          "variant": "primary"
+        },
+        {
+          "label": "Read the full changelog",
+          "href": "https://github.com/coded-dot-design/null-invaders/blob/main/CHANGELOG.md"
+        },
+        {
+          "label": "How the games run on Fizlet",
+          "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+        }
+      ]
+    },
+    {
+      "id": "stats-1",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "1.0.2",
+          "label": "current release (30 October 2026)"
+        },
+        {
+          "value": "3",
+          "label": "releases in these notes"
+        },
+        {
+          "value": "27,499 B",
+          "label": "gzip, the current build"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "richText",
+      "heading": "Version 1.0.2",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Same game and rules. The engine update is the only code change."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Fixed: the game draws in the right place on 2× and zoomed screens.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " On a 1.5× or 2× screen, the ship, the invaders and the factories' beacon rings drew too big and away from the page. Now the art sits on your ship and around the target buttons (checked in Chromium at 2×)."
+              }
+            ],
+            [
+              {
+                "text": "The scoreboard drags.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Grab the card anywhere that isn't a key, with mouse or touch. It stays inside the window, even when the window shrinks."
+              }
+            ],
+            [
+              {
+                "text": "Easier-to-read keys.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The scoreboard's key labels pass WCAG AA contrast in light and dark."
+              }
+            ],
+            [
+              {
+                "text": "Under the hood.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Fizlet 0.19.0 (was 0.13.0). The game is 27,499 B gzip (1.0.1: 26,493 B); the budget moves to 28,000 B."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-3",
+      "type": "richText",
+      "heading": "Version 1.0.1",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Same game: a run replays bit for bit what 1.0.0 played (same seeds, same inputs)."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "No allocation in the step.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Math.hypot is out of the step, because V8's allocates on every call. Its replacement returns exactly the same numbers, so gameplay doesn't move by a bit."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 26,493 B gzip (budget 27,000 B)."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "text-4",
+      "type": "richText",
+      "heading": "Version 1.0.0: on Fizlet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Null Invaders moves from the DOM VIRUS core onto Fizlet 0.13.0. Same game, same numbers."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "A new scoreboard.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Score, wave, shields, combo and the weapon meter sit in the Board UI kit, with the same keys and readouts as DOM Battlefield and a comms toast for upgrades, waves and the result."
+              }
+            ],
+            [
+              {
+                "text": "Phone controls from the kit.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The touch stick and the Fire key are the kit's pad."
+              }
+            ],
+            [
+              {
+                "text": "Factories show their health",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " as a level inside the button and a beacon ring."
+              }
+            ],
+            [
+              {
+                "text": "Same seed, same run.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " A step never allocates (tested: 20,000 busy steps, no minor GC), and the same seed with the same inputs replays the same run (tested)."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 26,434 B gzip (0.7.2: 22,940 B). The Board UI kit's CSS is 2,702 B of it."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
+          "link": {
+            "label": "Read: Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/byte-runner-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
+          "link": {
+            "label": "Read: DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/dom-battlefield-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+          "body": "Battlefield Blitz patch notes 0.7.0 to 0.10.0: two players in lockstep, a real lobby, replayable matches and no GC hitches.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+            "href": "/news/dom-battlefield-blitz-0-10-patch-notes"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "patch-notes",
+      "null-invaders"
+    ],
+    "created": "2026-10-30"
+  }
+}

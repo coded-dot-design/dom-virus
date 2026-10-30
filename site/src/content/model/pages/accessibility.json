@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "39478f1ba569b5fa"
+    "hash": "da5b03fd32f199ac"
   },
   "collection": "pages",
   "id": "accessibility",
@@ -26,7 +26,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "We want everyone to be able to play. The games work with a keyboard or touch, follow your reduced-motion setting, and give the page back on Escape or Recall. Fast action games still have limits, listed below. Last updated 2026-10-29."
     ],

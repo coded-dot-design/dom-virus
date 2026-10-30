@@ -5,7 +5,7 @@ slug: sherman-bytes-0-5
 tags: [release, sherman-bytes]
 date: 2026-10-25
 status: published
-image: /og/dom-virus.png
+image: /shots/sherman-bytes.jpg
 ---
 Sherman Bytes 0.5 brings the whole game to phones. Drive with a joystick, hold Fire, and tap to build cover, pillboxes and mines. Battles now have sound. Sherman Bytes is the pixel tank game that plays on a live webpage: breach button bases, build cover, hold the page.
 

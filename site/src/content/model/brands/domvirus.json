@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "8bb4de2e1eebf393"
+    "hash": "5d7f96e439930ff9"
   },
   "collection": "brands",
   "id": "domvirus",
@@ -18,21 +18,28 @@
     "posts": [
       "blog-a-game-a-week-on-the-side",
       "blog-from-one-tank-to-a-whole-platoon",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-recall-leave-the-page-as-you-found-it",
       "blog-the-page-is-the-game-board",
       "blog-twenty-years-of-tiny-games",
       "blog-two-macs-one-network-and-bolo",
       "blog-why-i-built-fizlet",
       "news-byte-runner-0-10",
+      "news-byte-runner-1-0-patch-notes",
       "news-coming-next",
       "news-dom-battlefield-0-18",
+      "news-dom-battlefield-1-0-patch-notes",
+      "news-dom-battlefield-blitz-0-10-patch-notes",
       "news-dom-battlefield-blitz-0-6",
       "news-dom-virus-0-46",
       "news-dom-virus-launch",
       "news-fizlet-0-2",
       "news-null-invaders-0-7",
+      "news-null-invaders-1-0-patch-notes",
       "news-sherman-bytes-0-5",
-      "news-swarm-protocol-1-3"
+      "news-sherman-bytes-1-0-patch-notes",
+      "news-swarm-protocol-1-3",
+      "news-swarm-protocol-1-4-patch-notes"
     ],
     "pages": [
       "about",

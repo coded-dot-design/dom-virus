@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "f08e554d10e16bf8"
+    "hash": "f1fa964cde6b5d55"
   },
   "collection": "games",
   "id": "swarm-protocol",
@@ -11,10 +11,12 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-dom-virus-launch",
-      "news-swarm-protocol-1-3"
+      "news-swarm-protocol-1-3",
+      "news-swarm-protocol-1-4-patch-notes"
     ],
     "pages": [
       "press"
@@ -30,7 +32,10 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/swarm-protocol",
     "engine": {
-      "runtime": "own"
+      "runtime": "fizlet",
+      "bricks": [
+        "collide"
+      ]
     },
     "budget": {
       "gzipBytes": 35775,
@@ -222,6 +227,28 @@
         {
           "title": "The secret code",
           "body": "On sites that install the hidden activation, ↑ ↑ ↓ ↓ ← → ← → B A Enter opens the game."
+        }
+      ],
+      "strategy": [
+        {
+          "title": "Squash crawlers before six letters",
+          "body": "A crawler has one hit point. After six letters it grows and gains a hit point, and after twelve it becomes a button hunter with one more. Every early squash saves you hits later."
+        },
+        {
+          "title": "Damage sticks",
+          "body": "Evolving does not fully heal a bug: hits it took before it grew still count. Finish wounded bugs first."
+        },
+        {
+          "title": "Triage by colour",
+          "body": "A button fades to mint green on its first bite, turns yellow at 75% health and coral red at 35%. Defend the red buttons first."
+        },
+        {
+          "title": "Scroll before you pay",
+          "body": "Scrolling is always free and can outrun the swarm. A Jump costs 50 points and Jump + Zap 200, and every rescue raises both prices by 25."
+        },
+        {
+          "title": "Zap only to save a button",
+          "body": "A zap clears a 140–220 px radius but pays 1 point per kill with no combo multiplier, and each zap adds another 150 to its price. Use it when a button is about to fall, not to farm points."
         }
       ],
       "whatsNew": {

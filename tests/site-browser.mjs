@@ -261,7 +261,9 @@ try {
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".game-embed .bay.placeholder").count(), 1, "game page shows the empty cartridge bay, not a cartridge");
-  assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
+  assert.equal(await page.locator(".game-notes .nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
+  // Its posts (content model relations, newest first): the patch notes link from the game page.
+  assert.ok((await page.locator(".guide-posts a.nerd-link").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).includes(base.replace(/^https?:\/\/[^/]+/, "") + "news/byte-runner-1-0-patch-notes/"), "Byte Runner links its patch notes");
   // Each game page carries its integration snippet in the same 3D code card as Under the hood.
   assert.equal(await page.locator(".game-embed .code-example").count(), 1);
   assert.match(await page.locator(".game-embed code").textContent(), /byte-runner/);
@@ -326,7 +328,19 @@ try {
   assert.deepEqual(outs, ["https://battlefield.domvirus.com/", `${base}games/battlefield-blitz/`, "https://battlefield.domvirus.com/style-guide/"]);
   assert.equal(await page.locator('.actions a[href="https://battlefield.domvirus.com/"]').count(), 1, "Battlefield has a website key");
   // The player's guide from its engine page: screenshot, how to play, modes, controls, tips, what's new, FAQ.
-  for (const e of ["HOW TO PLAY", "CONTROLS", "MODES", "TIPS", "WHAT'S NEW", "FAQ"]) assert.equal(await page.locator(".game-guide .eyebrow", { hasText: new RegExp(`^${e}$`) }).count(), 1, `Battlefield guide: ${e}`);
+  for (const e of ["HOW TO PLAY", "CONTROLS", "MODES", "TIPS", "STRATEGY", "WHAT'S NEW", "NEWS", "FAQ"]) assert.equal(await page.locator(".game-guide .eyebrow", { hasText: new RegExp(`^${e}$`) }).count(), 1, `Battlefield guide: ${e}`);
+  assert.equal(await page.locator(".guide-posts a.nerd-link").first().getAttribute("href"), base.replace(/^https?:\/\/[^/]+/, "") + "news/dom-battlefield-1-0-patch-notes/", "Battlefield's newest post is its patch notes");
+  // Strategy where a game has depth (Blitz and Swarm too), and patch notes render their lists, bold
+  // leads and links (richText). Own tab: back-to-back page.goto aborts the main tab's view transitions.
+  const tab = await page.context().newPage();
+  for (const g of ["battlefield-blitz", "swarm-protocol"]) {
+    await tab.goto(base + `games/${g}/`);
+    assert.ok((await tab.locator(".guide-rows", { has: tab.locator(".eyebrow", { hasText: /^STRATEGY$/ }) }).locator("li").count()) >= 5, `${g}: strategy`);
+  }
+  await tab.goto(base + "news/null-invaders-1-0-patch-notes/");
+  assert.ok((await tab.locator(".engine-prose ul li strong").count()) >= 10, "patch notes: bold-led list items");
+  assert.equal(await tab.locator(".engine-prose h2", { hasText: "Version 1.0.2" }).count(), 1);
+  await tab.close();
   // Blitz's hub page: Play and two players go to its own site.
   await page.goto(base + "games/battlefield-blitz/");
   assert.deepEqual(await page.locator(".board-page .actions a").evaluateAll((as) => as.map((a) => a.href)), ["https://battlefieldblitz.domvirus.com/play/", "https://battlefieldblitz.domvirus.com/play/two/"]);

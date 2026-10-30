@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "44b322e1e59ffd71"
+    "hash": "b6cea876d57bdaf1"
   },
   "collection": "posts",
   "id": "news-fizlet-0-2",
@@ -26,7 +26,7 @@
     ],
     "date": "2026-10-28",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "Fizlet 0.2 adds the first five bricks on top of the kernel: input, collide, fx, sound and embed. Fizlet is the tiny game and animation engine for the DOM behind the DOM VIRUS family. One shared loop, bounded everything, and page changes given back on Recall."
     ],

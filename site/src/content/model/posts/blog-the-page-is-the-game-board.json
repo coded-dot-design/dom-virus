@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "fdb22751f9823000"
+    "hash": "01b3aa1640adebe3"
   },
   "collection": "posts",
   "id": "blog-the-page-is-the-game-board",
@@ -38,7 +38,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "Most browser games bring their own world: a canvas, a level, a map someone drew. DOM VIRUS games use the one already in front of you. The page you are reading is the board, and the game plays on its real letters and buttons."
     ],

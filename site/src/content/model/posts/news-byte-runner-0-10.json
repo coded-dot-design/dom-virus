@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "698481eff05ffaf8"
+    "hash": "ae6c9abba4e37365"
   },
   "collection": "posts",
   "id": "news-byte-runner-0-10",
@@ -30,7 +30,7 @@
     ],
     "date": "2026-10-25",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/byte-runner.jpg",
     "lead": [
       "Byte Runner 0.10 turns the food trails into magnetic pipes. The frog races along them, jumps out to eat real text and grabs flies with its tongue. Byte Runner is the chase game where a round pixel frog eats a real webpage, one letter and one power square at a time."
     ],

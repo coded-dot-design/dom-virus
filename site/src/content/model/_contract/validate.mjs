@@ -7,6 +7,24 @@ export const LIFECYCLE = ["idea", "draft", "scheduled", "published"];
 // A game's development status, read as a content lifecycle.
 export const GAME_LIFECYCLE = { idea: "idea", "in-progress": "draft", released: "published" };
 
+/**
+ * When a `publishAt` goes live, as epoch ms (NaN when it is not a real date/time). A bare date
+ * (YYYY-MM-DD, the old form) is 00:00 UTC that day; a datetime names its zone (Z or ±hh:mm), so
+ * "2026-10-31T09:00:00-04:00" is 9am on the east coast whichever machine builds the site.
+ */
+export function publishMs(at) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2}))?(Z|[+-]\d{2}:\d{2}))?$/.exec(at ?? "");
+  if (!m) return NaN;
+  const [y, mo, d, h = 0, mi = 0, sec = 0] = m.slice(1, 7).map((x) => Number(x ?? 0));
+  const day = new Date(Date.UTC(y, mo - 1, d));
+  if (day.getUTCFullYear() !== y || day.getUTCMonth() !== mo - 1 || day.getUTCDate() !== d || h > 23 || mi > 59 || sec > 59) return NaN;
+  if (m[7] && m[7] !== "Z" && (Number(m[7].slice(1, 3)) > 23 || Number(m[7].slice(4)) > 59)) return NaN;
+  return Date.parse(m[4] === undefined ? `${m[1]}-${m[2]}-${m[3]}T00:00:00Z` : at);
+}
+
+/** True when a scheduled entry's publishAt has passed at `now` (a Date, epoch ms, or ISO date/datetime string). */
+export const publishedBy = (publishAt, now = Date.now()) => publishMs(publishAt) <= (typeof now === "string" ? Date.parse(now) : +now);
+
 const typeOf = (v) => (Array.isArray(v) ? "array" : v === null ? "null" : Number.isInteger(v) ? "integer" : typeof v);
 const resolve = (schema, root) => (schema.$ref ? schema.$ref.slice(2).split("/").reduce((o, k) => o[k], root) : schema);
 
@@ -93,7 +111,9 @@ export function checkModel(model, { game, content }) {
     for (const g of gamesOf(e)) if (!ids.has(g)) errs.push(`${at}: unknown game ${g}`);
     if ((e.status === "scheduled") !== Boolean(e.publishAt)) errs.push(`${at}: publishAt is set exactly when status is scheduled`);
     if (c === "posts" && ["scheduled", "published"].includes(e.status) && !e.date) errs.push(`${at}: a ${e.status} post needs its date`);
-    if (e.publishAt && e.date && e.publishAt < e.date) errs.push(`${at}: publishAt is before date`);
+    if (e.publishAt && Number.isNaN(publishMs(e.publishAt))) errs.push(`${at}: publishAt ${e.publishAt} is not a real date or zoned datetime`);
+    // Compared on the calendar date publishAt names (its own zone), so a 9am-local launch on its date is fine.
+    if (e.publishAt && e.date && e.publishAt.slice(0, 10) < e.date) errs.push(`${at}: publishAt is before date`);
     if (e.status !== "idea") for (const k of ["lead", "seo"]) if (!e[k]?.length && !e[k]?.title) errs.push(`${at}: a ${e.status} entry needs ${k} (only ideas may leave copy out)`);
   }
   for (const b of model.brands) if (b.parent && !brands.has(b.parent)) errs.push(`brands/${b.id}: unknown parent ${b.parent}`);

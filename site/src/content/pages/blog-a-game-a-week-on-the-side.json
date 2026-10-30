@@ -10,7 +10,7 @@
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {
-        "sourceUrl": "/og/dom-virus.png"
+        "sourceUrl": "/shots/sherman-bytes.jpg"
       }
     }
   },
@@ -139,19 +139,19 @@
           }
         },
         {
+          "title": "How we build games on a 4 KB kernel | DOM VIRUS",
+          "body": "Every DOM VIRUS game runs on Fizlet, whose kernel is 3,422 B gzip. What that buys players: no hitches, replayable runs, the page back.",
+          "link": {
+            "label": "Read: How we build games on a 4 KB kernel | DOM VIRUS",
+            "href": "/blog/how-we-build-games-on-a-4-kb-kernel"
+          }
+        },
+        {
           "title": "The page is the game board: how DOM VIRUS games play",
           "body": "DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.",
           "link": {
             "label": "Read: The page is the game board: how DOM VIRUS games play",
             "href": "/blog/the-page-is-the-game-board"
-          }
-        },
-        {
-          "title": "Two Macs, one network, and Bolo: where DOM VIRUS began",
-          "body": "Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.",
-          "link": {
-            "label": "Read: Two Macs, one network, and Bolo: where DOM VIRUS began",
-            "href": "/blog/two-macs-one-network-and-bolo"
           }
         }
       ]

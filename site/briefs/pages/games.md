@@ -5,7 +5,7 @@ slug: games
 tags: [games]
 date: 2026-10-29
 status: published
-image: https://coded-dot-design.github.io/dom-virus/og/dom-virus.png
+image: /og/dom-virus.png
 ---
 Every DOM VIRUS game is free to play in your browser. Four arcade games play right on this site and turn the page into the board. The two Battlefield tank games run full screen on their own sites. Filter by genre, see what's new, and press Play.
 

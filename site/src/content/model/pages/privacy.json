@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "61f92f0a213e658a"
+    "hash": "6f8b10a454407f66"
   },
   "collection": "pages",
   "id": "privacy",
@@ -26,7 +26,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "DOM VIRUS has no accounts, sets no cookies and sells nothing. The games save a few settings in your own browser, and our web host keeps standard request logs. Last updated 2026-10-29."
     ],

@@ -59,6 +59,17 @@ item: Chase the crates | Supply crates parachute in every 20 seconds or so: a me
 [/features]
 
 [features rows]
+eyebrow: STRATEGY
+heading: Battlefield Blitz strategy
+item: Stay alive to build a streak | Streaks count kills in one life: 2 earn a long shot, 3 an airstrike, 5 a carpet bomb and 8 a NUKE that wrecks every other tank on the field. Living longer is worth more than one risky kill.
+item: Save the long gun for the hard target | The long shot locks on, crosses the whole field, punches through cover and wrecks in one hit. You start with 3; Long tiles, supply crates and a 2-kill streak give more.
+item: Grab Rapid to beat the heat | The cannon overheats if you hold it. A Rapid tile gives 8 seconds of rapid fire with no overheating, and Triple gives 8 seconds of triple shot.
+item: Fight hurt, heal by winning | Every kill patches 1 armour and a Health tile adds 2. A Shield tile covers you for 6 seconds: take it before you push into a crowd.
+item: Mind the mines | A Mine tile blows up whoever drives onto it, and goes off by itself if it is left alone. Drive around it, or lure a chaser over it.
+item: Lead your platoon | In Platoon, your three wingmen hold a slot behind you, go after whoever is shooting at you and parachute back in next to you. Enemy platoons stick with their lead tank.
+[/features]
+
+[features rows]
 eyebrow: WHAT'S NEW
 heading: What's new in Battlefield Blitz 0.10.0 | A real two-player lobby
 subhead: Version 0.10.0, released 2026-10-30.

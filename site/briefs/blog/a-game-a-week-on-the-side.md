@@ -6,7 +6,7 @@ tags: [process, story, roadmap]
 date: 2026-11-12
 status: scheduled
 publishAt: 2026-11-12
-image: /og/dom-virus.png
+image: /shots/sherman-bytes.jpg
 ---
 I make DOM VIRUS on the side, for fun, and I ship roughly a game a week. That pace works because every game follows the same path. An idea page, a playable game on this site, and sometimes a board game of its own.
 

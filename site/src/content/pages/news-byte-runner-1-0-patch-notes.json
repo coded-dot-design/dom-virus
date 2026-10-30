@@ -1,0 +1,255 @@
+{
+  "id": "news-byte-runner-1-0-patch-notes",
+  "path": "/news/byte-runner-1-0-patch-notes",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+    "description": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/byte-runner-1-0-patch-notes/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/byte-runner.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Byte Runner 1.0 patch notes",
+      "headingAccent": "Versions 1.0.0 to 1.0.1, from the changelog.",
+      "eyebrow": "News",
+      "body": "Byte Runner 1.0 keeps the frog, the flies and the trails, on a new engine. 1.0.0 moved it onto Fizlet, and 1.0.1 (30 October 2026) fixes drawing on 2× and zoomed screens and lets you drag the scoreboard.",
+      "ctas": [
+        {
+          "label": "Play Byte Runner",
+          "href": "/games/byte-runner/",
+          "variant": "primary"
+        },
+        {
+          "label": "Read the full changelog",
+          "href": "https://github.com/coded-dot-design/byte-runner/blob/main/CHANGELOG.md"
+        },
+        {
+          "label": "How the games run on Fizlet",
+          "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+        }
+      ]
+    },
+    {
+      "id": "stats-1",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "1.0.1",
+          "label": "current release (30 October 2026)"
+        },
+        {
+          "value": "2",
+          "label": "releases in these notes"
+        },
+        {
+          "value": "34,859 B",
+          "label": "gzip, the current build"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "richText",
+      "heading": "Version 1.0.1",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Same game and rules. The engine update is the only code change."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Fixed: the game draws in the right place on 2× and zoomed screens.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " On a 1.5× or 2× screen, the gates' beacon rings, sparks and popups drew too big and away from the page. The trails, food and sprites live in the page and were never off (checked in Chromium at 2×)."
+              }
+            ],
+            [
+              {
+                "text": "The scoreboard drags.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Grab the card anywhere that isn't a key, with mouse or touch. It stays inside the window, even when the window shrinks."
+              }
+            ],
+            [
+              {
+                "text": "Easier-to-read keys.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The scoreboard's key labels pass WCAG AA contrast in light and dark."
+              }
+            ],
+            [
+              {
+                "text": "Under the hood.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Fizlet 0.19.0 (was 0.13.0). The game is 34,859 B gzip (1.0.0: 33,868 B); the budget moves to 35,500 B."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-3",
+      "type": "richText",
+      "heading": "Version 1.0.0: on Fizlet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Byte Runner moves from the DOM VIRUS core onto Fizlet 0.13.0. Same game, same numbers."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Same seed, new maze.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The engine draws a different random sequence than 0.10.x, so a seed gives a different food layout. It still repeats: the same seed with the same inputs replays the same run (tested)."
+              }
+            ],
+            [
+              {
+                "text": "A new scoreboard.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Score, level, lives, power, a food meter, the Jump and Refresh maze keys and a comms toast, in the Board UI kit."
+              }
+            ],
+            [
+              {
+                "text": "Phone stick from the kit.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The stick turns by its stronger axis past a 0.15 dead zone. On keys, the newest held direction still wins."
+              }
+            ],
+            [
+              {
+                "text": "Trails follow the page.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The maze rebuilds from the layout every 0.35 s when the view changed, on a new level and when you press M."
+              }
+            ],
+            [
+              {
+                "text": "No page-wide locks on phones.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The selection and zoom locks are gone; the touch pad itself never selects text."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 33,868 B gzip (0.10.2: 29,160 B). The Board UI kit's CSS is 2,962 B of it."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
+          "link": {
+            "label": "Read: DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/dom-battlefield-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+          "body": "Battlefield Blitz patch notes 0.7.0 to 0.10.0: two players in lockstep, a real lobby, replayable matches and no GC hitches.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+            "href": "/news/dom-battlefield-blitz-0-10-patch-notes"
+          }
+        },
+        {
+          "title": "Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+          "body": "Null Invaders 1.0 patch notes: the move to the Fizlet engine, sharp drawing on 2× screens and a scoreboard you can drag.",
+          "link": {
+            "label": "Read: Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+            "href": "/news/null-invaders-1-0-patch-notes"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "patch-notes",
+      "byte-runner"
+    ],
+    "created": "2026-10-30"
+  }
+}

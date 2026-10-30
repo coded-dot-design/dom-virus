@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "2761c172ab84f3b2"
+    "hash": "68c97c7b5ac3e925"
   },
   "collection": "pages",
   "id": "press",
@@ -38,7 +38,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "DOM VIRUS is a family of tiny open-source arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design."
     ],

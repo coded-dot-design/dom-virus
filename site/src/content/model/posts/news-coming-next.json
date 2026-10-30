@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "639c976fa89e2345"
+    "hash": "c5cc016bd36c3e76"
   },
   "collection": "posts",
   "id": "news-coming-next",
@@ -33,7 +33,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "Battlefield Blitz, the first of the new cartridges, has shipped. Next on the bench: DOM Crossfire, DOM Kaiju and DOM Flock, plus multiplayer Battlefield. All of them are planned, not promised. The bar for every one: the explosions on our home page and the tanks wrecking the DOM Battlefield site."
     ],

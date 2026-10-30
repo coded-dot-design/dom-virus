@@ -1,0 +1,474 @@
+{
+  "id": "news-dom-battlefield-blitz-0-10-patch-notes",
+  "path": "/news/dom-battlefield-blitz-0-10-patch-notes",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+    "description": "Battlefield Blitz patch notes 0.7.0 to 0.10.0: two players in lockstep, a real lobby, replayable matches and no GC hitches.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-battlefield-blitz-0-10-patch-notes/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/dom-battlefield-blitz.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Battlefield Blitz 0.10 patch notes",
+      "headingAccent": "Versions 0.7.0 to 0.10.0, from the changelog.",
+      "eyebrow": "News",
+      "body": "Battlefield Blitz went from its own site to two-player matches in eight releases. 0.9.0 added two players in lockstep, and 0.10.0 (30 October 2026) adds a real lobby and a scoreboard you can drag. Solo matches still play the 0.8.2 matches value for value.",
+      "ctas": [
+        {
+          "label": "Play Battlefield Blitz",
+          "href": "/games/battlefield-blitz/",
+          "variant": "primary"
+        },
+        {
+          "label": "Read the full changelog",
+          "href": "https://github.com/coded-dot-design/dom-battlefield-blitz/blob/main/CHANGELOG.md"
+        },
+        {
+          "label": "How the games run on Fizlet",
+          "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+        }
+      ]
+    },
+    {
+      "id": "stats-1",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "0.10.0",
+          "label": "current release (30 October 2026)"
+        },
+        {
+          "value": "8",
+          "label": "releases in these notes"
+        },
+        {
+          "value": "40,507 B",
+          "label": "gzip, the current build"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "richText",
+      "heading": "Version 0.10.0",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "A real two-player lobby",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " at /play/two/: join with an invite code and a room, send player 2 a link, then the countdown and the match. After it: REMATCH (same room, a fresh seed) or NEW ROOM. If the other player leaves: REJOIN or NEW ROOM. Before, the match just waited."
+              }
+            ],
+            [
+              {
+                "text": "Two players on phones.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " One full-screen stage with no scroll on phones. A short landscape phone gets a two-column card, and every lobby key is at least 44 px."
+              }
+            ],
+            [
+              {
+                "text": "The scoreboard drags.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Drag its top bar. It stays on the board and is remembered on this device; a double-click puts it back."
+              }
+            ],
+            [
+              {
+                "text": "The hero follows the theme.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " In light mode the gradient behind the hero copy was still the dark one. It now uses the theme's colours, and every hero text colour passes WCAG AA."
+              }
+            ],
+            [
+              {
+                "text": "Under the hood.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Fizlet 0.19.0 (was 0.15.0), no game change. dist/blitz.js is 40,507 B gzip (budget 40,960 B)."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-3",
+      "type": "richText",
+      "heading": "Version 0.9.0",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Two players in lockstep.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Both players run the same match from the room's seed, and only inputs travel. A fixed 1100 × 640 arena scales to fit, so any two screens play one match. Seats after the humans are bots."
+              }
+            ],
+            [
+              {
+                "text": "Tested for drift.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Two peers on different screen sizes play 3,600 frames identical, also with 6 ± 5 ticks of jitter: 0 desyncs."
+              }
+            ],
+            [
+              {
+                "text": "Solo play is unchanged.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The pinned 0.8.2 matches still play value for value."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " dist/blitz.js is 40,251 B gzip; the two-player module, dist/blitz-net.mjs, is 41,785 B (budget 43,008 B)."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-4",
+      "type": "richText",
+      "heading": "Version 0.8.4",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "No garbage-collection hitches.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The step allocates nothing: 20,000 busy steps make 0 minor GCs (0.8.3 made 10 and 14)."
+              }
+            ],
+            [
+              {
+                "text": "A screen-shake fix.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The shake no longer draws from the match's seeded random, so how often the screen is drawn no longer changes a match. Board matches where you get hit play differently from 0.8.3, and they replay."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 39,143 B gzip."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-5",
+      "type": "richText",
+      "heading": "Version 0.8.3",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Same matches, bit for bit: seeds 41, 42 and 7 play the 0.8.2 matches for 3,600 frames."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "No wall clock in the step.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " A cover's knock cool-down runs on match time, so a page-cover match no longer depends on the wall clock."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 37,885 B gzip."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-6",
+      "type": "richText",
+      "heading": "Version 0.8.2",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Keys press right.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Every in-page key is the Board UI kit's: press beats hover, and the face and its base both take the click. PLAY BLITZ is the kit's sticker key."
+              }
+            ],
+            [
+              {
+                "text": "Cleaner pages.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The footer headings keep a clean order, and both pages carry structured data."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 37,813 B gzip."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "text-7",
+      "type": "richText",
+      "heading": "Version 0.8.1",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Supply crates read the engine.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The fall shadow and the blink come from the drop brick. Five seeds × 7,200 frames play the same as 0.8.0."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 37,614 B gzip."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "text-8",
+      "type": "richText",
+      "heading": "Version 0.8.0",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Replayable matches.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Every random number in a match comes from the engine's seeded random: the same seed and the same input give the same match."
+              }
+            ],
+            [
+              {
+                "text": "Supply crates on fizlet/rules.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 2 at once, a 2.2 s parachute fall and 14 s on the ground, as before, with the same kinds, odds and rewards."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 37,639 B gzip (was 34,501 B)."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "text-9",
+      "type": "richText",
+      "heading": "Version 0.7.0",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Blitz has its own site.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The landing page and the game at /play/ moved over from the Battlefield site, ready for battlefieldblitz.domvirus.com. The site links to DOM Battlefield and DOM VIRUS."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
+          "link": {
+            "label": "Read: Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/byte-runner-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
+          "link": {
+            "label": "Read: DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/dom-battlefield-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+          "body": "Null Invaders 1.0 patch notes: the move to the Fizlet engine, sharp drawing on 2× screens and a scoreboard you can drag.",
+          "link": {
+            "label": "Read: Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+            "href": "/news/null-invaders-1-0-patch-notes"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "patch-notes",
+      "dom-battlefield-blitz"
+    ],
+    "created": "2026-10-30"
+  }
+}

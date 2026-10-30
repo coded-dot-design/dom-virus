@@ -1,12 +1,12 @@
 ---
 // The player's guide on a game page, from the game's engine page JSON (brain-cache/fizlet-engine
 // spec → `fe brief` → `abe produce`): a real screenshot, how to play, controls, modes, tips, what's
-// new and the FAQ. The brief marks each block with its eyebrow, so the site finds blocks by eyebrow,
+// new, posts about the game (news and blog, from the content model's relations) and the FAQ. The brief marks each block with its eyebrow, so the site finds blocks by eyebrow,
 // never by position. Copy comes only from the page JSON; nothing here is typed by hand.
 import UiIcon from './UiIcon.astro';
 import { SHOTS } from '../shots';
-import { formatDate } from '../engine-content';
-const { content, base = '/', id, poster = true, faq = true, level = 'h2' } = Astro.props;
+import { formatDate, dateOf, postsAbout, routeOf } from '../engine-content';
+const { content, base = '/', id, gameId = id, poster = true, faq = true, level = 'h2' } = Astro.props;
 const H = level;
 const Sub = level === 'h2' ? 'h3' : 'h4';
 const sections = content?.sections || [];
@@ -19,14 +19,16 @@ const blocks = [
   { s: byEyebrow('CONTROLS'), kind: 'grid' },
   { s: byEyebrow('MODES'), kind: 'rows' },
   { s: byEyebrow('TIPS'), kind: 'grid' },
+  { s: byEyebrow('STRATEGY'), kind: 'rows' },
 ].filter((b) => b.s);
 const news = byEyebrow("WHAT'S NEW");
 // "Version 1.0.2, released 2026-10-30." → the version and an ISO date for <time>.
 const [, version, released] = news?.subhead?.match(/^Version (\S+), released (\d{4}-\d{2}-\d{2})\.$/) || [];
+const about = postsAbout(gameId);
 const questions = faq ? sections.find((s) => s.type === 'faq') : undefined;
 const hid = (s) => `${id}-${s.id}`;
 ---
-{(figure || blocks.length > 0 || news || questions) && <div class="game-guide">
+{(figure || blocks.length > 0 || news || about.length > 0 || questions) && <div class="game-guide">
   {figure && <figure class="guide-poster card">
     <img src={src(figure.image.src)} alt={figure.image.alt} width={shot?.[0]} height={shot?.[1]} loading="lazy" decoding="async"/>
     {figure.caption && <figcaption>{figure.caption}</figcaption>}
@@ -44,6 +46,12 @@ const hid = (s) => `${id}-${s.id}`;
     {version && <p class="guide-sub">Version {version} · <time datetime={released}>{formatDate(released)}</time></p>}
     <ul>{news.items.map((i) => <li><strong>{i.title}.</strong> {i.body}</li>)}</ul>
   </section>}
+  {about.length > 0 && <section class="guide-block guide-posts" aria-labelledby={`${id}-posts`}>
+    <div class="eyebrow">NEWS</div>
+    <H id={`${id}-posts`}>Patch notes and posts</H>
+    <div class="guide-post-rows">{about.map((p) => <a class="nerd-link card" href={`${base}${routeOf(p)}`}><span class="eyebrow">{formatDate(dateOf(p)).toUpperCase()}{p.meta?.pageType === 'blog' ? ' · BLOG' : ' · NEWS'}</span><strong>{p.sections[0].heading}</strong><span>{p.seo.description}</span><UiIcon name="arrow-up-right" size={20}/></a>)}</div>
+    <p class="guide-all"><a class="text-link" href={`${base}news/`}>All arcade news <UiIcon name="arrow-up-right" size={15}/></a></p>
+  </section>}
   {questions && <section class="guide-block game-faq" aria-labelledby={`${id}-faq`}>
     <div class="eyebrow">FAQ</div>
     <H id={`${id}-faq`}>{questions.heading}</H>
@@ -60,6 +68,8 @@ const hid = (s) => `${id}-${s.id}`;
 .guide-block ol,.guide-block ul{list-style:none;margin:0;padding:0;display:grid;gap:20px}
 .guide-steps ol,.guide-grid ul{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .guide-rows ul{grid-template-columns:1fr;gap:14px}
+.guide-post-rows{display:grid;gap:14px;max-width:880px}
+.guide-all{margin:16px 0 0}
 .guide-block li.card{padding:18px 20px}
 .guide-steps li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
 .guide-block li h3,.guide-block li h4{margin:0 0 6px;font-size:17px;letter-spacing:-.01em}

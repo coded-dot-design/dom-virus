@@ -61,6 +61,17 @@ item: True full screen on phones | On iPhone, Add to Home Screen; on Android, In
 [/features]
 
 [features rows]
+eyebrow: STRATEGY
+heading: DOM Battlefield strategy
+item: Spend the 12 points on purpose | Each loadout slot costs points: a scout 2, a medium 3, a heavy 4, and four slots must fit 12. Scouts are fastest with the quickest reload; heavies take the most damage and hit hardest but move slowest. Squads of 8 and 12 repeat the pattern, so one choice shapes the whole squad.
+item: Play the objective, not the kill count | A capture means holding the opposing HQ for 12 seconds with no defender nearby. A crossroads must be held for 45 uncontested seconds. Elimination means breaking all four defenders. Plan routes for the one your operation asks for.
+item: Keep your command tank alive | Your command tank must survive, whatever the objective. Let the squad take the lead into contested ground and route your own tank behind it.
+item: Plan while time is frozen | In Plan, time stays frozen: give every tank an order and lock its route before Start battle. In battle, Command runs at half speed with your gun off, so redirect quickly and switch back to Auto or Lock.
+item: Repair before you push | Damaged tanks lose up to 45% of their top speed. Retreat to headquarters to repair, then Advance back to the objective by a different lane: every map has alternate connected routes.
+item: Open lanes through soft cover | Hedges and houses stop shells until they are destroyed, so blast a lane first and bring the squad through. Fences block tanks but not shells; rock ridges and water never break.
+[/features]
+
+[features rows]
 eyebrow: WHAT'S NEW
 heading: What's new in DOM Battlefield 1.0.0 | On the Fizlet engine
 subhead: Version 1.0.0, released 2026-10-29.

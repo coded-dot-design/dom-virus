@@ -10,7 +10,7 @@
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {
-        "sourceUrl": "/og/dom-virus.png"
+        "sourceUrl": "/shots/sherman-bytes.jpg"
       }
     }
   },
@@ -120,19 +120,19 @@
           }
         },
         {
-          "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
-          "body": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
+          "title": "Battlefield Blitz: free-for-all tank game for 2 players",
+          "body": "Parachute in, call airstrikes and rack up kills in three minutes. Play solo, in a platoon or two players online: a free tank arcade game in your browser.",
           "link": {
-            "label": "Read: Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
-            "href": "/news/coming-next"
+            "label": "Read: Battlefield Blitz: free-for-all tank game for 2 players",
+            "href": "/games/battlefield-blitz"
           }
         },
         {
-          "title": "Sherman Bytes 0.5: phone controls, building and sound",
-          "body": "Sherman Bytes 0.5 adds a joystick, a held Fire button, tap-to-build cover, pillboxes and mines on phones, and battle sound. 27.0 kB gzip.",
+          "title": "Sherman Bytes 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Sherman Bytes 1.0 patch notes: the tank game on the Fizlet engine, the same waves and cannon, and sharp drawing on 2× screens.",
           "link": {
-            "label": "Read: Sherman Bytes 0.5: phone controls, building and sound",
-            "href": "/news/sherman-bytes-0-5"
+            "label": "Read: Sherman Bytes 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/sherman-bytes-1-0-patch-notes"
           }
         }
       ]

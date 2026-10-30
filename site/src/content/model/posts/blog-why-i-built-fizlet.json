@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "4012de7134cb35c6"
+    "hash": "992949d1105c7847"
   },
   "collection": "posts",
   "id": "blog-why-i-built-fizlet",
@@ -29,7 +29,7 @@
     "date": "2026-11-26",
     "status": "scheduled",
     "publishAt": "2026-11-26",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "Fizlet is the small engine I wrote so each new game starts where the last one finished. It is a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today."
     ],

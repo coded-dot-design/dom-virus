@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "f9645767898564eb"
+    "hash": "74533ca3bc18406d"
   },
   "collection": "posts",
   "id": "news-null-invaders-0-7",
@@ -30,7 +30,7 @@
     ],
     "date": "2026-10-25",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/null-invaders.jpg",
     "lead": [
       "Null Invaders 0.7 adds sound and a proper phone cockpit: an analog joystick and a round Fire button you can hold while you fly. Null Invaders is the shooter where you fly an interceptor through a real webpage, turn letters into binary and break the button factories."
     ],

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "37b9b74eb81f3719"
+    "hash": "e7db4b6ddce63add"
   },
   "collection": "pages",
   "id": "legal",
@@ -25,7 +25,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "The legal side of DOM VIRUS, in plain English. We collect as little as we can, set no cookies, and publish every game as open source under the MIT licence. Each page below covers one topic."
     ],

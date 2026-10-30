@@ -5,7 +5,7 @@ slug: byte-runner-0-10
 tags: [release, byte-runner]
 date: 2026-10-25
 status: published
-image: /og/dom-virus.png
+image: /shots/byte-runner.jpg
 ---
 Byte Runner 0.10 turns the food trails into magnetic pipes. The frog races along them, jumps out to eat real text and grabs flies with its tongue. Byte Runner is the chase game where a round pixel frog eats a real webpage, one letter and one power square at a time.
 
