@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Agent notes and private pointers out of `brand/`** (public core, private engine). `brand/ENGINE-SUGGESTIONS.md` (the astro-engine pilot notes and a prompt for its keeper) moves to the private engine; the voice, decisions, style guide and rulebook no longer point at private agency files or describe the agent setup. No page, copy or game changes.
 - **Null Invaders 1.0.2, Byte Runner 1.0.1 and Sherman Bytes 1.0.1 are pinned** (each on Fizlet
   0.19.0, up from 0.13.0). On 2x and zoomed screens the game art now lines up with the page (it
   drew 1.5–2x too big: Sherman's tank started off screen), and the in-page scoreboard can be

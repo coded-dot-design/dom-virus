@@ -42,7 +42,7 @@ export const posts = (type: 'blog' | 'news') =>
   pages.filter((p) => p.meta?.pageType === type && visible(p)).sort((a, b) => dateOf(b).localeCompare(dateOf(a)));
 
 // Engine head for a page served at pageUrl. The engine bakes robots from the status on the day heads were generated;
-// a scheduled page that has since gone live is indexable now (ENGINE-SUGGESTIONS #18).
+// a scheduled page that has since gone live is indexable now.
 export const headOf = (p: EnginePage | undefined, pageUrl: string) => {
   if (!p) return undefined;
   const candidates = [`/site/src/content/heads/${p.id}.html`, `/site/src/content/heads/production/${p.id}.html`]
