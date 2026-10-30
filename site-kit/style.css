@@ -2481,6 +2481,7 @@ html[data-theme="light"] .embed-section {
     opacity: 0.55;
   }
 }
+/* On Fizlet's clock (fizlet/css-clock, client.ts): paused here; --fz-t is the time. */
 .map-exchange span:first-child .ui-icon {
   animation: geometry-read 6s ease-in-out infinite paused;
 }
@@ -2490,9 +2491,8 @@ html[data-theme="light"] .embed-section {
 .ownership-map em {
   animation: owned-bits 6s ease-in-out infinite paused;
 }
-:is(.system-map, .tick-map, .ownership-map)[data-motion="true"]
-  :is(.map-exchange .ui-icon, em) {
-  animation-play-state: running;
+:is(.system-map, .tick-map, .ownership-map) :is(.map-exchange .ui-icon, em) {
+  animation-delay: var(--fz-t, 0s);
 }
 
 /* Build-time syntax colors, with real selectable code and no client highlighter. */
@@ -3177,7 +3177,8 @@ html[data-theme="light"] .readout-next b {
   height: 7px;
   border-radius: 2px;
   background: #06c4ff;
-  animation: readout-blink 1s steps(2) infinite;
+  animation: readout-blink 1s steps(2) infinite paused;
+  animation-delay: var(--fz-t, 0s); /* Fizlet's clock (css-clock on .readout-next) */
 }
 @keyframes readout-blink {
   50% { opacity: 0.3; }

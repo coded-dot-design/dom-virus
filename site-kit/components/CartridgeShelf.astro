@@ -103,11 +103,11 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:1px 1px 0 var(--accent,#f4457a),2px 2px 0 var(--accent,#f4457a),3px 3px 0 var(--accent,#f4457a),4px 4px 0 var(--accent,#f4457a),5px 5px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),6px 6px 0 var(--accent,#f4457a),7px 7px 0 var(--accent,#f4457a),8px 8px 0 var(--accent,#f4457a),9px 9px 0 var(--accent,#f4457a),10px 10px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),11px 11px 0 var(--accent,#f4457a),12px 12px 0 var(--accent,#f4457a),13px 13px 0 var(--accent,#f4457a),14px 14px 0 var(--accent,#f4457a),16px 16px 0 var(--ink)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
-.boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
+.boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite paused;animation-delay:var(--fz-t,0s)}
 .name,.start{display:none}
 /* Attract loop: game characters march across the idle screen (paused offscreen). */
 .attract{align-self:start;width:100%;height:40%;position:relative;margin-top:10%}
-.attract i{position:absolute;left:0;top:0;animation:march 6.4s steps(32) var(--d) infinite;animation-play-state:paused}
+.attract i{position:absolute;left:0;top:0;animation:march 6.4s steps(32) infinite paused;animation-delay:calc(var(--fz-t,0s) + var(--d))}
 .attract i :global(svg){display:block}
 /* Idle mini-game: crosshair at the middle, bullets from the bottom, hit flash, jump. */
 .sight{position:absolute;left:50%;top:11px;width:30px;height:30px;translate:-50% -50%;border:2px solid #f4457a;border-radius:50%;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -122,7 +122,6 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .hits{position:absolute;top:8px;left:10px;font-size:9px;letter-spacing:1.5px;color:#ffe14d;opacity:0}
 .hits:global(.on){opacity:.9}
 .screen:global(.oops) .hits{color:#f4457a}
-.console[data-motion="true"] .attract i{animation-play-state:running}
 @keyframes march{from{transform:translateX(-30px)}to{transform:translateX(380px)}}
 /* Every control clicks. Plain spans (not buttons) so the site's button styles never leak in;
    they rest on the same diagonal hard shadow as everything else and press into it. */
