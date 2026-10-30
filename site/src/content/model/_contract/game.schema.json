@@ -6,6 +6,13 @@
   "type": "object",
   "required": ["id", "name", "number", "tag", "type", "status", "brand", "repo", "engine", "budget", "site"],
   "additionalProperties": false,
+  "$defs": {
+    "link": { "type": "object", "required": ["label", "href"], "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 80 }, "href": { "type": "string", "pattern": "^(https://|/|#)" } } },
+    "items": {
+      "type": "array", "minItems": 1, "maxItems": 8,
+      "items": { "type": "object", "required": ["title", "body"], "additionalProperties": false, "properties": { "title": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^|]*$" }, "body": { "type": "string", "minLength": 10, "maxLength": 600, "pattern": "^[^|]*$" } } }
+    }
+  },
   "properties": {
     "$schema": { "type": "string" },
     "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,40}$", "description": "Repo name and URL slug." },
@@ -51,7 +58,7 @@
         "slug": { "type": "string" },
         "eyebrow": { "type": "string" },
         "tags": { "type": "array", "items": { "type": "string" } },
-        "image": { "type": "string", "pattern": "^https://" },
+        "image": { "type": "string", "pattern": "^(https://|/[^/])", "description": "Share image: absolute https URL, or site-relative (/og/x.png) so the page engine resolves it per target domain" },
         "slots": { "type": "array", "items": { "enum": ["characters", "palette", "related", "embed"] }, "description": "Optional site slots for the astro-base-engine game preset (play, loop, controls and facts are always placed)." },
         "lead": { "type": "string" },
         "support": { "type": "string" },
@@ -64,6 +71,31 @@
           }
         },
         "faq": { "type": "array", "items": { "type": "object", "required": ["q", "a"] } },
+        "genre": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Catalog filter and VideoGame genre (e.g. Shooter, Tank, Defense)." },
+        "playMode": { "type": "array", "minItems": 1, "items": { "enum": ["SinglePlayer", "MultiPlayer", "CoOp"] }, "description": "schema.org GamePlayMode values; MultiPlayer gives the catalog's multiplayer badge." },
+        "players": { "type": "string", "description": "Players in one match, as the catalog card shows it (\"1\", \"1–2\")." },
+        "badges": { "type": "array", "items": { "enum": ["new"] }, "description": "Catalog badges the facts back. new: the release the page plays changed what players see (its whatsNew)." },
+        "playHref": { "type": "string", "pattern": "^(#play|https://.+)$", "description": "Where Play goes: #play (plays on the page, the default) or the board's own site." },
+        "links": { "type": "array", "items": { "$ref": "#/$defs/link" }, "description": "More calls to action after Play (a second mode, the board's site)." },
+        "poster": {
+          "type": "object", "required": ["src", "alt"], "additionalProperties": false,
+          "properties": { "src": { "type": "string", "pattern": "^/[^/]" }, "alt": { "type": "string", "minLength": 20 }, "caption": { "type": "string" } },
+          "description": "A real screenshot of the game (site-relative); also the share image unless page.image is set."
+        },
+        "howToPlay": { "$ref": "#/$defs/items", "description": "How to play, in order (steps)." },
+        "controls": { "$ref": "#/$defs/items", "description": "Controls, for a page with no controls slot (boards)." },
+        "modes": { "$ref": "#/$defs/items" },
+        "tips": { "$ref": "#/$defs/items" },
+        "whatsNew": {
+          "type": "object", "required": ["version", "date", "items"], "additionalProperties": false,
+          "properties": {
+            "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+            "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            "title": { "type": "string" },
+            "items": { "$ref": "#/$defs/items" }
+          },
+          "description": "From the game's CHANGELOG entry for the version the page plays; player-facing changes only."
+        },
         "seo": {
           "type": "object", "required": ["title", "description"],
           "properties": { "title": { "type": "string", "minLength": 30, "maxLength": 60 }, "description": { "type": "string", "minLength": 70, "maxLength": 155 } }

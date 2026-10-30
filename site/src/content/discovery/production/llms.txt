@@ -15,13 +15,21 @@
 - [The page is the game board: how DOM VIRUS games play](https://domvirus.com/blog/the-page-is-the-game-board/): DOM VIRUS games play on the page you are reading: letters are terrain, buttons are bases, and Recall gives the page back. Here is how that works.
 - [Two Macs, one network, and Bolo: where DOM VIRUS began](https://domvirus.com/blog/two-macs-one-network-and-bolo/): Networked Macs and Bolo in a middle school class: where DOM VIRUS began. Sherman Bytes turns its terrain, bases and resupply into a page game.
 
+## Board
+
+- [DOM Battlefield: a squad tactics tank game in your browser](https://domvirus.com/games/battlefield/): Command up to twelve tanks: freeze time to plan every route, then radio your squad through the firefight. Free tank tactics in your browser.
+- [Battlefield Blitz: free-for-all tank game for 2 players](https://domvirus.com/games/battlefield-blitz/): Parachute in, call airstrikes and rack up kills in three minutes. Play solo, in a platoon or two players online: a free tank arcade game in your browser.
+
 ## Contact
 
 - [Contact DOM VIRUS: bugs, press and security](https://domvirus.com/contact/): Reach DOM VIRUS through GitHub: issues for bugs and ideas, private reports for security, and the press kit for media. Email coming soon.
 
 ## Game
 
+- [Byte Runner: a maze chase game that eats your page](https://domvirus.com/games/byte-runner/): Race a pixel frog through food pipes in a real webpage, eat the text and hunt the flies. A free browser maze game you play right on the page.
+- [Null Invaders: a browser shooter you play on the page](https://domvirus.com/games/null-invaders/): Fly an interceptor through a real webpage: shoot letters into binary, break button factories and clear four waves. Free in your browser.
 - [Sherman Bytes: a pixel tank game that plays on your page](https://domvirus.com/games/sherman-bytes/): Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.
+- [Swarm Protocol: defend the page from a bug swarm](https://domvirus.com/games/swarm-protocol/): Bugs eat a real webpage's letters into binary and drain its buttons. Squash the swarm in this free browser defense game: click or tap, no install.
 
 ## Legal
 
@@ -50,7 +58,7 @@
 ## Section
 
 - [DOM VIRUS blog: the devlog behind tiny page games](https://domvirus.com/blog/): A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny open-source arcade games that play on a real webpage, and the engine under them.
-- [Every DOM VIRUS game: play free on your page](https://domvirus.com/games/): Tiny open-source arcade games that play on a real webpage: embedded games, board games and what's coming next. Play free in your browser.
+- [Browser games you play on the page: every DOM VIRUS game](https://domvirus.com/games/): Six free browser games that play on a real webpage: a shooter, tank battles, a maze chase, a bug defense and a two-player tank arena.
 - [DOM VIRUS news: releases, launches and game updates](https://domvirus.com/news/): Release notes for every DOM VIRUS game and the Fizlet engine, launch news and what is coming next. Tiny open-source arcade games for real pages.
 
 ## Support
