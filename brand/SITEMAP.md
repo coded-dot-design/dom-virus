@@ -52,9 +52,12 @@ needs. Decisions are numbered (E1–E12) and also listed in [DECISIONS.md](DECIS
 | `/.well-known/security.txt` · `/humans.txt` | Security contact; credits | new |
 | `/404` | Not found | live |
 
-**Navigation.** The header keeps its keys (Games, Engine, theme). The footer carries the full map:
-Games · Engine · News · Blog · About · Press · Support · Contact, then Privacy · Cookies · Terms ·
-Licences · Accessibility on the legal line.
+**Navigation.** The header keeps its keys (Games, Engine, theme). The footer carries the full map
+in five columns: Games · Under the hood (engine + devlog) · News · About · Legal. It is built from
+the routes the build serves (`site-kit/components/FooterSitemap.astro`; columns and labels in
+`site-kit/footer-map.mjs`), so a new page joins it on its own; what the build hides or does not index
+stays out, and so does `/about/brand/archive/`. `tests/site-footer.mjs` checks every sitemap page is
+linked exactly once.
 
 ## Board sites: `<game>.domvirus.com` (Battlefield + Blitz today)
 

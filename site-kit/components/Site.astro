@@ -17,6 +17,7 @@ import GameSticker from './GameSticker.astro';
 import Cartridge from './Cartridge.astro';
 import EnginePage from './EnginePage.astro';
 import BoardGamePage from './BoardGamePage.astro';
+import FooterSitemap from './FooterSitemap.astro';
 import { byId, headOf } from '../engine-content';
 import { gameShown } from '../lifecycle.mjs';
 import { soonGames, listOf } from '../coming-soon';
@@ -182,7 +183,7 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
   <footer class="site-footer" data-virus-ignore data-swarm-ignore>
     <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
     <nav class="footer-icons" aria-label="Elsewhere">{hub && <a class="footer-style-guide" href={`${base}about/brand/`} aria-label="Style guide" title="Style guide" aria-current={page==='styleguide'?'page':undefined}><UiIcon name="palette" size={20}/></a>}<a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
-    {hub && <nav class="footer-map" aria-label="Site map"><ul>{[['games/','Games'],['engine/','Engine'],['news/','News'],['blog/','Blog'],['about/','About'],['about/press/','Press'],['support/','Support'],['contact/','Contact']].map(([path,label])=><li><a href={`${base}${path}`} aria-current={Astro.url.pathname===`${base}${path}`?'page':undefined}>{label}</a></li>)}</ul><ul class="footer-map-legal">{[['legal/privacy/','Privacy'],['legal/cookies/','Cookies'],['legal/terms/','Terms'],['legal/licenses/','Licences'],['legal/accessibility/','Accessibility'],['feed.xml','RSS']].map(([path,label])=><li><a href={`${base}${path}`}>{label}</a></li>)}</ul></nav>}
+    {hub && <FooterSitemap base={base}/>}
     <div class="footer-legal"><span><span class="by-long">Created by</span><span class="by-short">By</span> <a href="https://coded.design/" rel="author">Chris Cooley</a></span><span>© {year} <a href="https://coded.design">coded.design</a><span class="mit"> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></span></div>
   </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
