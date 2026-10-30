@@ -1,29 +1,28 @@
-# Swarm Protocol: voice
+# Voice — Swarm Protocol
 
-**#04 · DOM DEFENSE · Embedded game.** In the DOM VIRUS voice family: inherit everything in
-[`../../voice.md`](../../voice.md) (the persona, tone, avoid list, byline, claims, size rules).
-This file adds what is particular to Swarm Protocol.
+Brand level: game · by Chris Cooley (https://coded.design/)
 
-Sources: `swarm-protocol/site/game.json` (page copy), `swarm-protocol/README.md`,
-`swarm-protocol/PERFORMANCE.md`, the hub's game page (`site-kit/components/GameSection.astro`).
-
----
-
-## Who's talking
-
-**The game talks first.** Play now, in its urgent, slightly mischievous defender's voice. Then
-**a short maker's note** from Chris Cooley, first person, one to three sentences: a trick, an
-opinion, a measured win. Excited and specific; never biography, never a new fact.
+**04 / DOM DEFENSE.** "The original DOM experiment." You release a swarm on the page, then you have
+to save it. Swarm Protocol is in the DOM VIRUS voice family: everything in the DOM VIRUS voice
+(brand/voice.md) holds. This file adds only what is Swarm's.
 
 ## Who we talk to
 
-Players first: anyone who wants to release a swarm on the page and then save it. Then site owners
-and developers who want a hidden game on their own site: the page says it is **installable** and
-sends them to the README. Setup steps never go on the page.
+1. **Players** who want to squash bugs before the page falls apart. No install, Recall gives the
+   page back.
+2. **Site owners and developers** who want a hidden game on their own site. One line, "it's open
+   source", and a link to the GitHub repository. Setup stays in the README.
 
-## How the game sounds
+## How we sound
 
-Defensive, urgent, a little mischievous. Short orders.
+Urgent, defensive, a little mischievous. Alarms and short orders: release, defend, rescue, squash.
+
+- **80–90% just play.** Bugs bite letters into binary, grow, and hunt your buttons. You click,
+  tap and scroll to save them. The button is a health bar you can watch drain.
+- **10–20% engine.** Swarm keeps its own engine; the win is counted in operations, never FPS.
+- **Maker's note, one to three sentences at most.** Chris on measuring before believing.
+
+Lines that are the game's own (`site/game.json`):
 
 - "Protect every last byte."
 - "Release a swarm onto the page, then defend it."
@@ -31,112 +30,62 @@ Defensive, urgent, a little mischievous. Short orders.
 - "The button is a living health bar."
 - "Rescue is a decision, not a teleport cheat."
 
-## The maker's note
-
-Chris on the craft. Themes that fit Swarm: measuring before believing, cutting work instead of
-chasing frame rates, the button as a health bar, a hidden opt-in game.
+Maker's note (style, not facts): "I wanted the button to feel alive, so its health is the button.
+Then I counted what the swarm was doing, and cut the work."
 
 | Don't | Do |
 |---|---|
-| "Swarm runs at a buttery 60fps everywhere." | "I measured the work, not the frame rate: 81.8% fewer ancestry checks in a repeatable workload." |
+| "Buttery 60fps everywhere." | "90.1% fewer ancestry checks than 1.3.1 in the documented workload." |
 | "An incredible bug-squashing adventure!" | "Squash them before the interface falls apart." |
-| "Powered by Fizlet." | "Swarm keeps its own engine." |
+| "Powered by Fizlet." | "The rules run as one Fizlet system; a step never allocates." |
 
-Sample maker's lines (style, not facts):
-- "Measure before you believe. The swarm got faster when I counted what it was doing."
-- "I wanted the button to feel alive. So its health is the button."
+## Facts we say
 
-## The byline
+Say these as written; re-check the source before quoting after a release.
 
-The page says **"by Chris Cooley"**: **By Chris Cooley · coded.design**, linked to
-<https://coded.design/> (`family.json` → `credit`). JSON-LD `author` / `creator`: Person "Chris
-Cooley", url `https://coded.design/`.
+- Up to 48 bugs; at most 600 Range reads a refresh (12.5 Hz while the page changes, 2 Hz once it
+  is still); a rules step that never allocates.
+  <!-- src: coded-dot-design/swarm-protocol site/game.json facts -->
+- Bugs grow: a crawler evolves after 6 letters, a button hunter after 12; each step adds a hit
+  point. <!-- src: coded-dot-design/swarm-protocol site/game.json characters -->
+- The first bite turns a button mint; yellow from 75% health, coral red from 35%.
+  <!-- src: coded-dot-design/swarm-protocol site/game.json chapters -->
+- Rescue: Jump from 50 points, Jump + Zap from 200; prices rise with each use. Scrolling is
+  always free. <!-- src: coded-dot-design/swarm-protocol site/game.json chapters -->
+- Against 1.3.1, the documented 43-second workload makes 90.1% fewer ancestry checks and 91.5%
+  fewer computed-style reads. Those are operation counts, not an FPS claim.
+  <!-- src: coded-dot-design/swarm-protocol site/game.json chapters, PERFORMANCE.md -->
+- Optional hidden start: ↑ ↑ ↓ ↓ ← → ← → B A Enter. The game loads on first open.
+  <!-- src: coded-dot-design/swarm-protocol site/game.json extra -->
+- Since 1.4.0 Swarm runs on Fizlet: the kernel and `fizlet/board-page`, not the shared runtime.
+  Every page change goes through the engine's ledger; Recall restores the page byte for byte.
+  <!-- src: coded-dot-design/swarm-protocol site/game.json engine -->
 
-## Words we use / words we never use
+Words that are Swarm's: swarm, bugs, crawler, hunter, evolve, bite, squash, defend, rescue, jump,
+zap, the button's health.
 
-- **Use:** swarm, bugs, crawler, hunter, evolve, bite, squash, defend, rescue, zap, the button's
-  health.
-- **With care:** "hidden, opt-in" and the activation sequence (↑ ↑ ↓ ↓ ← → ← → B A Enter). It is
-  part of the charm; its setup stays in the README.
-- **Never:** "shared engine" or "Fizlet" for Swarm ("Swarm keeps its established engine"); frame
-  rates as promises.
+## Byline
 
-## CTA labels
-
-| Label | Goes to |
-|---|---|
-| **Play Swarm Protocol** | starts the game on the page |
-| **Get the code & setup instructions** | the repo (`family.json` → `games[].repo`) |
-| Eject cartridge | back to the console |
-
-Supporting copy: "Play it here, then make it part of your own project. Visit GitHub for the
-source code, setup instructions, and integration examples." No board is built from Swarm, so no
-"Play [Board Game]" link.
-
-## What we never do
-
-- Drop-in ZIP, Astro component or npm steps on the page; they live in the README.
-- FPS claims. Swarm's optimisation is stated as operations: "reduced ancestry checks by 81.8% and
-  distance calls by 90.4% … That measures operations in a repeatable workload, not universal FPS."
-
-## Claims: what we may and may not say
-
-- **May say:** the `game.json` facts (48 bug cap, 36 Range reads per frame, 240 nearby glyph
-  cache); the coming-soon baseline as a labelled measurement ("≈32 fps" under a 4x CPU throttle,
-  goal 60 fps).
-- **May not say:** that Swarm runs on the shared runtime or Fizlet; a frame rate as a promise; a
-  persona claim that isn't measured.
-
-## Content mix and size
-
-80–90% gameplay: the loop (Release the swarm · Defend the buttons · Rescue distant attacks · Recall
-the page), the crew from crawler to hunter, controls, the first two chapters. 10–20% tech and
-maker: the size, the engine line ("Established Swarm engine"), the maker's note, the README link.
-
-Size is read from data (last hub build: 34,646 bytes gzip for the full immediate import graph,
-shown as 34.6 kB, v1.3.1; initial graph 4,342 bytes), labelled "full immediate path", with a
-smaller next target labelled "target" (C1).
+Every surface says **by Chris Cooley**, linked to <https://coded.design/>: the hub's frame, the
+game section credit and JSON-LD `author` / `creator` (Person "Chris Cooley", url
+`https://coded.design/`). Family line: "By Chris Cooley · coded.design".
 
 ## Avoid
-
-<!-- Read by astro-base-engine (voice.avoid): one word or phrase per bullet, flagged wherever it
-appears in page copy. The reasons are in the sections above. -->
 
 - revolutionary
 - game-changing
 - cutting-edge
-- best-in-class
-- world-class
-- seamless
-- synergy
-- security sandbox
-- secure sandbox
-- undo everything
-- guaranteed fps
-- ghosts
-- power orbs
-- corrupt letters
-- next-gen
-- disruptive
-- unleash
-- supercharge
 - blazing fast
-- lightning-fast
-- full speed on anything
-- days instead of months
+- next-gen
+- unleash
+- guaranteed fps
 - buttery
+- undo everything
+- corrupt letters
+- powered by Fizlet
+- shared engine
 
 ## Limits
 
-<!-- Read by astro-base-engine (voice.maxSentenceWords, voice.maxExclamations). -->
-
-- max sentence words: 25
+- max sentence words: 22
 - max exclamations: 1
-
-## Open questions
-
-1. **Release route:** the README says v1.2.3 is "the newest version with published release
-   assets; later versions are tags only for now", while the hub shows v1.3.1.
-2. **Initial size:** the hub shows 4.3 kB gzip for the initial static graph; `PERFORMANCE.md` says
-   "about 1.1 kB compressed" (the deferred scheduler). C2 says generate from the build; which
-   figure leads?

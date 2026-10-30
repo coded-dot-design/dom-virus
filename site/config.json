@@ -3,6 +3,7 @@
   "kitVersion": "1.50.0",
   "contentRefs": {
     "sherman-bytes": "caa1dbf2cf5c6524887babd83ac2851f9bf24039",
-    "byte-runner": "cd18396af591149f37fbb7676a709d90dccb827f"
+    "byte-runner": "cd18396af591149f37fbb7676a709d90dccb827f",
+    "swarm-protocol": "0658fbda1d36417a7f3ea31e149ad4a74b1aea7b"
   }
 }
