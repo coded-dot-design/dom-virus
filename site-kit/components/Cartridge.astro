@@ -76,14 +76,16 @@ const pins = Array.from({ length: 11 }, (_, p) => {
 
 /* Flat cartridge with a little depth: front face in the accent colour, a thick darker side face
    down the right and a bottom face, mitred at the corner. The notch and the bottom-left chamfer
-   are the same 45° as the depth, so the silhouette reads as one solid block. No drop shadow. */
-.cartridge{position:relative;isolation:isolate;display:grid;grid-template-rows:28px 1fr 34px;min-height:250px;padding:0 16px 0 14px;color:var(--ink);text-decoration:none;text-align:left;transition:transform 260ms cubic-bezier(.34,1.7,.5,1)}
-.shell{position:absolute;inset:0;z-index:-1;background:var(--ink);border-radius:12px 12px 0 0;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,7.2px 100%,0 calc(100% - 7.2px))}
+   are the same 45° as the depth, so the silhouette reads as one solid block. No drop shadow.
+   The depth follows the host site's light (Board UI tokens --shadow-x/--shadow-y: unitless direction
+   per unit of depth; the hub's 45°, down-right, is the fallback). */
+.cartridge{--sx:var(--shadow-x,1);--sy:var(--shadow-y,1);position:relative;isolation:isolate;display:grid;grid-template-rows:28px 1fr 34px;min-height:250px;padding:0 16px 0 14px;color:var(--ink);text-decoration:none;text-align:left;transition:transform 260ms cubic-bezier(.34,1.7,.5,1)}
+.shell{position:absolute;inset:0;z-index:-1;background:var(--ink);border-radius:12px 12px 0 0;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,calc(7.2px * var(--sx)) 100%,0 calc(100% - 7.2px * var(--sy)))}
 .shell::before,.shell::after{content:"";position:absolute;inset:2px}
 /* Front face + bottom face (inset band). Inner chamfers are offset so the outline stays 2px. */
-.shell::before{background:var(--accent);border-radius:10px 10px 0 0;box-shadow:inset 0 -6px 0 color-mix(in srgb,var(--accent) 68%,#0b0a1a);clip-path:polygon(0 0,calc(100% - 20.8px) 0,100% 20.8px,100% 100%,6px 100%,0 calc(100% - 6px))}
+.shell::before{background:var(--accent);border-radius:10px 10px 0 0;box-shadow:inset 0 calc(-6px * var(--sy)) 0 color-mix(in srgb,var(--accent) 68%,#0b0a1a);clip-path:polygon(0 0,calc(100% - 20.8px) 0,100% 20.8px,100% 100%,calc(6px * var(--sx)) 100%,0 calc(100% - 6px * var(--sy)))}
 /* Right side face: starts on the notch diagonal, mitres into the bottom face. */
-.shell::after{background:color-mix(in srgb,var(--accent) 48%,#0b0a1a);clip-path:polygon(calc(100% - 7px) 13.8px,100% 20.8px,100% 100%,calc(100% - 7px) calc(100% - 6px))}
+.shell::after{background:color-mix(in srgb,var(--accent) 48%,#0b0a1a);clip-path:polygon(calc(100% - 7px * var(--sx)) calc(20.8px - 7px * var(--sx)),100% 20.8px,100% 100%,calc(100% - 7px * var(--sx)) calc(100% - 6px * var(--sy)))}
 @media (hover:hover) and (pointer:fine){.cartridge:hover{transform:translateY(-8px) rotate(-1deg)}}
 .cartridge:active{transform:translateY(2px);transition-duration:60ms}
 .cartridge:focus-visible{outline:3px solid var(--ink);outline-offset:6px}
@@ -100,10 +102,10 @@ em{font-style:normal;font-size:12px;color:var(--muted)}
 /* Edge connector: a dark recess with gold fingers on the front face; below it the recess and
    fingers wrap under the cartridge through the bottom face, skewed 45° like the corner mitre so the
    underside reads in the same 3D. A few fingers are worn short, tarnished or missing. */
-.pins{--wrap:8px;position:relative;display:flex;align-items:flex-end;gap:3px;margin:8px 4px var(--wrap);padding:0 5px;background:#0b0a1a;border-radius:3px 3px 0 0}
-.pins::before{content:"";position:absolute;left:0;right:0;top:100%;height:var(--wrap);background:#0b0a1a;transform:skewX(45deg);transform-origin:0 0}
+.pins{--wrap:calc(8px * var(--sy));--skew:atan2(var(--sx),var(--sy));position:relative;display:flex;align-items:flex-end;gap:3px;margin:8px 4px var(--wrap);padding:0 5px;background:#0b0a1a;border-radius:3px 3px 0 0}
+.pins::before{content:"";position:absolute;left:0;right:0;top:100%;height:var(--wrap);background:#0b0a1a;transform:skewX(var(--skew));transform-origin:0 0}
 .pins i{position:relative;flex:1;height:calc(100% - 3px);background:linear-gradient(#ffe7a6 0 3px,#ffc94a 3px);border-radius:2px 2px 0 0}
-.pins i::after{content:"";position:absolute;left:0;right:0;top:100%;height:var(--wrap);background:#a8771d;transform:skewX(45deg);transform-origin:0 0}
+.pins i::after{content:"";position:absolute;left:0;right:0;top:100%;height:var(--wrap);background:#a8771d;transform:skewX(var(--skew));transform-origin:0 0}
 .pins i.short{height:45%}
 .pins i.dim{background:linear-gradient(#cfae63 0 3px,#9a7a38 3px)}
 .pins i.dim::after{background:#6f5524}

@@ -99,8 +99,10 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
    flat top edge (cartridge z 30 under body z 40). The pink side is a solid 14px 45° extrusion
    (twice the cartridge's 7px) built from 1px layers; two darker layers give it ridged texture,
    and an ink rim outlines it like the cartridge outline. */
-.console{position:relative;width:min(400px,100%);margin:72px auto 0;scroll-margin-top:256px}
-.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:1px 1px 0 var(--accent,#f4457a),2px 2px 0 var(--accent,#f4457a),3px 3px 0 var(--accent,#f4457a),4px 4px 0 var(--accent,#f4457a),5px 5px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),6px 6px 0 var(--accent,#f4457a),7px 7px 0 var(--accent,#f4457a),8px 8px 0 var(--accent,#f4457a),9px 9px 0 var(--accent,#f4457a),10px 10px 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),11px 11px 0 var(--accent,#f4457a),12px 12px 0 var(--accent,#f4457a),13px 13px 0 var(--accent,#f4457a),14px 14px 0 var(--accent,#f4457a),16px 16px 0 var(--ink)}
+/* Shadows follow the host site's light (Board UI tokens: --shadow-x/--shadow-y are the unitless
+   direction per unit of depth, --shadow-color the hard shadow); today's hub is 45°, down-right. */
+.console{--sx:var(--shadow-x,1);--sy:var(--shadow-y,1);--sc:var(--shadow-color,var(--ink));position:relative;width:min(400px,100%);margin:72px auto 0;scroll-margin-top:256px}
+.body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:calc(1px * var(--sx)) calc(1px * var(--sy)) 0 var(--accent,#f4457a),calc(2px * var(--sx)) calc(2px * var(--sy)) 0 var(--accent,#f4457a),calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--accent,#f4457a),calc(4px * var(--sx)) calc(4px * var(--sy)) 0 var(--accent,#f4457a),calc(5px * var(--sx)) calc(5px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(6px * var(--sx)) calc(6px * var(--sy)) 0 var(--accent,#f4457a),calc(7px * var(--sx)) calc(7px * var(--sy)) 0 var(--accent,#f4457a),calc(8px * var(--sx)) calc(8px * var(--sy)) 0 var(--accent,#f4457a),calc(9px * var(--sx)) calc(9px * var(--sy)) 0 var(--accent,#f4457a),calc(10px * var(--sx)) calc(10px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(11px * var(--sx)) calc(11px * var(--sy)) 0 var(--accent,#f4457a),calc(12px * var(--sx)) calc(12px * var(--sy)) 0 var(--accent,#f4457a),calc(13px * var(--sx)) calc(13px * var(--sy)) 0 var(--accent,#f4457a),calc(14px * var(--sx)) calc(14px * var(--sy)) 0 var(--accent,#f4457a),calc(16px * var(--sx)) calc(16px * var(--sy)) 0 var(--sc)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 .screen > span{grid-area:1/1}
 .boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
@@ -129,7 +131,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .controls{display:flex;align-items:center;gap:10px}
 .controls [data-pad]{display:block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;transition:transform 220ms cubic-bezier(.34,1.7,.5,1),box-shadow 220ms cubic-bezier(.34,1.7,.5,1)}
 .controls [data-pad]:active{transition-duration:50ms}
-.dpad{position:relative;width:46px;height:46px;filter:drop-shadow(3px 3px 0 color-mix(in srgb,var(--ink) 30%,transparent));transition:transform 200ms cubic-bezier(.34,1.7,.5,1)}
+.dpad{position:relative;width:46px;height:46px;filter:drop-shadow(calc(3px * var(--sx)) calc(3px * var(--sy)) 0 color-mix(in srgb,var(--sc) 30%,transparent));transition:transform 200ms cubic-bezier(.34,1.7,.5,1)}
 .dpad [data-pad]{position:absolute;width:15px;height:15px;background:var(--ink)}
 .dpad::after{content:"";position:absolute;left:15px;top:15px;width:16px;height:16px;background:var(--ink)}
 .dpad .up{left:15.5px;top:0;border-radius:3px 3px 0 0}.dpad .down{left:15.5px;bottom:0;border-radius:0 0 3px 3px}
@@ -137,11 +139,11 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .dpad:has(.up:active){transform:perspective(120px) rotateX(14deg)}.dpad:has(.down:active){transform:perspective(120px) rotateX(-14deg)}
 .dpad:has(.left:active){transform:perspective(120px) rotateY(-14deg)}.dpad:has(.right:active){transform:perspective(120px) rotateY(14deg)}
 .pills{display:flex;gap:8px;margin-left:auto}
-.pill{width:26px;height:8px;border-radius:4px;background:var(--line);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
-.pill:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.pill{width:26px;height:8px;border-radius:4px;background:var(--line);border:1px solid var(--ink);box-shadow:calc(2px * var(--sx)) calc(2px * var(--sy)) 0 var(--sc)}
+.pill:active{transform:translate(calc(2px * var(--sx)), calc(2px * var(--sy)));box-shadow:0 0 0 var(--sc)}
 .ab{display:flex;gap:7px;margin-left:8px}
-.btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:3px 3px 0 var(--ink)}
-.btn:is(:active,:global(.press)){transform:translate(3px,3px);box-shadow:0 0 0 var(--ink);animation:none!important}
+.btn{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;background:#06c4ff;box-shadow:calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--sc)}
+.btn:is(:active,:global(.press)){transform:translate(calc(3px * var(--sx)), calc(3px * var(--sy)));box-shadow:0 0 0 var(--sc);animation:none!important}
 .btn.a{background:#f4457a}
 /* A/B make the attract characters hop. */
 .attract:global(.hop) i{translate:0 -10px;transition:translate 120ms ease-out}
@@ -162,7 +164,7 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
 /* Multi-action cartridges: one dark chip per pad, in the pad's colour; no blink, the chips pulse. */
 .start:has(b){animation:none}
-.start :global(b){display:inline-block;margin:0 4px 0 12px;padding:4px 7px;border-radius:4px;background:#07060f;box-shadow:2px 2px 0 #07060f80;animation:blink 1.4s steps(2) infinite}
+.start :global(b){display:inline-block;margin:0 4px 0 12px;padding:4px 7px;border-radius:4px;background:#07060f;box-shadow:calc(2px * var(--sx)) calc(2px * var(--sy)) 0 #07060f80;animation:blink 1.4s steps(2) infinite}
 .start :global(b:first-child){margin-left:0}
 .start :global(.ka){color:#f4457a}.start :global(.kb){color:#06c4ff;animation-delay:.7s}.start :global(.ks){color:#e8e4ff}
 .console:global(.booting) .led:not(.two){background:#4bce82;box-shadow:0 0 10px #4bce82}
@@ -171,13 +173,13 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .console:global(.booting.full) .led.two{background:#f4457a;box-shadow:0 0 10px #f4457a;transition-delay:.38s}
 /* Start: the screen flashes; the console itself never moves (launch and return mirror exactly). */
 .console:global(.starting) .screen{animation:flash .18s steps(2)}
-.console:global(.starting) .btn.a{animation:none;transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.console:global(.starting) .btn.a{animation:none;transform:translate(calc(3px * var(--sx)), calc(3px * var(--sy)));box-shadow:0 0 0 var(--sc)}
 @keyframes blink{50%{opacity:.25}}
 @keyframes boot{from{opacity:0;letter-spacing:12px}}
 .console:global(.booting.choice) .btn.b{animation:press-me-b .7s .35s ease-in-out infinite}
 .console:global(.starting) .btn{animation:none}
-@keyframes press-me-b{50%{transform:scale(1.15);box-shadow:3px 3px 0 var(--ink),0 0 0 6px #06c4ff44}}
-@keyframes press-me{50%{transform:scale(1.15);box-shadow:3px 3px 0 var(--ink),0 0 0 6px #f4457a44}}
+@keyframes press-me-b{50%{transform:scale(1.15);box-shadow:calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--sc),0 0 0 6px #06c4ff44}}
+@keyframes press-me{50%{transform:scale(1.15);box-shadow:calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--sc),0 0 0 6px #f4457a44}}
 @keyframes flash{50%{background-color:#fff}}
 
 /* Full-game launch: the screen grows into the whole viewport and the game board folds open. */
