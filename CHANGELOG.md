@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Swarm Protocol 1.4.0 and DOM Battlefield 1.0.1 are pinned.** Swarm runs on Fizlet 0.17.0
+  (kernel and `fizlet/board-page`): same swarm, rules and visuals, every page change through the
+  engine's ledger and Recall byte for byte. Battlefield (Fizlet 0.19.0) adds a performance overlay
+  (header key or F9, off by default), AA contrast for its keys and a setup card that holds still;
+  no gameplay change. Both tags were already in `site/releases.json` (`npm run sync:releases`: no
+  change). The two game pages' What's new comes from the specs (`fe brief` → `abe produce`), and
+  the content model is re-synced from the engine (`fe content collections`).
 - **Null Invaders 1.0.3, Byte Runner 1.0.2 and Sherman Bytes 1.1.0 are pinned** (each on Fizlet
   0.20.0, up from 0.19.0). While a run is live, a pinch or double tap no longer zooms the page; the
   end of the run gives the zoom back. Sherman Bytes' scoreboard is now the Board UI bar (score, wave,

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "d512514bb841a271"
+    "hash": "1f0e722924761324"
   },
   "collection": "games",
   "id": "swarm-protocol",
@@ -36,8 +36,8 @@
       ]
     },
     "budget": {
-      "gzipBytes": 35775,
-      "source": "PROVISIONAL: measured complete deferred path at 1.3.1; the repo enforces no ceiling (owner to set)"
+      "gzipBytes": 45200,
+      "source": "scripts/size.mjs (complete deferred path ceiling 45,200 B gzip, enforced; 44,603 B measured at 1.4.0)"
     },
     "urls": {
       "current": "https://coded-dot-design.github.io/dom-virus/games/swarm-protocol/",
@@ -228,21 +228,25 @@
         }
       ],
       "whatsNew": {
-        "version": "1.3.0",
-        "date": "2026-10-24",
-        "title": "Shared scoreboard keys",
+        "version": "1.4.0",
+        "date": "2026-10-30",
+        "title": "On the Fizlet engine",
         "items": [
           {
-            "title": "Shared scoreboard icons",
-            "body": "The scoreboard uses the family's shared action icons for sound, pause, minimize and Recall."
-          },
-          {
-            "title": "Keys stay reachable",
-            "body": "Pause, sound and close stay accessible while the scoreboard is minimized."
-          },
-          {
             "title": "Same swarm",
-            "body": "Sounds, palette, engine state and behaviour are unchanged."
+            "body": "Swarm Protocol now runs on the Fizlet engine. The bugs, the buttons, every visual and the rules' numbers stay as they were."
+          },
+          {
+            "title": "Same seed, same round",
+            "body": "The rules step at a fixed 60 times a second, seeded per round: the same seed and inputs play the same round."
+          },
+          {
+            "title": "Recall, byte for byte",
+            "body": "Every change to the page goes through the engine, and Recall gives the page back exactly as it was (tested in Chromium)."
+          },
+          {
+            "title": "Light on the page",
+            "body": "A frame's work averages 0.6 ms in Chromium (one machine), and a rule step never allocates (tested)."
           }
         ]
       },
