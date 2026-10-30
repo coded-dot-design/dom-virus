@@ -1,7 +1,8 @@
 // Snapshot the part of the Fizlet engine the sites use (sibling checkout ../fizlet, or FIZLET_DIR)
 // into vendor/fizlet, with provenance in vendor/fizlet/ORIGIN.json. Today that is the performance
-// overlay (fizlet/perf on the kernel), the Board UI kit's Settings switch (setting, PERF_KEY) and
-// fizlet/timeline (the cartridge console choreography, site-kit/console/), plus the Under the hood
+// overlay (fizlet/perf on the kernel), the Board UI kit's Settings switch (setting, PERF_KEY),
+// fizlet/timeline (the cartridge console choreography, site-kit/console/, and the detail-page scenes and
+// diagrams: site-kit/loop.ts), plus the Under the hood
 // labs (Fizlet's site/labs/: the same scenes as its gallery, into vendor/fizlet/labs/, their kernel
 // import pointed at the vendored kernel).
 //   node scripts/sync-fizlet.mjs   (check out a release tag in ../fizlet first)

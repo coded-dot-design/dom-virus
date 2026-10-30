@@ -162,7 +162,7 @@ Exact values from the sources cited in `"$source"`. CSS variable names are kept 
     "page-out": "260ms ease-in (fade + scale 0.97)",
     "page-in": "420ms cubic-bezier(0.2, 0.8, 0.3, 1) (fade + 26px rise)",
     "screen-to-page": "600ms cubic-bezier(0.2, 0.8, 0.2, 1) (view-transition-group game-screen)",
-    "idle-loops": "CSS steps(), paused offscreen",
+    "idle-loops": "fizlet/timeline (site-kit/loop.ts), asleep offscreen and in hidden tabs",
     "reduced-motion": "animation: none; transition: none (global)"
   }
 }
@@ -298,7 +298,8 @@ the same rule as solid 45° extrusions: the cartridge side is 7px, the console 1
   exact mirrors; the console never moves (`StyleGuide.astro:190-197`).
 - **Cheap:** CSS and Web Animations transforms only, no layout reads in animation frames, no
   framework, mini-games loaded on the first tap (`StyleGuide.astro:185`).
-- **Offscreen pause:** idle loops and illustrations sleep when you scroll away (`data-motion`).
+- **Offscreen pause:** idle loops and illustrations sleep when you scroll away or hide the tab
+  (the detail-page scenes and diagrams run on Fizlet: `site-kit/loop.ts`; the hero still uses `data-motion`).
 - **State in the URL:** `?play=<id>` / `?board=<id>` lets the page arrive docked, with no flash.
 - **Swaps, not jumps:** game-to-game links eject one cartridge and plug in the other.
 
