@@ -26,7 +26,7 @@ const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v
 .nf p{max-width:440px;margin:0 0 26px;font-size:16px}
 .nf .actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
 .nf-screen{display:grid;place-items:center;gap:14px;aspect-ratio:4/3;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#0b0a1a;border:2px solid var(--ink);border-radius:12px;box-shadow:8px 8px 0 var(--accent)}
-.nf-screen svg{width:34%;fill:var(--accent);animation:nf-blink 1.2s steps(2) infinite}
+.nf-screen svg{width:34%;fill:var(--accent);animation:nf-blink 1.2s steps(2) infinite paused;animation-delay:var(--fz-t,0s)}
 .nf-screen code{font:700 12px var(--mono);letter-spacing:.1em;color:#cec0e0}
 @keyframes nf-blink{50%{opacity:.35}}
 @media (max-width:900px){.nf{padding:30px 20px 60px}.nf-grid{grid-template-columns:1fr;gap:28px}}

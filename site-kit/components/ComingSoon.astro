@@ -70,7 +70,7 @@ const accent = (a) => (a === 'pink' ? '' : `accent-${a}`);
 .soon-n{font:800 28px var(--mono);color:var(--accent-text,var(--accent))}
 .soon-status{margin-left:auto;padding:4px 8px;font:700 10px var(--mono);letter-spacing:.12em;border:2px solid var(--ink);border-radius:4px}
 .soon-status.playable{color:#07060f;background:#39ffb0}
-.soon-status.next-up{color:var(--accent-ink);background:var(--accent);animation:soon-blink 1.2s steps(2) infinite}
+.soon-status.next-up{color:var(--accent-ink);background:var(--accent);animation:soon-blink 1.2s steps(2) infinite paused;animation-delay:var(--fz-t,0s)}
 .soon-status.planned{color:var(--ink);background:var(--surface)}
 .soon-status.idea{color:var(--muted);background:transparent;border-style:dashed}
 @keyframes soon-blink{50%{opacity:.55}}

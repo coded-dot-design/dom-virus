@@ -884,7 +884,28 @@ if (hero && tryMe && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   );
   watch.observe(hero);
 }
-// CSS owns the diagrams' motion (the hero scene follows data-motion too). Observe visibility once
+// The ambient loops (diagram loops, the attract screen, the Battlefield patrol, the blinking LEDs)
+// are the stylesheet's @keyframes on Fizlet's clock: paused in CSS, their time is --fz-t, and
+// fizlet/css-clock moves it (one shared requestAnimationFrame; off screen, no frames; a few plays,
+// then each rests on its first frame and settles; a pointer or coming back into view plays it
+// again). Loaded only when the page has one; reduced motion keeps the still frames (never loaded).
+// [selector, span: seconds in one play (a multiple of every loop inside), plays before it rests]
+const CLOCKS: [string, number, number][] = [
+  [".system-map,.tick-map,.ownership-map,.battlefield-display", 6, 3],
+  [".console", 19.2, 1], // the attract march (6.4 s) and the INSERT CARTRIDGE blink (1.2 s)
+  [".readout-next,.soon-note,.nf-screen,.soon-status.next-up", 2.4, 2], // 1 s and 1.2 s blinks
+];
+const clocks = new Map<HTMLElement, { hold(on: boolean): void }>();
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches && CLOCKS.some(([sel]) => document.querySelector(sel)))
+  import("../vendor/fizlet/css-clock").then(({ cssClock }) => {
+    for (const [sel, span, loops] of CLOCKS)
+      for (const el of document.querySelectorAll<HTMLElement>(sel)) {
+        const c = cssClock(el, { span, loops, fps: 30 });
+        if (el.dataset.paused === "true") c.hold(true);
+        clocks.set(el, c);
+      }
+  });
+// Visibility per illustration: data-motion (the hero scene follows it). Observe visibility once
 // per illustration to avoid offscreen work.
 const diagrams = document.querySelectorAll<HTMLElement>(
   ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display,.kaiju-display",
@@ -935,6 +956,7 @@ if ("IntersectionObserver" in window) {
           `${paused ? "Resume" : "Pause"} ${button.dataset.motionLabel || "diagram"} animation`,
         );
         button.title = paused ? "Resume animation" : "Pause animation";
+        clocks.get(diagram)?.hold(paused);
         syncDiagramMotion();
       }),
   );
