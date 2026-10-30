@@ -5,7 +5,7 @@ The list of games we plan to build next, in order. Each one is a "coming soon" e
 hub id. Names are working names; every one is original (no third-party trademarks in the product).
 
 **The drama bar.** Every new game must hit the animation level of the DOM VIRUS home hero (interceptor
-and tank blowing up bad guys, `site-kit/components/HeroScene.astro` + `site-kit/hero-game.ts`) and the
+and tank blowing up bad guys, `site-kit/components/HeroScene.astro` + `site-kit/hero-scene.ts`, on Fizlet) and the
 DOM Battlefield landing hero (tanks shelling and flattening the headline, airstrikes,
 `dom-battlefield/site/src/scripts/arena.ts`). Those two are the floor: hit-stop, flash, shock rings,
 spinning chunks, square debris, scorch, shake, pop words, letters knocked and flattened, then the page
@@ -53,7 +53,7 @@ proof of the drama bar and a clean first engine harness test (`fx`, `camera` sha
 ## 2. DOM Crossfire (next up, the mash-up)
 
 **Why second:** both halves exist: the DOM VIRUS hero mini-game (interceptor + tank vs skulls and
-bad guys, `hero-game.ts`) and the Battlefield arena. Crossfire puts them on one page.
+bad guys, `hero-scene.ts`) and the Battlefield arena. Crossfire puts them on one page.
 
 - **Hub id:** `crossfire`. **Repo:** decide when work starts (likely in `dom-virus` as a hub
   feature first, then its own package).

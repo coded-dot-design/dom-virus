@@ -52,6 +52,8 @@ try {
   if (process.env.CPU_THROTTLE) await (await context.newCDPSession(page)).send("Emulation.setCPUThrottlingRate", { rate: Number(process.env.CPU_THROTTLE) });
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  // The hero card as served, before any script touches it (the Recall check compares against it).
+  await page.addInitScript(() => document.addEventListener("readystatechange", () => document.readyState === "interactive" && (window.heroPoster = document.querySelector(".promo-stage")?.outerHTML)));
   await page.goto(base);
   // One light/dark toggle in the header; flip it until the page is in the wanted theme.
   const setTheme = async (theme) => {
@@ -77,13 +79,16 @@ try {
   assert.match(await page.locator(".readout-next").textContent(), /4 new games/);
   assert.equal(await page.locator(".console").count(), 1);
   const promo = page.locator(".hero-crossover");
+  // The hero runs on Fizlet (site-kit/hero-scene.ts), mounted by fizlet/slot; heroScene is its test handle.
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene);
   // Mash-up: DOM Virus skulls and bad guys from every game, an interceptor, and a turreted tank.
   assert.equal(await promo.locator(".promo-character,.character-icon").count(), 9);
   assert.equal(await promo.locator(".foe-skull").count(), 3);
   assert.equal(await promo.locator(".boom").count(), 7);
   assert.ok((await promo.locator(".shot.miss").count()) >= 4, "some shots miss and fly off screen");
   // After the intro, both shooters sit fully inside the browser card.
-  await promo.evaluate((el) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = 3600; }));
+  const at = (ms) => promo.evaluate((el, t) => el.heroScene.seek(t), ms / 1000);
+  await at(3600);
   const card = await promo.locator(".promo-stage").boundingBox();
   for (const sel of [".plane-aim .promo-character", ".tank-hull"]) {
     const r = await promo.locator(sel).boundingBox();
@@ -92,35 +97,55 @@ try {
   for (const selector of [".hero"]) {
     assert.deepEqual(await page.locator(selector).evaluate(el=>{const s=getComputedStyle(el);return [s.borderTopWidth,s.borderRightWidth,s.boxShadow]}), ["0px","0px","none"]);
   }
-  await promo.getByRole("button", { name: "Pause scene animation" }).click();
-  assert.equal(await promo.getAttribute("data-motion"), "false");
-  await promo.getByRole("button", { name: "Resume scene animation" }).click();
   // First kill (interceptor) lands 4.24s in, the tank's 5.24s: each target explodes and vanishes.
-  const at = async (ms) => promo.evaluate((el, ms) => el.getAnimations({ subtree: true }).forEach((a) => { a.currentTime = ms; }), ms);
   const opacity = (loc) => loc.evaluate((el) => Number(getComputedStyle(el).opacity));
+  const turret = () => promo.locator(".turret-aim").evaluate((el) => getComputedStyle(el).transform);
+  const aimed = await turret();
   await at(4300);
   assert.ok((await opacity(promo.locator(".boom").nth(0).locator(".boom-flash"))) > 0.5);
   await at(4550);
   assert.ok((await opacity(promo.locator(".die").nth(0))) < 0.2, "first target is destroyed");
   await at(5300);
   assert.ok((await opacity(promo.locator(".boom").nth(1).locator(".boom-flash"))) > 0.5);
+  assert.notEqual(await turret(), aimed, "the turret turns to its target");
+  await at(-1000);
+  // Calm: the pause key stops every frame; the loop rests after its cycles and the engine settles.
+  await promo.getByRole("button", { name: "Pause scene animation" }).click();
+  assert.equal(await promo.getAttribute("data-motion"), "false");
+  assert.deepEqual(await promo.evaluate((el) => el.heroScene.engine.paused), ["stopped"]);
+  await promo.getByRole("button", { name: "Resume scene animation" }).click();
+  await promo.evaluate((el) => (el.heroScene.seek(el.heroScene.rest - 0.1), el.heroScene.seek(-1)));
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene.engine.paused.includes("settled"), null, { timeout: 5000 });
+  const frames = () => promo.evaluate((el) => el.heroScene.engine.stats().frames);
+  const settledAt = await frames();
+  await page.waitForTimeout(300);
+  assert.equal(await frames(), settledAt, "settled: no frames");
   // Tap the card: the contained mini-game takes over (auto-aim, spawns, squash, nuke cycle).
   await promo.locator(".promo-stage").click({ position: { x: 240, y: 200 } });
   await page.waitForFunction(() => document.querySelector(".hero-crossover").dataset.play === "true");
-  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.foes > 0);
-  assert.equal(await promo.locator(".foe-css").first().isVisible(), false, "CSS loop steps aside");
-  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.score > 0, null, { timeout: 15000 });
-  const resets = await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.resets);
-  await page.evaluate(() => document.querySelector(".hero-crossover").heroGame.nuke());
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene.foes > 0);
+  assert.equal(await promo.locator(".foe-css").first().isVisible(), false, "the loop steps aside");
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene.score > 0, null, { timeout: 15000 });
+  const resets = await promo.evaluate((el) => el.heroScene.resets);
+  await promo.evaluate((el) => el.heroScene.nuke());
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"));
   // The round resets (a counter, since auto-play can score again right after the reset to 0).
-  await page.waitForFunction((n) => document.querySelector(".hero-crossover").heroGame.resets > n, resets, { timeout: 6000 });
+  await page.waitForFunction((n) => document.querySelector(".hero-crossover").heroScene.resets > n, resets, { timeout: 6000 });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
   // The hero's mock BUTTON_01 is a 3D button that nukes every bad guy and resets the round.
   await page.locator(".promo-button").click();
   await page.waitForFunction(() => document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
-  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroGame.resets > 1, null, { timeout: 6000 });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene.resets > 1, null, { timeout: 6000 });
   await page.waitForFunction(() => !document.querySelector(".hero-crossover").classList.contains("hx-nuke"), null, { timeout: 5000 });
+  // Recall: reduced motion turns on mid-game, the slot removes the scene and the card is the poster
+  // again, byte for byte. Turning it off mounts a fresh scene.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.waitForFunction(() => !document.querySelector(".hero-crossover").heroScene);
+  assert.equal(await page.evaluate(() => document.querySelector(".promo-stage").outerHTML), await page.evaluate(() => window.heroPoster), "Recall restores the hero exactly");
+  assert.equal(await promo.getAttribute("class"), "hero-art hero-crossover");
+  assert.equal(await promo.getAttribute("data-play"), null);
+  await page.emulateMedia({ reducedMotion: null });
+  await page.waitForFunction(() => document.querySelector(".hero-crossover").heroScene);
   assert.equal(await page.locator(".site-header nav a").count(), 2, "header: Games + Under the hood");
   // Games key: count badge, and it toggles between the shelf (#games, pressed) and the top.
   assert.equal(await page.locator("[data-games-link] .nav-count").textContent(), "05");

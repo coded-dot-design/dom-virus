@@ -1,4 +1,5 @@
 import { registry } from "@game-registry";
+import { slot } from "../vendor/fizlet/slot";
 type Snapshot = { status?: string; score?: number };
 type Controller = {
   start(): unknown;
@@ -850,21 +851,11 @@ if (gamesLink && shelf) {
 // Under the hood: the labs load their tiny engine only on that page.
 const labPage = document.querySelector<HTMLElement>("[data-lab-page]");
 if (labPage) void import("./lab").then(({ startLabs }) => startLabs(labPage));
-// Hero mini-game: the CSS loop runs for everyone; the first tap or drag on the card loads a
-// tiny contained game (only then). Reduced-motion visitors keep the still poster.
+// Hero: the crossover scene and its mini-game run on Fizlet (hero-scene.ts). fizlet/slot loads it
+// once the card is near the viewport; reduced-motion visitors keep the still poster (never loaded).
 const hero = document.querySelector<HTMLElement>(".hero-crossover");
-hero?.querySelector(".promo-stage")?.addEventListener(
-  "pointerdown",
-  (event) => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || hero.dataset.play) return;
-    hero.dataset.play = "loading";
-    void import("./hero-game").then(({ startHeroGame }) => {
-      delete hero.dataset.play;
-      startHeroGame(hero, event as PointerEvent);
-      if (hero.dataset.nukeOnStart) delete hero.dataset.nukeOnStart, heroGame()?.nuke();
-    });
-  },
-);
+const heroStage = hero?.querySelector<HTMLElement>(".promo-stage");
+if (heroStage) slot(heroStage, () => import("./hero-scene").then((m) => m.mountHero), { idle: 0 });
 // "Try me" bubble: if someone looks at the hero for a few seconds without touching it, a small
 // hint pops up by the card, then leaves on its own (or on the first touch). Once per visit.
 const tryMe = hero?.querySelector<HTMLElement>("[data-try-me]");
@@ -882,7 +873,7 @@ if (hero && tryMe && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
       clearTimeout(timer);
       if (shown || !entry!.isIntersecting) return;
       timer = window.setTimeout(() => {
-        if (shown || heroGame() || hero.dataset.play) return;
+        if (shown || hero.dataset.play) return;
         shown = true;
         tryMe.hidden = false;
         requestAnimationFrame(() => tryMe.classList.add("show"));
@@ -893,15 +884,8 @@ if (hero && tryMe && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
   );
   watch.observe(hero);
 }
-// The mock BUTTON_01 is the big red button: clicking it nukes every bad guy and resets the round
-// (the same nuke the two-minute timer fires). The first click also starts the game.
-const heroGame = () => (hero as (HTMLElement & { heroGame?: { nuke(): void } }) | null)?.heroGame;
-hero?.querySelector(".promo-button")?.addEventListener("click", () => {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  if (heroGame()) heroGame()!.nuke();
-  else hero.dataset.nukeOnStart = "true";
-});
-// CSS owns the motion. Observe visibility once per illustration to avoid offscreen work.
+// CSS owns the diagrams' motion (the hero scene follows data-motion too). Observe visibility once
+// per illustration to avoid offscreen work.
 const diagrams = document.querySelectorAll<HTMLElement>(
   ".system-map,.tick-map,.ownership-map,.hero-crossover,.console,.battlefield-display,.kaiju-display",
 );

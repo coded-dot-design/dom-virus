@@ -106,7 +106,7 @@ recorded mutations** (letters swapped for spaces / classes / transforms through 
 and ledger); **Recall restores the exact page**.
 
 Reference animations to reuse and push further:
-- DOM VIRUS home hero (`site-kit/components/HeroScene.astro`, `site-kit/hero-game.ts`): shooters
+- DOM VIRUS home hero (`site-kit/components/HeroScene.astro`, `site-kit/hero-scene.ts`): shooters
   turning on their centre, near-miss sprays, booms with flash + core + ring + rotating square + 10
   square bits, card shake on hit.
 - DOM Battlefield landing hero (`dom-battlefield/site/src/scripts/arena.ts`): letters knocked with
