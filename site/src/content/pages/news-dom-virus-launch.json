@@ -2,15 +2,15 @@
   "id": "news-dom-virus-launch",
   "path": "/news/dom-virus-launch",
   "template": "article",
-  "status": "draft",
+  "status": "scheduled",
   "seo": {
-    "title": "DOM VIRUS launches with 10 games that play on your page",
-    "description": "Ten tiny open-source arcade games that play on a real webpage. No install to play, Recall gives the page back, and every game is MIT licensed.",
+    "title": "The DOM VIRUS arcade is open: six free browser games",
+    "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, open source (MIT).",
     "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-launch/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
-        "sourceUrl": "/og/dom-virus.png"
+        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
       }
     }
   },
@@ -18,65 +18,39 @@
     {
       "id": "hero",
       "type": "hero",
-      "heading": "DOM VIRUS launches with 10 games",
-      "headingAccent": "Your page. Their playground.",
+      "heading": "The DOM VIRUS arcade is open",
+      "headingAccent": "Six free games that play on the page.",
       "eyebrow": "News",
-      "body": "DOM VIRUS launches with ten tiny arcade games that play on a real webpage. Letters become points, buttons become enemy factories, and Recall gives the page back. No install to play. Every game is open source under the MIT licence.",
+      "body": "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT).",
       "ctas": [
         {
           "label": "Choose your game",
-          "href": "/",
+          "href": "/games/",
           "variant": "primary"
         },
         {
-          "label": "Get the code & setup instructions",
+          "label": "Get the code",
           "href": "https://github.com/coded-dot-design/dom-virus"
         }
       ]
     },
     {
-      "id": "text-1",
-      "type": "prose",
-      "variant": "lead",
-      "heading": "One maker, a game a week",
-      "body": [
-        "DOM VIRUS is made by one person, Chris Cooley, a game a week on the side.",
-        "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
-      ]
-    },
-    {
-      "id": "features-2",
+      "id": "features-1",
       "type": "featureList",
       "variant": "rows",
-      "heading": "The ten games",
+      "heading": "Play on the page",
       "items": [
         {
           "title": "Sherman Bytes",
-          "body": "A pixel tank on a live webpage. Breach button bases, build cover, hold the page.",
+          "body": "Drive a pixel tank across the page: breach the button bases, build cover and hold the page against siege waves.",
           "link": {
             "label": "Play Sherman Bytes",
             "href": "/games/sherman-bytes/"
           }
         },
         {
-          "title": "DOM Battlefield",
-          "body": "Squad tactics. Command up to twelve Sherman tanks on a grid built from real page elements.",
-          "link": {
-            "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
-          }
-        },
-        {
-          "title": "Battlefield Blitz",
-          "body": "Every tank for itself. Parachute in, call airstrikes, most kills in three minutes wins.",
-          "link": {
-            "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
-          }
-        },
-        {
           "title": "Swarm Protocol",
-          "body": "Bugs eat letters into binary and drain your buttons. Squash them before the interface falls apart.",
+          "body": "Bugs eat the letters into binary and drain your buttons. Squash them before the interface falls apart.",
           "link": {
             "label": "Play Swarm Protocol",
             "href": "/games/swarm-protocol/"
@@ -84,7 +58,7 @@
         },
         {
           "title": "Byte Runner",
-          "body": "A round pixel frog races through food pipes, eats real text and hunts escaping flies.",
+          "body": "A pixel frog races food pipes in the page's whitespace, eats the real text and hunts the flies.",
           "link": {
             "label": "Play Byte Runner",
             "href": "/games/byte-runner/"
@@ -92,46 +66,86 @@
         },
         {
           "title": "Null Invaders",
-          "body": "Fly an interceptor through a real webpage. Break the button factories and clear the aliens they release.",
+          "body": "Fly an interceptor through the page, shoot letters into binary and break the button factories over four waves.",
           "link": {
             "label": "Play Null Invaders",
             "href": "/games/null-invaders/"
           }
-        },
+        }
+      ],
+      "headingAccent": "Four arcade games, one webpage."
+    },
+    {
+      "id": "features-2",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Board games",
+      "items": [
         {
-          "title": "DOM Kaiju",
-          "body": "TO CONFIRM. A giant pixel gorilla climbs your page from the footer to the top, smashing as he goes.",
+          "title": "DOM Battlefield",
+          "body": "Squad tactics: freeze time to plan every route for up to twelve tanks, then command them under fire.",
           "link": {
-            "label": "See DOM Kaiju",
-            "href": "/games/kaiju/"
+            "label": "Play DOM Battlefield",
+            "href": "/games/battlefield/"
           }
         },
         {
-          "title": "DOM Crossfire",
-          "body": "TO CONFIRM. The DOM VIRUS hero meets the Battlefield arena: interceptor and tank against everything."
-        },
-        {
-          "title": "DOM Flock",
-          "body": "TO CONFIRM. Pixel birds burst out of the page in pairs. You are the crosshair."
-        },
-        {
-          "title": "Game ten",
-          "body": "TO CONFIRM. Name and one line from the owner before this post is scheduled."
+          "title": "Battlefield Blitz",
+          "body": "The arcade version: parachute in, call airstrikes, most kills in three minutes wins. New this week: a real two-player lobby.",
+          "link": {
+            "label": "Play Battlefield Blitz",
+            "href": "/games/battlefield-blitz/"
+          }
         }
       ],
-      "headingAccent": "Pick a cartridge."
+      "headingAccent": "Full screen, on their own sites."
     },
     {
-      "id": "stats-3",
+      "id": "text-3",
+      "type": "prose",
+      "variant": "lead",
+      "heading": "Recall gives the page back",
+      "body": [
+        "Every game that plays on the page ends the same way. Press Escape or Recall, and the game removes what it added and restores what it changed and still owns. The page is the board, then it is the page again."
+      ]
+    },
+    {
+      "id": "text-4",
+      "type": "richText",
+      "heading": "Built on Fizlet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Five of the six games run on Fizlet, Chris Cooley's micro animation and game engine for the DOM. The engine story, its bricks and its measured budgets live on "
+            },
+            {
+              "text": "fizlet.com",
+              "href": "https://fizlet.com/"
+            },
+            {
+              "text": "."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stats-5",
       "type": "statStrip",
       "items": [
         {
-          "value": "10",
-          "label": "games at launch"
+          "value": "6",
+          "label": "free games at launch"
         },
         {
-          "value": "6",
-          "label": "playable today"
+          "value": "4",
+          "label": "play right on the page"
+        },
+        {
+          "value": "2",
+          "label": "players in Battlefield Blitz"
         },
         {
           "value": "MIT",
@@ -154,19 +168,19 @@
           }
         },
         {
+          "title": "Sherman Bytes: a pixel tank game that plays on your page",
+          "body": "Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.",
+          "link": {
+            "label": "Read: Sherman Bytes: a pixel tank game that plays on your page",
+            "href": "/games/sherman-bytes"
+          }
+        },
+        {
           "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
           "body": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
           "link": {
             "label": "Read: Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
             "href": "/news/coming-next"
-          }
-        },
-        {
-          "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
-          "body": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
-          "link": {
-            "label": "Read: DOM Battlefield 0.18: go-live, plan cards and full screen",
-            "href": "/news/dom-battlefield-0-18"
           }
         }
       ]
@@ -176,8 +190,10 @@
     "pageType": "news",
     "tags": [
       "launch",
-      "dom-virus"
+      "dom-virus",
+      "arcade"
     ],
-    "created": "2026-10-29"
-  }
+    "created": "2026-10-31"
+  },
+  "publishAt": "2026-10-31"
 }

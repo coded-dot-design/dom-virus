@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "c3d4bca7b7d00e86"
+    "hash": "aafe767e00d965b2"
   },
   "collection": "games",
   "id": "kaiju",
@@ -11,8 +11,7 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
-      "news-coming-next",
-      "news-dom-virus-launch"
+      "news-coming-next"
     ],
     "pages": [
       "games",

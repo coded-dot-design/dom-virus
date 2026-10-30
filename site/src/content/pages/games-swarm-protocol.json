@@ -1,0 +1,223 @@
+{
+  "id": "games-swarm-protocol",
+  "path": "/games/swarm-protocol",
+  "template": "marketing",
+  "status": "published",
+  "seo": {
+    "title": "Swarm Protocol: defend the page from a bug swarm",
+    "description": "Bugs eat a real webpage's letters into binary and drain its buttons. Squash the swarm in this free browser defense game: click or tap, no install.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/games/swarm-protocol/",
+    "schemaPageType": "VideoGame",
+    "schemaExtra": {
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "isAccessibleForFree": true,
+      "codeRepository": "https://github.com/coded-dot-design/swarm-protocol",
+      "genre": [
+        "Defense",
+        "Arcade"
+      ],
+      "playMode": [
+        "SinglePlayer"
+      ]
+    },
+    "schemaName": "Swarm Protocol",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/swarm-protocol.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "Swarm Protocol",
+      "headingAccent": "Protect every last byte.",
+      "eyebrow": "03 / DOM DEFENSE",
+      "body": "Release a swarm onto this page, then defend it. Bugs eat letters into binary, grow stronger and drain your buttons. Squash them before the interface falls apart. It plays right here in your browser: no install, and Recall gives the page back.",
+      "ctas": [
+        {
+          "label": "Play Swarm Protocol",
+          "href": "#play",
+          "variant": "primary"
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "richText",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figure-2",
+      "type": "mediaFigure",
+      "variant": "featured",
+      "image": {
+        "src": "/shots/swarm-protocol.jpg",
+        "alt": "Swarm Protocol in play on its own DOM VIRUS page: bugs crawl over the heading, eaten letters turn into 0s and 1s and the scoreboard tracks button integrity"
+      },
+      "eyebrow": "SCREENSHOT"
+    },
+    {
+      "id": "features-3",
+      "type": "featureList",
+      "variant": "steps",
+      "heading": "How to play Swarm Protocol",
+      "items": [
+        {
+          "title": "Release the swarm",
+          "body": "Press Play. The bugs arrive in your viewport, near the pointer."
+        },
+        {
+          "title": "Squash the bugs",
+          "body": "Click or tap a bug to squash it. Bugs that have eaten grow stronger and can take more than one hit."
+        },
+        {
+          "title": "Save the buttons",
+          "body": "Bugs eat letters into 0 and 1, grow, and hunt the page's buttons. Squash them before the buttons lose their colour."
+        },
+        {
+          "title": "Rescue distant attacks",
+          "body": "When bugs attack a button off screen, an edge alert offers Jump from 50 points or Jump + Zap from 200. Scrolling there yourself is always free."
+        },
+        {
+          "title": "Recall the page",
+          "body": "Press Escape or Recall to end the round and restore the page."
+        }
+      ],
+      "eyebrow": "HOW TO PLAY"
+    },
+    {
+      "id": "features-4",
+      "type": "featureList",
+      "variant": "grid",
+      "heading": "Tips",
+      "items": [
+        {
+          "title": "Scroll to outrun them",
+          "body": "Scrolling can outrun the swarm, and it never costs points."
+        },
+        {
+          "title": "Rescues get pricier",
+          "body": "Every rescue raises the Jump and Zap prices by 25 points, and each zap adds another 150. Prices reset on restart."
+        },
+        {
+          "title": "Zaps don't pay",
+          "body": "A zap clears a 140–220 px radius around the destination but returns only 1 point per kill, with no combo multiplier."
+        },
+        {
+          "title": "The secret code",
+          "body": "On sites that install the hidden activation, ↑ ↑ ↓ ↓ ← → ← → B A Enter opens the game."
+        }
+      ],
+      "eyebrow": "TIPS"
+    },
+    {
+      "id": "features-5",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "What's new in Swarm Protocol 1.3.0",
+      "items": [
+        {
+          "title": "Shared scoreboard icons",
+          "body": "The scoreboard uses the family's shared action icons for sound, pause, minimize and Recall."
+        },
+        {
+          "title": "Keys stay reachable",
+          "body": "Pause, sound and close stay accessible while the scoreboard is minimized."
+        },
+        {
+          "title": "Same swarm",
+          "body": "Sounds, palette, engine state and behaviour are unchanged."
+        }
+      ],
+      "eyebrow": "WHAT'S NEW",
+      "subhead": "Version 1.3.0, released 2026-10-24.",
+      "headingAccent": "Shared scoreboard keys"
+    },
+    {
+      "id": "site-play",
+      "type": "siteSlot",
+      "slot": "play",
+      "required": true,
+      "target": "games-swarm-protocol#site-play"
+    },
+    {
+      "id": "site-loop",
+      "type": "siteSlot",
+      "slot": "loop",
+      "required": true,
+      "target": "games-swarm-protocol#site-loop"
+    },
+    {
+      "id": "site-controls",
+      "type": "siteSlot",
+      "slot": "controls",
+      "required": true,
+      "target": "games-swarm-protocol#site-controls"
+    },
+    {
+      "id": "site-facts",
+      "type": "siteSlot",
+      "slot": "facts",
+      "required": true,
+      "target": "games-swarm-protocol#site-facts"
+    },
+    {
+      "id": "site-palette",
+      "type": "siteSlot",
+      "slot": "palette",
+      "required": false,
+      "target": "games-swarm-protocol#site-palette"
+    },
+    {
+      "id": "site-embed",
+      "type": "siteSlot",
+      "slot": "embed",
+      "required": false,
+      "target": "games-swarm-protocol#site-embed"
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "heading": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Do I need to install anything to play Swarm Protocol?",
+          "answer": "No. Swarm Protocol plays on this page in your browser. Press Play, and press Escape or Recall when you are done to give the page back."
+        },
+        {
+          "question": "Can I play Swarm Protocol on a phone?",
+          "answer": "Yes. Tap a bug to squash it. Phones keep a steady fill and lighter effects."
+        },
+        {
+          "question": "What happens to the page when I play?",
+          "answer": "Bugs eat the page's letters into 0 and 1 and drain the colour from its buttons. Recall restores what the game changed and still owns."
+        },
+        {
+          "question": "Can I put Swarm Protocol on my own site?",
+          "answer": "Yes. It is open source (MIT), as an npm package or a self-hosted drop-in ZIP. Your visitors never load it from GitHub or a game server."
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "game",
+    "tags": [
+      "embedded",
+      "defense",
+      "arcade"
+    ],
+    "created": "2026-10-30"
+  }
+}

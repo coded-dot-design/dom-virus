@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "5be3aefda47e2a0f"
+    "hash": "f5edf65c1d25af09"
   },
   "collection": "games",
   "id": "byte-runner",
@@ -11,6 +11,7 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-byte-runner-0-10",
       "news-dom-virus-launch"
@@ -175,6 +176,122 @@
           "color": "#628dce"
         }
       ]
+    },
+    "page": {
+      "site": "dom-virus",
+      "type": "game",
+      "slug": "byte-runner",
+      "eyebrow": "04 / DOM CHASE",
+      "tags": [
+        "embedded",
+        "maze",
+        "arcade"
+      ],
+      "slots": [
+        "characters",
+        "palette",
+        "embed"
+      ],
+      "genre": [
+        "Maze",
+        "Arcade"
+      ],
+      "playMode": [
+        "SinglePlayer"
+      ],
+      "players": "1",
+      "lead": "A round, hungry pixel frog races through food pipes drawn in this page's whitespace. Jump out to eat real text, grab glowing power and turn the tables on the flies. It plays right here in your browser: no install, and Recall gives the page back.",
+      "support": "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples.",
+      "play": "Play Byte Runner",
+      "poster": {
+        "src": "/shots/byte-runner.jpg",
+        "alt": "Byte Runner in play on its own DOM VIRUS page: food trails run through the page's whitespace, the green frog races a pipe and flies chase it"
+      },
+      "howToPlay": [
+        {
+          "title": "Press Play",
+          "body": "Food trails appear in the page's whitespace and gutters, with small pixel squares, larger glowing power squares and fruit."
+        },
+        {
+          "title": "Race the pipes",
+          "body": "Arrows or WASD steer. The frog sticks to the pipe, queues your next turn and carries its speed around bends. On a phone, the joystick steers."
+        },
+        {
+          "title": "Jump out to eat text",
+          "body": "Space, the Jump button or a quick double-tap releases the frog anywhere. Eat real page letters, then touch another trail to reattach."
+        },
+        {
+          "title": "Power up and hunt",
+          "body": "Glowing power makes flies edible for six seconds, stacking to nine. The red tongue catches a vulnerable fly up to 54 pixels ahead."
+        },
+        {
+          "title": "Clear the level",
+          "body": "Eat every small and glowing square once to clear a level, for a 500 × level bonus. You have three lives."
+        }
+      ],
+      "tips": [
+        {
+          "title": "Food grows back",
+          "body": "Eaten food returns after 12 seconds (20 for power) and scores again without resetting level progress. Real letters do not come back."
+        },
+        {
+          "title": "Fruit is a bonus",
+          "body": "Fruit is optional bonus food, not a power-up."
+        },
+        {
+          "title": "Redraw the maze",
+          "body": "M or Refresh maze rebuilds the trails from the page's layout."
+        },
+        {
+          "title": "Expect company",
+          "body": "Up to five flies arrive at once, building toward nine on the first level and twelve later where space permits. G travels to the next area."
+        }
+      ],
+      "whatsNew": {
+        "version": "1.0.1",
+        "date": "2026-10-30",
+        "title": "Right on 2× screens",
+        "items": [
+          {
+            "title": "Right on 2× and zoomed screens",
+            "body": "On a 1.5× or 2× screen, the gates' beacon rings, sparks and popups used to draw 1.5–2× too big. Now they sit exactly on the page."
+          },
+          {
+            "title": "The scoreboard drags",
+            "body": "Grab the scoreboard anywhere that isn't a key, with mouse or touch. It stays inside the window, also when the window shrinks."
+          },
+          {
+            "title": "Readable keys",
+            "body": "The scoreboard's key labels pass WCAG AA contrast in both light and dark themes."
+          },
+          {
+            "title": "On the Fizlet engine",
+            "body": "Since 1.0.0, Byte Runner runs on the Fizlet engine with the same rules and numbers, and a scoreboard in the Board UI kit."
+          }
+        ]
+      },
+      "faq": [
+        {
+          "q": "Do I need to install anything to play Byte Runner?",
+          "a": "No. Byte Runner plays on this page in your browser. Press Play, and press Escape or Recall when you are done to give the page back."
+        },
+        {
+          "q": "Can I play Byte Runner on a phone?",
+          "a": "Yes. A joystick steers the frog and a Jump button releases it from the trail."
+        },
+        {
+          "q": "What happens to the page when I play?",
+          "a": "The frog eats real page letters, and its trails, food and creatures are drawn inside the page. Recall removes them and restores the text edits the game still owns."
+        },
+        {
+          "q": "Can I put Byte Runner on my own site?",
+          "a": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+        }
+      ],
+      "seo": {
+        "title": "Byte Runner: a maze chase game that eats your page",
+        "description": "Race a pixel frog through food pipes in a real webpage, eat the text and hunt the flies. A free browser maze game you play right on the page."
+      }
     }
   }
 }

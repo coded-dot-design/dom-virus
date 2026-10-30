@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Arcade launch pages.** Every live game's page carries a player's guide from its spec (brain-cache/fizlet-engine → `fe brief` → `abe produce`): a real play screenshot (`site-kit/assets/shots`, served at `/shots/`, also the share image), how to play, controls (boards), modes, tips, what's new from the game's CHANGELOG and an FAQ (`GameGuide.astro`). Null Invaders, Byte Runner and Swarm Protocol get engine pages (SEO title, description, VideoGame JSON-LD with `genre` and `playMode`); DOM Battlefield's page takes its head and guide from `games-battlefield`; Battlefield Blitz gets a hub page at `/games/battlefield-blitz/` (new `board` page type) with Play and two players on battlefieldblitz.domvirus.com. `/games/` becomes the catalog: all six games from the content model with genre filters, NEW and players badges (`site-kit/catalog.ts`). The launch post is "The DOM VIRUS arcade is open" (scheduled 2026-10-31). DOM Battlefield's size fact is the measured 71.9 kB gzip (v1.0.0), and its site link is battlefield.domvirus.com.
 - **Null Invaders 1.0.2, Byte Runner 1.0.1 and Sherman Bytes 1.0.1 are pinned** (each on Fizlet
   0.19.0, up from 0.13.0). On 2x and zoomed screens the game art now lines up with the page (it
   drew 1.5–2x too big: Sherman's tank started off screen), and the in-page scoreboard can be
