@@ -117,7 +117,7 @@ const aimOf = (id) => shots.filter((s) => s.from === id).map((s) => (s.ang * 180
     <h2>Battlefield has its own base now.</h2>
     <p>The game has its own site: a landing page with a live battle in the hero, and the Board UI style guide every key, card, overlay and launch burst in Battlefield follows. Same game, same cartridge; its design lives with it.</p>
     <a class="nerd-link card" href={site}><span class="eyebrow">DOM BATTLEFIELD · WEBSITE</span><strong>The Battlefield site: watch the tanks wreck the hero</strong><span>The game, how a battle plays, the four fronts and the cockpit on every screen</span><UiIcon name="globe" size={20}/></a>
-    <a class="nerd-link card" href={`${site}blitz/`}><span class="eyebrow">NEW · THE BLITZ VERSION</span><strong>Battlefield Blitz: every tank for itself</strong><span>Free for all, parachute respawns, the blinking grid and airstrikes. Built on Fizlet; drops onto any page</span><UiIcon name="play" size={20}/></a>
+    <a class="nerd-link card" href={`${base}games/battlefield-blitz/`}><span class="eyebrow">NEW · THE BLITZ VERSION</span><strong>Battlefield Blitz: every tank for itself</strong><span>Free for all, parachute respawns, the blinking grid and airstrikes. Built on Fizlet; drops onto any page</span><UiIcon name="play" size={20}/></a>
     <a class="nerd-link card" href={`${site}style-guide/`}><span class="eyebrow">DESIGN SYSTEM · LIVE</span><strong>Board UI: the game board and controls design system</strong><span>Live keys, cards and overlays, the palette you pass in, and the spec for humans and agents</span><UiIcon name="board" size={20}/></a>
   </div>
   {content && <GameGuide content={content} base={base} id="battlefield"/>}
