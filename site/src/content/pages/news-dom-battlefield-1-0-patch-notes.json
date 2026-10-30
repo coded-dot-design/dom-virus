@@ -1,0 +1,229 @@
+{
+  "id": "news-dom-battlefield-1-0-patch-notes",
+  "path": "/news/dom-battlefield-1-0-patch-notes",
+  "template": "article",
+  "status": "published",
+  "seo": {
+    "title": "DOM Battlefield 1.0 patch notes: 1.0.0 to 1.0.1",
+    "description": "DOM Battlefield 1.0 patch notes: the squad-tactics game on the Fizlet engine, the same battles, replayable maps and no GC hitches.",
+    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-battlefield-1-0-patch-notes/",
+    "schemaPageType": "NewsArticle",
+    "openGraph": {
+      "image": {
+        "sourceUrl": "/shots/dom-battlefield.jpg"
+      }
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "hero",
+      "heading": "DOM Battlefield 1.0 patch notes",
+      "headingAccent": "Versions 1.0.0 to 1.0.1, from the release commits.",
+      "eyebrow": "News",
+      "body": "DOM Battlefield 1.0 is the same squad-tactics game on the Fizlet engine. 1.0.0 (29 October 2026) moved the battle onto Fizlet with gameplay unchanged, and 1.0.1 (30 October 2026) puts the landing page's live battle on Fizlet too.",
+      "ctas": [
+        {
+          "label": "Play DOM Battlefield",
+          "href": "/games/battlefield/",
+          "variant": "primary"
+        },
+        {
+          "label": "Read the release commits",
+          "href": "https://github.com/coded-dot-design/dom-battlefield/commits/main"
+        },
+        {
+          "label": "How the games run on Fizlet",
+          "href": "https://fizlet.com/notes/moving-the-games-onto-a-4-kb-kernel/"
+        }
+      ]
+    },
+    {
+      "id": "stats-1",
+      "type": "statStrip",
+      "items": [
+        {
+          "value": "1.0.1",
+          "label": "current release (30 October 2026)"
+        },
+        {
+          "value": "2",
+          "label": "releases in these notes"
+        },
+        {
+          "value": "71,911 B",
+          "label": "gzip, the 1.0.0 game build (gate 72,500 B)"
+        },
+        {
+          "value": "0",
+          "label": "minor GCs over 20,000 busy steps (tested)"
+        }
+      ]
+    },
+    {
+      "id": "text-2",
+      "type": "richText",
+      "heading": "Version 1.0.1",
+      "blocks": [
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "The landing hero runs on Fizlet.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The tank arena in the hero loads when it is needed, steps the battle at a fixed 60 Hz without allocating, and Recall restores the hero byte for byte. With reduced motion on, you get a still poster."
+              }
+            ],
+            [
+              {
+                "text": "It rests.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The hero battle settles to no frames 30 s after your last input."
+              }
+            ],
+            [
+              {
+                "text": "Under the hood.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Fizlet 0.17.0 (was 0.15.0). The game build changes by the engine's Recall fix only (+7 B gzip)."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 30 October 2026."
+    },
+    {
+      "id": "text-3",
+      "type": "richText",
+      "heading": "Version 1.0.0: on Fizlet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "spans": [
+            {
+              "text": "The battle runs as one system on a Fizlet engine, and the game's own frame loop is gone. Nothing changes in how you play."
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            [
+              {
+                "text": "Same battles.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " The new step plays the 0.18.13 battles identically."
+              }
+            ],
+            [
+              {
+                "text": "Same seed, same battle.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Every random roll in play comes from the map's seed, so a map replays the same way from the same inputs."
+              }
+            ],
+            [
+              {
+                "text": "No garbage-collection hitches.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " Once warm, a battle step allocates nothing: 0 minor GCs over 20,000 busy steps (tested)."
+              }
+            ],
+            [
+              {
+                "text": "Repair kits",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " drop through the engine's rules brick. The battle keeps its own kit timer and caps."
+              }
+            ],
+            [
+              {
+                "text": "Size.",
+                "marks": [
+                  "strong"
+                ]
+              },
+              {
+                "text": " 71,911 B gzip; the size gate moves from 68,000 to 72,500 B."
+              }
+            ]
+          ]
+        }
+      ],
+      "headingAccent": "Released 29 October 2026."
+    },
+    {
+      "id": "related",
+      "type": "featureList",
+      "variant": "rows",
+      "heading": "Related",
+      "items": [
+        {
+          "title": "Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+          "body": "Byte Runner 1.0 patch notes: the move to the Fizlet engine, a new scoreboard, sharp drawing on 2× screens and a draggable card.",
+          "link": {
+            "label": "Read: Byte Runner 1.0 patch notes: 1.0.0 to 1.0.1",
+            "href": "/news/byte-runner-1-0-patch-notes"
+          }
+        },
+        {
+          "title": "Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+          "body": "Battlefield Blitz patch notes 0.7.0 to 0.10.0: two players in lockstep, a real lobby, replayable matches and no GC hitches.",
+          "link": {
+            "label": "Read: Battlefield Blitz 0.10 patch notes: 0.7.0 to 0.10.0",
+            "href": "/news/dom-battlefield-blitz-0-10-patch-notes"
+          }
+        },
+        {
+          "title": "Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+          "body": "Null Invaders 1.0 patch notes: the move to the Fizlet engine, sharp drawing on 2× screens and a scoreboard you can drag.",
+          "link": {
+            "label": "Read: Null Invaders 1.0 patch notes: 1.0.0 to 1.0.2",
+            "href": "/news/null-invaders-1-0-patch-notes"
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pageType": "news",
+    "tags": [
+      "release",
+      "patch-notes",
+      "dom-battlefield"
+    ],
+    "created": "2026-10-30"
+  }
+}

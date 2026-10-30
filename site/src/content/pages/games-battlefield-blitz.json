@@ -168,6 +168,39 @@
       "id": "features-7",
       "type": "featureList",
       "variant": "rows",
+      "heading": "Battlefield Blitz strategy",
+      "items": [
+        {
+          "title": "Stay alive to build a streak",
+          "body": "Streaks count kills in one life: 2 earn a long shot, 3 an airstrike, 5 a carpet bomb and 8 a NUKE that wrecks every other tank on the field. Living longer is worth more than one risky kill."
+        },
+        {
+          "title": "Save the long gun for the hard target",
+          "body": "The long shot locks on, crosses the whole field, punches through cover and wrecks in one hit. You start with 3; Long tiles, supply crates and a 2-kill streak give more."
+        },
+        {
+          "title": "Grab Rapid to beat the heat",
+          "body": "The cannon overheats if you hold it. A Rapid tile gives 8 seconds of rapid fire with no overheating, and Triple gives 8 seconds of triple shot."
+        },
+        {
+          "title": "Fight hurt, heal by winning",
+          "body": "Every kill patches 1 armour and a Health tile adds 2. A Shield tile covers you for 6 seconds: take it before you push into a crowd."
+        },
+        {
+          "title": "Mind the mines",
+          "body": "A Mine tile blows up whoever drives onto it, and goes off by itself if it is left alone. Drive around it, or lure a chaser over it."
+        },
+        {
+          "title": "Lead your platoon",
+          "body": "In Platoon, your three wingmen hold a slot behind you, go after whoever is shooting at you and parachute back in next to you. Enemy platoons stick with their lead tank."
+        }
+      ],
+      "eyebrow": "STRATEGY"
+    },
+    {
+      "id": "features-8",
+      "type": "featureList",
+      "variant": "rows",
       "heading": "What's new in Battlefield Blitz 0.10.0",
       "items": [
         {

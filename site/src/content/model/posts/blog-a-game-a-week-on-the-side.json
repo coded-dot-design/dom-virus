@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "8f81f305c864b3da"
+    "hash": "9715de790b8c655d"
   },
   "collection": "posts",
   "id": "blog-a-game-a-week-on-the-side",
@@ -32,7 +32,7 @@
     "date": "2026-11-12",
     "status": "scheduled",
     "publishAt": "2026-11-12",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/sherman-bytes.jpg",
     "lead": [
       "I make DOM VIRUS on the side, for fun, and I ship roughly a game a week. That pace works because every game follows the same path. An idea page, a playable game on this site, and sometimes a board game of its own."
     ],

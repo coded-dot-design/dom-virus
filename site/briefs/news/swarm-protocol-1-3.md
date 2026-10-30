@@ -5,7 +5,7 @@ slug: swarm-protocol-1-3
 tags: [release, swarm-protocol]
 date: 2026-10-24
 status: published
-image: /og/dom-virus.png
+image: /shots/swarm-protocol.jpg
 ---
 Swarm Protocol 1.3 makes phone play cleaner and the scoreboard easier to reach. Tapping letters no longer starts a text selection mid-round. Swarm Protocol is the defense game where bugs eat a real page's letters into binary and drain its buttons. Squash them before the interface falls apart.
 

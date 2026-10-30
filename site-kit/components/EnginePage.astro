@@ -3,6 +3,7 @@
 // with the hub's own pieces: section heading, cards, nerd-link rows, fact boxes, deep-dive FAQ.
 // Copy comes only from the page JSON; lists (posts, games) come from the site's data.
 import UiIcon from './UiIcon.astro';
+import Spans from './Spans.astro';
 import { posts, dateOf, formatDate, routeOf, type EnginePage } from '../engine-content';
 import { scrub } from '../lifecycle.mjs';
 import { catalog, genres } from '../catalog';
@@ -53,7 +54,13 @@ const isPost = type === 'blog' || type === 'news';
     </li>)}</ol>
   </section>}
   {sections.map((s: any) => (
-    s.type === 'richText' ? <div class="engine-prose">{s.blocks.map((b: any) => <p>{b.spans.map((x: any) => x.text).join('')}</p>)}</div>
+    s.type === 'richText' ? <section class="engine-prose" aria-labelledby={s.heading ? `${s.id}-h` : undefined}>
+        {s.heading && <h2 id={`${s.id}-h`}>{s.heading}{s.headingAccent && <em> {s.headingAccent}</em>}</h2>}
+        {s.blocks.map((b: any) => b.type === 'heading' ? <h3>{b.text}</h3>
+          : b.type === 'list' ? (b.ordered ? <ol>{b.items.map((i: any) => <li><Spans spans={i} link={href}/></li>)}</ol> : <ul>{b.items.map((i: any) => <li><Spans spans={i} link={href}/></li>)}</ul>)
+          : b.type === 'quote' ? <blockquote><p><Spans spans={b.spans} link={href}/></p></blockquote>
+          : <p><Spans spans={b.spans} link={href}/></p>)}
+      </section>
     : s.type === 'prose' ? <section class="engine-prose" aria-labelledby={`${s.id}-h`}><h2 id={`${s.id}-h`}>{s.heading}{s.headingAccent && <em> {s.headingAccent}</em>}</h2>{s.body.map((p: string) => <p>{p}</p>)}</section>
     : s.type === 'statStrip' ? <section class="engine-block" aria-label={s.heading || 'At a glance'}>{s.heading && <div class="eyebrow">{s.heading.toUpperCase()}</div>}<div class="game-facts">{s.items.map((i: any) => <div><b>{i.value}</b><span>{i.label}</span></div>)}</div></section>
     : s.type === 'featureList' ? <section class:list={['engine-block', `features-${s.variant}`]} aria-labelledby={`${s.id}-h`}>
@@ -112,6 +119,12 @@ const isPost = type === 'blog' || type === 'news';
 .engine-prose h2{margin:0 0 14px;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em}
 .engine-prose p{margin:0 0 16px;font-size:16px;line-height:1.75;color:var(--muted)}
 .engine-prose p:first-of-type{color:inherit}
+.engine-prose h3{margin:28px 0 10px;font-size:19px;letter-spacing:-.01em}
+.engine-prose ul,.engine-prose ol{margin:0 0 16px;padding-left:22px;display:grid;gap:10px}
+.engine-prose li{font-size:16px;line-height:1.7;color:var(--muted)}
+.engine-prose li strong,.engine-prose p strong{color:var(--text,inherit)}
+.engine-prose .inline-link{color:var(--accent-text,var(--accent));text-decoration:underline;text-underline-offset:3px}
+.engine-prose blockquote{margin:0 0 16px;padding-left:16px;border-left:3px solid var(--accent)}
 .engine-block{margin-top:56px}
 .engine-block > h2{margin:8px 0 18px;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em}
 .engine-sub{max-width:680px;margin:-6px 0 18px;color:var(--muted);line-height:1.6}

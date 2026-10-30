@@ -1,0 +1,11 @@
+---
+// Inline spans of an astro-base-engine richText block: text, **strong** / *em* marks and links.
+// `link` maps a hub-relative href to the built URL (EnginePage's href()).
+const { spans = [], link = (h: string) => h } = Astro.props as { spans: { text: string; marks?: string[]; href?: string }[]; link?: (h: string) => string };
+const wrap = (s: { marks?: string[] }) => ({ strong: s.marks?.includes('strong'), em: s.marks?.includes('em') });
+---
+{spans.map((s) => {
+  const { strong, em } = wrap(s);
+  const inner = strong && em ? <strong><em>{s.text}</em></strong> : strong ? <strong>{s.text}</strong> : em ? <em>{s.text}</em> : s.text;
+  return s.href ? <a class="inline-link" href={link(s.href)}>{inner}</a> : inner;
+})}

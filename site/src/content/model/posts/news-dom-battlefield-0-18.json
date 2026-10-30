@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "7fce56eec6546799"
+    "hash": "8d2cce08018ca0d8"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-0-18",
@@ -32,7 +32,7 @@
     ],
     "date": "2026-10-28",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/dom-battlefield.jpg",
     "lead": [
       "DOM Battlefield 0.18 is the go-live line: clearer planning cards, a sharper surrender moment and full screen that stays on. Battlefield also has its own site now. DOM Battlefield is the squad-tactics board game: command up to twelve Sherman tanks on a grid built from real page elements."
     ],

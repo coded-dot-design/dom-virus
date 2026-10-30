@@ -10,7 +10,7 @@
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
-        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+        "sourceUrl": "/og/dom-virus.png"
       }
     }
   },
@@ -168,19 +168,19 @@
           }
         },
         {
-          "title": "Sherman Bytes: a pixel tank game that plays on your page",
-          "body": "Drive a pixel Sherman across a live webpage: breach button bases, build cover and hold the page. Play free in your browser, then get the code.",
+          "title": "Byte Runner: a maze chase game that eats your page",
+          "body": "Race a pixel frog through food pipes in a real webpage, eat the text and hunt the flies. A free browser maze game you play right on the page.",
           "link": {
-            "label": "Read: Sherman Bytes: a pixel tank game that plays on your page",
-            "href": "/games/sherman-bytes"
+            "label": "Read: Byte Runner: a maze chase game that eats your page",
+            "href": "/games/byte-runner"
           }
         },
         {
-          "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
-          "body": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
+          "title": "Null Invaders: a browser shooter you play on the page",
+          "body": "Fly an interceptor through a real webpage: shoot letters into binary, break button factories and clear four waves. Free in your browser.",
           "link": {
-            "label": "Read: Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
-            "href": "/news/coming-next"
+            "label": "Read: Null Invaders: a browser shooter you play on the page",
+            "href": "/games/null-invaders"
           }
         }
       ]

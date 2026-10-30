@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "a1b3f8eac9125457"
+    "hash": "f32bc2f980265d85"
   },
   "collection": "games",
   "id": "dom-battlefield",
@@ -14,8 +14,10 @@
     ],
     "posts": [
       "blog-from-one-tank-to-a-whole-platoon",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "news-dom-battlefield-0-18",
+      "news-dom-battlefield-1-0-patch-notes",
       "news-dom-virus-launch"
     ],
     "pages": []
@@ -34,7 +36,10 @@
       "sherman-bytes"
     ],
     "engine": {
-      "runtime": "own"
+      "runtime": "fizlet",
+      "bricks": [
+        "ui"
+      ]
     },
     "budget": {
       "gzipBytes": 68000,
@@ -167,6 +172,32 @@
         {
           "title": "True full screen on phones",
           "body": "On iPhone, Add to Home Screen; on Android, Install. The first visit on a phone explains how."
+        }
+      ],
+      "strategy": [
+        {
+          "title": "Spend the 12 points on purpose",
+          "body": "Each loadout slot costs points: a scout 2, a medium 3, a heavy 4, and four slots must fit 12. Scouts are fastest with the quickest reload; heavies take the most damage and hit hardest but move slowest. Squads of 8 and 12 repeat the pattern, so one choice shapes the whole squad."
+        },
+        {
+          "title": "Play the objective, not the kill count",
+          "body": "A capture means holding the opposing HQ for 12 seconds with no defender nearby. A crossroads must be held for 45 uncontested seconds. Elimination means breaking all four defenders. Plan routes for the one your operation asks for."
+        },
+        {
+          "title": "Keep your command tank alive",
+          "body": "Your command tank must survive, whatever the objective. Let the squad take the lead into contested ground and route your own tank behind it."
+        },
+        {
+          "title": "Plan while time is frozen",
+          "body": "In Plan, time stays frozen: give every tank an order and lock its route before Start battle. In battle, Command runs at half speed with your gun off, so redirect quickly and switch back to Auto or Lock."
+        },
+        {
+          "title": "Repair before you push",
+          "body": "Damaged tanks lose up to 45% of their top speed. Retreat to headquarters to repair, then Advance back to the objective by a different lane: every map has alternate connected routes."
+        },
+        {
+          "title": "Open lanes through soft cover",
+          "body": "Hedges and houses stop shells until they are destroyed, so blast a lane first and bring the squad through. Fences block tanks but not shells; rock ridges and water never break."
         }
       ],
       "whatsNew": {

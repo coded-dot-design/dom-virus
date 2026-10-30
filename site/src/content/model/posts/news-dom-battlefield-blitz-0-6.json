@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "8582a09397cf5f7d"
+    "hash": "b2a643318b63393f"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-blitz-0-6",
@@ -32,7 +32,7 @@
     ],
     "date": "2026-10-28",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/dom-battlefield-blitz.jpg",
     "lead": [
       "Battlefield Blitz 0.6 brings DOM Battlefield's pause and result screens to the free-for-all, plus better spacing on phones. Battlefield Blitz is the arcade tank game: every tank for itself, parachute in, call airstrikes, and most kills in three minutes wins."
     ],

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "9ced834094430fd5"
+    "hash": "302b9182d66205f7"
   },
   "collection": "posts",
   "id": "news-dom-virus-launch",
@@ -42,7 +42,7 @@
     "date": "2026-10-31",
     "status": "scheduled",
     "publishAt": "2026-10-31",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT)."
     ],

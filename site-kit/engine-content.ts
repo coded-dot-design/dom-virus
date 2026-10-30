@@ -41,6 +41,18 @@ export const routeOf = (p: EnginePage) => p.path.replace(/^\/+/, '').replace(/\/
 export const posts = (type: 'blog' | 'news') =>
   pages.filter((p) => p.meta?.pageType === type && visible(p)).sort((a, b) => dateOf(b).localeCompare(dateOf(a)));
 
+// Posts about a game, newest first: the content model's relations (a post names its games; the
+// reverse is computed here, never stored). Only posts this build shows; newest first.
+const modelPosts = import.meta.glob('/site/src/content/model/posts/*.json', { eager: true, import: 'default' }) as Record<string, { id: string; relations?: { games?: string[] } }>;
+export const postsAbout = (gameId: string, limit = 4) =>
+  Object.values(modelPosts)
+    .filter((m) => m.relations?.games?.includes(gameId))
+    .map((m) => byId(m.id))
+    .filter((p): p is EnginePage => !!p && ['news', 'blog'].includes(p.meta?.pageType ?? '') && visible(p))
+    // Same day: the game's own news (its patch notes) before an essay that names it.
+    .sort((a, b) => dateOf(b).localeCompare(dateOf(a)) || Number(b.meta?.pageType === 'news') - Number(a.meta?.pageType === 'news'))
+    .slice(0, limit);
+
 // Engine head for a page served at pageUrl. The engine bakes robots from the status on the day heads were generated;
 // a scheduled page that has since gone live is indexable now.
 export const headOf = (p: EnginePage | undefined, pageUrl: string) => {

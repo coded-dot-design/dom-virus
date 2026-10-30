@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "19eb26f4ed8b70db"
+    "hash": "f57d76bde01f2ea2"
   },
   "collection": "games",
   "id": "null-invaders",
@@ -11,10 +11,12 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-dom-virus-launch",
-      "news-null-invaders-0-7"
+      "news-null-invaders-0-7",
+      "news-null-invaders-1-0-patch-notes"
     ],
     "pages": [
       "press"
@@ -30,7 +32,15 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/null-invaders",
     "engine": {
-      "runtime": "dom-virus-core"
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "sound",
+        "ui",
+        "hud",
+        "pad"
+      ]
     },
     "budget": {
       "gzipBytes": 24000,

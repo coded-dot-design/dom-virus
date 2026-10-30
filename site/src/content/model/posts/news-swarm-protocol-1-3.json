@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "10b261c173e04f08"
+    "hash": "aae62c88e3ccd747"
   },
   "collection": "posts",
   "id": "news-swarm-protocol-1-3",
@@ -30,7 +30,7 @@
     ],
     "date": "2026-10-24",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/shots/swarm-protocol.jpg",
     "lead": [
       "Swarm Protocol 1.3 makes phone play cleaner and the scoreboard easier to reach. Tapping letters no longer starts a text selection mid-round. Swarm Protocol is the defense game where bugs eat a real page's letters into binary and drain its buttons. Squash them before the interface falls apart."
     ],

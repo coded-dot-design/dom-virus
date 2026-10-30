@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "f5edf65c1d25af09"
+    "hash": "f7277083a6dbd016"
   },
   "collection": "games",
   "id": "byte-runner",
@@ -11,9 +11,11 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-byte-runner-0-10",
+      "news-byte-runner-1-0-patch-notes",
       "news-dom-virus-launch"
     ],
     "pages": [
@@ -30,7 +32,15 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/byte-runner",
     "engine": {
-      "runtime": "dom-virus-core"
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "sound",
+        "ui",
+        "hud",
+        "pad"
+      ]
     },
     "budget": {
       "gzipBytes": 30000,

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "556a4dba5f0b6e5e"
+    "hash": "a35094937ecf5121"
   },
   "collection": "pages",
   "id": "cookies",
@@ -27,7 +27,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-10-29."
     ],

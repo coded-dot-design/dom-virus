@@ -5,7 +5,7 @@ slug: dom-battlefield-0-18
 tags: [release, dom-battlefield]
 date: 2026-10-28
 status: published
-image: /og/dom-virus.png
+image: /shots/dom-battlefield.jpg
 ---
 DOM Battlefield 0.18 is the go-live line: clearer planning cards, a sharper surrender moment and full screen that stays on. Battlefield also has its own site now. DOM Battlefield is the squad-tactics board game: command up to twelve Sherman tanks on a grid built from real page elements.
 

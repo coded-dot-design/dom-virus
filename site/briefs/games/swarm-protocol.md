@@ -43,6 +43,16 @@ item: The secret code | On sites that install the hidden activation, ↑ ↑ ↓
 [/features]
 
 [features rows]
+eyebrow: STRATEGY
+heading: Swarm Protocol strategy
+item: Squash crawlers before six letters | A crawler has one hit point. After six letters it grows and gains a hit point, and after twelve it becomes a button hunter with one more. Every early squash saves you hits later.
+item: Damage sticks | Evolving does not fully heal a bug: hits it took before it grew still count. Finish wounded bugs first.
+item: Triage by colour | A button fades to mint green on its first bite, turns yellow at 75% health and coral red at 35%. Defend the red buttons first.
+item: Scroll before you pay | Scrolling is always free and can outrun the swarm. A Jump costs 50 points and Jump + Zap 200, and every rescue raises both prices by 25.
+item: Zap only to save a button | A zap clears a 140–220 px radius but pays 1 point per kill with no combo multiplier, and each zap adds another 150 to its price. Use it when a button is about to fall, not to farm points.
+[/features]
+
+[features rows]
 eyebrow: WHAT'S NEW
 heading: What's new in Swarm Protocol 1.3.0 | Shared scoreboard keys
 subhead: Version 1.3.0, released 2026-10-24.

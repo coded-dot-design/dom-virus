@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "4b7b6955e62a3667"
+    "hash": "49a9d8dbf7c31a88"
   },
   "collection": "pages",
   "id": "games",
@@ -29,7 +29,7 @@
     ],
     "date": "2026-10-29",
     "status": "published",
-    "image": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png",
+    "image": "/og/dom-virus.png",
     "lead": [
       "Every DOM VIRUS game is free to play in your browser. Four arcade games play right on this site and turn the page into the board. The two Battlefield tank games run full screen on their own sites. Filter by genre, see what's new, and press Play."
     ],

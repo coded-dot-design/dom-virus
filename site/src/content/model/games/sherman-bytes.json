@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "583f12d6ca39c605"
+    "hash": "eb485ff7eda9dd6d"
   },
   "collection": "games",
   "id": "sherman-bytes",
@@ -13,6 +13,7 @@
     "posts": [
       "blog-a-game-a-week-on-the-side",
       "blog-from-one-tank-to-a-whole-platoon",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-recall-leave-the-page-as-you-found-it",
       "blog-the-page-is-the-game-board",
@@ -21,7 +22,8 @@
       "news-dom-battlefield-0-18",
       "news-dom-battlefield-blitz-0-6",
       "news-dom-virus-launch",
-      "news-sherman-bytes-0-5"
+      "news-sherman-bytes-0-5",
+      "news-sherman-bytes-1-0-patch-notes"
     ],
     "pages": [
       "about",
@@ -39,7 +41,15 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/sherman-bytes",
     "engine": {
-      "runtime": "dom-virus-core"
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "sound",
+        "ui",
+        "hud",
+        "pad"
+      ]
     },
     "budget": {
       "gzipBytes": 28000,
