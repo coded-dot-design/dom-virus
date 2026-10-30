@@ -369,4 +369,4 @@ and idle pulses (`README.md:63`).
    Sherman 01, Battlefield 02, Swarm 03, Byte Runner 04, Null Invaders 05. The rulebook roster is
    Sherman 01, Battlefield 02, Blitz 03, Swarm 04, Byte Runner 05, Null Invaders 06, Kaiju 07.
 8. **Where Board UI lives.** `BOARD-UI.md` (v1.1) still says it "Lives in the DOM Battlefield repo";
-   Fizlet's `CLAUDE.md` and the rulebook name `fizlet/src/ui/` as the source of truth.
+   the rulebook names `fizlet/src/ui/` as the source of truth.

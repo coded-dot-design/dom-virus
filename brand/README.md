@@ -231,8 +231,8 @@ Each step publishes content (§11): coming-soon page, launch post, news item, so
   conversational and hyped, with diagrams and live experiments like today's Under the Hood page.
   It goes deep on *how it works* and *how to hook in*: "to add an action to the page, do this; if
   you're building a shooter, do that; if it's multiplayer, do this", not code to paste into an app.
-  The engine's internal knowledge (agent rules, recipes) lives in the second brain; the Fizlet
-  site is the public face and looks like the newest work (Battlefield's design and diagrams).
+  The Fizlet site is the public face and looks like the newest work (Battlefield's design and
+  diagrams).
 - Repos and READMEs follow the same split: games explain play first and link to the tech; Fizlet
   explains the tech.
 
@@ -264,18 +264,15 @@ regress it for content.
 **Goal:** a new game every week (then every day) with a steady stream of blog, news and social
 posts, without one-off work.
 
-- **The frame:** the shared marketing engine (astro-base-engine, in `brain-cache/astro-engine`)
-  owns page structure, copy order, metadata, links, accessibility and the content lifecycle
-  (idea → draft → scheduled → published). Pages keep their copy in page JSON, never only in a
-  component.
+- **The frame:** the shared marketing engine (astro-base-engine) owns page structure, copy
+  order, metadata, links, accessibility and the content lifecycle (idea → draft → scheduled →
+  published). Pages keep their copy in page JSON, never only in a component.
 - **The look:** each site keeps its own design, components and animations. The engine leaves slots
   (`data-slot-target="<page-id>#<slot-id>"`) and our animation engine fills them.
-- **The brain:** the second brain runs the engine and agents (a Python application with tools and
-  agent rules) that take a game from idea to published pages and posts.
 - **Templates to build:** blog post, news item / press release, coming-soon page, embedded game
   page, board landing page, social posts (copy plus image sizes: 1200×630 link preview,
   1080×1080, 1080×1920), launch checklist. Screenshots and preview images are generated, not drawn.
-- **DRY rule:** if an agent does it twice, it becomes a function, template or data field. Facts
+- **DRY rule:** if it is done twice, it becomes a function, template or data field. Facts
   (sizes, versions, URLs, relationships) are data, read by pages and posts, never retyped.
 
 ## 12. Hosting and domains
