@@ -44,12 +44,11 @@ item: Keep moving | The squid is the fastest alien shape, and alien health rises
 
 [features rows]
 eyebrow: WHAT'S NEW
-heading: What's new in Null Invaders 1.0.2 | Right on 2× screens
-subhead: Version 1.0.2, released 2026-10-30.
-item: Right on 2× and zoomed screens | On a 1.5× or 2× screen, the ship, the invaders and the factories' beacon rings used to draw 1.5–2× too big. Now they sit exactly on the page.
-item: The scoreboard drags | Grab the scoreboard anywhere that isn't a key, with mouse or touch. It stays inside the window, also when the window shrinks.
-item: Readable keys | The scoreboard's key labels pass WCAG AA contrast in both light and dark themes.
-item: On the Fizlet engine | Since 1.0.0, Null Invaders runs on the Fizlet engine with the same rules and numbers, and a scoreboard in the Board UI kit.
+heading: What's new in Null Invaders 1.0.3 | No zoom mid-run
+subhead: Version 1.0.3, released 2026-10-30.
+item: No zoom mid-run | While a run is live, a pinch, an iOS gesture or a double tap no longer zooms the page out of shape. One finger still plays and drags the scoreboard; the end of the run gives the zoom back.
+item: The scoreboard still drags | Grab it with one finger on a phone or with the mouse; the drag never zooms the page.
+item: On Fizlet 0.20.0 | Same game and rules as before; the engine underneath is the only change to Null Invaders.
 [/features]
 
 [faq]

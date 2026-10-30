@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "f08e554d10e16bf8"
+    "hash": "d512514bb841a271"
   },
   "collection": "games",
   "id": "swarm-protocol",
@@ -30,7 +30,10 @@
     "brand": "domvirus",
     "repo": "https://github.com/coded-dot-design/swarm-protocol",
     "engine": {
-      "runtime": "own"
+      "runtime": "fizlet",
+      "bricks": [
+        "collide"
+      ]
     },
     "budget": {
       "gzipBytes": 35775,
