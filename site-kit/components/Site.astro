@@ -82,7 +82,7 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
   {engineHead ? <Fragment set:html={engineHead}/> : <>
   <meta name="description" content={metaDescription}/>
   {page!=='notfound' && <link rel="canonical" href={pageUrl}/>}
-  {page==='notfound' && <meta name="robots" content="noindex"/>}
+  {(page==='notfound'||page==='archive') && <meta name="robots" content="noindex"/>}
   <meta property="og:type" content="website"/>
   <meta property="og:title" content={hub&&page==='home'?'DOM VIRUS — The DOM is the game board.':`${title} — DOM VIRUS`}/>
   <meta property="og:description" content={metaDescription}/><meta property="og:url" content={pageUrl}/>
