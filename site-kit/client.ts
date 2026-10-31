@@ -1,4 +1,5 @@
 import { registry } from "@game-registry";
+import { track } from "./analytics/track.mjs";
 type Snapshot = { status?: string; score?: number };
 type Controller = {
   start(): unknown;
@@ -44,6 +45,8 @@ const nameLabel = document.querySelector<HTMLElement>("#session-name")!;
 const pause = document.querySelector<HTMLButtonElement>("#session-pause")!;
 let current: Controller | null = null;
 let epoch = 0;
+// Gameplay analytics (site-kit/analytics): no-ops until the visitor accepts, and never inside a game.
+let played: { game: string; version?: string; at: number } | null = null;
 let focused: HTMLElement | null = null;
 let statusTimer: ReturnType<typeof setTimeout>;
 function announce(message: string) {
@@ -57,6 +60,16 @@ function recall(focus = true) {
   epoch++;
   const previous = current;
   current = null;
+  if (played && previous) {
+    const score = previous.getSnapshot().score;
+    track("game_end", {
+      game: played.game,
+      ...(played.version ? { version: played.version } : {}),
+      ...(typeof score === "number" ? { score } : {}),
+      duration: Math.round((performance.now() - played.at) / 1000),
+    });
+  }
+  played = null;
   previous?.destroy();
   bar.hidden = true;
   document
@@ -128,6 +141,8 @@ for (const button of document.querySelectorAll<HTMLButtonElement>(
       button.blur();
       update(controller.getSnapshot());
       button.removeAttribute("aria-busy");
+      played = { game: key, version, at: performance.now() };
+      track("game_start", { game: key, ...(version ? { version } : {}) });
       announce(
         `${nameLabel.textContent} is live. Press Escape or Recall to restore the page.`,
       );

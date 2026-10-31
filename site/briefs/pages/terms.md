@@ -3,11 +3,12 @@ type: legal
 title: Terms of use | Play fair. Get the page back.
 slug: terms
 tags: [legal, terms]
-date: 2026-10-29
+date: 2026-10-31
 status: published
 image: /og/dom-virus.png
 ---
-These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-29.
+<!-- For Chris: pending legal review. Drafted from the 2026-10-29 page to add Google Analytics 4 and PostHog; not legal advice. Have a lawyer read it before the analytics ids go live. Last updated 2026-10-31. -->
+These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-31.
 
 [text]
 heading: Using the site
@@ -50,7 +51,7 @@ To the extent the law allows, we are not liable for any loss or damage from usin
 
 [text]
 heading: Links to other sites
-The site links to GitHub, Cloudflare and other sites we do not run. Their own terms and privacy policies apply there.
+The site links to GitHub, Cloudflare and other sites we do not run. If you accept analytics, Google Analytics and PostHog measure how the site is used, as the privacy policy explains. Their own terms and privacy policies apply there.
 [/text]
 
 [text]

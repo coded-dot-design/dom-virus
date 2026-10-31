@@ -21,7 +21,7 @@
       "heading": "Terms of use",
       "headingAccent": "Play fair. Get the page back.",
       "eyebrow": "Legal",
-      "body": "These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-29."
+      "body": "These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-31."
     },
     {
       "id": "text-1",
@@ -81,7 +81,7 @@
       "variant": "lead",
       "heading": "Links to other sites",
       "body": [
-        "The site links to GitHub, Cloudflare and other sites we do not run. Their own terms and privacy policies apply there."
+        "The site links to GitHub, Cloudflare and other sites we do not run. If you accept analytics, Google Analytics and PostHog measure how the site is used, as the privacy policy explains. Their own terms and privacy policies apply there."
       ]
     },
     {
@@ -133,6 +133,6 @@
       "legal",
       "terms"
     ],
-    "created": "2026-10-29"
+    "created": "2026-10-31"
   }
 }

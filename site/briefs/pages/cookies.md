@@ -1,19 +1,20 @@
 ---
 type: legal
-title: Cookies and storage | No cookies. A few saved settings.
+title: Cookies and storage | No cookies until you say yes.
 slug: cookies
 tags: [legal, privacy, cookies]
-date: 2026-10-29
+date: 2026-10-31
 status: published
 image: /og/dom-virus.png
 ---
-DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-10-29.
+<!-- For Chris: pending legal review. Drafted from the 2026-10-29 page to add Google Analytics 4 and PostHog; not legal advice. Have a lawyer read it before the analytics ids go live. Last updated 2026-10-31. -->
+DOM VIRUS sets no cookies unless you accept analytics. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every cookie and key, what it holds and how to clear it. Last updated 2026-10-31.
 
 [text]
 heading: Cookies
-Neither the site nor the games set cookies. The analytics we use when it is switched on, Cloudflare Web Analytics, is cookieless too.
+The games never set cookies. The site sets analytics cookies only after you choose Accept in the cookie banner. Reject is one click, just like Accept, and we remember either answer.
 
-So there is no cookie banner. There is nothing to consent to.
+Change your mind any time: open Cookie settings at the foot of any page. Cloudflare Web Analytics, when switched on, is cookieless.
 [/text]
 
 [text]
@@ -26,7 +27,15 @@ When another site runs one of the games, the game saves its keys under that site
 [/text]
 
 [features rows]
+heading: Analytics cookies: only after you accept
+item: _ga | Google Analytics 4 (Google). Tells visits apart so we can count usage. Expires after 2 years.
+item: _ga_<id> | Google Analytics 4 (Google). Keeps the state of your current visit. Expires after 2 years.
+item: ph_<project key>_posthog | PostHog. An anonymous id and visit state for usage and gameplay events, in a cookie and in local storage. Expires after 1 year.
+[/features]
+
+[features rows]
 heading: Local storage: every key
+item: dom-virus:consent | Your cookie choice (analytics yes or no) and when you made it, so the banner does not ask again.
 item: dom-virus:theme | Your colour theme: system, dark or light. Shared by the hub, Battlefield and Fizlet sites.
 item: dom-virus:sherman-bytes:sound | Sound on or off in Sherman Bytes.
 item: dom-virus:byte-runner:sound | Sound on or off in Byte Runner.
@@ -51,7 +60,7 @@ item: dom-virus:doors | Set for a moment when you launch DOM Battlefield from th
 
 [text]
 heading: How to clear them
-Clear this site's data in your browser settings to remove every key at once. Most browsers list it under privacy or site settings, by site address.
+Clear this site's data in your browser settings to remove every cookie and key at once. To keep analytics off afterwards, choose Reject when the banner asks again. Most browsers list it under privacy or site settings, by site address.
 
 Clearing does no harm. The theme goes back to its default, sound comes back on and DOM Battlefield starts from a fresh setup.
 
@@ -59,10 +68,8 @@ Developers can also open the browser's developer tools, find Local Storage under
 [/text]
 
 [text]
-heading: If we ever add cookies
-Anything that sets cookies or tracks you across sites would come with a consent banner first. Nothing like that would run until you agree.
-
-This page and the privacy policy would change before it ships, with a new date.
+heading: What we never use
+No advertising, remarketing or social media cookies, and no ad pixels. If that ever changes, this page and the privacy policy change first, with a new date, and nothing new runs until you agree.
 [/text]
 
 [features rows]
@@ -72,6 +79,6 @@ item: Questions | Reach us through the contact page. | Contact DOM VIRUS -> /con
 [/features]
 
 [seo]
-title: Cookies and storage: what the games save | DOM VIRUS
-description: DOM VIRUS sets no cookies. Here is every setting the games save in your browser's local storage, what it holds and how to clear it.
+title: Cookies and storage: analytics only with consent | DOM VIRUS
+description: DOM VIRUS sets analytics cookies only if you accept. Here is every cookie and every setting the games save in your browser, and how to clear them.
 [/seo]

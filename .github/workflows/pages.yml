@@ -32,6 +32,11 @@ jobs:
           SITE_BASE: ${{ vars.SITE_BASE }}
           # Cookieless Cloudflare Web Analytics (brand/SITEMAP.md E8). Unset = no analytics.
           PUBLIC_CF_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CF_ANALYTICS_TOKEN }}
+          # GA4 + PostHog behind the consent banner (site-kit/analytics). Public ids, so repository
+          # Variables, not Secrets. Unset = off: the build ships no analytics code.
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
+          PUBLIC_POSTHOG_KEY: ${{ vars.PUBLIC_POSTHOG_KEY }}
+          PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST }}
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: artifacts/site
