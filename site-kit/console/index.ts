@@ -200,8 +200,9 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     cart.style.setProperty("transform", "none", "important");
     const r = cart.getBoundingClientRect();
     cart.style.removeProperty("transform");
+    // The bay keeps its own height (not the cartridge's, which can overhang it): nothing moves.
+    bay.style.minHeight = `${bay.getBoundingClientRect().height}px`;
     bay.classList.add("out");
-    bay.style.minHeight = `${r.height}px`;
     deck.append(cart);
     Object.assign(cart.style, {
       position: "absolute",
@@ -225,6 +226,34 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     const bay = cart.parentElement!.getBoundingClientRect(),
       row = shelf.getBoundingClientRect();
     shelf.scrollTo({ left: shelf.scrollLeft + bay.left - row.left - (row.width - bay.width) / 2, behavior: "instant" });
+  }
+
+  // ---------- The lock: where the page sits while a cartridge is in ----------
+  // The same spot going in (a click) and coming back (a return URL, back/forward, a swap), so the
+  // way back is an exact reverse. The shelf section is a full-viewport hero: its top goes to the
+  // viewport top and the console sits centred in it. Taller than the viewport (short screens): the
+  // console and the seated cartridge, centred where they fit, the console's bottom in view where
+  // they don't; never past the section, so what follows it (the footer) plays no part. Measured
+  // once, at rest, before a move starts: the seat's height is the tallest cartridge at its seat scale.
+  function lockY() {
+    const y = win.scrollY,
+      vh = win.innerHeight,
+      s = root.getBoundingClientRect(),
+      top = s.top + y;
+    if (s.height <= vh + 1) return Math.round(top);
+    const c = consoleEl.getBoundingClientRect(),
+      body = consoleEl.querySelector<HTMLElement>(".body")!.getBoundingClientRect();
+    const seat = Math.max(0, ...allCarts().map((n) => n.offsetHeight * Math.min(1, (body.width * 0.56) / (n.offsetWidth || 1))));
+    const from = body.top - seat,
+      to = c.bottom + 16;
+    const want = to - from <= vh ? (from + to - vh) / 2 : to - vh;
+    return Math.round(Math.min(Math.max(want + y, top), top + s.height - vh));
+  }
+  /** Scroll to the lock (`target` measured earlier, or now). True when the page had to move. */
+  function lockTo(target = lockY(), behavior: ScrollBehavior = "instant") {
+    if (Math.abs(win.scrollY - target) < 1) return false;
+    win.scrollTo({ top: target, behavior: reduced() ? "instant" : behavior });
+    return true;
   }
 
   // ---------- Sound: a cartridge click on insert, a power-on chirp per LED ----------
@@ -279,6 +308,7 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
       return refuse(cart);
     }
     unlockAudio();
+    const target = lockY();
     halt(cart, ["transform", "translate", "opacity"]);
     setPopIn();
     liftOut(cart);
@@ -290,11 +320,11 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     }
     shelf.dataset.plugging = cart.dataset.cart!;
     cart.classList.add("plugging");
-    // Bring the console on screen first (phones), then fly; the swipe row rides along, no pause.
-    const below = consoleEl.getBoundingClientRect().bottom > win.innerHeight;
-    if (below) consoleEl.scrollIntoView({ block: "end", behavior: "smooth" });
+    // Lock the page on the shelf first (measured above, before anything moved), then fly; the
+    // swipe row rides along, no pause.
+    const moved = lockTo(target, "smooth");
     const go = () => plug(cart);
-    if (below && !scrollerShelf()) later(0.38, go);
+    if (moved && !scrollerShelf()) later(0.38, go);
     else go();
   };
   shelf.addEventListener("click", onCartClick, on);
@@ -326,10 +356,9 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     consoleEl.classList.remove("starting", "is-loading");
     consoleEl.classList.toggle("full", full);
     consoleEl.classList.add("booting");
-    // The name types on: letter-spaced and dim, in three steps.
-    const rest = getComputedStyle(name).letterSpacing;
-    if (/^-?[\d.]+px$/.test(rest))
-      blip([name], ["opacity", "letter-spacing"], (to) => to(name, { opacity: [0, 1], "letter-spacing": ["12px", rest] }, { dur: 0.42, ease: "steps(3)" }));
+    // The name types on: spread wide and dim, in three steps.
+    // Spread wide by a transform, not letter-spacing: the glyphs never move in layout (no shift).
+    blip([name], ["opacity", "transform"], (to) => to(name, { opacity: [0, 1], transform: ["scaleX(1.5)", "scaleX(1)"] }, { dur: 0.42, ease: "steps(3)" }));
   }
   function plug(cart: HTMLAnchorElement, autoPad?: string) {
     const seat = slotOffset(cart),
@@ -602,6 +631,7 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     consoleEl.classList.remove("booting", "starting", "is-loading", "full", "choice");
   }
   function returnHome(state: ReturnState, fresh = false) {
+    lockTo();
     const cart = allCarts().find((n) => n.dataset.cart === state.id);
     chained = state.next && /^[\w-]+$/.test(state.next) ? state.next : null;
     doc.querySelectorAll(".board-open").forEach((n) => n.remove());
@@ -763,6 +793,8 @@ export function mount(root: HTMLElement, o: ConsoleOptions = {}) {
     engine,
     /** Play the way back from an action (the cartridge docked, then out and home). */
     returnHome,
+    /** Scroll to the lock now, at once (a page that arrives with a cartridge to plug in). */
+    lock: () => void lockTo(),
     /** Plug a cartridge in and press `pad` for it, after `delay` seconds. */
     swapIn: (id: string, pad = "a", delay = 0) => (delay ? later(delay, () => swapIn(id, pad)) : swapIn(id, pad)),
     /** Recall: every move stops, every cartridge goes home, the page is given back as it was. */

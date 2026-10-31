@@ -108,8 +108,10 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
     (()=>{let preference='system';try{preference=localStorage.getItem('dom-virus:theme')||'system'}catch{}if(!['system','dark','light'].includes(preference))preference='system';document.documentElement.dataset.preference=preference;document.documentElement.dataset.theme=preference==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):preference})()
   </script>
   <script is:inline>
-    /* Returning from a game (?play=<id> / ?board=<id>): mark it before first paint so the home page arrives docked. */
-    (()=>{addEventListener('pagereveal',e=>{window.__dvReveal={vt:e.viewTransition||null}});const q=new URLSearchParams(location.search),id=q.get('play')||q.get('board');if(!id||!/^[\w-]+$/.test(id)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;const d=document.documentElement;d.dataset.return=id;d.dataset.returnMode=q.has('board')?'board':'screen';const s=document.createElement('style');s.id='dv-return';s.textContent='.cartridge[data-cart="'+id+'"]{visibility:hidden}';document.head.append(s)})()
+    /* Returning from a game (?play=<id> / ?board=<id>): mark it before first paint so the home page arrives docked.
+       The console module scrolls to the lock (the shelf hero at the viewport top), so the #console
+       fragment and the browser's scroll restoration are taken out of the way first. */
+    (()=>{addEventListener('pagereveal',e=>{window.__dvReveal={vt:e.viewTransition||null}});const q=new URLSearchParams(location.search),id=q.get('play')||q.get('board');if(!id||!/^[\w-]+$/.test(id))return;history.scrollRestoration='manual';if(location.hash)history.replaceState(history.state,'',location.pathname+location.search);if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const d=document.documentElement;d.dataset.return=id;d.dataset.returnMode=q.has('board')?'board':'screen';const s=document.createElement('style');s.id='dv-return';s.textContent='.cartridge[data-cart="'+id+'"]{visibility:hidden}';document.head.append(s)})()
   </script>
 </head>
 <body>

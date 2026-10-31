@@ -245,7 +245,8 @@ try {
   await page.waitForURL(/\/games\/battlefield\/$/);
   assert.equal((await page.locator(".back-link").textContent()).trim(), "Eject cartridge");
   await page.locator(".back-link").click();
-  await page.waitForURL(/\?play=battlefield#console$/);
+  // The link carries #console; the head script drops the fragment (the console module scrolls to the lock).
+  await page.waitForURL(/\?play=battlefield(#console)?$/);
   assert.equal(await page.evaluate(() => document.documentElement.dataset.return), "battlefield", "marked before first paint");
   await page.waitForFunction(() => !document.querySelector(".cartridge.plugging") && location.hash === "#games" && !location.search, null, { timeout: 6000 });
   // Under the hood: each snippet has a cartridge (desktop); it plugs in at home and opens the game page.

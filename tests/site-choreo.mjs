@@ -113,8 +113,8 @@ try {
     const flight = await sample(page, '.cartridge[data-cart="battlefield"]', "transform", 500);
     assert.ok(flight.length > 5, `insert flight runs (${flight.length} transforms)`);
     await page.waitForFunction(() => document.querySelector("[data-console]").classList.contains("booting"));
-    const name = await sample(page, "[data-console-name]", "letter-spacing", 200);
-    assert.ok(name.includes("12px"), `the name types on (${name.join(" | ")})`);
+    const name = await sample(page, "[data-console-name]", "transform", 200);
+    assert.ok(name.includes("scaleX(1.5)"), `the name types on (${name.join(" | ")})`);
     await page.waitForFunction(() => !document.querySelector("[data-console-name]").style.cssText, null, { timeout: 2000 });
     await settles(page, `seated @${width}`);
 
@@ -217,6 +217,105 @@ try {
     await context.close();
   }
   console.log("Site: the cartridge console's choreography runs on Fizlet, settles to 0 fps and Recalls (desktop and phone).");
+
+  // The lock: the page sits in one spot while a cartridge is in, the same going in (a click) and
+  // coming back (?play=<id>#console, and back from the game page). The shelf section is a
+  // full-viewport hero, so its top goes to the viewport top; taller than the viewport (a phone on
+  // its side), the console and the seated cartridge stay in view inside it. The footer and its site
+  // map play no part (they are below the lock), nothing shifts on insert, and the lock lets go.
+  const lockAt = (page) =>
+    page.evaluate(() => {
+      const r = (el) => el && el.getBoundingClientRect();
+      const s = r(document.querySelector(".cartridge-shelf")),
+        c = r(document.querySelector("[data-console]")),
+        seat = r(document.querySelector(".cartridge.plugging")),
+        map = r(document.querySelector(".footer-sitemap"));
+      return { y: scrollY, vh: innerHeight, top: s.top + scrollY, h: s.height, console: [c.top, c.bottom], seat: seat && [seat.top, seat.bottom], map: map && map.top };
+    });
+  /** Wait for the page to stop scrolling (a smooth scroll ends), then measure. */
+  const restingLock = async (page) => {
+    let last = -1;
+    for (let i = 0; i < 40; i++) {
+      const y = await page.evaluate(() => scrollY);
+      if (y === last) break;
+      last = y;
+      await page.waitForTimeout(80);
+    }
+    return lockAt(page);
+  };
+  const checkLock = (m, what, { seat = true } = {}) => {
+    if (m.h <= m.vh + 1) assert.ok(Math.abs(m.y - m.top) <= 1, `${what}: the shelf hero fills the viewport (scroll ${m.y}, section top ${m.top})`);
+    else assert.ok(m.y >= m.top - 1 && m.y <= m.top + m.h - m.vh + 1, `${what}: the lock stays inside the shelf section (scroll ${m.y}, section ${m.top}+${m.h})`);
+    assert.ok(m.console[0] >= -1 && m.console[1] <= m.vh + 1, `${what}: the console is fully in view (${m.console} of ${m.vh})`);
+    if (seat) assert.ok(m.seat && m.seat[0] >= -1 && m.seat[1] <= m.vh + 1, `${what}: the seated cartridge is in view (${m.seat})`);
+    assert.ok(m.map >= m.vh - 1, `${what}: the footer site map is below the lock (top ${m.map} of ${m.vh})`);
+  };
+  const released = async (page, what) => {
+    await page.waitForFunction(() => !document.querySelector("[data-shelf]").dataset.plugging && /#games$/.test(location.href), null, { timeout: 6000 });
+    const y = await page.evaluate(() => scrollY);
+    await page.mouse.move(20, 20);
+    await page.mouse.wheel(0, 300);
+    await page.waitForFunction((y) => scrollY > y, y, { timeout: 3000 }).catch(() => {});
+    assert.ok((await page.evaluate(() => scrollY)) > y, `${what}: the lock lets go (the page scrolls on)`);
+  };
+  for (const [width, height, all] of [
+    [1440, 900, true],
+    [1440, 1300, false],
+    [390, 844, true],
+    [844, 390, false],
+  ]) {
+    const context = await browser.newContext({ viewport: { width, height }, hasTouch: width < 500 });
+    const page = await context.newPage();
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.goto(base);
+    const ids = await page.$$eval("[data-shelf] .cartridge", (cs) => cs.map((c) => c.dataset.cart));
+    for (const id of all ? ids : ids.slice(0, 1)) {
+      const what = `${id} @${width}x${height}`;
+      // In: a click, from wherever the shelf scrolled into view.
+      await page.goto(base);
+      const cart = page.locator(`[data-shelf] .cartridge[data-cart="${id}"]`);
+      await cart.scrollIntoViewIfNeeded();
+      await page.evaluate(() => {
+        window.__shift = 0;
+        new PerformanceObserver((l) => l.getEntries().forEach((e) => (window.__shift += e.value))).observe({ type: "layout-shift" });
+      });
+      await cart.click();
+      await page.waitForFunction(() => document.querySelector("[data-console]").classList.contains("booting"), null, { timeout: 4000 });
+      await page.waitForTimeout(900); // boot text, chips and the name typing on
+      const clicked = await restingLock(page);
+      checkLock(clicked, `click ${what}`);
+      assert.equal(await page.evaluate(() => window.__shift), 0, `click ${what}: no layout shift on insert`);
+      await page.keyboard.press("Escape"); // pull it out: the lock lets go
+      await page.waitForFunction(() => !document.querySelector("[data-shelf]").dataset.plugging, null, { timeout: 4000 });
+      // Back: the return URL docks the cartridge in the same spot, then it flies home.
+      await page.goto(base + `?play=${id}#console`);
+      await page.waitForFunction(() => document.querySelector(".cartridge.plugging"), null, { timeout: 4000 });
+      const back = await lockAt(page);
+      // The seat is the click's (same console spot, same seat transform); here it is mid-dock.
+      checkLock(back, `return ${what}`, { seat: false });
+      assert.ok(Math.abs(back.y - clicked.y) <= 1, `${what}: the same lock both ways (scroll ${clicked.y} in, ${back.y} back)`);
+      assert.ok(Math.abs(back.console[0] - clicked.console[0]) <= 1, `${what}: the console sits in the same spot both ways (${clicked.console[0]} in, ${back.console[0]} back)`);
+      await released(page, `return ${what}`);
+    }
+    // Back from the game page itself (history), with a single-action cartridge: it launches on its own.
+    const id = ids[0];
+    await page.goto(base);
+    await page.locator(`[data-shelf] .cartridge[data-cart="${id}"]`).scrollIntoViewIfNeeded();
+    await page.locator(`[data-shelf] .cartridge[data-cart="${id}"]`).click();
+    await page.waitForFunction(() => document.querySelector("[data-console]").classList.contains("booting"), null, { timeout: 4000 });
+    const out = await restingLock(page);
+    await page.waitForURL(new RegExp(`/games/${id}/`), { timeout: 15000 });
+    await page.goBack();
+    await page.waitForFunction(() => document.querySelector(".cartridge.plugging"), null, { timeout: 4000 });
+    const back = await lockAt(page);
+    checkLock(back, `history back ${id} @${width}x${height}`, { seat: false });
+    assert.ok(Math.abs(back.y - out.y) <= 1 && Math.abs(back.console[0] - out.console[0]) <= 1, `history back @${width}x${height}: the same lock (${out.y}/${out.console[0]} out, ${back.y}/${back.console[0]} back)`);
+    await released(page, `history back @${width}x${height}`);
+    assert.deepEqual(errors, [], "no page errors");
+    await context.close();
+  }
+  console.log("Site: the cartridge lock is the shelf hero, the same both ways, never the footer, no shift, and it lets go.");
 } finally {
   await browser.close();
   server.close();

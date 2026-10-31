@@ -33,6 +33,8 @@ function clearReturn() {
   delete d.dataset.return;
   delete d.dataset.returnMode;
   document.getElementById("dv-return")?.remove();
+  // The head script took scroll restoration over for the docked arrival (the console module locks).
+  history.scrollRestoration = "auto";
   consoleEl?.querySelector<HTMLElement>("[data-console-screen]")?.style.removeProperty("view-transition-name");
 }
 function settle() {
@@ -79,7 +81,7 @@ if (shelfRoot) {
   if (!initial && load && /^[\w-]+$/.test(load)) {
     history.replaceState(history.state, "", `${location.pathname}#console`);
     shelfRoot.querySelector<HTMLElement>("[data-shelf]")!.dataset.pop = "in";
-    consoleEl!.scrollIntoView({ block: "center", behavior: "instant" });
+    choreo.lock();
     const cart = shelfRoot.querySelector<HTMLElement>(`.cartridge[data-cart="${load}"]`);
     let pad = "a";
     try {
