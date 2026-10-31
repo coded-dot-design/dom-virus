@@ -109,9 +109,10 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
    direction per unit of depth, --shadow-color the hard shadow); today's hub is 45°, down-right. */
 .console{--sx:var(--shadow-x,1);--sy:var(--shadow-y,1);--sc:var(--shadow-color,var(--ink));position:relative;width:min(400px,100%,65svh);margin:clamp(24px,6svh,72px) auto 0;flex:none;scroll-margin-top:256px}
 .body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:calc(1px * var(--sx)) calc(1px * var(--sy)) 0 var(--accent,#f4457a),calc(2px * var(--sx)) calc(2px * var(--sy)) 0 var(--accent,#f4457a),calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--accent,#f4457a),calc(4px * var(--sx)) calc(4px * var(--sy)) 0 var(--accent,#f4457a),calc(5px * var(--sx)) calc(5px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(6px * var(--sx)) calc(6px * var(--sy)) 0 var(--accent,#f4457a),calc(7px * var(--sx)) calc(7px * var(--sy)) 0 var(--accent,#f4457a),calc(8px * var(--sx)) calc(8px * var(--sy)) 0 var(--accent,#f4457a),calc(9px * var(--sx)) calc(9px * var(--sy)) 0 var(--accent,#f4457a),calc(10px * var(--sx)) calc(10px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(11px * var(--sx)) calc(11px * var(--sy)) 0 var(--accent,#f4457a),calc(12px * var(--sx)) calc(12px * var(--sy)) 0 var(--accent,#f4457a),calc(13px * var(--sx)) calc(13px * var(--sy)) 0 var(--accent,#f4457a),calc(14px * var(--sx)) calc(14px * var(--sy)) 0 var(--accent,#f4457a),calc(16px * var(--sx)) calc(16px * var(--sy)) 0 var(--sc)}
-.screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
+.screen{position:relative;container-type:inline-size;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
 /* Every line of screen text is a full-width box in the one cell: a line that types on, blinks or changes
-   (the name, PRESS START, the pads, LOADING) changes its glyphs, never its box, so nothing shifts. */
+   (the name, PRESS START, the pads, LOADING) changes its glyphs, never its box, so nothing shifts. The
+   name and the pads line size to the screen (cqi), so a small console (a phone on its side) still shows all of it. */
 .screen > span{grid-area:1/1}
 .screen > :is(.boot,.name,.start,.loading){justify-self:stretch;text-align:center;white-space:nowrap}
 .boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
@@ -163,14 +164,14 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 /* Booted: power on, cartridge name, PRESS START, A pulses. */
 .console:global(.booting) .screen{background-color:var(--boot);color:#07060f;box-shadow:inset 0 0 40px #0006,0 0 30px var(--boot)}
 .console:global(.booting) :is(.boot,.attract,.hits){display:none}
-.console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:22px}
+.console:global(.booting) .name{display:block;align-self:center;margin-top:-8%;font-size:min(22px,7.5cqi)}
 /* Loading: after start, PRESS START gives way to LOADING… (and sometimes a cartridge joke). */
 .loading{display:none}
 .console:global(.is-loading) .start{display:none!important}
 .console:global(.is-loading) .loading{display:block;align-self:end;margin-bottom:12%;font-size:11px;letter-spacing:2px}
 .console:global(.is-loading) .loading::after{content:"";display:inline-block;width:3ch;text-align:left;animation:dots 1s steps(4) infinite}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
-.console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:11px;animation:blink .7s steps(2) infinite}
+.console:global(.booting) .start{display:block;align-self:end;margin-bottom:12%;font-size:min(11px,4.2cqi);animation:blink .7s steps(2) infinite}
 /* Multi-action cartridges: one dark chip per pad, in the pad's colour; no blink, the chips pulse. */
 .start:has(b){animation:none}
 .start :global(b){display:inline-block;margin:0 4px 0 12px;padding:4px 7px;border-radius:4px;background:#07060f;box-shadow:calc(2px * var(--sx)) calc(2px * var(--sy)) 0 #07060f80;animation:blink 1.4s steps(2) infinite}
