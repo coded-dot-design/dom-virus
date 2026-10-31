@@ -19,6 +19,8 @@ import EnginePage from './EnginePage.astro';
 import BoardGamePage from './BoardGamePage.astro';
 import FooterSitemap from './FooterSitemap.astro';
 import { byId, headOf } from '../engine-content';
+import { resolveAnalytics } from '../analytics/config.mjs';
+import { analyticsSnippet } from '../analytics/snippet.mjs';
 import { gameShown } from '../lifecycle.mjs';
 import { soonGames, listOf } from '../coming-soon';
 import ogImageUrl from '../assets/og-dom-virus.png?url';
@@ -58,6 +60,9 @@ const enginePage=engineId?byId(engineId):undefined;
 const engineHead=headOf(enginePage,pageUrl);
 // Cookieless analytics (brand/SITEMAP.md E8): only when the repository variable is set.
 const analyticsToken=import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+// GA4 + PostHog, consent first (site-kit/analytics, from astro-engine kit/src/lib/analytics): only when
+// PUBLIC_GA4_ID or PUBLIC_POSTHOG_KEY is set (repository Variables); otherwise no analytics code ships.
+const consentAnalytics=analyticsSnippet(resolveAnalytics(import.meta.env),{privacyUrl:`${base}legal/privacy/`,cookiesUrl:`${base}legal/cookies/`,storageKey:'dom-virus:consent',text:'With your OK we use Google Analytics and PostHog to count visits and see how the games are played. No ads, no selling data.'});
 // Search snippet: the description as written, or its leading sentences when it runs past 155 characters.
 const metaDescription=description.length<=155?description:description.split(/(?<=\.)\s+/).reduce((out,s)=>!out||(out+' '+s).length<=155?(out?out+' '+s:s):out,'');
 // JSON-LD for the layout's own pages (engine pages carry theirs in engineHead), the same shape as
@@ -184,10 +189,11 @@ const jsonLdHtml=jsonLd?`<script type="application/ld+json">${JSON.stringify({'@
     <a class="brand" href={hub?base:'#top'}><span class="brand-mark" aria-hidden="true"><Fragment set:html={brandIcon}/></span><span>DOM VIRUS<small>The DOM is the game board.</small></span></a>
     <nav class="footer-icons" aria-label="Elsewhere">{hub && <a class="footer-style-guide" href={`${base}about/brand/`} aria-label="Style guide" title="Style guide" aria-current={page==='styleguide'?'page':undefined}><UiIcon name="palette" size={20}/></a>}<a href={repo} aria-label="DOM VIRUS on GitHub (open source, MIT)" title="GitHub"><UiIcon name="github" size={20}/></a></nav>
     {hub && <FooterSitemap base={base}/>}
-    <div class="footer-legal"><span><span class="by-long">Created by</span><span class="by-short">By</span> <a href="https://coded.design/" rel="author">Chris Cooley</a></span><span>© {year} <a href="https://coded.design">coded.design</a><span class="mit"> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></span></div>
+    <div class="footer-legal"><span><span class="by-long">Created by</span><span class="by-short">By</span> <a href="https://coded.design/" rel="author">Chris Cooley</a></span><span>© {year} <a href="https://coded.design">coded.design</a><span class="mit"> · <span class="oss">Open source (</span>MIT<span class="oss">)</span></span></span><button type="button" class="footer-cookies" data-cookie-settings hidden>Cookie settings</button></div>
   </footer>
   <div data-byte-obstacle class="session-bar" hidden data-virus-ignore data-swarm-ignore><span class="led"></span><strong id="session-name"></strong><span id="session-state">Loading…</span><button id="session-pause">Pause</button><button id="session-recall">Recall <kbd>Esc</kbd></button></div>
   <div data-byte-obstacle id="site-status" class="site-status" role="status" aria-live="polite" data-virus-ignore data-swarm-ignore></div>
+  {consentAnalytics && <Fragment set:html={consentAnalytics}/>}
 
 </body>
 </html>
