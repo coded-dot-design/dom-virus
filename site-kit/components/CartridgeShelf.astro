@@ -87,7 +87,12 @@ const SKULL = 'M19 6h26v6h7v6h6v6h5v22h-5v6h-8v12h-9v-8h-6v8h-8v-8h-6v8h-8V52H5v
 {/* The hub's wiring (site-kit/shelf.ts). A site that vendors this console mounts site-kit/console/ with its own options instead. */}
 <script>import "../shelf.ts";</script>
 <style>
-.cartridge-shelf{position:relative;padding:56px 24px 80px;text-align:center}
+/* A full-viewport hero: the lock puts its top at the viewport top, so the console sits in the same
+   centred spot going in and coming back (site-kit/console/, lockY). 100svh, not dvh: the small
+   viewport never changes as a phone's toolbars come and go, so the hero (and the console in it)
+   never moves while it is locked. Everything shown on insert lives inside the console's screen. No
+   scroll anchoring in here: a cartridge moving between its bay and the flight deck must not nudge the page. */
+.cartridge-shelf{position:relative;box-sizing:border-box;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,5svh,56px) 24px;text-align:center;overflow-anchor:none}
 h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
 .lead{max-width:520px;margin:0 auto 34px;color:var(--muted);font-size:15px}
 .shelf{display:grid;grid-template-columns:repeat(var(--carts,6),minmax(0,186px));justify-content:center;gap:20px}
@@ -102,10 +107,13 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
    and an ink rim outlines it like the cartridge outline. */
 /* Shadows follow the host site's light (Board UI tokens: --shadow-x/--shadow-y are the unitless
    direction per unit of depth, --shadow-color the hard shadow); today's hub is 45°, down-right. */
-.console{--sx:var(--shadow-x,1);--sy:var(--shadow-y,1);--sc:var(--shadow-color,var(--ink));position:relative;width:min(400px,100%);margin:72px auto 0;scroll-margin-top:256px}
+.console{--sx:var(--shadow-x,1);--sy:var(--shadow-y,1);--sc:var(--shadow-color,var(--ink));position:relative;width:min(400px,100%,65svh);margin:clamp(24px,6svh,72px) auto 0;flex:none;scroll-margin-top:256px}
 .body{position:relative;z-index:40;display:grid;gap:16px;padding:20px 22px 18px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;box-shadow:calc(1px * var(--sx)) calc(1px * var(--sy)) 0 var(--accent,#f4457a),calc(2px * var(--sx)) calc(2px * var(--sy)) 0 var(--accent,#f4457a),calc(3px * var(--sx)) calc(3px * var(--sy)) 0 var(--accent,#f4457a),calc(4px * var(--sx)) calc(4px * var(--sy)) 0 var(--accent,#f4457a),calc(5px * var(--sx)) calc(5px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(6px * var(--sx)) calc(6px * var(--sy)) 0 var(--accent,#f4457a),calc(7px * var(--sx)) calc(7px * var(--sy)) 0 var(--accent,#f4457a),calc(8px * var(--sx)) calc(8px * var(--sy)) 0 var(--accent,#f4457a),calc(9px * var(--sx)) calc(9px * var(--sy)) 0 var(--accent,#f4457a),calc(10px * var(--sx)) calc(10px * var(--sy)) 0 color-mix(in srgb,var(--accent,#f4457a) 78%,#000),calc(11px * var(--sx)) calc(11px * var(--sy)) 0 var(--accent,#f4457a),calc(12px * var(--sx)) calc(12px * var(--sy)) 0 var(--accent,#f4457a),calc(13px * var(--sx)) calc(13px * var(--sy)) 0 var(--accent,#f4457a),calc(14px * var(--sx)) calc(14px * var(--sy)) 0 var(--accent,#f4457a),calc(16px * var(--sx)) calc(16px * var(--sy)) 0 var(--sc)}
 .screen{position:relative;display:grid;place-items:center;aspect-ratio:16/7;overflow:hidden;background:repeating-linear-gradient(0deg,#ffffff07 0 2px,transparent 2px 4px),#07060f;border:2px solid var(--ink);border-radius:10px;font:700 13px/1.2 var(--mono);letter-spacing:2px;color:#8f86b8}
+/* Every line of screen text is a full-width box in the one cell: a line that types on, blinks or changes
+   (the name, PRESS START, the pads, LOADING) changes its glyphs, never its box, so nothing shifts. */
 .screen > span{grid-area:1/1}
+.screen > :is(.boot,.name,.start,.loading){justify-self:stretch;text-align:center;white-space:nowrap}
 .boot{align-self:end;margin-bottom:14%;animation:blink 1.2s steps(2) infinite}
 .name,.start{display:none}
 /* Attract loop: game characters march across the idle screen (paused offscreen). */
@@ -218,7 +226,6 @@ h2{margin:10px 0 8px;font-size:clamp(30px,4vw,48px)}
   /* Tighter vertical rhythm on phones (sizes unchanged): a little less above the console than below. */
   .shelf{padding-bottom:12px}
   .console{margin-top:24px}
-  .cartridge-shelf{padding-bottom:58px}
 }
 @media (prefers-reduced-motion:reduce){
   .shelf[data-pop] :global(.cartridge){opacity:1;transform:none;animation:none}
