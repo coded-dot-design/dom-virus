@@ -12,7 +12,20 @@ export const GROUPS = [
   { id: "news", heading: "News", prefixes: ["news/"], lead: ["news/"], labels: { "news/": "All news" } },
   { id: "about", heading: "About", prefixes: ["about/", "support/", "contact/"], lead: ["about/"], labels: { "about/": "About DOM VIRUS", "about/brand/": "Brand and style guide" } },
   { id: "legal", heading: "Legal", prefixes: ["legal/"], lead: ["legal/"], labels: { "legal/": "Overview" } },
+  { id: "family", heading: "DOM VIRUS family", prefixes: [], lead: [], labels: {}, external: true },
 ];
+
+/** The family column (no routes of its own): the same four sites, in the same order, in every family
+ * footer (battlefield.domvirus.com, battlefieldblitz.domvirus.com and fizlet.com list it too).
+ * Production URLs; Fizlet is the engine. This site's own entry (SELF) has no ↗. Other hosts never go
+ * in sitemap.xml. */
+export const FAMILY_LINE = [
+  { label: "DOM VIRUS", href: "https://domvirus.com/" },
+  { label: "DOM Battlefield", href: "https://battlefield.domvirus.com/" },
+  { label: "Battlefield Blitz", href: "https://battlefieldblitz.domvirus.com/" },
+  { label: "Built with Fizlet", href: "https://fizlet.com/", engine: true },
+];
+export const SELF = "https://domvirus.com/";
 
 /** The column a route belongs to: the longest matching prefix ("" matches home only). A new
  * top-level page with no column of its own lands in About. */
