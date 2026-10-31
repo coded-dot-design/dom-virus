@@ -21,6 +21,7 @@ import FooterSitemap from './FooterSitemap.astro';
 import { byId, headOf } from '../engine-content';
 import { resolveAnalytics } from '../analytics/config.mjs';
 import { analyticsSnippet } from '../analytics/snippet.mjs';
+import { analyticsNames } from '../analytics/legal.mjs';
 import { gameShown } from '../lifecycle.mjs';
 import { soonGames, listOf } from '../coming-soon';
 import ogImageUrl from '../assets/og-dom-virus.png?url';
@@ -62,7 +63,8 @@ const engineHead=headOf(enginePage,pageUrl);
 const analyticsToken=import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 // GA4 + PostHog, consent first (site-kit/analytics, from astro-engine kit/src/lib/analytics): only when
 // PUBLIC_GA4_ID or PUBLIC_POSTHOG_KEY is set (repository Variables); otherwise no analytics code ships.
-const consentAnalytics=analyticsSnippet(resolveAnalytics(import.meta.env),{privacyUrl:`${base}legal/privacy/`,cookiesUrl:`${base}legal/cookies/`,storageKey:'dom-virus:consent',text:'With your OK we use Google Analytics and PostHog to count visits and see how the games are played. No ads, no selling data.'});
+const consentConfig=resolveAnalytics(import.meta.env);
+const consentAnalytics=analyticsSnippet(consentConfig,{privacyUrl:`${base}legal/privacy/`,cookiesUrl:`${base}legal/cookies/`,storageKey:'dom-virus:consent',text:`With your OK we use ${analyticsNames(consentConfig)} to count visits and see how the games are played. No ads, no selling data.`});
 // Search snippet: the description as written, or its leading sentences when it runs past 155 characters.
 const metaDescription=description.length<=155?description:description.split(/(?<=\.)\s+/).reduce((out,s)=>!out||(out+' '+s).length<=155?(out?out+' '+s:s):out,'');
 // JSON-LD for the layout's own pages (engine pages carry theirs in engineHead), the same shape as
