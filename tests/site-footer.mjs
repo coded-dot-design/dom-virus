@@ -7,7 +7,7 @@
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
-import { GROUPS, groupOf, unlisted } from "../site-kit/footer-map.mjs";
+import { FAMILY_LINE, GROUPS, SELF, groupOf, unlisted } from "../site-kit/footer-map.mjs";
 
 const out = resolve("artifacts/site");
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(resolve(dir, e.name)) : e.name === "index.html" ? [resolve(dir, e.name)] : []));
@@ -28,6 +28,7 @@ if (production) {
   indexed = [...readFileSync(resolve(out, "sitemap.xml"), "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].slice(root.length)).sort();
   assert.deepEqual(indexed, indexable, "sitemap.xml lists exactly the indexable built pages");
 }
+if (production) for (const f of FAMILY_LINE) if (f.href !== SELF) assert.ok(!readFileSync(resolve(out, "sitemap.xml"), "utf8").includes(f.href), `sitemap.xml has no ${f.href}`);
 const listed = indexed.filter((r) => !unlisted(r));
 assert.ok(listed.length > 20, `footer lists ${listed.length} pages`);
 
@@ -47,6 +48,12 @@ for (const page of pages) {
   const current = [];
   for (const [i, [, , list]] of columns.entries()) {
     const group = GROUPS[i].id;
+    if (GROUPS[i].external) {
+      // The family line: the four family sites, in order, ↗ on all but this one; never in sitemap.xml.
+      const family = [...list.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map(([, href, text]) => [href, text.replace(/<[^>]+>/g, "").trim()]);
+      assert.deepEqual(family, FAMILY_LINE.map((f) => [f.href, f.href === SELF ? f.label : `${f.label} ↗`]), `${where}: the family line`);
+      continue;
+    }
     for (const [tag, href] of list.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>/g)) {
       if (/\/feed\.xml$/.test(href)) continue; // the RSS link: a feed, not a page
       assert.ok(href.startsWith(basePath), `${where}: ${href} stays on the site`);

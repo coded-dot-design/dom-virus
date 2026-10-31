@@ -6,14 +6,14 @@
 //   games                      the catalog (published games this build shows) + coming-soon pages
 //   apps                       site/generated/public/<app>/index.html (the hub's Battlefield copy)
 // then the lifecycle takes out what this build hides (site-kit/lifecycle.mjs: Kaiju on production).
-// Columns, leads and labels: site-kit/footer-map.mjs. Checked by tests/site-footer.mjs.
+// Columns, leads and labels: site-kit/footer-map.mjs; the last column is the family line (FAMILY_LINE there). Checked by tests/site-footer.mjs.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { routable, routeOf, dateOf } from '../engine-content';
 import { catalog } from '../catalog';
 import { SOON_GAMES } from '../coming-soon';
 import { gameShown, linksHidden } from '../lifecycle.mjs';
-import { GROUPS, groupOf, unlisted } from '../footer-map.mjs';
+import { FAMILY_LINE, GROUPS, SELF, groupOf, unlisted } from '../footer-map.mjs';
 
 const { base } = Astro.props;
 const current = Astro.url.pathname;
@@ -60,14 +60,16 @@ const columns = GROUPS.map((g) => ({
     .filter((e) => groupOf(e.route) === g.id)
     .map((e) => ({ ...e, label: g.labels[e.route] || e.label || e.route, rank: g.lead.includes(e.route) ? g.lead.indexOf(e.route) : e.rank }))
     .sort((a, b) => a.rank - b.rank || a.sort.localeCompare(b.sort) || a.label.localeCompare(b.label)),
-})).filter((g) => g.links.length);
+})).filter((g) => g.external || g.links.length);
 ---
 <nav class="footer-sitemap" aria-label="Site map">
   {columns.map((col, i) => (
     <div class="col">
       <h2 class="col-heading"><span class="col-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{col.heading}</h2>
       <ul>
-        {col.links.map((l) => <li><a href={`${base}${l.route}`} aria-current={current === `${base}${l.route}` ? 'page' : undefined}>{l.label}</a></li>)}
+        {col.external
+          ? FAMILY_LINE.map((f) => <li><a href={f.href}>{f.label}{f.href !== SELF && <span class="out" aria-hidden="true"> ↗</span>}</a></li>)
+          : col.links.map((l) => <li><a href={`${base}${l.route}`} aria-current={current === `${base}${l.route}` ? 'page' : undefined}>{l.label}</a></li>)}
         {col.id === 'news' && <li class="feed"><a href={`${base}feed.xml`}>RSS feed</a></li>}
       </ul>
     </div>
@@ -75,11 +77,11 @@ const columns = GROUPS.map((g) => ({
 </nav>
 
 <style>
-  /* Five columns on desktop, three on tablets, one on phones (each list in two). Hub tokens only. */
+  /* Six columns on desktop, three on tablets, one on phones (each list in two). Hub tokens only. */
   .footer-sitemap {
     flex-basis: 100%;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 28px 32px;
     padding-block: 26px 28px;
     border-block: 1px solid var(--line);
