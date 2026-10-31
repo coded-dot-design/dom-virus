@@ -75,6 +75,14 @@
           "body": "Your cookie choice (analytics yes or no) and when you made it, so the banner does not ask again."
         },
         {
+          "title": "dom-battlefield:consent",
+          "body": "Your cookie choice on the DOM Battlefield site (analytics yes or no) and when you made it, so its banner does not ask again."
+        },
+        {
+          "title": "blitz:consent",
+          "body": "Your cookie choice on the Battlefield Blitz site (analytics yes or no) and when you made it, so its banner does not ask again."
+        },
+        {
           "title": "dom-virus:theme",
           "body": "Your colour theme: system, dark or light. Shared by the hub, Battlefield and Fizlet sites."
         },
