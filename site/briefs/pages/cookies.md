@@ -38,6 +38,7 @@ heading: Local storage: every key
 item: dom-virus:consent | Your cookie choice (analytics yes or no) and when you made it, so the banner does not ask again.
 item: dom-battlefield:consent | Your cookie choice on the DOM Battlefield site (analytics yes or no) and when you made it, so its banner does not ask again.
 item: blitz:consent | Your cookie choice on the Battlefield Blitz site (analytics yes or no) and when you made it, so its banner does not ask again.
+item: blitz:tune | Your Battlefield Blitz practice tuning (game speed and similar levers), only if you changed one from its default.
 item: dom-virus:theme | Your colour theme: system, dark or light. Shared by the hub, Battlefield and Fizlet sites.
 item: dom-virus:sherman-bytes:sound | Sound on or off in Sherman Bytes.
 item: dom-virus:byte-runner:sound | Sound on or off in Byte Runner.

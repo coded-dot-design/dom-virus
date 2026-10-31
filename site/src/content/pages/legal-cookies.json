@@ -83,6 +83,10 @@
           "body": "Your cookie choice on the Battlefield Blitz site (analytics yes or no) and when you made it, so its banner does not ask again."
         },
         {
+          "title": "blitz:tune",
+          "body": "Your Battlefield Blitz practice tuning (game speed and similar levers), only if you changed one from its default."
+        },
+        {
           "title": "dom-virus:theme",
           "body": "Your colour theme: system, dark or light. Shared by the hub, Battlefield and Fizlet sites."
         },
