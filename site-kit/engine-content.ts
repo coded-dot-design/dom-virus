@@ -2,6 +2,8 @@
 // site/src/content/pages, `abe head` output in site/src/content/heads. Sites without these folders
 // (the single-game repos) get empty maps, so the kit still builds there.
 import { HIDDEN_PAGES } from './lifecycle.mjs';
+import { resolveAnalytics } from './analytics/config.mjs';
+import { scopeDescription, scopeLegal } from './analytics/legal.mjs';
 export type EnginePage = {
   id: string;
   path: string;
@@ -13,7 +15,12 @@ export type EnginePage = {
   meta?: { pageType?: string; tags?: string[]; created?: string; closing?: any };
 };
 
-const files = import.meta.glob('/site/src/content/pages/*.json', { eager: true, import: 'default' }) as Record<string, EnginePage>;
+// The legal pages name only the analytics tools this build configured (site-kit/analytics/legal.mjs).
+const ANALYTICS = resolveAnalytics(import.meta.env);
+const files = Object.fromEntries(
+  Object.entries(import.meta.glob('/site/src/content/pages/*.json', { eager: true, import: 'default' }) as Record<string, EnginePage>)
+    .map(([k, p]) => [k, scopeLegal(p, ANALYTICS) as EnginePage]),
+) as Record<string, EnginePage>;
 // One head per target (scripts/engine-heads.mjs): heads/<id>.html for staging (github.io),
 // heads/production/<id>.html for https://domvirus.com. The build uses the one whose canonical is
 // the URL it serves.
@@ -58,7 +65,8 @@ export const headOf = (p: EnginePage | undefined, pageUrl: string) => {
       `No engine head for ${p.id} has canonical ${pageUrl} (found ${candidates.map(canonicalOf).join(', ')}). ` +
         'Check targets in site/engine.config.json against SITE_URL/SITE_BASE and run npm run engine:heads.',
     );
-  return visible(p) ? html.replace('content="noindex,nofollow"', 'content="index,follow"') : html;
+  const scoped = p.id.startsWith('legal-') ? scopeDescription(html, ANALYTICS) : html;
+  return visible(p) ? scoped.replace('content="noindex,nofollow"', 'content="index,follow"') : scoped;
 };
 
 // Pages the catch-all route renders (games have their own route).
