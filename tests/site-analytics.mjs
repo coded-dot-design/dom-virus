@@ -6,6 +6,8 @@
 //    google-analytics or posthog and no _ga/ph_ cookie; Accept loads both (ad signals stay denied);
 //    Reject loads neither and is remembered; the footer "Cookie settings" reopens the choice;
 //    track() sends nothing before consent.
+// 3. GA4 only (PUBLIC_GA4_ID alone): the banner never names PostHog and Accept never loads it; the
+//    built legal pages name exactly the configured tools (tests/legal-analytics.test.mjs: the copy).
 // Run after npm run site:build (it runs with npm run site:test:browser).
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
@@ -33,12 +35,19 @@ for (const file of files) {
   else if (file.endsWith(".html") && text.includes('class="site-footer"'))
     assert.equal(text.split(".siteAnalytics = {").length - 1, 1, `${file}: consent runtime once`);
 }
+for (const route of ["privacy", "cookies", "terms"]) {
+  const html = readFileSync(resolve(out, "legal", route, "index.html"), "utf8");
+  const copy = html.replace(/<script>\(function analyticsRuntime[\s\S]*?<\/script>/, ""); // the copy, not the runtime's code
+  if (!built.ga4Id) assert.doesNotMatch(copy, /Google Analytics/, `${route}: names GA4 with no PUBLIC_GA4_ID`);
+  if (!built.posthogKey) assert.doesNotMatch(copy, /posthog/i, `${route}: names PostHog with no PUBLIC_POSTHOG_KEY`);
+}
 console.log(`analytics build: ${built.enabled ? "on" : "off"}, ${files.length} files checked`);
 
 // 2. The browser.
 const test = resolveAnalytics({ PUBLIC_GA4_ID: "G-XXXXXXXXXX", PUBLIC_POSTHOG_KEY: "phc_test1234567890" });
 const home = readFileSync(resolve(out, "index.html"), "utf8").replace(/<script>\(function analyticsRuntime[\s\S]*?<\/script>/, "");
-const page = home.replace("</body>", `${analyticsSnippet(test, { privacyUrl: "/legal/privacy/", cookiesUrl: "/legal/cookies/", storageKey: "dom-virus:consent" })}</body>`);
+const withSnippet = (cfg) => home.replace("</body>", `${analyticsSnippet(cfg, { privacyUrl: "/legal/privacy/", cookiesUrl: "/legal/cookies/", storageKey: "dom-virus:consent" })}</body>`);
+let page = withSnippet(test);
 const base = new URL(home.match(/<link rel="canonical" href="([^"]+)"/)[1]).pathname; // "/" or "/dom-virus/"
 
 const browser = await chromium.launch({
@@ -88,6 +97,10 @@ try {
     await p.waitForTimeout(300);
     assert.ok(hits.some((u) => u.includes("googletagmanager.com/gtag/js?id=G-XXXXXXXXXX")), "GA4 loads after Accept");
     assert.ok(hits.some((u) => u.includes("posthog.com/static/array.js")), "PostHog loads after Accept");
+    const ph = await p.evaluate(() => window.posthog._i[0][1]);
+    assert.equal(ph.enable_heatmaps, false, "PostHog heatmaps off, explicitly");
+    assert.equal(ph.autocapture, false, "PostHog autocapture off");
+    assert.equal(ph.disable_session_recording, true, "PostHog session recording off");
     const update = await p.evaluate(() => JSON.stringify([...window.dataLayer].filter((a) => a[0] === "consent" && a[1] === "update")));
     assert.doesNotMatch(update, /ad_(storage|user_data|personalization)":"granted/, "ad signals stay denied");
     await ctx.close();
@@ -103,7 +116,19 @@ try {
     assert.equal(await p.isVisible("[data-cc-analytics]"), true, "Cookie settings reopens the choice");
     await ctx.close();
   }
-  console.log("analytics consent: before consent 0 vendor requests; Accept loads GA4 + PostHog; Reject loads none");
+  {
+    page = withSnippet(resolveAnalytics({ PUBLIC_GA4_ID: "G-XXXXXXXXXX" })); // PUBLIC_GA4_ID alone
+    const { ctx, p, hits } = await open();
+    await p.waitForSelector("[data-consent-banner]:not([hidden])");
+    assert.doesNotMatch(await p.textContent("[data-consent-banner]"), /posthog/i, "GA4 only: banner never names PostHog");
+    await p.click('[data-cc="accept"]');
+    await p.waitForTimeout(300);
+    assert.ok(hits.some((u) => u.includes("googletagmanager.com/gtag/js?id=G-XXXXXXXXXX")), "GA4 loads after Accept");
+    assert.ok(!hits.some((u) => u.includes("posthog")), "GA4 only: PostHog never loads");
+    assert.equal(await p.evaluate(() => typeof window.posthog), "undefined");
+    await ctx.close();
+  }
+  console.log("analytics consent: before consent 0 vendor requests; Accept loads GA4 + PostHog; Reject loads none; GA4 only loads no PostHog");
 } finally {
   await browser.close();
 }
