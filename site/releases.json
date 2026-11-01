@@ -265,6 +265,14 @@
   ],
   "dom-battlefield": [
     {
+      "version": "v1.0.3",
+      "commit": "8035fdfa8ddf3a921ee07b54949aef7c1db76739"
+    },
+    {
+      "version": "v1.0.2",
+      "commit": "e1407a589efc1368966f307565aec961bc99f211"
+    },
+    {
       "version": "v1.0.1",
       "commit": "35884bc3d76d7426f413ea8b6ee2cc448c980eb6"
     },
@@ -538,6 +546,14 @@
     }
   ],
   "dom-battlefield-blitz": [
+    {
+      "version": "v1.0.1",
+      "commit": "5556e0d2a69a06de42b77a935564260f2950303d"
+    },
+    {
+      "version": "v1.0.0",
+      "commit": "15bf50115d28f259ba05a21d6ca4dfd3faf2fa1a"
+    },
     {
       "version": "v0.11.0",
       "commit": "0de52c7ccac3534fad23b74c972daec8582a9c21"
