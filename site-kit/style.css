@@ -946,8 +946,11 @@ pre {
   align-items: center;
   justify-content: space-between;
   gap: 30px;
-  border-top: 1px solid var(--line);
-  padding: 32px 30px 40px;
+  /* The top divider runs within the content width (inside the gutter), like the site map's
+     dividers: a 1px --line drawn as a background, so it takes no layout. */
+  --footer-gutter: 30px;
+  background: linear-gradient(var(--line), var(--line)) center top / calc(100% - 2 * var(--footer-gutter)) 1px no-repeat;
+  padding: 32px var(--footer-gutter) 40px;
   color: var(--muted);
   font-size: 11px;
 }
@@ -1044,7 +1047,8 @@ pre {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    padding: 16px 20px calc(14px + env(safe-area-inset-bottom));
+    --footer-gutter: 20px;
+    padding: 16px var(--footer-gutter) calc(14px + env(safe-area-inset-bottom));
     gap: 12px;
   }
   .site-footer .brand > span:not(.brand-mark) {
@@ -1379,7 +1383,8 @@ pre {
   }
   .site-footer {
     flex-wrap: wrap;
-    padding: 28px 20px 36px;
+    --footer-gutter: 20px;
+    padding: 28px var(--footer-gutter) 36px;
     gap: 26px;
   }
   .session-bar {
@@ -2689,8 +2694,11 @@ html[data-theme="light"] :is(.engineering,.embed-section){background:transparent
 /* Leave a usable page gutter around mobile game cards and their raised edges. */
 @media (max-width: 760px) {
   .game-section { margin-inline: 24px; }
-  .site-header, .hero, .game-directory, .engineering, .embed-section, .site-footer {
+  .site-header, .hero, .game-directory, .engineering, .embed-section {
     padding-inline: 24px;
+  }
+  .site-footer {
+    --footer-gutter: 24px;
   }
 }
 
@@ -3260,7 +3268,8 @@ html[data-theme="light"] .readout-next b {
   margin: 0.6rem 0 0.5rem;
   font-size: 1.4rem;
 }
-/* Consent banner + footer "Cookie settings" (site-kit/analytics/runtime.mjs): the hub's tokens. */
+/* Consent banner (site-kit/analytics/runtime.mjs): the hub's tokens. The footer "Cookie settings" is a
+   link-styled button in the site map's Legal column (FooterSitemap.astro). */
 :root {
   --cc-bg: var(--surface);
   --cc-fg: var(--ink);
@@ -3270,11 +3279,4 @@ html[data-theme="light"] .readout-next b {
   --cc-btn-border: 1px solid var(--line);
   --cc-focus: var(--accent);
   --cc-shadow: 0 4px 0 var(--line);
-}
-.footer-legal .footer-cookies {
-  color: var(--muted);
-  min-height: 24px;
-}
-.footer-legal .footer-cookies:hover {
-  color: var(--accent-text, var(--accent));
 }

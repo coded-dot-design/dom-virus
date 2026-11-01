@@ -6,6 +6,7 @@
 //   games                      the catalog (published games this build shows) + coming-soon pages
 //   apps                       site/generated/public/<app>/index.html (the hub's Battlefield copy)
 // then the lifecycle takes out what this build hides (site-kit/lifecycle.mjs: Kaiju on production).
+// The Legal column ends with "Cookie settings" (a button for the consent runtime, site-kit/analytics).
 // Columns, leads and labels: site-kit/footer-map.mjs; the last column is the family line (FAMILY_LINE there). Checked by tests/site-footer.mjs.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -71,6 +72,7 @@ const columns = GROUPS.map((g) => ({
           ? FAMILY_LINE.map((f) => <li><a href={f.href}>{f.label}{f.href !== SELF && <span class="out" aria-hidden="true"> ↗</span>}</a></li>)
           : col.links.map((l) => <li><a href={`${base}${l.route}`} aria-current={current === `${base}${l.route}` ? 'page' : undefined}>{l.label}</a></li>)}
         {col.id === 'news' && <li class="feed"><a href={`${base}feed.xml`}>RSS feed</a></li>}
+        {col.id === 'legal' && <li class="cookie-settings"><button type="button" data-cookie-settings hidden>Cookie settings</button></li>}
       </ul>
     </div>
   ))}
@@ -119,10 +121,28 @@ const columns = GROUPS.map((g) => ({
     text-decoration: none;
     transition: color 140ms ease;
   }
-  a:focus-visible {
+  /* "Cookie settings" (site-kit/analytics: reopens the consent banner): a button that reads as the
+     column's links. Hidden, with its row, until the consent runtime is on the page. */
+  .cookie-settings button {
+    display: inline-block;
+    padding: 3px 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 140ms ease;
+  }
+  li:has(> button[hidden]) {
+    display: none;
+  }
+  a:focus-visible,
+  .cookie-settings button:focus-visible {
     outline-offset: 2px; /* the site's ring, close enough not to cover the next row */
   }
-  a:hover {
+  a:hover,
+  .cookie-settings button:hover {
     color: var(--ink);
     text-decoration: underline;
   }
