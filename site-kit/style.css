@@ -3260,7 +3260,8 @@ html[data-theme="light"] .readout-next b {
   margin: 0.6rem 0 0.5rem;
   font-size: 1.4rem;
 }
-/* Consent banner + footer "Cookie settings" (site-kit/analytics/runtime.mjs): the hub's tokens. */
+/* Consent banner (site-kit/analytics/runtime.mjs): the hub's tokens. The footer "Cookie settings" is a
+   link-styled button in the site map's Legal column (FooterSitemap.astro). */
 :root {
   --cc-bg: var(--surface);
   --cc-fg: var(--ink);
@@ -3270,11 +3271,4 @@ html[data-theme="light"] .readout-next b {
   --cc-btn-border: 1px solid var(--line);
   --cc-focus: var(--accent);
   --cc-shadow: 0 4px 0 var(--line);
-}
-.footer-legal .footer-cookies {
-  color: var(--muted);
-  min-height: 24px;
-}
-.footer-legal .footer-cookies:hover {
-  color: var(--accent-text, var(--accent));
 }
