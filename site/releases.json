@@ -630,5 +630,27 @@
       "version": "v0.1.0",
       "commit": "6e9e98717578d5ade0fd6aaa38787edd199761db"
     }
+  ],
+  "dom-crossfire": [
+    {
+      "version": "v0.4.0",
+      "commit": "abf092890e2986cf5425e89cd92628a652367908"
+    },
+    {
+      "version": "v0.3.0",
+      "commit": "1f2a64d5cb495d6b150076a2445c8aa49252b8c5"
+    },
+    {
+      "version": "v0.2.1",
+      "commit": "67252fd3a0012f58b8fb4a57a7176be2638ab6c1"
+    },
+    {
+      "version": "v0.2.0",
+      "commit": "e9e2810aac19a6888418c5dcb6e875f1bfceae45"
+    },
+    {
+      "version": "v0.1.0",
+      "commit": "79faf041c4b731efa98ea2ce9b33b447e5c37ee1"
+    }
   ]
 }

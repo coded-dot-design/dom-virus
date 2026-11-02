@@ -16,6 +16,7 @@ export const FIRST = {
 export const BOARD = {
   "dom-battlefield": "v0.1.0",
   "dom-battlefield-blitz": "v0.1.0",
+  "dom-crossfire": "v0.1.0",
 };
 
 const parse = (v) => v.slice(1).split(".").map(Number);
