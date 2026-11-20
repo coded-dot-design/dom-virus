@@ -1,7 +1,7 @@
 {
   "$generated": {
-    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "478d12d41909b55c"
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "169e3a989601a198"
   },
   "collection": "games",
   "id": "null-invaders",
@@ -11,10 +11,13 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-fizlet-is-out",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-dom-virus-launch",
-      "news-null-invaders-0-7"
+      "news-null-invaders-0-7",
+      "news-null-invaders-1-0-patch-notes"
     ],
     "pages": [
       "press"
@@ -275,6 +278,7 @@
         "title": "Null Invaders: a browser shooter you play on the page",
         "description": "Fly an interceptor through a real webpage: shoot letters into binary, break button factories and clear four waves. Free in your browser."
       }
-    }
+    },
+    "teaser": "tiny-null-invaders"
   }
 }

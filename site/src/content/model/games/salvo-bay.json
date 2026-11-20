@@ -1,0 +1,83 @@
+{
+  "$generated": {
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "4e43e1789d32a091"
+  },
+  "collection": "games",
+  "id": "salvo-bay",
+  "slug": "salvo-bay",
+  "status": "draft",
+  "relations": {
+    "brand": "domvirus",
+    "builtFrom": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "salvo-bay",
+    "name": "Salvo Bay",
+    "number": "09",
+    "tag": "DOM SALVO",
+    "type": "board",
+    "status": "in-progress",
+    "brand": "domvirus",
+    "repo": "https://github.com/coded-dot-design/salvo-bay",
+    "engine": {
+      "runtime": "fizlet",
+      "bricks": [
+        "sound",
+        "ui"
+      ],
+      "type": "tactics",
+      "players": 2
+    },
+    "budget": {
+      "gzipBytes": 57344,
+      "source": "scripts/size.mjs: dist/salvo-bay.mjs 48,656 B gzip measured 2026-11-13 (budget 57,344); the hero build 41,903 / 49,152. A board game on the diorama brick: size-ledger row new."
+    },
+    "urls": {
+      "production": "https://salvobay.domvirus.com/",
+      "productionPlay": "https://salvobay.domvirus.com/play/"
+    },
+    "site": {
+      "name": "Salvo Bay",
+      "kind": "DOM SALVO",
+      "tagline": "Sink what you can't see.",
+      "description": "A ship-hunting duel on a cutaway tabletop diorama. Hide your fleet, then trade shells that arc over the table and sink ships you can still see on the bottom. Solo against three bots, pass and play, or online.",
+      "accent": "amber",
+      "icon": "ship",
+      "controls": [
+        "Click or tap a cell: place or fire",
+        "Arrows + Enter: the same by keyboard · R turns a ship · X random fleet",
+        "Drag orbits · V view · L log · P pause · M mute"
+      ]
+    },
+    "page": {
+      "site": "dom-virus",
+      "type": "board",
+      "slug": "salvo-bay",
+      "eyebrow": "09 / DOM SALVO",
+      "lead": "A ship-hunting duel on a cutaway tabletop diorama: two glass trays of water, a dock, a fort and a lighthouse. Hide your fleet, trade shells across the table, and sink ships you can still see on the bottom. Solo against an easy, normal or hard bot, pass and play, or two players online.",
+      "play": "Play Salvo Bay",
+      "playHref": "https://salvobay.domvirus.com/play/",
+      "seo": {
+        "title": "Salvo Bay: a ship-hunting duel on a tabletop, 1–2 players",
+        "description": "Hide your fleet, trade shells across a tabletop diorama and sink what you can't see. Play the bot on three levels, pass and play, or online."
+      }
+    },
+    "prompt": "a ship-hunting duel on a cutaway tabletop diorama: two glass trays of water on a wooden plinth, your bay and the enemy's, a dock, a fort and a lighthouse; place four ships, then trade shells that arc over the table, splash, burst into fire and smoke, and sink ships you can still see on the bottom through the water; orbit the table, and at night the lighthouse sweeps the bay",
+    "origin": {
+      "anim": "salvo-bay",
+      "picked": "2026-11-13",
+      "by": "owner",
+      "theme": "diorama",
+      "bricks": [
+        "@fzlt/core/kernel",
+        "@fzlt/core/diorama",
+        "@fzlt/core/slot",
+        "@fzlt/core/sound"
+      ]
+    },
+    "teaser": "salvo-bay"
+  }
+}

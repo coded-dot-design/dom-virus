@@ -17,7 +17,7 @@ const load = (env) =>
 test("production hides an unready game, its posts and every mention", () => {
   const p = load({ SITE_URL: "https://domvirus.com", SITE_BASE: "/" });
   assert.equal(p.target, "production");
-  assert.deepEqual(p.games, ["kaiju"], "Kaiju's model status is idea");
+  assert.deepEqual(p.games, ["dune-hop", "kaiju", "salvo-bay"], "not published in the model: Kaiju (idea), Dune Hop and Salvo Bay (draft)");
   assert.equal(p.kaiju, false);
   assert.equal(p.swarm, true);
   assert.ok(p.pages.includes("news-coming-next"), "a post whose model relations name Kaiju");

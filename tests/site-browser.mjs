@@ -331,13 +331,13 @@ try {
   // Blitz's hub page: Play and two players go to its own site.
   await page.goto(base + "games/battlefield-blitz/");
   assert.deepEqual(await page.locator(".board-page .actions a").evaluateAll((as) => as.map((a) => a.href)), ["https://battlefieldblitz.domvirus.com/play/", "https://battlefieldblitz.domvirus.com/play/two/"]);
-  // The catalog: six games, a genre filter narrows it, Multiplayer leaves Blitz.
+  // The catalog: seven games, a genre filter narrows it, Multiplayer leaves Blitz.
   await page.goto(base + "games/");
-  assert.equal(await page.locator(".catalog-card").count(), 6);
+  assert.equal(await page.locator(".catalog-card").count(), 7);
   await page.locator(".catalog-chip", { hasText: /^Multiplayer$/ }).click();
   assert.deepEqual(await page.locator(".catalog-card:visible h3").allTextContents(), ["Battlefield Blitz"]);
   await page.locator(".catalog-chip", { hasText: /^All$/ }).click();
-  assert.equal(await page.locator(".catalog-card:visible").count(), 6);
+  assert.equal(await page.locator(".catalog-card:visible").count(), 7);
   // Every page has one h1, a canonical URL and a share card with an absolute image URL.
   // Coming soon: the list page, the Kaiju details page and its COMING SOON cartridge on the shelf.
   await page.goto(base);

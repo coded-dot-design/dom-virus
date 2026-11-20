@@ -1,7 +1,7 @@
 {
   "$generated": {
-    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "78e3e3f76283f170"
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "c35cb78cb5d6ff2c"
   },
   "collection": "games",
   "id": "byte-runner",
@@ -11,9 +11,12 @@
     "brand": "domvirus",
     "builtFrom": [],
     "posts": [
+      "blog-fizlet-is-out",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-the-page-is-the-game-board",
       "news-byte-runner-0-10",
+      "news-byte-runner-1-0-patch-notes",
       "news-dom-virus-launch"
     ],
     "pages": [
@@ -296,6 +299,7 @@
         "title": "Byte Runner: a maze chase game that eats your page",
         "description": "Race a pixel frog through food pipes in a real webpage, eat the text and hunt the flies. A free browser maze game you play right on the page."
       }
-    }
+    },
+    "teaser": "tiny-byte-runner"
   }
 }

@@ -1,85 +1,88 @@
-# Sherman Bytes: style guide
+# Style guide — Sherman Bytes
 
-Preset: cyberpunk-tron · flat colors in the game layer (hard, unblurred shadows; the shadow angle is a brand token). Read by astro-base-engine; the site renders its own look.
+Preset: cyberpunk-tron · flat colors only (no gradients, blur or glow) · inherits DOM VIRUS · amber accent · shared 3D keys
 
-**#01 · DOM TANK · Embedded · Classic · Released.** The tank game that started the pattern: its
-characters grow into DOM Battlefield and Battlefield Blitz (rulebook
-[`../../README.md`](../../README.md) §3, [`family.json`](../../family.json) → `builtFrom`).
-
-**Inherits everything from the parent guide** ([`../../style-guide.md`](../../style-guide.md)):
-type, surfaces, light/dark tokens, the 3D rule and keys, motion, reduced motion, accessibility and
-the "never" list. The page frame is the parent's. This file lists only what differs.
-
-**Sources:** [`sherman-bytes/site/game.json`](https://github.com/coded-dot-design/sherman-bytes/blob/main/site/game.json)
-(source of truth), mirrored in [`site/generated/data.json`](../../../site/generated/data.json);
-accent classes in [`site-kit/style.css`](../../../site-kit/style.css); character art in
-[`site-kit/components/Icon.astro`](../../../site-kit/components/Icon.astro).
-
----
-
-## Tokens
+Sherman Bytes wears the DOM VIRUS look: night ground, neon on ink, hard 45° shadows, the
+cartridge. Everything not listed here comes from the DOM VIRUS style guide (brand/style-guide.md).
+This file lists only what differs: the accent, the palette, the cast and the cartridge.
 
 ```tokens
 {
-  "$source": "sherman-bytes/site/game.json (accent, palette, characters, icon, kind, tagline); site-kit/style.css:1454-1464 (.accent-amber), :1879-1882 (--hover), :1470-1478 ([data-sherman-wall]); site-kit/components/Icon.astro (tank, engineer art)",
-  "game": { "id": "sherman-bytes", "number": "01", "tag": "DOM TANK", "kindToday": "DOM TANK TACTICS", "type": "embedded", "style": "classic", "icon": "tank" },
+  "game": { "id": "sherman-bytes", "number": "01", "tag": "DOM TANK", "kind": "DOM TANK TACTICS", "icon": "tank" },
   "color": {
-    "accent": { "class": "accent-amber", "accent": "#ee6875", "accent-ink": "#292014", "hover": "#e7ba74" },
-    "accent-light": { "accent": "#ee6875", "accent-text": "#b13f4b", "accent-ink": "#270508" },
+    "accent": "#ee6875",
+    "accent-ink": "#292014",
+    "accent-text-light": "#b13f4b",
+    "accent-ink-light": "#270508",
+    "hover": "#e7ba74",
     "palette": {
-      "Tank / bits": "#4bce82",
-      "Enemy": "#ee6875",
-      "Heavy": "#f4457a",
-      "Shell": "#06c4ff",
-      "Power": "#cdde00"
+      "tank-bits": "#4bce82",
+      "enemy": "#ee6875",
+      "heavy": "#f4457a",
+      "shell": "#06c4ff",
+      "power": "#cdde00"
     },
     "characters": {
-      "Your Sherman": { "role": "Commander", "color": "#4bce82", "note": "game.json color is empty; the icon's default body is #4bce82, treads #8573ee, sight #06c4ff" },
-      "Scout tank": { "role": "35 armor", "color": "#ee6875" },
-      "Heavy tank": { "role": "70 armor", "color": "#f4457a" },
-      "Field engineer": { "role": "Builder", "color": "#4bce82", "detail": "#8573ee" }
+      "your-sherman": "#4bce82",
+      "scout-tank": "#ee6875",
+      "heavy-tank": "#f4457a",
+      "field-engineer": "#4bce82"
     }
   },
-  "cartridge": {
-    "label": "01 / DOM TANK TACTICS",
-    "name": "Sherman Bytes",
-    "tagline": "Every page is a battlefield.",
-    "cover": "pixel tank icon on the amber label art panel",
+  "key": {
     "face": "#ee6875",
-    "variant": "standard (one action: PRESS START)",
-    "shadow-angle": "inherits the hub: 45deg down-right"
+    "ink": "#171022",
+    "rest": "3px 3px 0 #fff4ff",
+    "board-base": "0 3px 0 #3b3170"
   },
-  "extras": {
-    "bunker": "[data-sherman-wall]: 1px dashed var(--accent), 11px/1.5 mono, uppercase, 0.08em tracking",
-    "target-buttons": "3px double border, color-mix(in srgb, var(--accent) 65%, var(--line))"
-  }
+  "cartridge": {
+    "face": "#ee6875",
+    "side": "7px",
+    "bottom": "6px",
+    "label": "01 / DOM TANK TACTICS",
+    "tagline": "Every page is a battlefield.",
+    "variant": "standard"
+  },
+  "byline": { "text": "by Chris Cooley", "href": "https://coded.design/" }
 }
 ```
 
-## What differs from the parent
+<!-- src: accent coded-dot-design/dom-virus site-kit/style.css:1454-1463 (.accent-amber), hover :1879-1882 -->
+<!-- src: palette, characters, kind, tagline coded-dot-design/sherman-bytes site/game.json -->
+<!-- src: key face/ink the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: cartridge site-kit/components/Cartridge.astro:38, StyleGuide.astro:137 -->
 
-- **Accent: amber** (`accent-amber`, `#ee6875`). Light-theme text uses `#b13f4b`. The hover signal
-  is gold `#e7ba74`. Contrast: `#ee6875` on the dark background 6.36:1; `#b13f4b` on the light
-  background 5.32:1; button ink `#171022` on the accent face 6.06:1.
-- **Palette** ("GAME PALETTE / FULL SIGNAL" strip on the game page): green tank and bits, coral
-  enemy, pink heavy, cyan shell, yellow-green power (table above).
-- **Characters:** your green Sherman, the coral Scout tank, the pink Heavy tank, and the Field
-  engineer (green with violet). All crisp pixel art.
-- **Gameplay tag and number:** `01 / DOM TANK`. Today the cartridge and section kicker read
-  "DOM TANK TACTICS"; the rulebook's target is "DOM TANK" (a content change in the clean-up).
-- **Cartridge:** standard cartridge, tank icon on the label, first slot on the shelf (index 0, so
-  its sticker sits top left at −9° and peels). Its game sticker (`GameSticker`) uses the first look:
-  −7° tilt, peeling corner.
-- **On the game page:** the illustration's tank is rotated −27°; spawn buttons get a double
-  border; a dashed "HARD COVER" bunker (`data-sherman-wall`) sits in the page as real cover
-  (`GameSection.astro:58`, `style.css:1470-1478`, `:1498-1503`).
-- **Related boards:** DOM Battlefield (cyan) and Battlefield Blitz (pink) use Sherman's tanks; they
-  keep their own brand ([`family.json`](../../family.json)).
+## Rules
 
-## Open questions
+- **Amber is the game's signal, and it reads coral.** `accent-amber` is `#ee6875`. Use it for the
+  game section, its keys and its cartridge; light-theme text uses `#b13f4b`.
+- **Contrast holds:** `#ee6875` on the dark ground 6.36:1; `#b13f4b` on the light ground 5.32:1;
+  button ink `#171022` on the amber face 6.06:1 (WCAG 2, computed from the hexes above).
+- **Green is you, red and pink are them.** Your tank and its bits are `#4bce82`; scouts are coral,
+  heavies pink; shells cyan; power yellow-green. Never swap sides.
+- **Pixels for play.** Tank, engineer and enemies are crisp pixel art with two tread frames and
+  an independent turret; keep them crisp, never smoothed.
+- **Real text is the terrain.** Binary rubble is the page's own text, never a drawn copy.
 
-1. **"Amber" is coral.** The accent named amber is `#ee6875`, the same hex as the enemy Scout tank.
-   The console attract loop draws the tank in a true amber, `#ffb547`
-   (`CartridgeShelf.astro:27`). Which is Sherman's colour?
-2. **Shelf number vs roster number.** The cartridge reads `01`, which matches the roster. (Other
-   games' numbers shift; see the parent guide.)
+## Current styles (documented, Phase 2 lock)
+
+| Element | Value | Source |
+|---|---|---|
+| Accent class | `.accent-amber`: `#ee6875`, ink `#292014`; light `#b13f4b` / `#270508` | `style.css:1454-1463` |
+| Hover signal | `#e7ba74` | `style.css:1879-1882` |
+| Hard cover in the page | `[data-sherman-wall]`: 1px dashed accent, 11px mono caps, 0.08em tracking | `style.css:1470-1478` |
+| Spawn buttons in the preview | 3px double border, accent 65% into line | `style.css:1501-1503` |
+| Preview tank | rotated −27° | `style.css:1498-1500` |
+| Cartridge | standard (PRESS START), tank icon, first on the shelf | `CartridgeShelf.astro:41` |
+| Binary rubble opacity | `binaryOpacity: 0.32` via CSS Highlights; fully visible without that API | `site/game.json` code, extra |
+
+## Exceptions (Phase 2 lock)
+
+Shipped by the shared DOM VIRUS runtime (coded-dot-design/dom-virus 0.21.0, bundled in this
+game), not flat, documented and left as they are:
+
+- **Scoreboard panel:** a frosted backdrop blur of 16px on desktop, turned off on touch and narrow
+  screens (`src/arcade-hud.ts:5`, `src/runtime.ts:266`).
+- **Touch joystick and keys:** a 14px soft halo of the key colour on the knob and touch keys, and a
+  ring drawn with a radial gradient plus an 18px inner shade on the stick
+  (`src/touch-controls.ts:291`, `:293`, `:296`).

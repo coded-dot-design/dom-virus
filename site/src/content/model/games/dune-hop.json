@@ -1,0 +1,89 @@
+{
+  "$generated": {
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "5b616575b80f5772"
+  },
+  "collection": "games",
+  "id": "dune-hop",
+  "slug": "dune-hop",
+  "status": "draft",
+  "relations": {
+    "brand": "domvirus",
+    "builtFrom": [],
+    "posts": [],
+    "pages": []
+  },
+  "data": {
+    "id": "dune-hop",
+    "name": "Dune Hop",
+    "number": "09",
+    "tag": "DOM RACE + DRIVE",
+    "type": "board",
+    "status": "in-progress",
+    "brand": "domvirus",
+    "repo": "https://github.com/coded-dot-design/dune-hop",
+    "engine": {
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "pad",
+        "sound",
+        "ui"
+      ]
+    },
+    "budget": {
+      "gzipBytes": 72000,
+      "source": "scripts/size.mjs (72,000 B gzip per bundle, enforced); first build 51,371 B gzip (dist/dune-hop.mjs, 2026-11-13)"
+    },
+    "site": {
+      "name": "Dune Hop",
+      "kind": "DOM RACE + DRIVE",
+      "tagline": "Fly the dunes.",
+      "description": "An off-road racer on a tabletop: four tracks of rising size, three rivals, jumps scored for airtime and clean landings, boost pads and nitro. Neon at night, a hot sunset by day.",
+      "accent": "pink",
+      "icon": "bug",
+      "controls": [
+        "Arrows / WASD — gas, brake, steer",
+        "Space — nitro",
+        "P — pause · V — camera · T — tracks"
+      ]
+    },
+    "page": {
+      "site": "dom-virus",
+      "type": "board",
+      "slug": "dune-hop",
+      "eyebrow": "09 / DOM RACE + DRIVE",
+      "lead": "An off-road racer on a tabletop: four tracks, three rivals, every jump scored.",
+      "play": "Play Dune Hop",
+      "seo": {
+        "title": "Dune Hop: an off-road racer on a tabletop",
+        "description": "Four tabletop tracks, three rivals, jumps scored for airtime and clean landings, boost pads and nitro. Free in the browser, built on Fizlet."
+      }
+    },
+    "prompt": "a short cyberpunk-desert run on a tabletop: neon-rimmed dunes at night (a hot sunset by day), glowing checkpoint gates and a small low-poly buggy with light-trail dust; throttle and steer through two laps, jumps score airtime, clean landings build a combo, a bad landing tumbles you back to the last gate",
+    "origin": {
+      "anim": "dune-hop",
+      "picked": "2026-11-13",
+      "by": "owner",
+      "theme": "tabletop",
+      "bricks": [
+        "@fzlt/core/kernel",
+        "@fzlt/core/diorama",
+        "@fzlt/core/terrain",
+        "@fzlt/core/drive",
+        "@fzlt/core/input",
+        "@fzlt/core/pad",
+        "@fzlt/core/slot",
+        "@fzlt/core/sound"
+      ]
+    },
+    "teaser": "dune-hop",
+    "style": "modern",
+    "urls": {
+      "current": "https://coded-dot-design.github.io/dune-hop/",
+      "currentPlay": "https://coded-dot-design.github.io/dune-hop/play/",
+      "production": "https://dunehop.domvirus.com/",
+      "productionPlay": "https://dunehop.domvirus.com/play/"
+    }
+  }
+}

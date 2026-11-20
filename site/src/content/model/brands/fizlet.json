@@ -1,7 +1,7 @@
 {
   "$generated": {
-    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "573fc85690fda58c"
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "e1a00c58833f1301"
   },
   "collection": "brands",
   "id": "fizlet",
@@ -10,10 +10,15 @@
   "relations": {
     "games": [],
     "posts": [
+      "blog-before-ai-2015",
+      "blog-fizlet-is-out",
       "blog-how-small-is-small",
+      "blog-how-this-sites-timeline-works",
       "blog-lockstep-multiplayer-in-a-few-kb",
       "blog-moving-the-games-onto-a-4-kb-kernel",
-      "blog-recall-the-page-always-comes-back"
+      "blog-npm-name-granted",
+      "blog-recall-the-page-always-comes-back",
+      "blog-why-fzlt"
     ],
     "pages": []
   },
@@ -24,10 +29,9 @@
     "repo": "https://github.com/coded-dot-design/fizlet",
     "urls": {
       "current": "https://coded-dot-design.github.io/fizlet/",
-      "production": "https://fizlet.com/",
-      "productionFallback": "https://fizlet.coded.design/"
+      "production": "https://fizlet.com/"
     },
-    "openQuestion": "domain: fizlet.com (preferred) or fizlet.coded.design",
+    "openQuestion": "fizlet.com is the home; fz.lt is a planned shorthand domain (owner checking it), not a replacement. fzlt.dev redirects to fizlet.com (pending a Cloudflare rule). Short mark fzlt, npm @fzlt/core (published: 0.21.2, 2026-10-31; plain fzlt requested)",
     "site": {
       "repo": "fizlet",
       "config": "site/engine.config.json",

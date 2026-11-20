@@ -1,13 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/brain-cache/fizlet-engine/spec/game.schema.json",
+  "$id": "urn:fizlet:spec:game.schema.json",
   "title": "Fizlet game spec",
-  "description": "One file per game (games/<id>/spec.json): the single source the factory turns into the game repo scaffold, the site data (site/game.json), the family row and the astro-base-engine page brief. Facts only; measured numbers come from the build, not from here.",
+  "description": "One file per game (games/<id>/spec.json): the single source the factory turns into the game repo scaffold, the site data (site/game.json), the family row and the Astro page engine brief. Facts only; measured numbers come from the build, not from here.",
   "type": "object",
   "required": ["id", "name", "number", "tag", "type", "status", "brand", "repo", "engine", "budget", "site"],
   "additionalProperties": false,
   "$defs": {
     "link": { "type": "object", "required": ["label", "href"], "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 80 }, "href": { "type": "string", "pattern": "^(https://|/|#)" } } },
+    "galleryId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,63}$" },
     "items": {
       "type": "array", "minItems": 1, "maxItems": 8,
       "items": { "type": "object", "required": ["title", "body"], "additionalProperties": false, "properties": { "title": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^|]*$" }, "body": { "type": "string", "minLength": 10, "maxLength": 600, "pattern": "^[^|]*$" } } }
@@ -30,7 +31,8 @@
       "properties": {
         "runtime": { "enum": ["fizlet", "dom-virus-core", "own"], "description": "fizlet for every new game." },
         "bricks": { "type": "array", "items": { "enum": ["input", "collide", "fx", "sound", "embed", "ui", "debug", "hud", "pad", "sprite", "match", "grid", "slot"] } },
-        "recipe": { "enum": ["shoot", "dodge", "eat", "jump", "board"], "description": "The gameplay recipe the scaffold composes (factory/templates/recipes/); default eat." }
+        "type": { "enum": ["shooter", "defense", "tactics", "puzzle", "racer"], "description": "The game type the scaffold starts from (factory/game-types.mjs): HUD preset, pad scheme, bricks, budget and the rules stub; default shooter." },
+        "players": { "type": "integer", "minimum": 1, "maximum": 4, "description": "Seats in a match: 1 solo (default); 2+ adds fizlet/presence lockstep and the room card." }
       }
     },
     "budget": {
@@ -49,17 +51,17 @@
     },
     "page": {
       "type": "object",
-      "description": "The marketing layer of the game's page, rendered into an astro-base-engine brief.",
+      "description": "The marketing layer of the game's page, rendered into an Astro page engine brief.",
       "required": ["site", "type", "slug", "lead", "seo"],
       "additionalProperties": false,
       "properties": {
         "site": { "type": "string", "description": "Which website renders it (dom-virus, dom-battlefield, …)." },
-        "type": { "type": "string", "description": "astro-base-engine page type in that site's engine.config.json." },
+        "type": { "type": "string", "description": "Astro page engine page type in that site's engine.config.json." },
         "slug": { "type": "string" },
         "eyebrow": { "type": "string" },
         "tags": { "type": "array", "items": { "type": "string" } },
         "image": { "type": "string", "pattern": "^(https://|/[^/])", "description": "Share image: absolute https URL, or site-relative (/og/x.png) so the page engine resolves it per target domain" },
-        "slots": { "type": "array", "items": { "enum": ["characters", "palette", "related", "embed"] }, "description": "Optional site slots for the astro-base-engine game preset (play, loop, controls and facts are always placed)." },
+        "slots": { "type": "array", "items": { "enum": ["characters", "palette", "related", "embed"] }, "description": "Optional site slots for the Astro page engine game preset (play, loop, controls and facts are always placed)." },
         "lead": { "type": "string" },
         "support": { "type": "string" },
         "play": { "type": "string", "description": "Label of the Play control (it starts the game; href #play)." },
@@ -86,6 +88,7 @@
         "controls": { "$ref": "#/$defs/items", "description": "Controls, for a page with no controls slot (boards)." },
         "modes": { "$ref": "#/$defs/items" },
         "tips": { "$ref": "#/$defs/items" },
+        "strategy": { "$ref": "#/$defs/items", "description": "Strategy for a game with real depth (STRATEGY block after TIPS): each item follows from the game rules in its repo; nothing invented." },
         "whatsNew": {
           "type": "object", "required": ["version", "date", "items"], "additionalProperties": false,
           "properties": {
@@ -102,6 +105,18 @@
         }
       }
     },
-    "prompt": { "type": "string", "description": "The one-line prompt the spec was composed from (fe prompt). Facts still come from the game once built." }
+    "prompt": { "type": "string", "description": "The one-line prompt the spec was composed from (fe prompt). Facts still come from the game once built." },
+    "origin": {
+      "type": "object", "required": ["anim", "picked", "by"], "additionalProperties": false,
+      "description": "The tiny game this game grew from (Stage 0 of playbooks/game-pipeline.md): written by fe game --from-anim.",
+      "properties": {
+        "anim": { "$ref": "#/$defs/galleryId", "description": "The Daily gallery entry id (fizlet site/gallery/entries/<id>.json)." },
+        "picked": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "The day the owner picked it." },
+        "by": { "type": "string", "pattern": "^(owner|user:[A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))$", "description": "Whose tiny game it was: owner (the studio's own) or user:<GitHub login> (a submission)." },
+        "theme": { "type": "string", "description": "The entry's gallery theme." },
+        "bricks": { "type": "array", "items": { "type": "string", "pattern": "^(fizlet|@fzlt/core)/" }, "description": "The Fizlet bricks the tiny game used (the game adds the ones it keeps, with a size-ledger row)." }
+      }
+    },
+    "teaser": { "$ref": "#/$defs/galleryId", "description": "The game's tiny game in the Daily gallery: its gallery piece, teaser and embed fallback. Required with origin." }
   }
 }

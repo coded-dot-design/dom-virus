@@ -1,7 +1,7 @@
 {
   "$generated": {
-    "by": "brain-cache/fizlet-engine: fe content collections (generated, never hand-edit)",
-    "hash": "60b90cc17e4fec53"
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "5c02bfb39d9a7e47"
   },
   "collection": "games",
   "id": "sherman-bytes",
@@ -12,7 +12,9 @@
     "builtFrom": [],
     "posts": [
       "blog-a-game-a-week-on-the-side",
+      "blog-fizlet-is-out",
       "blog-from-one-tank-to-a-whole-platoon",
+      "blog-how-we-build-games-on-a-4-kb-kernel",
       "blog-moving-the-games-onto-a-4-kb-kernel",
       "blog-recall-leave-the-page-as-you-found-it",
       "blog-the-page-is-the-game-board",
@@ -21,7 +23,8 @@
       "news-dom-battlefield-0-18",
       "news-dom-battlefield-blitz-0-6",
       "news-dom-virus-launch",
-      "news-sherman-bytes-0-5"
+      "news-sherman-bytes-0-5",
+      "news-sherman-bytes-1-0-patch-notes"
     ],
     "pages": [
       "about",
@@ -70,7 +73,7 @@
         "Click / Space — fire; keyboard-only aiming follows the hull",
         "B — cover (2 scrap) · T — pillbox (8) · M — mine (3)",
         "P — pause · G — next hostile base · Esc — Recall",
-        "Scoreboard: sound · pause / resume · minimize · Recall",
+        "Scoreboard: full screen · sound · pause / resume (keep fighting or surrender) · Recall",
         "On mobile: joystick to drive, hold Fire; tap Cover, Pillbox or Mine to build"
       ],
       "facts": [

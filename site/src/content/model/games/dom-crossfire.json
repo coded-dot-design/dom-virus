@@ -1,0 +1,87 @@
+{
+  "$generated": {
+    "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
+    "hash": "7f26a80578aa3e38"
+  },
+  "collection": "games",
+  "id": "dom-crossfire",
+  "slug": "dom-crossfire",
+  "status": "published",
+  "relations": {
+    "brand": "domvirus",
+    "builtFrom": [
+      "dom-battlefield-blitz",
+      "swarm-protocol",
+      "null-invaders",
+      "sherman-bytes",
+      "byte-runner"
+    ],
+    "posts": [
+      "news-coming-next"
+    ],
+    "pages": []
+  },
+  "data": {
+    "id": "dom-crossfire",
+    "name": "DOM Crossfire",
+    "number": "08",
+    "tag": "DOM CO OP",
+    "type": "board",
+    "status": "released",
+    "brand": "domvirus",
+    "repo": "https://github.com/coded-dot-design/dom-crossfire",
+    "engine": {
+      "runtime": "fizlet",
+      "bricks": [
+        "input",
+        "collide",
+        "fx",
+        "sound",
+        "embed",
+        "ui"
+      ],
+      "type": "shooter"
+    },
+    "budget": {
+      "gzipBytes": 51200,
+      "source": "v2 on Battlefield Blitz 1.0.1: dist/dom-crossfire.js 50,646 B / dist/dom-crossfire.mjs 50,672 B gzip measured + headroom (coded-dot-design/dom-crossfire#4, e9e2810, 2026-11-01); first cut was 39,980 B"
+    },
+    "site": {
+      "name": "DOM Crossfire",
+      "kind": "DOM CO OP",
+      "tagline": "Pick a ride.",
+      "description": "DOM Crossfire: a co-op shooter on Battlefield Blitz. Pick the plane or the tank; the other is your AI partner against the bad guys of four DOM VIRUS games, wave by wave, then all four at once.",
+      "accent": "violet",
+      "icon": "virus",
+      "controls": [
+        "WASD / arrows / touch stick — move",
+        "Mouse / click / Space — aim and fire",
+        "E special · F airstrike · Q auto · T lock",
+        "P / Esc — pause"
+      ]
+    },
+    "page": {
+      "site": "dom-virus",
+      "type": "game",
+      "slug": "dom-crossfire",
+      "eyebrow": "08 / DOM CO OP",
+      "lead": "Pick the plane or the tank. The other one fights beside you as your AI partner. The bad guys of four DOM VIRUS games come at you in waves: Swarm Protocol’s bugs, Null Invaders’ factories, Sherman Bytes’ tank squads and Byte Runner’s flies. Then all four at once.",
+      "play": "Play DOM Crossfire",
+      "seo": {
+        "title": "DOM Crossfire: pick a ride, plane or tank",
+        "description": "DOM Crossfire: a co-op shooter on Battlefield Blitz. Pick the plane or the tank and fight the bad guys of four DOM VIRUS games with an AI partner."
+      }
+    },
+    "prompt": "DOM Crossfire: a co-op shooter built on Battlefield Blitz; pick the plane or the tank, the other is your AI partner, against waves of the first four DOM VIRUS games’ bad guys, then all four at once",
+    "urls": {
+      "production": "https://crossfire.domvirus.com/"
+    },
+    "builtFrom": [
+      "dom-battlefield-blitz",
+      "swarm-protocol",
+      "null-invaders",
+      "sherman-bytes",
+      "byte-runner"
+    ]
+  }
+}
