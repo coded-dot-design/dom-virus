@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "a35094937ecf5121"
+    "hash": "c9d49b208bfbf922"
   },
   "collection": "pages",
   "id": "cookies",
@@ -25,11 +25,11 @@
       "privacy",
       "cookies"
     ],
-    "date": "2026-10-29",
+    "date": "2026-11-20",
     "status": "published",
     "image": "/og/dom-virus.png",
     "lead": [
-      "DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-10-29."
+      "DOM VIRUS sets no cookies. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every key, what it holds and how to clear it. Last updated 2026-11-20."
     ],
     "blocks": [
       {
@@ -52,11 +52,11 @@
         "body": [
           {
             "type": "p",
-            "text": "Browsers keep local storage per site address. Today the DOM VIRUS hub, the DOM Battlefield site and the Fizlet site share one address, coded-dot-design.github.io."
+            "text": "Browsers keep local storage per site address. The DOM VIRUS hub (domvirus.com), the Battlefield site (battlefield.fzlt.games) and the Fizlet site (fizlet.com) each have their own address."
           },
           {
             "type": "p",
-            "text": "That is why one theme choice follows you between them. Clearing that address's data clears all three."
+            "text": "So a theme chosen on one does not follow you to the others, and clearing one address's data leaves the others alone."
           },
           {
             "type": "p",

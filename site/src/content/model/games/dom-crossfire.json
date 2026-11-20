@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "7f26a80578aa3e38"
+    "hash": "61d1f2ca4a3ec24c"
   },
   "collection": "games",
   "id": "dom-crossfire",
@@ -16,9 +16,7 @@
       "sherman-bytes",
       "byte-runner"
     ],
-    "posts": [
-      "news-coming-next"
-    ],
+    "posts": [],
     "pages": []
   },
   "data": {

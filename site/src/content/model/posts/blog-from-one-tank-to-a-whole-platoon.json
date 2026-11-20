@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "508f7a0b7c10febd"
+    "hash": "8b20cb1ce985aa06"
   },
   "collection": "posts",
   "id": "blog-from-one-tank-to-a-whole-platoon",
@@ -154,7 +154,7 @@
             "body": "Plan every route, then command your squad under fire.",
             "link": {
               "label": "Play DOM Battlefield",
-              "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+              "href": "https://battlefield.fzlt.games/play/"
             }
           },
           {
@@ -162,7 +162,7 @@
             "body": "Parachute in, call airstrikes, most kills wins.",
             "link": {
               "label": "Play Battlefield Blitz",
-              "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+              "href": "https://battlefieldblitz.fzlt.games/play/"
             }
           }
         ]

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "a3cacf7d0b1055d8"
+    "hash": "470f9d92b02feab6"
   },
   "collection": "posts",
   "id": "news-sherman-bytes-1-0-patch-notes",
@@ -104,7 +104,7 @@
           },
           {
             "label": "Read the full changelog",
-            "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/CHANGELOG.md"
+            "href": "https://github.com/fizlet/sherman-bytes/blob/main/CHANGELOG.md"
           },
           {
             "label": "How the games run on Fizlet",

@@ -13,7 +13,7 @@ const [num, kind] = (hero.eyebrow || '').split(' / ');
 ---
 <section id={game.id} class:list={['game-section', 'standalone', 'board-page', `accent-${game.accent}`]} aria-labelledby={`${game.id}-title`}>
   <a class="back-link" href={`${base}games/`} data-virus-ignore data-swarm-ignore><span class="eject-key" aria-hidden="true"><UiIcon name="eject" size={16}/></span> Every game</a>
-  <div class="section-heading"><span class="eyebrow"><span class="index">{num}</span> {kind || game.kind}</span><span class="version">{game.players === '1' ? '1 PLAYER' : `${game.players} PLAYERS`} / MIT</span></div>
+  <div class="section-heading"><span class="eyebrow"><span class="index">{num}</span> {kind || game.kind}</span><span class="version">{game.players === '1' ? '1 PLAYER' : `${game.players} PLAYERS`}</span></div>
   <div class="game-intro">
     <div>
       <h1 id={`${game.id}-title`}>{hero.heading}<span>{hero.headingAccent}</span></h1>

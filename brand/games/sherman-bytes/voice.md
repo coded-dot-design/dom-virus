@@ -10,8 +10,9 @@ adds only what is Sherman's.
 
 1. **Players** who want to drive a tank across the page they are reading, right now. No install,
    Recall gives the page back.
-2. **Developers** who want it on their own site. They get one line, "it's open source", and a link
-   to the GitHub repository. Setup steps stay in the README.
+2. **Developers** who want it on their own site. They get one line: the game is all rights
+   reserved, so ask Chris Cooley first. Never call it open source or MIT; only the engine
+   (@fzlt/core) is MIT.
 
 ## How we sound
 

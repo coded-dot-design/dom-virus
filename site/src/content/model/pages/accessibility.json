@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "da5b03fd32f199ac"
+    "hash": "6310c6dc844df406"
   },
   "collection": "pages",
   "id": "accessibility",
@@ -116,7 +116,7 @@
             "body": "Open an issue on the DOM VIRUS repository.",
             "link": {
               "label": "Open a DOM VIRUS issue",
-              "href": "https://github.com/coded-dot-design/dom-virus/issues"
+              "href": "https://github.com/fizlet/dom-virus/issues"
             }
           },
           {

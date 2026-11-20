@@ -5,7 +5,7 @@
   "status": "published",
   "seo": {
     "title": "About DOM VIRUS: one maker, tiny games, a game a week",
-    "description": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+    "description": "Chris Cooley makes DOM VIRUS: tiny arcade games that play on a real webpage. The story, the timeline and what comes next.",
     "canonical": "https://domvirus.com/about/",
     "schemaPageType": "AboutPage",
     "openGraph": {
@@ -74,10 +74,10 @@
       "id": "text-5",
       "type": "prose",
       "variant": "lead",
-      "heading": "Open source, all of it",
+      "heading": "Who owns what",
       "body": [
-        "Every game and the Fizlet engine are open source under the MIT licence. Each one has its own GitHub repository with the code and the setup notes.",
-        "Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples.",
+        "The games, their embeds and this site are all rights reserved, copyright Chris Cooley. Only the Fizlet engine package, @fzlt/core, is open source under the MIT licence.",
+        "Want a game on your own site? Ask through the contact page first.",
         "Fizlet is the small engine underneath: a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today. Moving the other games onto it is the next phase."
       ]
     },
@@ -133,7 +133,7 @@
         },
         {
           "title": "Build on the engine",
-          "body": "Fizlet is MIT licensed and meant to be built on.",
+          "body": "The Fizlet engine package, @fzlt/core, is MIT licensed and meant to be built on.",
           "link": {
             "label": "Get the Fizlet code on GitHub",
             "href": "https://github.com/fizlet/fzlt"
@@ -141,7 +141,7 @@
         },
         {
           "title": "Back the project",
-          "body": "One maker, a game a week, all of it open source. Support keeps the servers and the next cartridge coming.",
+          "body": "One maker, a game a week. Support keeps the servers and the next cartridge coming.",
           "link": {
             "label": "Support DOM VIRUS",
             "href": "/support/"
@@ -154,8 +154,7 @@
     "pageType": "about-home",
     "tags": [
       "about",
-      "story",
-      "open-source"
+      "story"
     ],
     "created": "2026-10-29"
   }

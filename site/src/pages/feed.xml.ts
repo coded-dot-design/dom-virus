@@ -11,7 +11,7 @@ export const GET: APIRoute = ({ site }) => {
 <channel>
 <title>DOM VIRUS: news and devlog</title>
 <link>${home}</link>
-<description>Releases, launches and the devlog behind tiny open-source games that play on your page.</description>
+<description>Releases, launches and the devlog behind tiny games that play on your page.</description>
 <language>en</language>
 <atom:link href="${home}feed.xml" rel="self" type="application/rss+xml"/>
 ${items.map((p) => { const url = new URL(base + routeOf(p), site).href; return `<item><title>${esc(p.sections[0].heading)}</title><link>${url}</link><guid isPermaLink="true">${url}</guid><pubDate>${new Date(`${dateOf(p)}T12:00:00Z`).toUTCString()}</pubDate><category>${esc(p.meta?.pageType === 'news' ? 'News' : 'Devlog')}</category><description>${esc(p.seo.description)}</description></item>`; }).join('\n')}

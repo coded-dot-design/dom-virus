@@ -3,12 +3,12 @@ type: legal
 title: Terms of use | Play fair. Get the page back.
 slug: terms
 tags: [legal, terms]
-date: 2026-10-31
+date: 2026-11-20
 status: published
 image: /og/dom-virus.png
 ---
 <!-- For Chris: pending legal review. Drafted from the 2026-10-29 page to add Google Analytics 4 and PostHog; not legal advice. Have a lawyer read it before the analytics ids go live. Last updated 2026-10-31. -->
-These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the code is open source under MIT. Last updated 2026-10-31.
+These terms cover using the DOM VIRUS site and playing its games. The short version: play for free, the games change only the page you play on, and the games and this site are all rights reserved. Last updated 2026-11-20.
 
 [text]
 heading: Using the site
@@ -27,12 +27,12 @@ The games change only what your browser shows. They do not touch the website's s
 [/text]
 
 [text]
-heading: Open-source code
-The games, the Fizlet engine and this site are open source under the MIT licence. The licences page lists each repository and its third-party notices.
+heading: Who owns the code
+The games, their embeds and this site are all rights reserved, copyright Chris Cooley. You may play the games here; copying, changing, hosting or embedding them needs written permission.
 
-The MIT licence, not these terms, sets what you may do with the code. You may use, copy, change and share it, keeping the copyright and licence notice.
+Only the Fizlet engine package, @fzlt/core, is open source under the MIT licence. That licence, not these terms, sets what you may do with it. Copies of a game already published under MIT stay MIT for whoever has one.
 
-If you put a game on your own site, you are responsible for that site and for what you tell its visitors.
+If you put a game on your own site with permission, you are responsible for that site and for what you tell its visitors.
 [/text]
 
 [text]
@@ -63,12 +63,12 @@ Using the site after a change means you accept the updated terms.
 
 [features rows]
 heading: Related pages
-item: Open-source licences | Every repository's licence and the third-party notices. | See the open-source licences -> /legal/licenses/
+item: Licences | Who owns what, the engine's MIT licence and the third-party notices. | See the licences -> /legal/licenses/
 item: Privacy policy | What we collect and what the games keep on your device. | Read the privacy policy -> /legal/privacy/
 item: Questions about these terms | Reach us through the contact page. | Contact DOM VIRUS -> /contact/
 [/features]
 
 [seo]
 title: Terms of use for the site and games | DOM VIRUS
-description: The DOM VIRUS terms in plain English: free to play, the games change only your page, Recall gives it back, and the code is open source under MIT.
+description: The DOM VIRUS terms in plain English: free to play, the games change only your page, Recall gives it back, and the games are all rights reserved.
 [/seo]

@@ -10,8 +10,8 @@ VIRUS voice (brand/voice.md) holds. This file adds only what is Null Invaders'.
 
 1. **Players** who want to fly a ship through the page and shoot it to pieces. No install, Recall
    gives the page back.
-2. **Developers** who want it on their own site. One line, "it's open source", and a link to the
-   GitHub repository. Setup stays in the README.
+2. **Developers** who want it on their own site. One line: the game is all rights reserved, so
+   ask Chris Cooley first. Never call it open source or MIT; only the engine (@fzlt/core) is MIT.
 
 ## How we sound
 

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "d1f959c05fa27a93"
+    "hash": "2bd8e8256dea231b"
   },
   "collection": "games",
   "id": "dom-battlefield-blitz",
@@ -232,7 +232,7 @@
         },
         {
           "q": "Is Battlefield Blitz free to play?",
-          "a": "Yes. It plays in your browser with no install, and it is open source (MIT)."
+          "a": "Yes. It plays in your browser with no install."
         },
         {
           "q": "Can I put Battlefield Blitz on my own site?",

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "93fa4d5ffa4966da"
+    "hash": "da2db11cb5acb807"
   },
   "collection": "posts",
   "id": "blog-two-macs-one-network-and-bolo",
@@ -135,7 +135,7 @@
           },
           {
             "type": "p",
-            "text": "If a game breaks your page in a way it shouldn't, tell me. If it makes you want to build your own, even better: every game is open source."
+            "text": "If a game breaks your page in a way it shouldn't, tell me. If it makes you want to build your own, even better: the Fizlet engine under them is open source."
           }
         ]
       },

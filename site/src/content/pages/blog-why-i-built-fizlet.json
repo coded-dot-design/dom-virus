@@ -131,17 +131,17 @@
         },
         {
           "title": "About DOM VIRUS: one maker, tiny games, a game a week",
-          "body": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+          "body": "Chris Cooley makes DOM VIRUS: tiny arcade games that play on a real webpage. The story, the timeline and what comes next.",
           "link": {
             "label": "Read: About DOM VIRUS: one maker, tiny games, a game a week",
             "href": "/about"
           }
         },
         {
-          "title": "Open-source licences: MIT for every game | DOM VIRUS",
-          "body": "Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes.",
+          "title": "Licences: games reserved, engine MIT | DOM VIRUS",
+          "body": "DOM VIRUS games and the site are all rights reserved; only the Fizlet engine package, @fzlt/core, is MIT. Plus the Lucide ISC notice and third-party notes.",
           "link": {
-            "label": "Read: Open-source licences: MIT for every game | DOM VIRUS",
+            "label": "Read: Licences: games reserved, engine MIT | DOM VIRUS",
             "href": "/legal/licenses"
           }
         }

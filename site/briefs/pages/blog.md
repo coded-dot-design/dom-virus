@@ -12,5 +12,5 @@ The DOM VIRUS devlog, written by me, Chris Cooley. A new post lands every week. 
 
 [seo]
 title: DOM VIRUS blog: the devlog behind tiny page games
-description: A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny open-source arcade games that play on a real webpage, and the engine under them.
+description: A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny arcade games that play on a real webpage, and the engine under them.
 [/seo]

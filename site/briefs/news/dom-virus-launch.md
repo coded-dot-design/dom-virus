@@ -8,7 +8,7 @@ status: scheduled
 publishAt: 2026-10-31
 image: https://domvirus.com/og/dom-virus.png
 ---
-DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT).
+DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account.
 
 [features rows]
 heading: Play on the page | Four arcade games, one webpage.
@@ -40,15 +40,13 @@ Five of the six games run on Fizlet, Chris Cooley's micro animation and game eng
 6 | free games at launch
 4 | play right on the page
 2 | players in Battlefield Blitz
-MIT | open source, every game
 [/stats]
 
 [cta]
 Choose your game -> /games/
-Get the code -> https://github.com/fizlet/dom-virus
 [/cta]
 
 [seo]
 title: The DOM VIRUS arcade is open: six free browser games
-description: Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, open source (MIT).
+description: Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, no account, free to play.
 [/seo]

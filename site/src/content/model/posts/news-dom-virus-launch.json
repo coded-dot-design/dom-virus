@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "302b9182d66205f7"
+    "hash": "c4a5da3f1f7d1a93"
   },
   "collection": "posts",
   "id": "news-dom-virus-launch",
@@ -44,7 +44,7 @@
     "publishAt": "2026-10-31",
     "image": "/og/dom-virus.png",
     "lead": [
-      "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT)."
+      "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account."
     ],
     "blocks": [
       {
@@ -145,10 +145,6 @@
           {
             "value": "2",
             "label": "players in Battlefield Blitz"
-          },
-          {
-            "value": "MIT",
-            "label": "open source, every game"
           }
         ]
       },
@@ -158,17 +154,13 @@
           {
             "label": "Choose your game",
             "href": "/games/"
-          },
-          {
-            "label": "Get the code",
-            "href": "https://github.com/coded-dot-design/dom-virus"
           }
         ]
       }
     ],
     "seo": {
       "title": "The DOM VIRUS arcade is open: six free browser games",
-      "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, open source (MIT)."
+      "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, no account, free to play."
     }
   }
 }

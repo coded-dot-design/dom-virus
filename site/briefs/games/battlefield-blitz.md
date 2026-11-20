@@ -72,7 +72,7 @@ item: The scoreboard drags | Drag the bar at the top to move the scoreboard. It 
 Q: How do two players play Battlefield Blitz?
 A: Open the two-player page on both devices and join the same room with the same invite code, or send the link from the lobby. After the countdown you play one match; bots fill the other seats.
 Q: Is Battlefield Blitz free to play?
-A: Yes. It plays in your browser with no install, and it is open source (MIT).
+A: Yes. It plays in your browser with no install.
 Q: Can I put Battlefield Blitz on my own site?
 A: Yes. One script tag adds a PLAY BLITZ key to any page, and the page itself becomes the arena. Escape gives it back exactly as it was.
 Q: How is it related to DOM Battlefield?

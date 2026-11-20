@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "fccf984247304496"
+    "hash": "c61ce8bab286c264"
   },
   "collection": "brands",
   "id": "domvirus",
@@ -12,7 +12,6 @@
       "byte-runner",
       "dom-crossfire",
       "dune-hop",
-      "kaiju",
       "null-invaders",
       "salvo-bay",
       "sherman-bytes",
@@ -29,7 +28,6 @@
       "blog-why-i-built-fizlet",
       "news-byte-runner-0-10",
       "news-byte-runner-1-0-patch-notes",
-      "news-coming-next",
       "news-dom-battlefield-0-18",
       "news-dom-battlefield-1-0-patch-notes",
       "news-dom-battlefield-blitz-0-10-patch-notes",

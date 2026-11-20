@@ -12,5 +12,5 @@ Everyone who plays on their own page and hits Recall after.
 /* SITE */
 Standards: HTML, CSS, TypeScript
 Components: Astro, each game's own small engine
-Software: open source, MIT
+Software: © Chris Cooley, all rights reserved
 `, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

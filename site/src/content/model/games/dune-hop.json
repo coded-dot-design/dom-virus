@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "5b616575b80f5772"
+    "hash": "44f9d1c368edc829"
   },
   "collection": "games",
   "id": "dune-hop",
@@ -15,7 +15,7 @@
   },
   "data": {
     "id": "dune-hop",
-    "name": "Dune Hop",
+    "name": "Dune Rally",
     "number": "09",
     "tag": "DOM RACE + DRIVE",
     "type": "board",
@@ -36,7 +36,7 @@
       "source": "scripts/size.mjs (72,000 B gzip per bundle, enforced); first build 51,371 B gzip (dist/dune-hop.mjs, 2026-11-13)"
     },
     "site": {
-      "name": "Dune Hop",
+      "name": "Dune Rally",
       "kind": "DOM RACE + DRIVE",
       "tagline": "Fly the dunes.",
       "description": "An off-road racer on a tabletop: four tracks of rising size, three rivals, jumps scored for airtime and clean landings, boost pads and nitro. Neon at night, a hot sunset by day.",
@@ -54,9 +54,9 @@
       "slug": "dune-hop",
       "eyebrow": "09 / DOM RACE + DRIVE",
       "lead": "An off-road racer on a tabletop: four tracks, three rivals, every jump scored.",
-      "play": "Play Dune Hop",
+      "play": "Play Dune Rally",
       "seo": {
-        "title": "Dune Hop: an off-road racer on a tabletop",
+        "title": "Dune Rally: an off-road racer on a tabletop",
         "description": "Four tabletop tracks, three rivals, jumps scored for airtime and clean landings, boost pads and nitro. Free in the browser, built on Fizlet."
       }
     },

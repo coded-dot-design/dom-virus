@@ -305,10 +305,10 @@ try {
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true, "style guide link on phones too");
-  assert.equal(await page.locator(".footer-legal .mit").isVisible(), true, "normal phones keep MIT");
+  assert.equal(await page.locator(".footer-legal .rights").isVisible(), true, "normal phones keep the rights line");
   assert.ok(await page.locator(".footer-legal").evaluate((el) => [...el.children].every((c) => c.scrollWidth <= c.clientWidth + 1)), "footer lines fit on a normal phone");
   await page.setViewportSize({ width: 320, height: 700 });
-  assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
+  assert.equal(await page.locator(".footer-legal .rights").isVisible(), false, "the rights line drops on very small phones");
   await page.setViewportSize(footerWidth);
   // Performance overlay switch (fizlet/perf): off by default and not loaded; the header key loads
   // it and measures the page's frames; F9 hides it and the key follows; shared key dom-virus:perf.

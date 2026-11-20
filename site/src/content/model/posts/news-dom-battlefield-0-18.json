@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "8d2cce08018ca0d8"
+    "hash": "d3407f86f7ef9c24"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-0-18",
@@ -123,11 +123,11 @@
         "links": [
           {
             "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            "href": "https://battlefield.fzlt.games/play/"
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/dom-battlefield"
+            "href": "https://github.com/fizlet/battlefield"
           }
         ]
       }

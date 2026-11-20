@@ -2,7 +2,7 @@
 type: about-home
 title: One maker. A game a week. | The story behind DOM VIRUS.
 slug: about
-tags: [about, story, open-source]
+tags: [about, story]
 date: 2026-10-29
 status: published
 image: /og/dom-virus.png
@@ -56,11 +56,11 @@ Sherman Bytes set that pattern. Its tanks now drive two board games, DOM Battlef
 [/text]
 
 [text]
-heading: Open source, all of it
+heading: Who owns what
 
-Every game and the Fizlet engine are open source under the MIT licence. Each one has its own GitHub repository with the code and the setup notes.
+The games, their embeds and this site are all rights reserved, copyright Chris Cooley. Only the Fizlet engine package, @fzlt/core, is open source under the MIT licence.
 
-Play it here, then make it part of your own project. Visit GitHub for the source code, setup instructions, and integration examples.
+Want a game on your own site? Ask through the contact page first.
 
 Fizlet is the small engine underneath: a kernel with a 4 KB gzip budget, plus bricks of about 1.5 KB each. Battlefield Blitz runs on it today. Moving the other games onto it is the next phase.
 [/text]
@@ -83,11 +83,11 @@ item: Play the first cartridge | Sherman Bytes: a pixel tank on a live webpage, 
 item: See every game | Six playable today, by stage, plus what is coming next. | Browse all DOM VIRUS games -> /games/
 item: Read the devlog | A new post every week on how the games get made, in my own words. | Read the DOM VIRUS blog -> /blog/
 item: Command a platoon | DOM Battlefield: plan every route, then lead your squad under fire. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
-item: Build on the engine | Fizlet is MIT licensed and meant to be built on. | Get the Fizlet code on GitHub -> https://github.com/fizlet/fzlt
-item: Back the project | One maker, a game a week, all of it open source. Support keeps the servers and the next cartridge coming. | Support DOM VIRUS -> /support/
+item: Build on the engine | The Fizlet engine package, @fzlt/core, is MIT licensed and meant to be built on. | Get the Fizlet code on GitHub -> https://github.com/fizlet/fzlt
+item: Back the project | One maker, a game a week. Support keeps the servers and the next cartridge coming. | Support DOM VIRUS -> /support/
 [/features]
 
 [seo]
 title: About DOM VIRUS: one maker, tiny games, a game a week
-description: Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.
+description: Chris Cooley makes DOM VIRUS: tiny arcade games that play on a real webpage. The story, the timeline and what comes next.
 [/seo]

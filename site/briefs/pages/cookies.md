@@ -3,12 +3,12 @@ type: legal
 title: Cookies and storage | No cookies until you say yes.
 slug: cookies
 tags: [legal, privacy, cookies]
-date: 2026-10-31
+date: 2026-11-20
 status: published
 image: /og/dom-virus.png
 ---
 <!-- For Chris: pending legal review. Drafted from the 2026-10-29 page to add Google Analytics 4 and PostHog; not legal advice. Have a lawyer read it before the analytics ids go live. Last updated 2026-10-31. -->
-DOM VIRUS sets no cookies unless you accept analytics. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every cookie and key, what it holds and how to clear it. Last updated 2026-10-31.
+DOM VIRUS sets no cookies unless you accept analytics. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every cookie and key, what it holds and how to clear it. Last updated 2026-11-20.
 
 [text]
 heading: Cookies
@@ -19,9 +19,9 @@ Change your mind any time: open Cookie settings at the foot of any page. Cloudfl
 
 [text]
 heading: Where the saved settings live
-Browsers keep local storage per site address. Today the DOM VIRUS hub, the DOM Battlefield site and the Fizlet site share one address, coded-dot-design.github.io.
+Browsers keep local storage per site address. The DOM VIRUS hub (domvirus.com), the Battlefield site (battlefield.fzlt.games) and the Fizlet site (fizlet.com) each have their own address.
 
-That is why one theme choice follows you between them. Clearing that address's data clears all three.
+So a theme chosen on one does not follow you to the others, and clearing one address's data leaves the others alone.
 
 When another site runs one of the games, the game saves its keys under that site's address instead.
 [/text]

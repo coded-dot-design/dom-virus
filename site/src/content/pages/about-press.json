@@ -5,7 +5,7 @@
   "status": "published",
   "seo": {
     "title": "DOM VIRUS press kit: facts, roster and logos",
-    "description": "Press kit for DOM VIRUS, tiny open-source arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.",
+    "description": "Press kit for DOM VIRUS, tiny arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.",
     "canonical": "https://domvirus.com/about/press/",
     "schemaPageType": "AboutPage",
     "openGraph": {
@@ -21,7 +21,7 @@
       "heading": "Press kit",
       "headingAccent": "Facts, logos, contact.",
       "eyebrow": "About",
-      "body": "DOM VIRUS is a family of tiny open-source arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design."
+      "body": "DOM VIRUS is a family of tiny arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design."
     },
     {
       "id": "stats-1",
@@ -33,7 +33,7 @@
         },
         {
           "value": "MIT",
-          "label": "licence for every game, the engine and the site"
+          "label": "licence of the Fizlet engine package, @fzlt/core; the games and the site are all rights reserved"
         },
         {
           "value": "22.9 to 34.6 kB",
@@ -133,10 +133,10 @@
       "items": [
         {
           "title": "Logos and icons",
-          "body": "SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image, in the hub repository.",
+          "body": "SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image. Ask through the contact page.",
           "link": {
-            "label": "Get the logos on GitHub",
-            "href": "https://github.com/fizlet/dom-virus/tree/main/site-kit/assets"
+            "label": "Ask for the logos",
+            "href": "/contact/"
           }
         },
         {
@@ -172,14 +172,6 @@
           "link": {
             "label": "Contact DOM VIRUS",
             "href": "/contact/"
-          }
-        },
-        {
-          "title": "Source code",
-          "body": "Every game is open source under MIT.",
-          "link": {
-            "label": "DOM VIRUS on GitHub",
-            "href": "https://github.com/fizlet/dom-virus"
           }
         }
       ]

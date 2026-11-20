@@ -59,7 +59,7 @@ A: Yes. Tap a bug to squash it. Phones keep a steady fill and lighter effects.
 Q: What happens to the page when I play?
 A: Bugs eat the page's letters into 0 and 1 and drain the colour from its buttons. Recall restores what the game changed and still owns.
 Q: Can I put Swarm Protocol on my own site?
-A: Yes. It is open source (MIT), as an npm package or a self-hosted drop-in ZIP. Your visitors never load it from GitHub or a game server.
+A: Ask first. Swarm Protocol is all rights reserved, so putting it on another site needs written permission from Chris Cooley.
 [/faq]
 
 [seo]

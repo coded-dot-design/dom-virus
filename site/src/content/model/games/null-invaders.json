@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "169e3a989601a198"
+    "hash": "78c46171917e72d5"
   },
   "collection": "games",
   "id": "null-invaders",
@@ -271,7 +271,7 @@
         },
         {
           "q": "Can I put Null Invaders on my own site?",
-          "a": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+          "a": "Ask first. Null Invaders is all rights reserved, so putting it on another site needs written permission from Chris Cooley."
         }
       ],
       "seo": {

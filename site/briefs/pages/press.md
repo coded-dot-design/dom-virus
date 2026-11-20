@@ -7,12 +7,12 @@ date: 2026-10-29
 status: published
 image: /og/dom-virus.png
 ---
-DOM VIRUS is a family of tiny open-source arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design.
+DOM VIRUS is a family of tiny arcade games that play on a real webpage. The DOM is the game board: letters become points and buttons become enemy factories. Hit Recall to give the page back. By Chris Cooley · coded.design.
 
 [stats]
 heading: Fact sheet
 6 | games playable today: four on the page, two board games
-MIT | licence for every game, the engine and the site
+MIT | licence of the Fizlet engine package, @fzlt/core; the games and the site are all rights reserved
 22.9 to 34.6 kB | gzip size of each embedded game, engine included
 2.8 kB | Fizlet engine kernel, gzip, against a 4 KB budget
 0 | runtime dependencies in the game packages
@@ -40,7 +40,7 @@ item: 07 DOM Kaiju | CLIMB + SMASH. Coming soon. | See DOM Kaiju -> /games/kaiju
 
 [features rows]
 heading: Logos, icons and images
-item: Logos and icons | SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image, in the hub repository. | Get the logos on GitHub -> https://github.com/fizlet/dom-virus/tree/main/site-kit/assets
+item: Logos and icons | SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image. Ask through the contact page. | Ask for the logos -> /contact/
 item: Screenshots | Play any game and capture it as it runs on the page. Ask through the contact page for anything else. | Contact DOM VIRUS -> /contact/
 [/features]
 
@@ -56,10 +56,9 @@ Sizes are measured gzip figures from each game's package at the last site build.
 [features rows]
 heading: Press contact
 item: Reach us | Every channel, in one place. An email address is coming soon. | Contact DOM VIRUS -> /contact/
-item: Source code | Every game is open source under MIT. | DOM VIRUS on GitHub -> https://github.com/fizlet/dom-virus
 [/features]
 
 [seo]
 title: DOM VIRUS press kit: facts, roster and logos
-description: Press kit for DOM VIRUS, tiny open-source arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.
+description: Press kit for DOM VIRUS, tiny arcade games that play on a real webpage: boilerplate, fact sheet, the roster, logos and contact.
 [/seo]

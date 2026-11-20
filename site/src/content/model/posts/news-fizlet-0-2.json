@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "b6cea876d57bdaf1"
+    "hash": "06593cdea0849386"
   },
   "collection": "posts",
   "id": "news-fizlet-0-2",
@@ -101,11 +101,11 @@
         "links": [
           {
             "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            "href": "https://battlefieldblitz.fzlt.games/play/"
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/fizlet"
+            "href": "https://github.com/fizlet/fzlt"
           }
         ]
       }

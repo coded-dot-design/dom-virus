@@ -70,7 +70,8 @@ Plans are said as plans ("the plan is…", "I'm aiming for…"), never as facts.
   nodes. No canvas copy, no cloned text. <!-- src: fizlet/dom-virus README.md:136 -->
 - Recall restores what the game still owns; a newer edit by the page wins. Say "give the page
   back", never "undo everything". <!-- src: fizlet/dom-virus README.md:61, :136 -->
-- Open source, MIT, © 2026 Chris Cooley. <!-- src: fizlet/dom-virus LICENSE, README.md:161 -->
+- All rights reserved, © 2026 Chris Cooley: the hub, the games and their embeds. Never "open
+  source" or "MIT"; only the engine package @fzlt/core is MIT. <!-- src: owner rule 2026-11-20 -->
 - Six games to play today: Sherman Bytes, Swarm Protocol, Byte Runner and Null Invaders on the
   hub, DOM Battlefield and Battlefield Blitz on their own site.
   <!-- src: fizlet/dom-virus games.json (4 embedded games); fizlet/battlefield (Battlefield, Blitz) -->

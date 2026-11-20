@@ -60,7 +60,7 @@ const controls = game.controls.map(parseControl);
 ---
 <section id={game.id} class:list={['game-section', `accent-${game.accent}`, { standalone: page }]} aria-labelledby={`${game.id}-title`}>
   {page && <a class="back-link" href={`${base}?play=${game.id}#console`} data-virus-ignore data-swarm-ignore><span class="eject-key" aria-hidden="true"><UiIcon name="eject" size={16}/></span> Eject cartridge</a>}
-  <div class="section-heading"><span class="eyebrow"><span class="index">0{index+1}</span> {game.kind}</span><span class="version">v{game.version} / MIT</span></div>
+  <div class="section-heading"><span class="eyebrow"><span class="index">0{index+1}</span> {game.kind}</span><span class="version">v{game.version}</span></div>
   <div class="game-intro">
     <div><Title id={`${game.id}-title`}>{game.name}<span>{game.tagline}</span></Title><p class="lead">{lead}</p><div class="actions" data-virus-ignore data-swarm-ignore><button class="button primary" data-launch={game.id} data-site-slot={slot('play')}><UiIcon name="play" size={18}/> {play?.label || `Play ${game.name}`}</button>{page
       ? null

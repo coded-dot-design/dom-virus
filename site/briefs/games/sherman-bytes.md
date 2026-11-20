@@ -71,7 +71,7 @@ A: No. Sherman Bytes plays on this page in your browser. Press Play, and hit Rec
 Q: Can I play Sherman Bytes on a phone?
 A: Yes. A joystick drives, the round Fire key shoots, and the Cover, Pillbox and Mine keys build.
 Q: Can I put Sherman Bytes on my own site?
-A: Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples.
+A: Ask first. Sherman Bytes is all rights reserved, so putting it on another site needs written permission from Chris Cooley.
 Q: What happens to the page when I play?
 A: Letters block tanks and shells, and direct hits turn nearby text into faint binary rubble. Recall gives back what the game changed and still owns.
 [/faq]

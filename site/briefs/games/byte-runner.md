@@ -59,7 +59,7 @@ A: Yes. A joystick steers the frog and a Jump button releases it from the trail.
 Q: What happens to the page when I play?
 A: The frog eats real page letters, and its trails, food and creatures are drawn inside the page. Recall removes them and restores the text edits the game still owns.
 Q: Can I put Byte Runner on my own site?
-A: Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples.
+A: Ask first. Byte Runner is all rights reserved, so putting it on another site needs written permission from Chris Cooley.
 [/faq]
 
 [seo]

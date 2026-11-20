@@ -71,7 +71,7 @@ item: No garbage-collection hitches | Once warm, a battle step allocates nothing
 
 [faq]
 Q: Is DOM Battlefield free to play?
-A: Yes. It plays in your browser with no install and no account, and it is open source (MIT).
+A: Yes. It plays in your browser with no install and no account.
 Q: Can I play DOM Battlefield on a phone?
 A: Yes. Phone battles put a see-through rail on each side of a full-screen field, with an analog thumbstick and labeled buttons.
 Q: How is it related to Sherman Bytes?
