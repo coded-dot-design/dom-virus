@@ -6,7 +6,7 @@ eyebrow: 05 / DOM SHOOTER
 tags: [embedded, shooter, arcade]
 image: /shots/null-invaders.jpg
 slots: [characters, palette, embed]
-codeRepository: https://github.com/coded-dot-design/null-invaders
+codeRepository: https://github.com/fizlet/null-invaders
 genre: [Shooter, Arcade]
 playMode: [SinglePlayer]
 ---

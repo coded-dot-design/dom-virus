@@ -25,7 +25,7 @@ needs. Decisions are numbered (E1–E12) and also listed in [DECISIONS.md](DECIS
 - **E7 · Lifecycle.** Production builds show `published` pages and `scheduled` pages whose
   `publishAt` has passed; the hourly scheduled Pages build publishes them on time. Drafts never ship.
 
-## DOM VIRUS hub: `domvirus.com` (today `coded-dot-design.github.io/dom-virus/`)
+## DOM VIRUS hub: `domvirus.com` (today `domvirus.com/`)
 
 | Route | Page | Status |
 |---|---|---|
@@ -45,7 +45,7 @@ needs. Decisions are numbered (E1–E12) and also listed in [DECISIONS.md](DECIS
 | `/contact/` | How to reach us: bugs, press, everything else | new |
 | `/legal/` | Index of the legal pages | new |
 | `/legal/privacy/` · `/legal/cookies/` · `/legal/terms/` · `/legal/licenses/` · `/legal/accessibility/` | Privacy, cookies and storage, terms of use (site + games), open-source licences, accessibility statement | new |
-| `/battlefield/` | The hub's copy of the Battlefield app; redirects to `battlefield.domvirus.com/play/battlefield/` when that domain is live | live |
+| `/battlefield/` | The hub's copy of the Battlefield app; redirects to `battlefield.fzlt.games/play/battlefield/` when that domain is live | live |
 | `/board-ui/` | Old address, already a redirect | live |
 | `/feed.xml` | RSS for news and blog | new |
 | `/sitemap.xml` · `/robots.txt` | Built from the final HTML (canonical, indexable pages only) | new |

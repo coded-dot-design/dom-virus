@@ -9,9 +9,9 @@ import GameGuide from './GameGuide.astro';
 // DOM Battlefield's page: how it is layered on Sherman Bytes, and how to launch it.
 // content: the page's engine JSON (games-battlefield): the player's guide and the FAQ.
 const { base = '/', version, sherman, content } = Astro.props;
-const repo = 'https://github.com/coded-dot-design/dom-battlefield';
+const repo = 'https://github.com/fizlet/battlefield';
 // Battlefield's own site (since 0.18.13): landing page, the Board UI style guide, and the game at /play/.
-const site = 'https://battlefield.domvirus.com/';
+const site = 'https://battlefield.fzlt.games/';
 const layers = [
   { tag: 'MODEL', file: 'src/model.ts', title: 'Rules with no DOM', body: 'Maps, terrain health, squads, orders, pathfinding, aiming, combat, repairs and objectives are plain serializable data. Commands carry no elements, so the same state could one day sync over a network.' },
   { tag: 'VIEW', file: 'src/view.ts', title: 'The grid is real DOM', body: 'Every square is an element in a CSS grid and every tank is a button. Destroyed cover changes a data attribute instead of rebuilding the board, and the camera is native scrolling.' },

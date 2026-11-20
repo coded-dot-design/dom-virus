@@ -65,8 +65,8 @@ Next on the plan is DOM Battlefield multiplayer: two players, two pages, one bat
 [features rows]
 heading: Play the family
 item: Sherman Bytes | One tank on a live webpage. Breach the bases, hold the page. | Play Sherman Bytes -> /games/sherman-bytes/
-item: DOM Battlefield | Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://coded-dot-design.github.io/dom-battlefield/play/
-item: Battlefield Blitz | Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
+item: DOM Battlefield | Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+item: Battlefield Blitz | Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 [/features]
 
 [seo]

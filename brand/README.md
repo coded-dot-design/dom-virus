@@ -120,7 +120,7 @@ characters into board games of different styles.
 - **Decided (A3):** embedded pages live at `/games/<game>/` (live today, matches the owner's URL
   table, no redirects; "keep URLs" is an engine rule). The engine config's embedded type uses it.
 - **Decided (A4, changed by the owner 2026-10-29):** Blitz has its own subdomain,
-  `battlefieldblitz.domvirus.com` (landing) and `/play/` (board), from the dom-battlefield-blitz repo.
+  `battlefieldblitz.fzlt.games` (landing) and `/play/` (board), from the dom-battlefield-blitz repo.
   The Battlefield site keeps `/blitz/` for old links and the drop-in; Battlefield's board stays
   planned at `/play/battlefield/`.
 
@@ -129,9 +129,9 @@ GitHub Pages addresses keep working, and local dev keeps working:
 
 | Brand | Local | GitHub Pages (today) | Production |
 |---|---|---|---|
-| DOM VIRUS | `npm run dev` (dom-virus) | `coded-dot-design.github.io/dom-virus/` | `domvirus.com` |
-| DOM Battlefield (+ Blitz) | `npm run site:dev` (dom-battlefield) | `coded-dot-design.github.io/dom-battlefield/` | `battlefield.domvirus.com` |
-| Fizlet | `npm run site` (fizlet) | `coded-dot-design.github.io/fizlet/` | `fizlet.com` |
+| DOM VIRUS | `npm run dev` (dom-virus) | `domvirus.com/` | `domvirus.com` |
+| DOM Battlefield (+ Blitz) | `npm run site:dev` (dom-battlefield) | `battlefield.fzlt.games/` | `battlefield.fzlt.games` |
+| Fizlet | `npm run site` (fizlet) | `fizlet.com/` | `fizlet.com` |
 
 DOM VIRUS and Battlefield build their URLs from `SITE_URL` + `SITE_BASE` (repo variables, wired
 in their Pages workflows). Fizlet's `scripts/site.mjs` still hard-codes `/fizlet/`: it needs the

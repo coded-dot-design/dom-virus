@@ -6,7 +6,7 @@
   "seo": {
     "title": "Accessibility statement: keys, touch, motion | DOM VIRUS",
     "description": "How DOM VIRUS games support keyboard play, touch controls, reduced motion and Escape to Recall, their known limits, and how to report a barrier.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/accessibility/",
+    "canonical": "https://domvirus.com/legal/accessibility/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -96,7 +96,7 @@
           "body": "Open an issue on the DOM VIRUS repository.",
           "link": {
             "label": "Open a DOM VIRUS issue",
-            "href": "https://github.com/coded-dot-design/dom-virus/issues"
+            "href": "https://github.com/fizlet/dom-virus/issues"
           }
         },
         {

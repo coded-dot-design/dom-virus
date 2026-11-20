@@ -6,7 +6,7 @@
   "seo": {
     "title": "Support DOM VIRUS: free games, one maker",
     "description": "DOM VIRUS is a one-person, open-source passion project. See what support will pay for and how to help today: play, star, share and report bugs.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/support/",
+    "canonical": "https://domvirus.com/support/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -25,7 +25,7 @@
       "ctas": [
         {
           "label": "Star DOM VIRUS on GitHub",
-          "href": "https://github.com/coded-dot-design/dom-virus",
+          "href": "https://github.com/fizlet/dom-virus",
           "variant": "primary"
         }
       ]
@@ -71,7 +71,7 @@
           "body": "Stars help other developers find the games on GitHub.",
           "link": {
             "label": "Star DOM VIRUS on GitHub",
-            "href": "https://github.com/coded-dot-design/dom-virus"
+            "href": "https://github.com/fizlet/dom-virus"
           }
         },
         {

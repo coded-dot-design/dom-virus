@@ -44,19 +44,19 @@ sure it can't."
 Say these as written. Sizes and versions change per release: re-measure before quoting.
 
 - 4 weapon tiers: Pulse, then Twin at 8 XP, Trident at 24, four-shot Overdrive at 50.
-  <!-- src: coded-dot-design/null-invaders site/game.json facts, chapters -->
+  <!-- src: fizlet/null-invaders site/game.json facts, chapters -->
 - Letters give 1 XP, aliens 4, factory hits 2, a destroyed factory another 8. Fire cadence speeds
-  from 160 ms to 95 ms. <!-- src: coded-dot-design/null-invaders site/game.json chapters -->
+  from 160 ms to 95 ms. <!-- src: fizlet/null-invaders site/game.json chapters -->
 - Up to 48 aliens and 80 bullets, recycled through bounded pools.
-  <!-- src: coded-dot-design/null-invaders site/game.json facts, chapters -->
+  <!-- src: fizlet/null-invaders site/game.json facts, chapters -->
 - Three shields, four waves. Chained kills build a multiplier up to ×5; losing a shield resets
-  the combo but keeps your weapon. <!-- src: coded-dot-design/null-invaders site/game.json extra -->
+  the combo but keeps your weapon. <!-- src: fizlet/null-invaders site/game.json extra -->
 - A hit writes a literal 0 or 1 into the existing Text node, in the page's own font and colour.
-  <!-- src: coded-dot-design/null-invaders site/game.json chapters -->
+  <!-- src: fizlet/null-invaders site/game.json chapters -->
 - 22,940 bytes gzip at v0.7.2, under a 24,000-byte ceiling enforced by `scripts/size.mjs`.
-  <!-- src: node scripts/size.mjs on coded-dot-design/null-invaders v0.7.2 dist/index.js -->
+  <!-- src: node scripts/size.mjs on fizlet/null-invaders v0.7.2 dist/index.js -->
 - Runs on the shared DOM VIRUS runtime. Never say it runs on Fizlet.
-  <!-- src: coded-dot-design/null-invaders shared/ORIGIN.json (dom-virus 0.21.0) -->
+  <!-- src: fizlet/null-invaders shared/ORIGIN.json (dom-virus 0.21.0) -->
 
 Words that are Null Invaders': interceptor, pilot, waves, factories, gates, aliens (drone, crab,
 squid), shields, combat XP, Pulse, Twin, Trident, Overdrive, combo, binary.

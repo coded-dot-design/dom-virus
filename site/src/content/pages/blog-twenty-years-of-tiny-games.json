@@ -6,7 +6,7 @@
   "seo": {
     "title": "Twenty years of tiny games: what the DOM taught me",
     "description": "From Flash embeds and jQuery to TypeScript: twenty years of small web games, and the rules they taught me. One loop, pools, caps and cached geometry.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/twenty-years-of-tiny-games/",
+    "canonical": "https://domvirus.com/blog/twenty-years-of-tiny-games/",
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {

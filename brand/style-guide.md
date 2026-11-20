@@ -5,7 +5,7 @@ Preset: cyberpunk-tron · flat colors only (no gradients, blur or glow) · hard 
 Cyber Punk × Tron in flat colour: a deep violet-navy night, neon accents, an ink outline on
 everything you can press, and every game shipped as a cartridge. Paint is the budget, so depth
 comes from hard offset bases, never from blur. Live source: `site-kit/style.css` and the
-`/style-guide/` page (`site-kit/components/StyleGuide.astro`) in coded-dot-design/dom-virus. If
+`/style-guide/` page (`site-kit/components/StyleGuide.astro`) in fizlet/dom-virus. If
 this file and the source disagree, the source wins.
 
 ```tokens
@@ -63,10 +63,10 @@ this file and the source disagree, the source wins.
 }
 ```
 
-<!-- src: color dark/light coded-dot-design/dom-virus site-kit/style.css:1-31, hover :1864-1866; game accents :32-46, :1454-1458, technical :745; screen tokens.json rim/bg -->
+<!-- src: color dark/light fizlet/dom-virus site-kit/style.css:1-31, hover :1864-1866; game accents :32-46, :1454-1458, technical :745; screen tokens.json rim/bg -->
 <!-- src: font site-kit/style.css:13-14, :68-73, :109-114, :3223-3231 -->
 <!-- src: key site-kit/style.css:1703-1731 (rest, hover, press, 140ms, 55ms), :3223-3231 (2px, 9px, 46px) -->
-<!-- src: board-key coded-dot-design/fizlet 0.5.1 src/ui/tokens.json "key"/"motion", src/ui/board-ui.css:80-99, :125-131 (u = 1px on desktop) -->
+<!-- src: board-key fizlet/fzlt 0.5.1 src/ui/tokens.json "key"/"motion", src/ui/board-ui.css:80-99, :125-131 (u = 1px on desktop) -->
 <!-- src: shadow site-kit/style.css:1697, :3205; console CartridgeShelf.astro:99 -->
 
 ## Rules
@@ -120,7 +120,7 @@ These ship today and are not flat. They are documented here and stay as they are
 the flat tokens above.
 
 - **Board UI key glow** (dark theme only): arcade keys carry a soft neon halo of 14u / 18u / 22u
-  at rest / hover / press, and locked keys an 18u breath. Source: coded-dot-design/fizlet 0.5.1
+  at rest / hover / press, and locked keys an 18u breath. Source: fizlet/fzlt 0.5.1
   `src/ui/board-ui.css:161-163`, `:181`; `src/ui/tokens.json` "derived".
 - **Keymap keycap hover halo:** `0 0 12px` of the key colour on hover (`style.css:2852-2855`), and
   a two-layer background for the coloured keycap border (`style.css:2809-2811`).

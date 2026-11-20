@@ -6,7 +6,7 @@
   "seo": {
     "title": "Recall: how DOM VIRUS games give your page back",
     "description": "Every DOM VIRUS game keeps an ownership ledger. Recall restores what the game still owns, and if your app changed something since, your app wins.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/recall-leave-the-page-as-you-found-it/",
+    "canonical": "https://domvirus.com/blog/recall-leave-the-page-as-you-found-it/",
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {

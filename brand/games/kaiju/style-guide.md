@@ -53,10 +53,10 @@ guide (brand/style-guide.md). The cast colours below are the concept on the comi
 }
 ```
 
-<!-- src: accent pink is the hub default, coded-dot-design/dom-virus site-kit/style.css:10-11, :28, hover :1864-1866; accent "pink" site-kit/coming-soon.ts:62 -->
+<!-- src: accent pink is the hub default, fizlet/dom-virus site-kit/style.css:10-11, :28, hover :1864-1866; accent "pink" site-kit/coming-soon.ts:62 -->
 <!-- src: concept palette and cast site-kit/components/KaijuDetail.astro:18-28; docs/games/dom-kaiju.md palette table -->
 <!-- src: cartridge CartridgeShelf.astro:57-61; soon band Cartridge.astro:43, :113 -->
-<!-- src: key the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: key the hub .button, style.css:1703-1731; board-base fizlet/fzlt src/ui/tokens.json --line, board-ui.css:80 -->
 
 ## Rules
 

@@ -5,6 +5,9 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-24.04
+    env:
+      # Read access to the private game repos (scripts/github.mjs); unset while they are public.
+      GAMES_READ_TOKEN: ${{ secrets.GAMES_READ_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

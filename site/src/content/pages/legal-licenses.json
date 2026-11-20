@@ -6,7 +6,7 @@
   "seo": {
     "title": "Open-source licences: MIT for every game | DOM VIRUS",
     "description": "Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/licenses/",
+    "canonical": "https://domvirus.com/legal/licenses/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -44,7 +44,7 @@
           "body": "MIT, copyright 2026 Chris Cooley. The hub site, its artwork and the shared runtime the embedded games are built on.",
           "link": {
             "label": "DOM VIRUS licence on GitHub",
-            "href": "https://github.com/coded-dot-design/dom-virus/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/dom-virus/blob/main/LICENSE"
           }
         },
         {
@@ -52,7 +52,7 @@
           "body": "MIT, copyright 2026 Chris Cooley. The tank game and its Sherman sprites.",
           "link": {
             "label": "Sherman Bytes licence on GitHub",
-            "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/sherman-bytes/blob/main/LICENSE"
           }
         },
         {
@@ -60,7 +60,7 @@
           "body": "MIT, copyright 2026 Chris Cooley. The squad tactics board game and the Battlefield site.",
           "link": {
             "label": "DOM Battlefield licence on GitHub",
-            "href": "https://github.com/coded-dot-design/dom-battlefield/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/battlefield/blob/main/LICENSE"
           }
         },
         {
@@ -68,7 +68,7 @@
           "body": "MIT, copyright 2026 Chris Cooley. The arcade tank board game.",
           "link": {
             "label": "Battlefield Blitz licence on GitHub",
-            "href": "https://github.com/coded-dot-design/dom-battlefield-blitz/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/battlefield-blitz/blob/main/LICENSE"
           }
         },
         {
@@ -76,7 +76,7 @@
           "body": "MIT, copyright 2026 Chris Cooley, except the bug icon outline (ISC, below).",
           "link": {
             "label": "Swarm Protocol licence on GitHub",
-            "href": "https://github.com/coded-dot-design/swarm-protocol/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/swarm-protocol/blob/main/LICENSE"
           }
         },
         {
@@ -84,7 +84,7 @@
           "body": "MIT, copyright 2026 Chris Cooley.",
           "link": {
             "label": "Byte Runner licence on GitHub",
-            "href": "https://github.com/coded-dot-design/byte-runner/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/byte-runner/blob/main/LICENSE"
           }
         },
         {
@@ -92,7 +92,7 @@
           "body": "MIT, copyright 2026 Chris Cooley.",
           "link": {
             "label": "Null Invaders licence on GitHub",
-            "href": "https://github.com/coded-dot-design/null-invaders/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/null-invaders/blob/main/LICENSE"
           }
         },
         {
@@ -100,7 +100,7 @@
           "body": "MIT, copyright 2026 Chris Cooley. The small game engine and its site.",
           "link": {
             "label": "Fizlet licence on GitHub",
-            "href": "https://github.com/coded-dot-design/fizlet/blob/main/LICENSE"
+            "href": "https://github.com/fizlet/fzlt/blob/main/LICENSE"
           }
         }
       ]
@@ -116,7 +116,7 @@
           "body": "The Swarm Protocol bug outline is adapted from Lucide's bug icon and stays under the ISC licence. The hub's Swarm artwork uses the same outline. Copyright Cole Bemis 2013 to 2022 (Feather, MIT) and Lucide Contributors 2022.",
           "link": {
             "label": "Swarm Protocol third-party notices",
-            "href": "https://github.com/coded-dot-design/swarm-protocol/blob/main/THIRD_PARTY_NOTICES.md"
+            "href": "https://github.com/fizlet/swarm-protocol/blob/main/THIRD_PARTY_NOTICES.md"
           }
         },
         {
@@ -124,7 +124,7 @@
           "body": "Sherman Bytes, Byte Runner and Null Invaders each bundle the MIT-licensed DOM VIRUS runtime. Each game's own LICENSE covers it, and none has a third-party runtime dependency.",
           "link": {
             "label": "Sherman Bytes third-party notices",
-            "href": "https://github.com/coded-dot-design/sherman-bytes/blob/main/THIRD_PARTY_NOTICES.md"
+            "href": "https://github.com/fizlet/sherman-bytes/blob/main/THIRD_PARTY_NOTICES.md"
           }
         },
         {
@@ -132,7 +132,7 @@
           "body": "The hub's ship, runner, fly and tank artwork follows the games' own renderers. The notice includes the Lucide licence text.",
           "link": {
             "label": "DOM VIRUS site artwork notices",
-            "href": "https://github.com/coded-dot-design/dom-virus/blob/main/site-kit/THIRD_PARTY_NOTICES.md"
+            "href": "https://github.com/fizlet/dom-virus/blob/main/site-kit/THIRD_PARTY_NOTICES.md"
           }
         },
         {

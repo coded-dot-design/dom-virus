@@ -6,13 +6,13 @@
   "seo": {
     "title": "Byte Runner: a maze chase game that eats your page",
     "description": "Race a pixel frog through food pipes in a real webpage, eat the text and hunt the flies. A free browser maze game you play right on the page.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/byte-runner/",
+    "canonical": "https://domvirus.com/games/byte-runner/",
     "schemaPageType": "VideoGame",
     "schemaExtra": {
       "gamePlatform": "Web browser",
       "applicationCategory": "Game",
       "isAccessibleForFree": true,
-      "codeRepository": "https://github.com/coded-dot-design/byte-runner",
+      "codeRepository": "https://github.com/fizlet/byte-runner",
       "genre": [
         "Maze",
         "Arcade"

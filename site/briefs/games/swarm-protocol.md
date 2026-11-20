@@ -6,7 +6,7 @@ eyebrow: 03 / DOM DEFENSE
 tags: [embedded, defense, arcade]
 image: /shots/swarm-protocol.jpg
 slots: [palette, embed]
-codeRepository: https://github.com/coded-dot-design/swarm-protocol
+codeRepository: https://github.com/fizlet/swarm-protocol
 genre: [Defense, Arcade]
 playMode: [SinglePlayer]
 ---

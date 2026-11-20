@@ -72,8 +72,8 @@ It is MIT licensed and built to be built on. Games, yes, but also a diagram you 
 
 [features rows]
 heading: Go deeper
-item: Fizlet on GitHub | The kernel, the bricks, the contract and its tests. MIT licensed. | Get the Fizlet code on GitHub -> https://github.com/coded-dot-design/fizlet
-item: Battlefield Blitz | The first game on Fizlet. Every tank for itself. | Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
+item: Fizlet on GitHub | The kernel, the bricks, the contract and its tests. MIT licensed. | Get the Fizlet code on GitHub -> https://github.com/fizlet/fzlt
+item: Battlefield Blitz | The first game on Fizlet. Every tank for itself. | Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 item: How the games work | One loop, a cheap read of the page and a clean exit, as live demos. | See how the engine works -> /engine/
 [/features]
 

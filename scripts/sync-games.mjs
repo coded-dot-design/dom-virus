@@ -49,7 +49,7 @@ for (const name of ["null-invaders", "byte-runner", "sherman-bytes"]) {
     resolve(shared, "ORIGIN.json"),
     JSON.stringify(
       {
-        project: "https://github.com/coded-dot-design/dom-virus",
+        project: "https://github.com/fizlet/dom-virus",
         version,
         sourceSha256,
         license: "MIT",

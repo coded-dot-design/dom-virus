@@ -2,7 +2,7 @@
 
 ## Play and develop the Astro site
 
-Product page: https://coded-dot-design.github.io/dom-virus/ (available after Pages is enabled and the deployment succeeds). Created by **Chris Cooley / coded.design**.
+Product page: https://domvirus.com/ (available after Pages is enabled and the deployment succeeds). Created by **Chris Cooley / coded.design**.
 
 Use Node **24** (`nvm use`), then run from this repository, where `package.json` lives:
 
@@ -25,13 +25,13 @@ The page defaults to your system color scheme, with persistent light/dark overri
 
 
 
-**The page is the game board.** A local arcade playground and small shared runtime for four independently usable MIT-licensed games.
+**The page is the game board.** A local arcade playground and small shared runtime for four independently usable games.
 
 | Game | Play |
 | --- | --- |
-| [Swarm Protocol](https://github.com/coded-dot-design/swarm-protocol) | Defend letters and buttons from an evolving bug swarm. |
-| [Null Invaders](https://github.com/coded-dot-design/null-invaders) | Fly through a webpage, corrupt letters into binary, and destroy alien factories. |
-| [Byte Runner](https://github.com/coded-dot-design/byte-runner) | Eat letters, collect power orbs, and turn the tables on button-spawned ghosts. |
+| [Swarm Protocol](https://github.com/fizlet/swarm-protocol) | Defend letters and buttons from an evolving bug swarm. |
+| [Null Invaders](https://github.com/fizlet/null-invaders) | Fly through a webpage, corrupt letters into binary, and destroy alien factories. |
+| [Byte Runner](https://github.com/fizlet/byte-runner) | Eat letters, collect power orbs, and turn the tables on button-spawned ghosts. |
 
 This first cut is a development playground. The public launcher and Chrome extension are future work. Swarm remains its existing v1.1.0 implementation and API.
 
@@ -40,7 +40,7 @@ This first cut is a development playground. The public launcher and Chrome exten
 Use Node **22.12+** or Node 24, npm, and Git:
 
 ```sh
-git clone https://github.com/coded-dot-design/dom-virus.git
+git clone https://github.com/fizlet/dom-virus.git
 cd dom-virus
 npm ci
 npm run dev
@@ -80,7 +80,7 @@ If an initially empty clone has an untracked `package-lock.json`, move that file
 
 ## Independent packages
 
-Each new game repository provides a separate npm-compatible package, a self-contained `dist/index.js`, an optional `/react` adapter, its own Vite page, MIT license, tests, and size check. The shared runtime is bundled into each built game, so a consumer needs only the selected game. No runtime download from this repository is required.
+Each new game repository provides a separate npm-compatible package, a self-contained `dist/index.js`, an optional `/react` adapter, its own Vite page, tests, and size check. The shared runtime is bundled into each built game, so a consumer needs only the selected game. No runtime download from this repository is required.
 
 The runtime source is maintained once in this repository. Games pin a generated runtime snapshot with a source fingerprint and bundle it during a release. Runtime changes do not silently change already released games.
 
@@ -158,7 +158,7 @@ Modern browsers with Canvas 2D, Shadow DOM and Intl.Segmenter. CSS Highlights ar
 
 No external fonts, images, sound files, telemetry, account, or backend are required. Chrome extension permissions, store packaging, persistent settings, and a public launcher are deferred.
 
-MIT © 2026 Chris Cooley. Brand: coded.design.
+© 2026 Chris Cooley. All rights reserved (LICENSE). Versions up to and including 0.48.0 were released under the MIT license, and copies of those keep it; the vendored Fizlet engine (`vendor/fizlet/`) stays MIT. Brand: coded.design.
 
 ## Version tags
 

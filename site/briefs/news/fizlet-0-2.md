@@ -40,8 +40,8 @@ Battlefield Blitz runs on Fizlet today. The four embedded games and DOM Battlefi
 [/stats]
 
 [cta]
-Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
-Get the code & setup instructions -> https://github.com/coded-dot-design/fizlet
+Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
+Get the code & setup instructions -> https://github.com/fizlet/fzlt
 [/cta]
 
 [seo]

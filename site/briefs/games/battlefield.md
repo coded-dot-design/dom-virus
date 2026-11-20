@@ -5,15 +5,15 @@ slug: battlefield
 eyebrow: 02 / SQUAD TACTICS
 tags: [board, tactics, tank]
 image: /shots/dom-battlefield.jpg
-codeRepository: https://github.com/coded-dot-design/dom-battlefield
+codeRepository: https://github.com/fizlet/battlefield
 genre: [Strategy, Tactics, Tank]
 playMode: [SinglePlayer]
 ---
 Command a platoon of up to twelve tanks on a grid built from real page elements. Pick the ground, freeze time to plan every route, then radio your squad through a live firefight. Free in your browser: no install, no account.
 
 [cta]
-Play DOM Battlefield -> https://battlefield.domvirus.com/play/
-Visit battlefield.domvirus.com -> https://battlefield.domvirus.com/
+Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+Visit battlefield.fzlt.games -> https://battlefield.fzlt.games/
 [/cta]
 
 [figure]

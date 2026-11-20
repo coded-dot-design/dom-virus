@@ -5,7 +5,7 @@ Status: **Phase E0 (baseline) in progress** (perf harness and baseline numbers d
 handoff: an agent or a person should be able to start from here with no other context.
 
 Name: **Fizlet** (decided 2026-10-28; npm name `fizlet` is free). A small fizz-pop of a thing:
-tiny, light, quick, gone cleanly. Package `fizlet`, repo `coded-dot-design/fizlet`. Runner-up
+tiny, light, quick, gone cleanly. Package `fizlet`, repo `fizlet/fzlt`. Runner-up
 **BitKapow** is kept for the effects brick or a Blitz power-up.
 
 ---
@@ -292,7 +292,7 @@ its per-frame `getBoundingClientRect`); Battlefield runs ≈48 layouts/s (worth 
 Bytes and Null Invaders hold 60 fps.
 
 ### E1: Kernel
-- Create the engine repo (`coded-dot-design/fizlet`), move `board-ui/` (now in dom-battlefield) and the core there, and
+- Create the engine repo (`fizlet/fzlt`), move `board-ui/` (now in dom-battlefield) and the core there, and
   publish it as one package with subpath exports. Then build, in that repo, the
   kernel: scheduler, fixed step, lifecycle with `AbortSignal`, caps/stats, pools, ledger (from
   `ledger.ts`, merged with Swarm's attribute/style ledger), keyed writer, seeded random.
@@ -351,7 +351,7 @@ Extract in this order (each with unit tests, size check and an example):
 
 ## 7. Open decisions
 
-- ~~Name~~ **Decided 2026-10-28: Fizlet** (`fizlet` on npm, `coded-dot-design/fizlet`). Final two
+- ~~Name~~ **Decided 2026-10-28: Fizlet** (`fizlet` on npm, `fizlet/fzlt`). Final two
   were Fizlet and BitKapow; BitKapow is kept for the effects brick or a Blitz power-up.
 - One package with subpaths vs many packages.
 - Licence for everything (MIT recommended; the hub, games and engine are open).
@@ -370,8 +370,8 @@ Extract in this order (each with unit tests, size check and an example):
 | 2026-10-28 | E0 | Board UI design system shipped (`board-ui/`, `/board-ui/`, hub 0.43.0) as the `ui` brick. Plan: event ring + sound adapter (4.3), embed config with palette and easter-egg triggers lifted from Swarm (4.4), `embed` and `ui` harnesses in E2. E0: perf harness + baseline numbers + baseline commits recorded. | Tag baselines (needs push access); Battlefield archive selector; then E1 |
 | 2026-10-28 | E0 | Board UI moved to the Battlefield repo with its live guide (`dom-battlefield/style-guide/`); DOM VIRUS drops `/board-ui/` and links to the Battlefield site. Battlefield gets its own landing page (hero arena on the game sprites). | E1 moves `board-ui/` from dom-battlefield into the engine repo |
 | 2026-10-28 | E0 | Game plan: `GAMES.md` (Battlefield Blitz, DOM Crossfire, DOM Kaiju, DOM Flock, in that order). Blitz and Crossfire are the quick first engine test runs; DOM Kaiju (`docs/games/dom-kaiju.md`) is the big one (embed + board builds, section 10 lists what it must prove). Hub `/coming-soon/` page and a COMING SOON cartridge. | Engine name and repo from the owner, then E1 |
-| 2026-10-28 | E0 | **Engine named Fizlet** (npm `fizlet` free; repo `coded-dot-design/fizlet`). | Owner creates the empty repo; then E1 (kernel) starts there |
-| 2026-10-28 | E1 + E2 | **Fizlet 0.1.0** (repo `coded-dot-design/fizlet`): kernel (one rAF, fixed step + cap, phases, auto-pause, pools, event ring, seeded random, Recall ledger, stats, debug layout guard) at 2.8 KB gzip, contract tests incl. zero allocation over 1M steps and exact DOM restore. **0.2.x**: input, collide, fx, sound, embed bricks (each ≤ 2 KB). **Battlefield Blitz 0.1.0**, the first game on Fizlet (repo `dom-battlefield-blitz`, 17 KB gzip with engine and art), pages on the Battlefield site. | E2: actor, steer, aim, rules, board-page, camera; DOM Crossfire next |
+| 2026-10-28 | E0 | **Engine named Fizlet** (npm `fizlet` free; repo `fizlet/fzlt`). | Owner creates the empty repo; then E1 (kernel) starts there |
+| 2026-10-28 | E1 + E2 | **Fizlet 0.1.0** (repo `fizlet/fzlt`): kernel (one rAF, fixed step + cap, phases, auto-pause, pools, event ring, seeded random, Recall ledger, stats, debug layout guard) at 2.8 KB gzip, contract tests incl. zero allocation over 1M steps and exact DOM restore. **0.2.x**: input, collide, fx, sound, embed bricks (each ≤ 2 KB). **Battlefield Blitz 0.1.0**, the first game on Fizlet (repo `dom-battlefield-blitz`, 17 KB gzip with engine and art), pages on the Battlefield site. | E2: actor, steer, aim, rules, board-page, camera; DOM Crossfire next |
 | 2026-10-27 | Plan | Plan written from a code inventory of all six repos and a prior-art survey. Battlefield 0.15.8 shipped after a regression audit (fixes for touch double-fires, Menu following the header link, plan lost on resize, Enter clearing routes). Baseline to freeze: hub 0.40.9 + the games in `games.json` + Battlefield 0.15.8. | E0: tag baselines, archive selector for Battlefield, perf harness |
 
 ---

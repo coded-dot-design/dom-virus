@@ -6,11 +6,11 @@
   "seo": {
     "title": "The DOM VIRUS arcade is open: six free browser games",
     "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, open source (MIT).",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-launch/",
+    "canonical": "https://domvirus.com/news/dom-virus-launch/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
-        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+        "sourceUrl": "https://domvirus.com/og/dom-virus.png"
       }
     }
   },
@@ -30,7 +30,7 @@
         },
         {
           "label": "Get the code",
-          "href": "https://github.com/coded-dot-design/dom-virus"
+          "href": "https://github.com/fizlet/dom-virus"
         }
       ]
     },

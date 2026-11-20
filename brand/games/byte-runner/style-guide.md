@@ -53,9 +53,9 @@ lists only what differs: the accent, the frog, the flies and the cartridge.
 }
 ```
 
-<!-- src: accent coded-dot-design/dom-virus site-kit/style.css:37-41, :53-58 (.accent-lime), hover :1871-1874, section override :1886-1888 -->
-<!-- src: palette, characters, kind, tagline coded-dot-design/byte-runner site/game.json; frog art colours site/art.json -->
-<!-- src: key the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: accent fizlet/dom-virus site-kit/style.css:37-41, :53-58 (.accent-lime), hover :1871-1874, section override :1886-1888 -->
+<!-- src: palette, characters, kind, tagline fizlet/byte-runner site/game.json; frog art colours site/art.json -->
+<!-- src: key the hub .button, style.css:1703-1731; board-base fizlet/fzlt src/ui/tokens.json --line, board-ui.css:80 -->
 <!-- src: cartridge site-kit/components/Cartridge.astro:38, StyleGuide.astro:137 -->
 
 ## Rules
@@ -69,7 +69,7 @@ lists only what differs: the accent, the frog, the flies and the cartridge.
   turn blue `#628dce` when vulnerable. Pink also marks power and fruit.
 - **Upright pixels.** The frog and flies are crisp pixel art and never rotate in the preview.
 - **The power pulse is flat:** three stacked pink squares at 10%, 24% and full opacity, no blur
-  (coded-dot-design/byte-runner `src/presentation.ts:280`).
+  (fizlet/byte-runner `src/presentation.ts:280`).
 
 ## Current styles (documented, Phase 2 lock)
 
@@ -84,7 +84,7 @@ lists only what differs: the accent, the frog, the flies and the cartridge.
 
 ## Exceptions (Phase 2 lock)
 
-Shipped by the shared DOM VIRUS runtime (coded-dot-design/dom-virus 0.21.0, bundled in this
+Shipped by the shared DOM VIRUS runtime (fizlet/dom-virus 0.21.0, bundled in this
 game), not flat, documented and left as they are:
 
 - **Scoreboard panel:** a frosted backdrop blur of 16px on desktop, turned off on touch and narrow

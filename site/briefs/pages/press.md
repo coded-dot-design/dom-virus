@@ -30,8 +30,8 @@ Battlefield Blitz runs on Fizlet, the family's small engine. The embedded games 
 [features rows]
 heading: The roster
 item: 01 Sherman Bytes | DOM TANK. Deploy a pixel tank onto a live webpage, breach button bases and hold the page. 27.0 kB gzip. | Play Sherman Bytes -> /games/sherman-bytes/
-item: 02 DOM Battlefield | SQUAD TACTICS. Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. | Play DOM Battlefield -> https://coded-dot-design.github.io/dom-battlefield/play/
-item: 03 Battlefield Blitz | DOM BLITZ. Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
+item: 02 DOM Battlefield | SQUAD TACTICS. Command a squad of up to twelve Sherman tanks on a cyberpunk grid built from real page elements. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+item: 03 Battlefield Blitz | DOM BLITZ. Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 item: 04 Swarm Protocol | DOM DEFENSE. Release a swarm onto the page, then defend it before the bugs eat it into binary. 34.6 kB gzip. | Play Swarm Protocol -> /games/swarm-protocol/
 item: 05 Byte Runner | DOM CHASE. A hungry pixel frog races through the page's whitespace, eats real text and hunts escaping flies. 29.2 kB gzip. | Play Byte Runner -> /games/byte-runner/
 item: 06 Null Invaders | DOM SHOOTER. Fly an interceptor through a real webpage and break the button factories. 22.9 kB gzip. | Play Null Invaders -> /games/null-invaders/
@@ -40,7 +40,7 @@ item: 07 DOM Kaiju | CLIMB + SMASH. Coming soon. | See DOM Kaiju -> /games/kaiju
 
 [features rows]
 heading: Logos, icons and images
-item: Logos and icons | SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image, in the hub repository. | Get the logos on GitHub -> https://github.com/coded-dot-design/dom-virus/tree/main/site-kit/assets
+item: Logos and icons | SVG and PNG icons for DOM VIRUS, DOM Battlefield and DOM Kaiju, plus the share image, in the hub repository. | Get the logos on GitHub -> https://github.com/fizlet/dom-virus/tree/main/site-kit/assets
 item: Screenshots | Play any game and capture it as it runs on the page. Ask through the contact page for anything else. | Contact DOM VIRUS -> /contact/
 [/features]
 
@@ -56,7 +56,7 @@ Sizes are measured gzip figures from each game's package at the last site build.
 [features rows]
 heading: Press contact
 item: Reach us | Every channel, in one place. An email address is coming soon. | Contact DOM VIRUS -> /contact/
-item: Source code | Every game is open source under MIT. | DOM VIRUS on GitHub -> https://github.com/coded-dot-design/dom-virus
+item: Source code | Every game is open source under MIT. | DOM VIRUS on GitHub -> https://github.com/fizlet/dom-virus
 [/features]
 
 [seo]

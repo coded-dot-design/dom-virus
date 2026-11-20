@@ -41,7 +41,7 @@ Issues are public, so please leave out anything private.
 
 [features rows]
 heading: Get in touch
-item: Report an accessibility barrier | Open an issue on the DOM VIRUS repository. | Open a DOM VIRUS issue -> https://github.com/coded-dot-design/dom-virus/issues
+item: Report an accessibility barrier | Open an issue on the DOM VIRUS repository. | Open a DOM VIRUS issue -> https://github.com/fizlet/dom-virus/issues
 item: Other ways to reach us | Every channel, in one place. | Contact DOM VIRUS -> /contact/
 [/features]
 

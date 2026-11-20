@@ -82,8 +82,8 @@ heading: Start here
 item: Play the first cartridge | Sherman Bytes: a pixel tank on a live webpage, the game that set the pattern. | Play Sherman Bytes -> /games/sherman-bytes/
 item: See every game | Six playable today, by stage, plus what is coming next. | Browse all DOM VIRUS games -> /games/
 item: Read the devlog | A new post every week on how the games get made, in my own words. | Read the DOM VIRUS blog -> /blog/
-item: Command a platoon | DOM Battlefield: plan every route, then lead your squad under fire. | Play DOM Battlefield -> https://coded-dot-design.github.io/dom-battlefield/play/
-item: Build on the engine | Fizlet is MIT licensed and meant to be built on. | Get the Fizlet code on GitHub -> https://github.com/coded-dot-design/fizlet
+item: Command a platoon | DOM Battlefield: plan every route, then lead your squad under fire. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+item: Build on the engine | Fizlet is MIT licensed and meant to be built on. | Get the Fizlet code on GitHub -> https://github.com/fizlet/fzlt
 item: Back the project | One maker, a game a week, all of it open source. Support keeps the servers and the next cartridge coming. | Support DOM VIRUS -> /support/
 [/features]
 

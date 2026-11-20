@@ -5,15 +5,15 @@ slug: battlefield-blitz
 eyebrow: 03 / DOM BLITZ
 tags: [board, tank, arcade, multiplayer]
 image: /shots/dom-battlefield-blitz.jpg
-codeRepository: https://github.com/coded-dot-design/dom-battlefield-blitz
+codeRepository: https://github.com/fizlet/battlefield-blitz
 genre: [Action, Tank, Arcade]
 playMode: [SinglePlayer, MultiPlayer]
 ---
 Every tank for itself. Parachute in, grab the blinking power tiles, call airstrikes and dodge the mines. Die, drop back in: most kills in three minutes wins. Play solo against bots, in a platoon, or two players online.
 
 [cta]
-Play Battlefield Blitz -> https://battlefieldblitz.domvirus.com/play/
-Play two players -> https://battlefieldblitz.domvirus.com/play/two/
+Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
+Play two players -> https://battlefieldblitz.fzlt.games/play/two/
 [/cta]
 
 [figure]

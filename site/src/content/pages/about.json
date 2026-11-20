@@ -6,7 +6,7 @@
   "seo": {
     "title": "About DOM VIRUS: one maker, tiny games, a game a week",
     "description": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/about/",
+    "canonical": "https://domvirus.com/about/",
     "schemaPageType": "AboutPage",
     "openGraph": {
       "image": {
@@ -128,7 +128,7 @@
           "body": "DOM Battlefield: plan every route, then lead your squad under fire.",
           "link": {
             "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            "href": "https://battlefield.fzlt.games/play/"
           }
         },
         {
@@ -136,7 +136,7 @@
           "body": "Fizlet is MIT licensed and meant to be built on.",
           "link": {
             "label": "Get the Fizlet code on GitHub",
-            "href": "https://github.com/coded-dot-design/fizlet"
+            "href": "https://github.com/fizlet/fzlt"
           }
         },
         {

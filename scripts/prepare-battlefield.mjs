@@ -1,15 +1,14 @@
 import { existsSync, readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from "node:fs";
 import { resolve, dirname } from "node:path";
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { cloneAny, remoteTagsText } from "./github.mjs";
 
-const REPO = "https://github.com/coded-dot-design/dom-battlefield.git";
 let pin = JSON.parse(readFileSync("battlefield.json", "utf8"));
 // Hourly/main Pages builds follow the newest stable tag in the pinned major line,
 // so a Battlefield release reaches the hub without a manual pin bump.
 if (process.env.DOM_VIRUS_LATEST_RELEASES === "1") {
   const major = pin.ref.split(".")[0];
-  const tags = execFileSync("git", ["ls-remote", "--tags", REPO], { encoding: "utf8" })
+  const tags = remoteTagsText("dom-battlefield")
     .split("\n")
     .map((line) => line.match(/refs\/tags\/(v\d+\.\d+\.\d+)$/)?.[1])
     .filter((tag) => tag && tag.split(".")[0] === major)
@@ -28,9 +27,7 @@ const useSibling =
 const root = useSibling ? sibling : resolve(".apps/dom-battlefield", pin.ref);
 if (!existsSync(resolve(root, "package.json"))) {
   mkdirSync(dirname(root), { recursive: true });
-  execFileSync("git", ["clone", "--depth", "1", "--branch", pin.ref, REPO, root], {
-    stdio: "inherit",
-  });
+  cloneAny("dom-battlefield", ["--depth", "1", "--branch", pin.ref], root);
 }
 const pkg = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8"));
 if (pkg.name !== "@coded-design/dom-battlefield" || pkg.version !== pin.version)
@@ -50,7 +47,7 @@ cpSync(resolve(root, "dist"), dest, { recursive: true });
 // make them same-origin so Eject never bounces through a redirect (e.g. on a custom domain).
 const hubBase = (process.env.SITE_BASE || "/dom-virus").replace(/\/?$/, "/");
 const page = resolve(dest, "index.html");
-let app = readFileSync(page, "utf8").replaceAll("https://coded-dot-design.github.io/dom-virus/", hubBase);
+let app = readFileSync(page, "utf8").replaceAll("https://domvirus.com/", hubBase);
 // Head tags for the hub's copy (canonical, Open Graph), from the app's own title and description:
 // the hub serves this page, so it is its canonical address. Head only; the app itself is untouched.
 const siteUrl = new URL(hubBase, process.env.SITE_URL || "https://coded-dot-design.github.io").href;

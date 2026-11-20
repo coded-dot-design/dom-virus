@@ -34,7 +34,7 @@ The hub ships site kit 1.49.0. The four embedded games still run on the shared D
 
 [cta]
 Choose your game -> /
-Get the code & setup instructions -> https://github.com/coded-dot-design/dom-virus
+Get the code & setup instructions -> https://github.com/fizlet/dom-virus
 [/cta]
 
 [seo]

@@ -6,13 +6,13 @@
   "seo": {
     "title": "Battlefield Blitz: free-for-all tank game for 2 players",
     "description": "Parachute in, call airstrikes and rack up kills in three minutes. Play solo, in a platoon or two players online: a free tank arcade game in your browser.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/battlefield-blitz/",
+    "canonical": "https://domvirus.com/games/battlefield-blitz/",
     "schemaPageType": "VideoGame",
     "schemaExtra": {
       "gamePlatform": "Web browser",
       "applicationCategory": "Game",
       "isAccessibleForFree": true,
-      "codeRepository": "https://github.com/coded-dot-design/dom-battlefield-blitz",
+      "codeRepository": "https://github.com/fizlet/battlefield-blitz",
       "genre": [
         "Action",
         "Tank",
@@ -41,12 +41,12 @@
       "ctas": [
         {
           "label": "Play Battlefield Blitz",
-          "href": "https://battlefieldblitz.domvirus.com/play/",
+          "href": "https://battlefieldblitz.fzlt.games/play/",
           "variant": "primary"
         },
         {
           "label": "Play two players",
-          "href": "https://battlefieldblitz.domvirus.com/play/two/"
+          "href": "https://battlefieldblitz.fzlt.games/play/two/"
         }
       ]
     },

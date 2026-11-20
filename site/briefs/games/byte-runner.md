@@ -6,7 +6,7 @@ eyebrow: 04 / DOM CHASE
 tags: [embedded, maze, arcade]
 image: /shots/byte-runner.jpg
 slots: [characters, palette, embed]
-codeRepository: https://github.com/coded-dot-design/byte-runner
+codeRepository: https://github.com/fizlet/byte-runner
 genre: [Maze, Arcade]
 playMode: [SinglePlayer]
 ---

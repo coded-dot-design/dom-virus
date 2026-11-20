@@ -6,7 +6,7 @@
   "seo": {
     "title": "From one tank to a platoon: the DOM Battlefield story",
     "description": "Sherman Bytes put one pixel tank on a webpage. It grew into two board games: DOM Battlefield for squad tactics and Battlefield Blitz for arcade chaos.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/from-one-tank-to-a-whole-platoon/",
+    "canonical": "https://domvirus.com/blog/from-one-tank-to-a-whole-platoon/",
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {
@@ -92,7 +92,7 @@
           "body": "Plan every route, then command your squad under fire.",
           "link": {
             "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            "href": "https://battlefield.fzlt.games/play/"
           }
         },
         {
@@ -100,7 +100,7 @@
           "body": "Parachute in, call airstrikes, most kills wins.",
           "link": {
             "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            "href": "https://battlefieldblitz.fzlt.games/play/"
           }
         }
       ]

@@ -50,9 +50,9 @@ This file lists only what differs: the accent, the ship, the aliens and the cart
 }
 ```
 
-<!-- src: accent coded-dot-design/dom-virus site-kit/style.css:32-36, :47-52 (.accent-cyan), hover :1867-1870 -->
-<!-- src: palette, characters, kind, tagline coded-dot-design/null-invaders site/game.json; ship colours site/art.json -->
-<!-- src: key the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: accent fizlet/dom-virus site-kit/style.css:32-36, :47-52 (.accent-cyan), hover :1867-1870 -->
+<!-- src: palette, characters, kind, tagline fizlet/null-invaders site/game.json; ship colours site/art.json -->
+<!-- src: key the hub .button, style.css:1703-1731; board-base fizlet/fzlt src/ui/tokens.json --line, board-ui.css:80 -->
 <!-- src: cartridge site-kit/components/Cartridge.astro:38, StyleGuide.astro:137 -->
 
 ## Rules
@@ -81,7 +81,7 @@ This file lists only what differs: the accent, the ship, the aliens and the cart
 
 ## Exceptions (Phase 2 lock)
 
-Shipped by the shared DOM VIRUS runtime (coded-dot-design/dom-virus 0.21.0, bundled in this
+Shipped by the shared DOM VIRUS runtime (fizlet/dom-virus 0.21.0, bundled in this
 game), not flat, documented and left as they are:
 
 - **Factory buttons:** the liquid health fill is a hard-stop linear gradient from the bottom up

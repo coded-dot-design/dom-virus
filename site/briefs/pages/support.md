@@ -10,7 +10,7 @@ image: /og/dom-virus.png
 DOM VIRUS is a one-person, open-source passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.
 
 [cta]
-Star DOM VIRUS on GitHub -> https://github.com/coded-dot-design/dom-virus
+Star DOM VIRUS on GitHub -> https://github.com/fizlet/dom-virus
 [/cta]
 
 [text]
@@ -32,7 +32,7 @@ Servers for multiplayer rooms. Multiplayer is planned, and rooms need a small se
 [features rows]
 heading: Ways to help today, for free
 item: Play the games | Every play counts. Find a cartridge and press start. | Play the DOM VIRUS games -> /
-item: Star the repositories | Stars help other developers find the games on GitHub. | Star DOM VIRUS on GitHub -> https://github.com/coded-dot-design/dom-virus
+item: Star the repositories | Stars help other developers find the games on GitHub. | Star DOM VIRUS on GitHub -> https://github.com/fizlet/dom-virus
 item: Share a game | Send a game to a friend, or post it where your people hang out.
 item: Report bugs and ideas | Every report makes the next release better. | Contact DOM VIRUS -> /contact/
 item: Contribute | Every game is open source under MIT. Read the code, suggest a fix or open a pull request. | Browse the code on GitHub -> https://github.com/coded-dot-design

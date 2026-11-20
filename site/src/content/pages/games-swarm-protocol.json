@@ -6,13 +6,13 @@
   "seo": {
     "title": "Swarm Protocol: defend the page from a bug swarm",
     "description": "Bugs eat a real webpage's letters into binary and drain its buttons. Squash the swarm in this free browser defense game: click or tap, no install.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/swarm-protocol/",
+    "canonical": "https://domvirus.com/games/swarm-protocol/",
     "schemaPageType": "VideoGame",
     "schemaExtra": {
       "gamePlatform": "Web browser",
       "applicationCategory": "Game",
       "isAccessibleForFree": true,
-      "codeRepository": "https://github.com/coded-dot-design/swarm-protocol",
+      "codeRepository": "https://github.com/fizlet/swarm-protocol",
       "genre": [
         "Defense",
         "Arcade"

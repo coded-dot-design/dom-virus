@@ -39,7 +39,7 @@ The size below is the full immediate import graph. The game itself loads on firs
 
 [cta]
 Play Swarm Protocol -> /games/swarm-protocol/
-Get the code & setup instructions -> https://github.com/coded-dot-design/swarm-protocol
+Get the code & setup instructions -> https://github.com/fizlet/swarm-protocol
 [/cta]
 
 [seo]
