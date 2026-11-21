@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "0451a37ba82d3636"
+    "hash": "b9a32e9edbd8b28a"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-blitz-0-10-patch-notes",
@@ -171,7 +171,7 @@
           {
             "type": "ul",
             "items": [
-              "**Blitz has its own site.** The landing page and the game at /play/ moved over from the Battlefield site, ready for battlefieldblitz.domvirus.com. The site links to DOM Battlefield and DOM VIRUS."
+              "**Blitz has its own site.** The landing page and the game at /play/ moved over from the Battlefield site, ready for battlefieldblitz.fzlt.games. The site links to DOM Battlefield and DOM VIRUS."
             ]
           }
         ]
@@ -185,7 +185,7 @@
           },
           {
             "label": "Read the full changelog",
-            "href": "https://github.com/coded-dot-design/dom-battlefield-blitz/blob/main/CHANGELOG.md"
+            "href": "https://github.com/fizlet/battlefield-blitz/blob/main/CHANGELOG.md"
           },
           {
             "label": "How the games run on Fizlet",

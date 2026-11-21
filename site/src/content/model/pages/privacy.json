@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "6f8b10a454407f66"
+    "hash": "86a1a14962200c6b"
   },
   "collection": "pages",
   "id": "privacy",
@@ -37,7 +37,7 @@
         "body": [
           {
             "type": "p",
-            "text": "DOM VIRUS is a family of small open-source arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, \"we\" means the people behind that project."
+            "text": "DOM VIRUS is a family of small arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, \"we\" means the people behind that project."
           },
           {
             "type": "p",

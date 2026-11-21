@@ -10,13 +10,13 @@ image: /og/dom-virus.png
 The quickest way to reach DOM VIRUS is GitHub. Report bugs and share ideas in the issues, send security reports privately, and find facts and logos in the press kit. An email address is coming soon.
 
 [cta]
-Open a DOM VIRUS issue -> https://github.com/coded-dot-design/dom-virus/issues
+Open a DOM VIRUS issue -> https://github.com/fizlet/dom-virus/issues
 [/cta]
 
 [features rows]
 heading: Pick the right channel
-item: Bugs and ideas | Open an issue on the hub repository. Tell us the page, what happened and your browser. Issues are public. | Open a DOM VIRUS issue -> https://github.com/coded-dot-design/dom-virus/issues
-item: Security | Found a vulnerability? Report it privately through GitHub, never in a public issue. | Report a vulnerability privately -> https://github.com/coded-dot-design/dom-virus/security/advisories/new
+item: Bugs and ideas | Open an issue on the hub repository. Tell us the page, what happened and your browser. Issues are public. | Open a DOM VIRUS issue -> https://github.com/fizlet/dom-virus/issues
+item: Security | Found a vulnerability? Report it privately through GitHub, never in a public issue. | Report a vulnerability privately -> https://github.com/fizlet/dom-virus/security/advisories/new
 item: Press | Facts, the roster, logos and the credit line live in the press kit. | Open the press kit -> /about/press/
 item: Support the project | Ways to help today, and sponsorship links once they are live. | Support DOM VIRUS -> /support/
 item: Email | Coming soon. This page will list the address as soon as it exists.
@@ -25,13 +25,13 @@ item: Email | Coming soon. This page will list the address as soon as it exists.
 [features rows]
 heading: A bug in one game?
 subhead: Each game has its own repository. An issue there reaches the same person.
-item: Sherman Bytes | The pixel tank game. | Sherman Bytes issues -> https://github.com/coded-dot-design/sherman-bytes/issues
-item: DOM Battlefield | The squad tactics board game. | DOM Battlefield issues -> https://github.com/coded-dot-design/dom-battlefield/issues
-item: Battlefield Blitz | The arcade tank board game. | Battlefield Blitz issues -> https://github.com/coded-dot-design/dom-battlefield-blitz/issues
-item: Swarm Protocol | The bug defense game. | Swarm Protocol issues -> https://github.com/coded-dot-design/swarm-protocol/issues
-item: Byte Runner | The page-eating frog chase. | Byte Runner issues -> https://github.com/coded-dot-design/byte-runner/issues
-item: Null Invaders | The interceptor shooter. | Null Invaders issues -> https://github.com/coded-dot-design/null-invaders/issues
-item: Fizlet | The small engine under the games. | Fizlet issues -> https://github.com/coded-dot-design/fizlet/issues
+item: Sherman Bytes | The pixel tank game. | Sherman Bytes issues -> https://github.com/fizlet/sherman-bytes/issues
+item: DOM Battlefield | The squad tactics board game. | DOM Battlefield issues -> https://github.com/fizlet/battlefield/issues
+item: Battlefield Blitz | The arcade tank board game. | Battlefield Blitz issues -> https://github.com/fizlet/battlefield-blitz/issues
+item: Swarm Protocol | The bug defense game. | Swarm Protocol issues -> https://github.com/fizlet/swarm-protocol/issues
+item: Byte Runner | The page-eating frog chase. | Byte Runner issues -> https://github.com/fizlet/byte-runner/issues
+item: Null Invaders | The interceptor shooter. | Null Invaders issues -> https://github.com/fizlet/null-invaders/issues
+item: Fizlet | The small engine under the games. | Fizlet issues -> https://github.com/fizlet/fzlt/issues
 [/features]
 
 [faq]

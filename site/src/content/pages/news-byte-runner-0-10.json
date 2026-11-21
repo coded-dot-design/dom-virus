@@ -6,7 +6,7 @@
   "seo": {
     "title": "Byte Runner 0.10: magnetic pipes, jumps and a tongue",
     "description": "Byte Runner 0.10 adds magnetic pipe running, jump-out escapes to eat real text, tongue grabs on flies and a four-way phone joystick. 29.2 kB gzip.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/byte-runner-0-10/",
+    "canonical": "https://domvirus.com/news/byte-runner-0-10/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
@@ -30,7 +30,7 @@
         },
         {
           "label": "Get the code & setup instructions",
-          "href": "https://github.com/coded-dot-design/byte-runner"
+          "href": "https://github.com/fizlet/byte-runner"
         }
       ]
     },

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "e33951d8a6186298"
+    "hash": "0a00eee1d300eb4c"
   },
   "collection": "posts",
   "id": "news-byte-runner-1-0-patch-notes",
@@ -104,7 +104,7 @@
           },
           {
             "label": "Read the full changelog",
-            "href": "https://github.com/coded-dot-design/byte-runner/blob/main/CHANGELOG.md"
+            "href": "https://github.com/fizlet/byte-runner/blob/main/CHANGELOG.md"
           },
           {
             "label": "How the games run on Fizlet",

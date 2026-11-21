@@ -1,6 +1,6 @@
 {
-  "note": "Generated snapshot (a subset: the perf overlay, the kit's Settings switch, the timeline and the Under the hood labs from site/labs/, kernel imports pointed at ../). Edit coded-dot-design/fizlet, then run node scripts/sync-fizlet.mjs.",
-  "repository": "https://github.com/coded-dot-design/fizlet",
+  "note": "Generated snapshot (a subset: the perf overlay, the kit's Settings switch, the timeline and the Under the hood labs from site/labs/, kernel imports pointed at ../). Edit fizlet/fzlt, then run node scripts/sync-fizlet.mjs.",
+  "repository": "https://github.com/fizlet/fzlt",
   "version": "0.20.0",
   "commit": "bf42a8c8e642168c55f7b4bf4900c2197525874c",
   "files": [

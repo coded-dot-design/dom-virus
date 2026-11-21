@@ -62,7 +62,7 @@ I have made small games on the side for more than twenty years. Most of them nev
 
 DOM VIRUS is me finally making the games I wanted to make in that classroom. A new one lands roughly every week, and this blog follows along.
 
-If a game breaks your page in a way it shouldn't, tell me. If it makes you want to build your own, even better: every game is open source.
+If a game breaks your page in a way it shouldn't, tell me. If it makes you want to build your own, even better: the Fizlet engine under them is open source.
 [/text]
 
 [features rows]

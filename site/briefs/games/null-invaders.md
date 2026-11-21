@@ -6,7 +6,7 @@ eyebrow: 05 / DOM SHOOTER
 tags: [embedded, shooter, arcade]
 image: /shots/null-invaders.jpg
 slots: [characters, palette, embed]
-codeRepository: https://github.com/coded-dot-design/null-invaders
+codeRepository: https://github.com/fizlet/null-invaders
 genre: [Shooter, Arcade]
 playMode: [SinglePlayer]
 ---
@@ -59,7 +59,7 @@ A: Yes. Phones get a thumbstick to fly and a round Fire key, and you can hold bo
 Q: What happens to the page when I play?
 A: Shots write a literal 0 or 1 into the page's own text, and buttons become alien factories. Recall restores what the game changed and still owns.
 Q: Can I put Null Invaders on my own site?
-A: Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples.
+A: Ask first. Null Invaders is all rights reserved, so putting it on another site needs written permission from Chris Cooley.
 [/faq]
 
 [seo]

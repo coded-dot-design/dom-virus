@@ -2,7 +2,7 @@
 
 Brand level: parent · by Chris Cooley (https://coded.design/)
 
-The hub at domvirus.com (today https://coded-dot-design.github.io/dom-virus/): home, games shelf,
+The hub at domvirus.com (today https://domvirus.com/): home, games shelf,
 Under the Hood, about, blog and news, and the page frame around every game page. Each game's voice
 is in the same family and inherits this file.
 
@@ -67,17 +67,18 @@ Say these as written. Sizes and versions change per release: re-read the source 
 Plans are said as plans ("the plan is…", "I'm aiming for…"), never as facts.
 
 - The games change the real page: a hit writes a literal 0 or 1 into the page's existing Text
-  nodes. No canvas copy, no cloned text. <!-- src: coded-dot-design/dom-virus README.md:136 -->
+  nodes. No canvas copy, no cloned text. <!-- src: fizlet/dom-virus README.md:136 -->
 - Recall restores what the game still owns; a newer edit by the page wins. Say "give the page
-  back", never "undo everything". <!-- src: coded-dot-design/dom-virus README.md:61, :136 -->
-- Open source, MIT, © 2026 Chris Cooley. <!-- src: coded-dot-design/dom-virus LICENSE, README.md:161 -->
+  back", never "undo everything". <!-- src: fizlet/dom-virus README.md:61, :136 -->
+- All rights reserved, © 2026 Chris Cooley: the hub, the games and their embeds. Never "open
+  source" or "MIT"; only the engine package @fzlt/core is MIT. <!-- src: owner rule 2026-11-20 -->
 - Six games to play today: Sherman Bytes, Swarm Protocol, Byte Runner and Null Invaders on the
   hub, DOM Battlefield and Battlefield Blitz on their own site.
-  <!-- src: coded-dot-design/dom-virus games.json (4 embedded games); coded-dot-design/dom-battlefield (Battlefield, Blitz) -->
+  <!-- src: fizlet/dom-virus games.json (4 embedded games); fizlet/battlefield (Battlefield, Blitz) -->
 - Every DOM VIRUS game runs on Fizlet: the four arcade games, DOM Battlefield and Battlefield
-  Blitz. <!-- src: coded-dot-design/fizlet README.md:10-12 (0.21.1) -->
+  Blitz. <!-- src: fizlet/fzlt README.md:10-12 (0.21.1) -->
 - The Fizlet kernel is 3,275 bytes gzip, measured, at Fizlet 0.5.1.
-  <!-- src: coded-dot-design/fizlet README.md:65, version 0.5.1 -->
+  <!-- src: fizlet/fzlt README.md:65, version 0.5.1 -->
 - Plan, not fact: launch in November 2026 with 10 games, then a new small game every week.
 
 ## Byline

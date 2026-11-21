@@ -5,12 +5,12 @@
   "status": "scheduled",
   "seo": {
     "title": "The DOM VIRUS arcade is open: six free browser games",
-    "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, open source (MIT).",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-launch/",
+    "description": "Six free browser games by Chris Cooley: four play right on the page, two Battlefield tank games run full screen. No install, no account, free to play.",
+    "canonical": "https://domvirus.com/news/dom-virus-launch/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
-        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+        "sourceUrl": "https://domvirus.com/og/dom-virus.png"
       }
     }
   },
@@ -21,16 +21,12 @@
       "heading": "The DOM VIRUS arcade is open",
       "headingAccent": "Six free games that play on the page.",
       "eyebrow": "News",
-      "body": "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account, and every game is open source (MIT).",
+      "body": "DOM VIRUS is open: an arcade of six free browser games by Chris Cooley. Four play right on the page you are reading and turn its letters and buttons into the game board. Two Battlefield tank games run full screen on their own sites. No install, no account.",
       "ctas": [
         {
           "label": "Choose your game",
           "href": "/games/",
           "variant": "primary"
-        },
-        {
-          "label": "Get the code",
-          "href": "https://github.com/coded-dot-design/dom-virus"
         }
       ]
     },
@@ -146,10 +142,6 @@
         {
           "value": "2",
           "label": "players in Battlefield Blitz"
-        },
-        {
-          "value": "MIT",
-          "label": "open source, every game"
         }
       ]
     },

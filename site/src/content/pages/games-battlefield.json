@@ -6,13 +6,13 @@
   "seo": {
     "title": "DOM Battlefield: a squad tactics tank game in your browser",
     "description": "Command up to twelve tanks: freeze time to plan every route, then radio your squad through the firefight. Free tank tactics in your browser.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/battlefield/",
+    "canonical": "https://domvirus.com/games/battlefield/",
     "schemaPageType": "VideoGame",
     "schemaExtra": {
       "gamePlatform": "Web browser",
       "applicationCategory": "Game",
       "isAccessibleForFree": true,
-      "codeRepository": "https://github.com/coded-dot-design/dom-battlefield",
+      "codeRepository": "https://github.com/fizlet/battlefield",
       "genre": [
         "Strategy",
         "Tactics",
@@ -40,12 +40,12 @@
       "ctas": [
         {
           "label": "Play DOM Battlefield",
-          "href": "https://battlefield.domvirus.com/play/",
+          "href": "https://battlefield.fzlt.games/play/",
           "variant": "primary"
         },
         {
-          "label": "Visit battlefield.domvirus.com",
-          "href": "https://battlefield.domvirus.com/"
+          "label": "Visit battlefield.fzlt.games",
+          "href": "https://battlefield.fzlt.games/"
         }
       ]
     },
@@ -201,7 +201,7 @@
       "items": [
         {
           "question": "Is DOM Battlefield free to play?",
-          "answer": "Yes. It plays in your browser with no install and no account, and it is open source (MIT)."
+          "answer": "Yes. It plays in your browser with no install and no account."
         },
         {
           "question": "Can I play DOM Battlefield on a phone?",

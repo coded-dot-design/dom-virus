@@ -10,8 +10,8 @@ flies to hunt. Byte Runner is in the DOM VIRUS voice family: everything in the D
 
 1. **Players** who want a quick, hungry chase across the page they are reading. No install,
    Recall gives the page back.
-2. **Developers** who want it on their own site. One line, "it's open source", and a link to the
-   GitHub repository. Setup stays in the README.
+2. **Developers** who want it on their own site. One line: the game is all rights reserved, so
+   ask Chris Cooley first. Never call it open source or MIT; only the engine (@fzlt/core) is MIT.
 
 ## How we sound
 
@@ -44,19 +44,19 @@ frog to find it."
 Say these as written. Sizes and versions change per release: re-measure before quoting.
 
 - 3 starting lives; 6–8 power squares; each gives 6 seconds of power, stacking to a 9-second
-  ceiling. <!-- src: coded-dot-design/byte-runner site/game.json facts, chapters -->
+  ceiling. <!-- src: fizlet/byte-runner site/game.json facts, chapters -->
 - Vulnerable flies are worth 100, 200, 300, then 400 points. Fruit is optional bonus food.
-  <!-- src: coded-dot-design/byte-runner site/game.json chapters -->
+  <!-- src: fizlet/byte-runner site/game.json chapters -->
 - Up to five flies at the start, building toward nine on the first level and twelve later, where
-  space permits. <!-- src: coded-dot-design/byte-runner site/game.json extra -->
+  space permits. <!-- src: fizlet/byte-runner site/game.json extra -->
 - Three flies, three minds: the violet Chaser pursues, the pink Interceptor aims ahead, the cyan
-  Roamer wanders. <!-- src: coded-dot-design/byte-runner site/game.json characters -->
+  Roamer wanders. <!-- src: fizlet/byte-runner site/game.json characters -->
 - Eaten letters stay changed until Recall, which removes the game's creatures, food and text
-  edits. <!-- src: coded-dot-design/byte-runner site/game.json chapters, extra -->
+  edits. <!-- src: fizlet/byte-runner site/game.json chapters, extra -->
 - 29,160 bytes gzip at v0.10.2, under a 30,000-byte ceiling enforced by `scripts/size.mjs`.
-  <!-- src: node scripts/size.mjs on coded-dot-design/byte-runner v0.10.2 dist/index.js -->
+  <!-- src: node scripts/size.mjs on fizlet/byte-runner v0.10.2 dist/index.js -->
 - Runs on the shared DOM VIRUS runtime. Never say it runs on Fizlet.
-  <!-- src: coded-dot-design/byte-runner shared/ORIGIN.json (dom-virus 0.21.0) -->
+  <!-- src: fizlet/byte-runner shared/ORIGIN.json (dom-virus 0.21.0) -->
 
 Words that are Byte Runner's: frog, trails, food pipes, pellets, power squares, flies (Chaser,
 Interceptor, Roamer), fruit, chomp, tongue, hunt, whitespace.

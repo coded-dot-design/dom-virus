@@ -5,8 +5,8 @@
   "status": "published",
   "seo": {
     "title": "DOM VIRUS blog: the devlog behind tiny page games",
-    "description": "A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny open-source arcade games that play on a real webpage, and the engine under them.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/",
+    "description": "A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny arcade games that play on a real webpage, and the engine under them.",
+    "canonical": "https://domvirus.com/blog/",
     "schemaPageType": "CollectionPage",
     "openGraph": {
       "image": {

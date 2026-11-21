@@ -6,7 +6,7 @@ eyebrow: 01 / DOM TANK
 tags: [embedded, tank, arcade]
 image: /shots/sherman-bytes.jpg
 slots: [characters, palette, embed]
-codeRepository: https://github.com/coded-dot-design/sherman-bytes
+codeRepository: https://github.com/fizlet/sherman-bytes
 genre: [Tank, Action, Arcade]
 playMode: [SinglePlayer]
 ---
@@ -61,8 +61,8 @@ item: Same game | The rules are unchanged; Sherman Bytes runs on Fizlet 0.20.0.
 
 [features cards]
 heading: Built from Sherman Bytes | The same tanks, two board games.
-item: DOM Battlefield | Same tanks, a whole platoon. Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://battlefield.domvirus.com/play/
-item: Battlefield Blitz | Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://battlefieldblitz.domvirus.com/play/
+item: DOM Battlefield | Same tanks, a whole platoon. Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+item: Battlefield Blitz | Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 [/features]
 
 [faq]
@@ -71,7 +71,7 @@ A: No. Sherman Bytes plays on this page in your browser. Press Play, and hit Rec
 Q: Can I play Sherman Bytes on a phone?
 A: Yes. A joystick drives, the round Fire key shoots, and the Cover, Pillbox and Mine keys build.
 Q: Can I put Sherman Bytes on my own site?
-A: Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples.
+A: Ask first. Sherman Bytes is all rights reserved, so putting it on another site needs written permission from Chris Cooley.
 Q: What happens to the page when I play?
 A: Letters block tanks and shells, and direct hits turn nearby text into faint binary rubble. Recall gives back what the game changed and still owns.
 [/faq]

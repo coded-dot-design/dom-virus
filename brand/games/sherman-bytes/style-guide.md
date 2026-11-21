@@ -47,9 +47,9 @@ This file lists only what differs: the accent, the palette, the cast and the car
 }
 ```
 
-<!-- src: accent coded-dot-design/dom-virus site-kit/style.css:1454-1463 (.accent-amber), hover :1879-1882 -->
-<!-- src: palette, characters, kind, tagline coded-dot-design/sherman-bytes site/game.json -->
-<!-- src: key face/ink the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: accent fizlet/dom-virus site-kit/style.css:1454-1463 (.accent-amber), hover :1879-1882 -->
+<!-- src: palette, characters, kind, tagline fizlet/sherman-bytes site/game.json -->
+<!-- src: key face/ink the hub .button, style.css:1703-1731; board-base fizlet/fzlt src/ui/tokens.json --line, board-ui.css:80 -->
 <!-- src: cartridge site-kit/components/Cartridge.astro:38, StyleGuide.astro:137 -->
 
 ## Rules
@@ -78,7 +78,7 @@ This file lists only what differs: the accent, the palette, the cast and the car
 
 ## Exceptions (Phase 2 lock)
 
-Shipped by the shared DOM VIRUS runtime (coded-dot-design/dom-virus 0.21.0, bundled in this
+Shipped by the shared DOM VIRUS runtime (fizlet/dom-virus 0.21.0, bundled in this
 game), not flat, documented and left as they are:
 
 - **Scoreboard panel:** a frosted backdrop blur of 16px on desktop, turned off on touch and narrow

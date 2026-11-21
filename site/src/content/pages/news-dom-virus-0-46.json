@@ -6,7 +6,7 @@
   "seo": {
     "title": "DOM VIRUS 0.46: Battlefield Blitz is playable, meet Fizlet",
     "description": "DOM VIRUS 0.46 marks Battlefield Blitz as playable on the coming-soon page and names the shared engine Fizlet, released as version 0.2.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-virus-0-46/",
+    "canonical": "https://domvirus.com/news/dom-virus-0-46/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
@@ -21,7 +21,7 @@
       "heading": "DOM VIRUS 0.46",
       "headingAccent": "Blitz is playable. The engine has a name.",
       "eyebrow": "News",
-      "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny open-source arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back.",
+      "body": "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back.",
       "ctas": [
         {
           "label": "Choose your game",
@@ -30,7 +30,7 @@
         },
         {
           "label": "Get the code & setup instructions",
-          "href": "https://github.com/coded-dot-design/dom-virus"
+          "href": "https://github.com/fizlet/dom-virus"
         }
       ]
     },

@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "b2a643318b63393f"
+    "hash": "48244119440cc84b"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-blitz-0-6",
@@ -127,11 +127,11 @@
         "links": [
           {
             "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            "href": "https://battlefieldblitz.fzlt.games/play/"
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/dom-battlefield-blitz"
+            "href": "https://github.com/fizlet/battlefield-blitz"
           }
         ]
       }

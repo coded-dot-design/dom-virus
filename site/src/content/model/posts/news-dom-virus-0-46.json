@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "5d5ba4745f80e157"
+    "hash": "f931866abdeff3c9"
   },
   "collection": "posts",
   "id": "news-dom-virus-0-46",
@@ -28,7 +28,7 @@
     "status": "published",
     "image": "/og/dom-virus.png",
     "lead": [
-      "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny open-source arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back."
+      "DOM VIRUS 0.46 marks Battlefield Blitz as playable and names the shared engine: Fizlet. DOM VIRUS is the hub for tiny arcade games that play on the page you are reading. Pick a cartridge, play, and hit Recall to give the page back."
     ],
     "blocks": [
       {
@@ -41,7 +41,7 @@
           },
           {
             "type": "p",
-            "text": "The release before this one, 0.45, opened the coming-soon page: the next games in build order and the next engine phase. It also added the DOM Kaiju details page and a COMING SOON cartridge on the shelf."
+            "text": "The release before this one, 0.45, opened the coming-soon page: the next games in build order and the next engine phase."
           }
         ]
       },
@@ -73,10 +73,6 @@
           {
             "value": "6",
             "label": "games released"
-          },
-          {
-            "value": "1",
-            "label": "game coming soon: DOM Kaiju"
           }
         ]
       },
@@ -89,7 +85,7 @@
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/dom-virus"
+            "href": "https://github.com/fizlet/dom-virus"
           }
         ]
       }

@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 export const GET: APIRoute = ({ site }) => {
   const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const expires = new Date(Date.now() + 365 * 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
-  return new Response(`Contact: https://github.com/coded-dot-design/dom-virus/security/advisories/new
+  return new Response(`Contact: https://github.com/fizlet/dom-virus/security/advisories/new
 Expires: ${expires}
 Preferred-Languages: en
 Canonical: ${new URL(base + '.well-known/security.txt', site).href}

@@ -6,7 +6,7 @@
   "seo": {
     "title": "Why I built Fizlet: a tiny engine for games on the page",
     "description": "Fizlet is a micro game engine for the DOM: a 4 KB gzip kernel budget, bricks of about 1.5 KB, zero steady-state allocation. Battlefield Blitz runs on it.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/blog/why-i-built-fizlet/",
+    "canonical": "https://domvirus.com/blog/why-i-built-fizlet/",
     "schemaPageType": "BlogPosting",
     "openGraph": {
       "image": {
@@ -94,7 +94,7 @@
           "body": "The kernel, the bricks, the contract and its tests. MIT licensed.",
           "link": {
             "label": "Get the Fizlet code on GitHub",
-            "href": "https://github.com/coded-dot-design/fizlet"
+            "href": "https://github.com/fizlet/fzlt"
           }
         },
         {
@@ -102,7 +102,7 @@
           "body": "The first game on Fizlet. Every tank for itself.",
           "link": {
             "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            "href": "https://battlefieldblitz.fzlt.games/play/"
           }
         },
         {
@@ -131,17 +131,17 @@
         },
         {
           "title": "About DOM VIRUS: one maker, tiny games, a game a week",
-          "body": "Chris Cooley makes DOM VIRUS: tiny open-source arcade games that play on a real webpage. The story, the timeline and what comes next.",
+          "body": "Chris Cooley makes DOM VIRUS: tiny arcade games that play on a real webpage. The story, the timeline and what comes next.",
           "link": {
             "label": "Read: About DOM VIRUS: one maker, tiny games, a game a week",
             "href": "/about"
           }
         },
         {
-          "title": "Open-source licences: MIT for every game | DOM VIRUS",
-          "body": "Every DOM VIRUS game, the Fizlet engine and the site are MIT-licensed. Each repository's licence, with the Lucide ISC notice and other third-party notes.",
+          "title": "Licences: games reserved, engine MIT | DOM VIRUS",
+          "body": "DOM VIRUS games and the site are all rights reserved; only the Fizlet engine package, @fzlt/core, is MIT. Plus the Lucide ISC notice and third-party notes.",
           "link": {
-            "label": "Read: Open-source licences: MIT for every game | DOM VIRUS",
+            "label": "Read: Licences: games reserved, engine MIT | DOM VIRUS",
             "href": "/legal/licenses"
           }
         }

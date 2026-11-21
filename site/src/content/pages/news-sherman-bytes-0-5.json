@@ -6,7 +6,7 @@
   "seo": {
     "title": "Sherman Bytes 0.5: phone controls, building and sound",
     "description": "Sherman Bytes 0.5 adds a joystick, a held Fire button, tap-to-build cover, pillboxes and mines on phones, and battle sound. 27.0 kB gzip.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/sherman-bytes-0-5/",
+    "canonical": "https://domvirus.com/news/sherman-bytes-0-5/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
@@ -30,7 +30,7 @@
         },
         {
           "label": "Get the code & setup instructions",
-          "href": "https://github.com/coded-dot-design/sherman-bytes"
+          "href": "https://github.com/fizlet/sherman-bytes"
         }
       ]
     },
@@ -97,7 +97,7 @@
           "body": "Same tanks, a whole platoon. Plan every route, then command your squad under fire.",
           "link": {
             "label": "Play DOM Battlefield",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+            "href": "https://battlefield.fzlt.games/play/"
           }
         },
         {
@@ -105,7 +105,7 @@
           "body": "Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins.",
           "link": {
             "label": "Play Battlefield Blitz",
-            "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+            "href": "https://battlefieldblitz.fzlt.games/play/"
           }
         }
       ],

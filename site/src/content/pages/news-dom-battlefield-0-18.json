@@ -6,7 +6,7 @@
   "seo": {
     "title": "DOM Battlefield 0.18: go-live, plan cards and full screen",
     "description": "DOM Battlefield 0.18 adds order pills on plan cards, your tank's real orders, bigger phone planning keys and its own site. 67.6 kB gzip.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/dom-battlefield-0-18/",
+    "canonical": "https://domvirus.com/news/dom-battlefield-0-18/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
@@ -25,12 +25,12 @@
       "ctas": [
         {
           "label": "Play DOM Battlefield",
-          "href": "https://coded-dot-design.github.io/dom-battlefield/play/",
+          "href": "https://battlefield.fzlt.games/play/",
           "variant": "primary"
         },
         {
           "label": "Get the code & setup instructions",
-          "href": "https://github.com/coded-dot-design/dom-battlefield"
+          "href": "https://github.com/fizlet/battlefield"
         }
       ]
     },

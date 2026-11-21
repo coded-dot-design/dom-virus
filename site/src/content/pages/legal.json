@@ -5,8 +5,8 @@
   "status": "published",
   "seo": {
     "title": "Legal: privacy, cookies, terms and licences | DOM VIRUS",
-    "description": "The DOM VIRUS legal pages in plain English: privacy, cookies and storage, terms of use, open-source licences and accessibility.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/",
+    "description": "The DOM VIRUS legal pages in plain English: privacy, cookies and storage, terms of use, licences and accessibility.",
+    "canonical": "https://domvirus.com/legal/",
     "schemaPageType": "CollectionPage",
     "openGraph": {
       "image": {
@@ -21,7 +21,7 @@
       "heading": "Legal",
       "headingAccent": "Plain English. Short pages.",
       "eyebrow": "Legal",
-      "body": "The legal side of DOM VIRUS, in plain English. We collect as little as we can, set analytics cookies only if you say yes, and publish every game as open source under the MIT licence. Each page below covers one topic."
+      "body": "The legal side of DOM VIRUS, in plain English. We collect as little as we can, set analytics cookies only if you say yes, and keep every game all rights reserved. Only the Fizlet engine package is MIT. Each page below covers one topic."
     },
     {
       "id": "features-1",
@@ -54,10 +54,10 @@
           }
         },
         {
-          "title": "Open-source licences",
-          "body": "Every repository's licence, plus the third-party notices that ship with the games.",
+          "title": "Licences",
+          "body": "Who owns what, the engine's MIT licence, and the third-party notices that ship with the games.",
           "link": {
-            "label": "See the open-source licences",
+            "label": "See the licences",
             "href": "/legal/licenses/"
           }
         },

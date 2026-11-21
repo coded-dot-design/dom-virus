@@ -45,8 +45,8 @@ item: Sherman Bytes | The original pixel tank, on a live webpage. Breach button 
 [/features]
 
 [cta]
-Play DOM Battlefield -> https://coded-dot-design.github.io/dom-battlefield/play/
-Get the code & setup instructions -> https://github.com/coded-dot-design/dom-battlefield
+Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+Get the code & setup instructions -> https://github.com/fizlet/battlefield
 [/cta]
 
 [seo]

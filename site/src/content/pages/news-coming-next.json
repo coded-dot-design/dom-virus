@@ -6,7 +6,7 @@
   "seo": {
     "title": "Coming next to DOM VIRUS: Crossfire, Kaiju, Flock",
     "description": "Battlefield Blitz has shipped. Planned next: DOM Crossfire, DOM Kaiju, DOM Flock and multiplayer Battlefield, all on the shared Fizlet engine.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/news/coming-next/",
+    "canonical": "https://domvirus.com/news/coming-next/",
     "schemaPageType": "NewsArticle",
     "openGraph": {
       "image": {
@@ -25,7 +25,7 @@
       "ctas": [
         {
           "label": "Play Battlefield Blitz",
-          "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
+          "href": "https://battlefieldblitz.fzlt.games/play/",
           "variant": "primary"
         },
         {

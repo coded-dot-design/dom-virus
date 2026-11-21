@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "9e843d4b4ca00559"
+    "hash": "2b25e0b5c13a0dc5"
   },
   "collection": "posts",
   "id": "news-sherman-bytes-0-5",
@@ -111,7 +111,7 @@
             "body": "Same tanks, a whole platoon. Plan every route, then command your squad under fire.",
             "link": {
               "label": "Play DOM Battlefield",
-              "href": "https://coded-dot-design.github.io/dom-battlefield/play/"
+              "href": "https://battlefield.fzlt.games/play/"
             }
           },
           {
@@ -119,7 +119,7 @@
             "body": "Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins.",
             "link": {
               "label": "Play Battlefield Blitz",
-              "href": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/"
+              "href": "https://battlefieldblitz.fzlt.games/play/"
             }
           }
         ]
@@ -133,7 +133,7 @@
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/sherman-bytes"
+            "href": "https://github.com/fizlet/sherman-bytes"
           }
         ]
       }

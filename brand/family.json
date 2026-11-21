@@ -6,8 +6,8 @@
     "domvirus": {
       "name": "DOM VIRUS",
       "level": "parent",
-      "repo": "https://github.com/coded-dot-design/dom-virus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/", "production": "https://domvirus.com/" },
+      "repo": "https://github.com/fizlet/dom-virus",
+      "urls": { "current": "https://domvirus.com/", "production": "https://domvirus.com/" },
       "styleGuide": "dom-virus/brand/style-guide.md",
       "voice": "dom-virus/brand/voice.md",
       "paths": {
@@ -24,8 +24,8 @@
     "battlefield": {
       "name": "DOM Battlefield",
       "level": "game",
-      "repo": "https://github.com/coded-dot-design/dom-battlefield",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-battlefield/", "production": "https://battlefield.domvirus.com/" },
+      "repo": "https://github.com/fizlet/battlefield",
+      "urls": { "current": "https://battlefield.fzlt.games/", "production": "https://battlefield.fzlt.games/" },
       "styleGuide": "dom-battlefield/brand/style-guide.md",
       "voice": "dom-battlefield/brand/voice.md",
       "games": ["dom-battlefield", "dom-battlefield-blitz"]
@@ -33,8 +33,8 @@
     "fizlet": {
       "name": "Fizlet",
       "level": "engine",
-      "repo": "https://github.com/coded-dot-design/fizlet",
-      "urls": { "current": "https://coded-dot-design.github.io/fizlet/", "production": "https://fizlet.com/", "productionFallback": "https://fizlet.coded.design/" },
+      "repo": "https://github.com/fizlet/fzlt",
+      "urls": { "current": "https://fizlet.com/", "production": "https://fizlet.com/", "productionFallback": "https://fizlet.coded.design/" },
       "styleGuide": "fizlet/brand/style-guide.md",
       "voice": "fizlet/brand/voice.md",
       "openQuestion": "domain: fizlet.com (preferred) or fizlet.coded.design"
@@ -51,50 +51,50 @@
   "games": [
     {
       "id": "sherman-bytes", "number": "01", "tag": "DOM TANK", "name": "Sherman Bytes", "type": "embedded", "style": "classic", "status": "released",
-      "accent": "amber", "repo": "https://github.com/coded-dot-design/sherman-bytes", "brand": "domvirus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/sherman-bytes/", "production": "https://domvirus.com/games/sherman-bytes/" }
+      "accent": "amber", "repo": "https://github.com/fizlet/sherman-bytes", "brand": "domvirus",
+      "urls": { "current": "https://domvirus.com/games/sherman-bytes/", "production": "https://domvirus.com/games/sherman-bytes/" }
     },
     {
       "id": "dom-battlefield", "number": "02", "tag": "SQUAD TACTICS", "name": "DOM Battlefield", "type": "board", "style": "classic", "status": "released",
-      "accent": "cyan", "repo": "https://github.com/coded-dot-design/dom-battlefield", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
+      "accent": "cyan", "repo": "https://github.com/fizlet/battlefield", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
       "urls": {
-        "current": "https://coded-dot-design.github.io/dom-battlefield/",
-        "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/play/",
-        "production": "https://battlefield.domvirus.com/",
-        "productionPlay": "https://battlefield.domvirus.com/play/"
+        "current": "https://battlefield.fzlt.games/",
+        "currentPlay": "https://battlefield.fzlt.games/play/",
+        "production": "https://battlefield.fzlt.games/",
+        "productionPlay": "https://battlefield.fzlt.games/play/"
       },
       "openQuestion": "style: brief listed Board/Modern; the description says the strategy game is Classic"
     },
     {
       "id": "dom-battlefield-blitz", "number": "03", "tag": "DOM BLITZ", "name": "Battlefield Blitz", "type": "board", "style": "modern", "status": "released",
-      "accent": "pink", "repo": "https://github.com/coded-dot-design/dom-battlefield-blitz", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
+      "accent": "pink", "repo": "https://github.com/fizlet/battlefield-blitz", "brand": "battlefield", "builtFrom": ["sherman-bytes"],
       "urls": {
-        "current": "https://coded-dot-design.github.io/dom-battlefield/blitz/",
-        "currentPlay": "https://coded-dot-design.github.io/dom-battlefield/blitz/play/",
-        "production": "https://battlefieldblitz.domvirus.com/",
-        "productionPlay": "https://battlefieldblitz.domvirus.com/play/"
+        "current": "https://battlefieldblitz.fzlt.games/",
+        "currentPlay": "https://battlefieldblitz.fzlt.games/play/",
+        "production": "https://battlefieldblitz.fzlt.games/",
+        "productionPlay": "https://battlefieldblitz.fzlt.games/play/"
       },
-      "openQuestion": "home: under battlefield.domvirus.com (proposed) or its own blitz.domvirus.com; style per brief was Board/Classic"
+      "openQuestion": "home: under battlefield.fzlt.games (proposed) or its own blitz.domvirus.com; style per brief was Board/Classic"
     },
     {
       "id": "swarm-protocol", "number": "04", "tag": "DOM DEFENSE", "name": "Swarm Protocol", "type": "embedded", "style": null, "status": "released",
-      "accent": "violet", "repo": "https://github.com/coded-dot-design/swarm-protocol", "brand": "domvirus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/swarm-protocol/", "production": "https://domvirus.com/games/swarm-protocol/" }
+      "accent": "violet", "repo": "https://github.com/fizlet/swarm-protocol", "brand": "domvirus",
+      "urls": { "current": "https://domvirus.com/games/swarm-protocol/", "production": "https://domvirus.com/games/swarm-protocol/" }
     },
     {
       "id": "byte-runner", "number": "05", "tag": "DOM CHASE", "name": "Byte Runner", "type": "embedded", "style": null, "status": "released",
-      "accent": "lime", "repo": "https://github.com/coded-dot-design/byte-runner", "brand": "domvirus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/byte-runner/", "production": "https://domvirus.com/games/byte-runner/" }
+      "accent": "lime", "repo": "https://github.com/fizlet/byte-runner", "brand": "domvirus",
+      "urls": { "current": "https://domvirus.com/games/byte-runner/", "production": "https://domvirus.com/games/byte-runner/" }
     },
     {
       "id": "null-invaders", "number": "06", "tag": "DOM SHOOTER", "name": "Null Invaders", "type": "embedded", "style": null, "status": "released",
-      "accent": "cyan", "repo": "https://github.com/coded-dot-design/null-invaders", "brand": "domvirus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/null-invaders/", "production": "https://domvirus.com/games/null-invaders/" }
+      "accent": "cyan", "repo": "https://github.com/fizlet/null-invaders", "brand": "domvirus",
+      "urls": { "current": "https://domvirus.com/games/null-invaders/", "production": "https://domvirus.com/games/null-invaders/" }
     },
     {
       "id": "kaiju", "number": "07", "tag": "CLIMB + SMASH", "name": "DOM Kaiju", "type": "board", "style": null, "status": "coming-soon",
       "accent": "pink", "repo": null, "brand": "domvirus",
-      "urls": { "current": "https://coded-dot-design.github.io/dom-virus/games/kaiju/", "production": "https://domvirus.com/coming-soon/kaiju/" },
+      "urls": { "current": "https://domvirus.com/games/kaiju/", "production": "https://domvirus.com/coming-soon/kaiju/" },
       "note": "Coming soon pages move from /games/kaiju/ to /coming-soon/kaiju/ with a redirect."
     }
   ],

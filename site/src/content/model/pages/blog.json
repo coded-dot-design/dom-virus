@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "7f218bc978e57845"
+    "hash": "7755df6024a9a6b7"
   },
   "collection": "pages",
   "id": "blog",
@@ -33,7 +33,7 @@
     "blocks": [],
     "seo": {
       "title": "DOM VIRUS blog: the devlog behind tiny page games",
-      "description": "A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny open-source arcade games that play on a real webpage, and the engine under them."
+      "description": "A weekly devlog from Chris Cooley on building DOM VIRUS. Tiny arcade games that play on a real webpage, and the engine under them."
     }
   }
 }

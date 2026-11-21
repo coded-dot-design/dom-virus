@@ -40,7 +40,7 @@ Setup, configuration and integration examples live in the repository README.
 
 [cta]
 Play Byte Runner -> /games/byte-runner/
-Get the code & setup instructions -> https://github.com/coded-dot-design/byte-runner
+Get the code & setup instructions -> https://github.com/fizlet/byte-runner
 [/cta]
 
 [seo]

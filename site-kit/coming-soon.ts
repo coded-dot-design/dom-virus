@@ -2,7 +2,7 @@
 // /coming-soon/ page, the Kaiju detail page and the shelf's COMING SOON cartridge. A game with an
 // unready model entry (Kaiju) shows on staging builds only (site-kit/lifecycle.mjs).
 // Source of truth for the plans: GAMES.md and docs/games/*.md (keep them in step).
-const GH = "https://github.com/coded-dot-design/dom-virus/blob/main";
+const GH = "https://github.com/fizlet/dom-virus/blob/main";
 
 export type SoonGame = {
   id: string;
@@ -35,8 +35,8 @@ export const SOON_GAMES: SoonGame[] = [
       "Airstrikes land three blasts wherever you point",
       "Drops onto any website with one line: shells knock the page's headings, Escape restores it",
     ],
-    play: "https://coded-dot-design.github.io/dom-battlefield/blitz/",
-    doc: "https://github.com/coded-dot-design/dom-battlefield-blitz#readme",
+    play: "https://battlefieldblitz.fzlt.games/",
+    doc: "https://github.com/fizlet/battlefield-blitz#readme",
   },
   {
     id: "crossfire",

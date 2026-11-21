@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "83acf888ce789613"
+    "hash": "f00da6dbe59be42e"
   },
   "collection": "posts",
   "id": "news-dom-battlefield-1-0-patch-notes",
@@ -102,7 +102,7 @@
           },
           {
             "label": "Read the release commits",
-            "href": "https://github.com/coded-dot-design/dom-battlefield/commits/main"
+            "href": "https://github.com/fizlet/battlefield/commits/main"
           },
           {
             "label": "How the games run on Fizlet",

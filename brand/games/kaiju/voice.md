@@ -43,15 +43,15 @@ one I keep sketching."
 Only these. Nothing is built or measured yet: say every number as a target.
 
 - Status: idea, shown as coming soon. Roster number 07, kind CLIMB + SMASH.
-  <!-- src: coded-dot-design/dom-virus site-kit/coming-soon.ts:57-71 (status PLANNED); site-kit/components/KaijuDetail.astro:38, :44 -->
+  <!-- src: fizlet/dom-virus site-kit/coming-soon.ts:57-71 (status PLANNED); site-kit/components/KaijuDetail.astro:38, :44 -->
 - The pitch: a giant pixel gorilla falls onto your page and climbs it from the footer to the top,
-  smashing as he goes. <!-- src: coded-dot-design/dom-virus site-kit/coming-soon.ts:63 -->
+  smashing as he goes. <!-- src: fizlet/dom-virus site-kit/coming-soon.ts:63 -->
 - Planned on Fizlet, using its input, collide, fx, sound, embed and ui bricks.
-  <!-- src: coded-dot-design/dom-virus docs/games/dom-kaiju.md (engine plan) -->
+  <!-- src: fizlet/dom-virus docs/games/dom-kaiju.md (engine plan) -->
 - Target, not fact: 30 KB gzip or less for the embed build.
-  <!-- src: coded-dot-design/dom-virus docs/games/dom-kaiju.md:224, :255; KaijuDetail.astro:33 -->
-- The full plan is public: "DOM Kaiju: the full plan", the design notes in coded-dot-design/dom-virus.
-  <!-- src: coded-dot-design/dom-virus site-kit/components/KaijuDetail.astro:87; docs/games/dom-kaiju.md -->
+  <!-- src: fizlet/dom-virus docs/games/dom-kaiju.md:224, :255; KaijuDetail.astro:33 -->
+- The full plan is public: "DOM Kaiju: the full plan", the design notes in fizlet/dom-virus.
+  <!-- src: fizlet/dom-virus site-kit/components/KaijuDetail.astro:87; docs/games/dom-kaiju.md -->
 
 ## Byline
 

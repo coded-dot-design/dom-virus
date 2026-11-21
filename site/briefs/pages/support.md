@@ -7,10 +7,10 @@ date: 2026-10-29
 status: published
 image: /og/dom-virus.png
 ---
-DOM VIRUS is a one-person, open-source passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.
+DOM VIRUS is a one-person passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.
 
 [cta]
-Star DOM VIRUS on GitHub -> https://github.com/coded-dot-design/dom-virus
+Play the DOM VIRUS games -> /
 [/cta]
 
 [text]
@@ -32,10 +32,8 @@ Servers for multiplayer rooms. Multiplayer is planned, and rooms need a small se
 [features rows]
 heading: Ways to help today, for free
 item: Play the games | Every play counts. Find a cartridge and press start. | Play the DOM VIRUS games -> /
-item: Star the repositories | Stars help other developers find the games on GitHub. | Star DOM VIRUS on GitHub -> https://github.com/coded-dot-design/dom-virus
 item: Share a game | Send a game to a friend, or post it where your people hang out.
 item: Report bugs and ideas | Every report makes the next release better. | Contact DOM VIRUS -> /contact/
-item: Contribute | Every game is open source under MIT. Read the code, suggest a fix or open a pull request. | Browse the code on GitHub -> https://github.com/coded-dot-design
 [/features]
 
 [text]
@@ -49,14 +47,14 @@ The links appear on this page as soon as the accounts are live.
 
 [faq]
 Q: Can I sponsor DOM VIRUS today?
-A: Not yet. The sponsorship and tip links appear here once the accounts are live. Until then, a star or a share helps most.
+A: Not yet. The sponsorship and tip links appear here once the accounts are live. Until then, a share helps most.
 Q: Where will the money go?
 A: Into the plans above: the move to domvirus.com, domains for the family and servers for multiplayer rooms.
 Q: Can I help without money?
-A: Yes. Play the games, star the repositories, share a game, report bugs or contribute code.
+A: Yes. Play the games, share a game and report bugs.
 [/faq]
 
 [seo]
 title: Support DOM VIRUS: free games, one maker
-description: DOM VIRUS is a one-person, open-source passion project. See what support will pay for and how to help today: play, star, share and report bugs.
+description: DOM VIRUS is a one-person passion project. See what support will pay for and how to help today: play the games, share them and report bugs.
 [/seo]

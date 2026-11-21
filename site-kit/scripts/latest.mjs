@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { remoteTagsText } from "../../scripts/github.mjs";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 export function latestReleasePins(root, names) {
@@ -9,15 +9,7 @@ export function latestReleasePins(root, names) {
     commits = {};
   for (const name of names) {
     const major = fallback[name].split(".")[0];
-    const refs = execFileSync(
-      "git",
-      [
-        "ls-remote",
-        "--tags",
-        `https://github.com/coded-dot-design/${name}.git`,
-      ],
-      { encoding: "utf8" },
-    )
+    const refs = remoteTagsText(name)
       .trim()
       .split("\n");
     const candidates = [];

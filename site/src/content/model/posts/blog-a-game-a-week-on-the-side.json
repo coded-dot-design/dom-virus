@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "9715de790b8c655d"
+    "hash": "54b6cc0b5c8101f9"
   },
   "collection": "posts",
   "id": "blog-a-game-a-week-on-the-side",
@@ -73,10 +73,6 @@
           },
           {
             "type": "p",
-            "text": "DOM Kaiju is at this stage now: a giant pixel gorilla climbs your page from the footer to the top, smashing text while choppers swarm."
-          },
-          {
-            "type": "p",
             "text": "Every idea also has to clear a drama bar. The floor is the explosions in the hub's own hero and the tanks wrecking the Battlefield landing page. If a game can't hit that, it waits."
           }
         ]
@@ -91,7 +87,7 @@
           },
           {
             "type": "p",
-            "text": "Every embedded game is something you can take home. It is open source under MIT, and its README covers setup and integration. Play it here, then make it part of your own project."
+            "text": "Every embedded game plays right on the page. The games are all rights reserved; only the Fizlet engine underneath is MIT. Want one on your own site? Ask first."
           },
           {
             "type": "p",
@@ -113,7 +109,7 @@
           },
           {
             "type": "p",
-            "text": "Board games are for playing on our sites. The code is still open source, but the game lives where I can look after it."
+            "text": "Board games are for playing on our sites. The game lives where I can look after it."
           }
         ]
       },
@@ -172,7 +168,7 @@
           },
           {
             "title": "What's coming next",
-            "body": "The ideas on the bench, including DOM Kaiju.",
+            "body": "The ideas on the bench.",
             "link": {
               "label": "See the coming-soon games",
               "href": "/games/coming-soon/"

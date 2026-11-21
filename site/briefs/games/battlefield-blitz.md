@@ -5,15 +5,15 @@ slug: battlefield-blitz
 eyebrow: 03 / DOM BLITZ
 tags: [board, tank, arcade, multiplayer]
 image: /shots/dom-battlefield-blitz.jpg
-codeRepository: https://github.com/coded-dot-design/dom-battlefield-blitz
+codeRepository: https://github.com/fizlet/battlefield-blitz
 genre: [Action, Tank, Arcade]
 playMode: [SinglePlayer, MultiPlayer]
 ---
 Every tank for itself. Parachute in, grab the blinking power tiles, call airstrikes and dodge the mines. Die, drop back in: most kills in three minutes wins. Play solo against bots, in a platoon, or two players online.
 
 [cta]
-Play Battlefield Blitz -> https://battlefieldblitz.domvirus.com/play/
-Play two players -> https://battlefieldblitz.domvirus.com/play/two/
+Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
+Play two players -> https://battlefieldblitz.fzlt.games/play/two/
 [/cta]
 
 [figure]
@@ -72,7 +72,7 @@ item: The scoreboard drags | Drag the bar at the top to move the scoreboard. It 
 Q: How do two players play Battlefield Blitz?
 A: Open the two-player page on both devices and join the same room with the same invite code, or send the link from the lobby. After the countdown you play one match; bots fill the other seats.
 Q: Is Battlefield Blitz free to play?
-A: Yes. It plays in your browser with no install, and it is open source (MIT).
+A: Yes. It plays in your browser with no install.
 Q: Can I put Battlefield Blitz on my own site?
 A: Yes. One script tag adds a PLAY BLITZ key to any page, and the page itself becomes the arena. Escape gives it back exactly as it was.
 Q: How is it related to DOM Battlefield?

@@ -12,7 +12,7 @@ DOM VIRUS has no accounts and sells nothing. Analytics runs only if you say yes,
 
 [text]
 heading: Who we are
-DOM VIRUS is a family of small open-source arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, "we" means the people behind that project.
+DOM VIRUS is a family of small arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, "we" means the people behind that project.
 
 This policy covers the DOM VIRUS site, the DOM Battlefield site, the Fizlet site and the games on them.
 [/text]

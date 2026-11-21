@@ -39,7 +39,7 @@ heading: Step two: a game that plays on your page
 
 An approved idea becomes an embedded game. It gets its own repository, its own release tags and a page on this site where it plays on the real page.
 
-Every embedded game is something you can take home. It is open source under MIT, and its README covers setup and integration. Play it here, then make it part of your own project.
+Every embedded game plays right on the page. The games are all rights reserved; only the Fizlet engine underneath is MIT. Want one on your own site? Ask first.
 
 Some games stop here, and that is fine. Swarm Protocol, Byte Runner and Null Invaders are embedded games, and each one stands on its own.
 [/text]
@@ -51,7 +51,7 @@ Some games grow. A board game takes an embedded game's characters and gives them
 
 Sherman Bytes is the model. Its tanks became DOM Battlefield, a squad tactics game, and Battlefield Blitz, a free-for-all arcade brawl. Both play on the Battlefield site.
 
-Board games are for playing on our sites. The code is still open source, but the game lives where I can look after it.
+Board games are for playing on our sites. The game lives where I can look after it.
 [/text]
 
 [text]

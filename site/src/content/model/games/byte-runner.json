@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "c35cb78cb5d6ff2c"
+    "hash": "491f98f60d1daed3"
   },
   "collection": "games",
   "id": "byte-runner",
@@ -292,7 +292,7 @@
         },
         {
           "q": "Can I put Byte Runner on my own site?",
-          "a": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+          "a": "Ask first. Byte Runner is all rights reserved, so putting it on another site needs written permission from Chris Cooley."
         }
       ],
       "seo": {

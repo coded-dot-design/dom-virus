@@ -7,7 +7,7 @@ tags: [news]
 status: published
 image: /og/dom-virus.png
 ---
-Every release, launch and game update from DOM VIRUS, newest first. Release notes for each game and the Fizlet engine, plus what is coming next. Tiny open-source arcade games that play on a real webpage, made by one person, one game at a time.
+Every release, launch and game update from DOM VIRUS, newest first. Release notes for each game and the Fizlet engine, plus what is coming next. Tiny arcade games that play on a real webpage, made by one person, one game at a time.
 
 [cta]
 Choose your game -> /
@@ -15,5 +15,5 @@ Choose your game -> /
 
 [seo]
 title: DOM VIRUS news: releases, launches and game updates
-description: Release notes for every DOM VIRUS game and the Fizlet engine, launch news and what is coming next. Tiny open-source arcade games for real pages.
+description: Release notes for every DOM VIRUS game and the Fizlet engine, launch news and what is coming next. Tiny arcade games for real pages.
 [/seo]

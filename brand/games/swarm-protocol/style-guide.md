@@ -46,9 +46,9 @@ This file lists only what differs: the accent, the crew, the bug and the cartrid
 }
 ```
 
-<!-- src: accent coded-dot-design/dom-virus site-kit/style.css:42-46, :59-63 (.accent-violet), hover :1875-1878 -->
-<!-- src: palette, characters, kind, tagline coded-dot-design/swarm-protocol site/game.json -->
-<!-- src: key the hub .button, style.css:1703-1731; board-base coded-dot-design/fizlet src/ui/tokens.json --line, board-ui.css:80 -->
+<!-- src: accent fizlet/dom-virus site-kit/style.css:42-46, :59-63 (.accent-violet), hover :1875-1878 -->
+<!-- src: palette, characters, kind, tagline fizlet/swarm-protocol site/game.json -->
+<!-- src: key the hub .button, style.css:1703-1731; board-base fizlet/fzlt src/ui/tokens.json --line, board-ui.css:80 -->
 <!-- src: cartridge site-kit/components/Cartridge.astro:38, StyleGuide.astro:137 -->
 
 ## Rules
@@ -75,7 +75,7 @@ This file lists only what differs: the accent, the crew, the bug and the cartrid
 
 ## Exceptions (Phase 2 lock)
 
-Shipped by Swarm's own engine (coded-dot-design/swarm-protocol 1.3.1), not flat, documented and
+Shipped by Swarm's own engine (fizlet/swarm-protocol 1.3.1), not flat, documented and
 left as they are:
 
 - **Button health fill:** a hard-stop linear gradient from the bottom up

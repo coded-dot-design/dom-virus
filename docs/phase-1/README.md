@@ -10,14 +10,14 @@ the `phase-1` commit is newer than the release tag, the extra commits are docs, 
 
 | Repo | Version | Commit (`phase-1`) | Date | Role | Live |
 |---|---|---|---|---|---|
-| [dom-virus](https://github.com/coded-dot-design/dom-virus/tree/phase-1) | v0.46.0 | `b88c78a` | 2026-10-28 | Hub site (arcade, cartridges, coming soon, under the hood) | https://coded-dot-design.github.io/dom-virus/ |
-| [dom-battlefield](https://github.com/coded-dot-design/dom-battlefield/tree/phase-1) | v0.18.12 | `f901af9` | 2026-10-28 | Board game (Modern) + Battlefield site (landing, style guide, /play/, /blitz/) | https://coded-dot-design.github.io/dom-battlefield/ |
-| [dom-battlefield-blitz](https://github.com/coded-dot-design/dom-battlefield-blitz/tree/phase-1) | v0.6.5 | `c8c8ca4` | 2026-10-28 | Board game (Classic) code; pages live on the Battlefield site | https://coded-dot-design.github.io/dom-battlefield/blitz/ |
-| [fizlet](https://github.com/coded-dot-design/fizlet/tree/phase-1) | v0.2.4 | `466d003` | 2026-10-28 | Engine (kernel + bricks + Board UI kit) + engine site | https://coded-dot-design.github.io/fizlet/ (Pages not enabled yet) |
-| [sherman-bytes](https://github.com/coded-dot-design/sherman-bytes/tree/phase-1) | v0.5.2 | `caa1dbf` | 2026-10-26 | Embedded game (Classic): the tank the boards are built from | https://coded-dot-design.github.io/dom-virus/ (cartridge) |
-| [swarm-protocol](https://github.com/coded-dot-design/swarm-protocol/tree/phase-1) | v1.3.1 | `03156d2` | 2026-10-26 | Embedded game | https://coded-dot-design.github.io/dom-virus/ (cartridge) |
-| [null-invaders](https://github.com/coded-dot-design/null-invaders/tree/phase-1) | v0.7.2 | `3d18d66` | 2026-10-26 | Embedded game | https://coded-dot-design.github.io/dom-virus/ (cartridge) |
-| [byte-runner](https://github.com/coded-dot-design/byte-runner/tree/phase-1) | v0.10.2 | `cd18396` | 2026-10-26 | Embedded game | https://coded-dot-design.github.io/dom-virus/ (cartridge) |
+| [dom-virus](https://github.com/fizlet/dom-virus/tree/phase-1) | v0.46.0 | `b88c78a` | 2026-10-28 | Hub site (arcade, cartridges, coming soon, under the hood) | https://domvirus.com/ |
+| [dom-battlefield](https://github.com/fizlet/battlefield/tree/phase-1) | v0.18.12 | `f901af9` | 2026-10-28 | Board game (Modern) + Battlefield site (landing, style guide, /play/, /blitz/) | https://battlefield.fzlt.games/ |
+| [dom-battlefield-blitz](https://github.com/fizlet/battlefield-blitz/tree/phase-1) | v0.6.5 | `c8c8ca4` | 2026-10-28 | Board game (Classic) code; pages live on the Battlefield site | https://battlefieldblitz.fzlt.games/ |
+| [fizlet](https://github.com/fizlet/fzlt/tree/phase-1) | v0.2.4 | `466d003` | 2026-10-28 | Engine (kernel + bricks + Board UI kit) + engine site | https://fizlet.com/ (Pages not enabled yet) |
+| [sherman-bytes](https://github.com/fizlet/sherman-bytes/tree/phase-1) | v0.5.2 | `caa1dbf` | 2026-10-26 | Embedded game (Classic): the tank the boards are built from | https://domvirus.com/ (cartridge) |
+| [swarm-protocol](https://github.com/fizlet/swarm-protocol/tree/phase-1) | v1.3.1 | `03156d2` | 2026-10-26 | Embedded game | https://domvirus.com/ (cartridge) |
+| [null-invaders](https://github.com/fizlet/null-invaders/tree/phase-1) | v0.7.2 | `3d18d66` | 2026-10-26 | Embedded game | https://domvirus.com/ (cartridge) |
+| [byte-runner](https://github.com/fizlet/byte-runner/tree/phase-1) | v0.10.2 | `cd18396` | 2026-10-26 | Embedded game | https://domvirus.com/ (cartridge) |
 
 ## What Phase 1 contains
 

@@ -45,21 +45,21 @@ Say these as written; re-check the source before quoting after a release.
 
 - Up to 48 bugs; at most 600 Range reads a refresh (12.5 Hz while the page changes, 2 Hz once it
   is still); a rules step that never allocates.
-  <!-- src: coded-dot-design/swarm-protocol site/game.json facts -->
+  <!-- src: fizlet/swarm-protocol site/game.json facts -->
 - Bugs grow: a crawler evolves after 6 letters, a button hunter after 12; each step adds a hit
-  point. <!-- src: coded-dot-design/swarm-protocol site/game.json characters -->
+  point. <!-- src: fizlet/swarm-protocol site/game.json characters -->
 - The first bite turns a button mint; yellow from 75% health, coral red from 35%.
-  <!-- src: coded-dot-design/swarm-protocol site/game.json chapters -->
+  <!-- src: fizlet/swarm-protocol site/game.json chapters -->
 - Rescue: Jump from 50 points, Jump + Zap from 200; prices rise with each use. Scrolling is
-  always free. <!-- src: coded-dot-design/swarm-protocol site/game.json chapters -->
+  always free. <!-- src: fizlet/swarm-protocol site/game.json chapters -->
 - Against 1.3.1, the documented 43-second workload makes 90.1% fewer ancestry checks and 91.5%
   fewer computed-style reads. Those are operation counts, not an FPS claim.
-  <!-- src: coded-dot-design/swarm-protocol site/game.json chapters, PERFORMANCE.md -->
+  <!-- src: fizlet/swarm-protocol site/game.json chapters, PERFORMANCE.md -->
 - Optional hidden start: ↑ ↑ ↓ ↓ ← → ← → B A Enter. The game loads on first open.
-  <!-- src: coded-dot-design/swarm-protocol site/game.json extra -->
+  <!-- src: fizlet/swarm-protocol site/game.json extra -->
 - Since 1.4.0 Swarm runs on Fizlet: the kernel and `fizlet/board-page`, not the shared runtime.
   Every page change goes through the engine's ledger; Recall restores the page byte for byte.
-  <!-- src: coded-dot-design/swarm-protocol site/game.json engine -->
+  <!-- src: fizlet/swarm-protocol site/game.json engine -->
 
 Words that are Swarm's: swarm, bugs, crawler, hunter, evolve, bite, squash, defend, rescue, jump,
 zap, the button's health.

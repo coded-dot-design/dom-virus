@@ -262,7 +262,7 @@ try {
   await page.goto(base + "games/byte-runner/");
   // One page per game: deep details live in the game's GitHub README.
   assert.equal(await page.locator(".game-embed .bay.placeholder").count(), 1, "game page shows the empty cartridge bay, not a cartridge");
-  assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/coded-dot-design/byte-runner#readme");
+  assert.equal(await page.locator(".nerd-link").getAttribute("href"), "https://github.com/fizlet/byte-runner#readme");
   // Each game page carries its integration snippet in the same 3D code card as Under the hood.
   assert.equal(await page.locator(".game-embed .code-example").count(), 1);
   assert.match(await page.locator(".game-embed code").textContent(), /byte-runner/);
@@ -285,7 +285,7 @@ try {
   assert.equal(await page.locator(".game-intro .actions a, .game-intro .actions .icon-key").count(), 0);
   // GitHub lives with the code: the expanding key in "Put it on your page", not beside Play.
   assert.equal(await page.locator(".game-intro .actions a[href*='github.com']").count(), 0);
-  assert.match(await page.locator(".game-embed").getByRole("link", { name: "Install guide" }).getAttribute("href"), /github\.com\/coded-dot-design\/sherman-bytes#readme$/);
+  assert.match(await page.locator(".game-embed").getByRole("link", { name: "Install guide" }).getAttribute("href"), /github\.com\/fizlet\/sherman-bytes#readme$/);
   assert.match(await swap.getAttribute("href"), /\?play=sherman-bytes&next=battlefield#console$/);
   await swap.click();
   await page.waitForFunction(() => document.querySelector('.cartridge[data-cart="battlefield"]')?.classList.contains("plugging"), null, { timeout: 8000 });
@@ -305,10 +305,10 @@ try {
   const footerWidth = page.viewportSize();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.locator(".footer-style-guide").isVisible(), true, "style guide link on phones too");
-  assert.equal(await page.locator(".footer-legal .mit").isVisible(), true, "normal phones keep MIT");
+  assert.equal(await page.locator(".footer-legal .rights").isVisible(), true, "normal phones keep the rights line");
   assert.ok(await page.locator(".footer-legal").evaluate((el) => [...el.children].every((c) => c.scrollWidth <= c.clientWidth + 1)), "footer lines fit on a normal phone");
   await page.setViewportSize({ width: 320, height: 700 });
-  assert.equal(await page.locator(".footer-legal .mit").isVisible(), false, "MIT drops on very small phones");
+  assert.equal(await page.locator(".footer-legal .rights").isVisible(), false, "the rights line drops on very small phones");
   await page.setViewportSize(footerWidth);
   // Performance overlay switch (fizlet/perf): off by default and not loaded; the header key loads
   // it and measures the page's frames; F9 hides it and the key follows; shared key dom-virus:perf.
@@ -324,13 +324,13 @@ try {
   // Battlefield links out to its own site (landing page and the Board UI style guide) and to Blitz's hub page.
   await page.goto(base + "games/battlefield/");
   const outs = await page.locator(".board-design a.nerd-link").evaluateAll((as) => as.map((a) => a.href));
-  assert.deepEqual(outs, ["https://battlefield.domvirus.com/", `${base}games/battlefield-blitz/`, "https://battlefield.domvirus.com/style-guide/"]);
-  assert.equal(await page.locator('.actions a[href="https://battlefield.domvirus.com/"]').count(), 1, "Battlefield has a website key");
+  assert.deepEqual(outs, ["https://battlefield.fzlt.games/", `${base}games/battlefield-blitz/`, "https://battlefield.fzlt.games/style-guide/"]);
+  assert.equal(await page.locator('.actions a[href="https://battlefield.fzlt.games/"]').count(), 1, "Battlefield has a website key");
   // The player's guide from its engine page: screenshot, how to play, modes, controls, tips, what's new, FAQ.
   for (const e of ["HOW TO PLAY", "CONTROLS", "MODES", "TIPS", "WHAT'S NEW", "FAQ"]) assert.equal(await page.locator(".game-guide .eyebrow", { hasText: new RegExp(`^${e}$`) }).count(), 1, `Battlefield guide: ${e}`);
   // Blitz's hub page: Play and two players go to its own site.
   await page.goto(base + "games/battlefield-blitz/");
-  assert.deepEqual(await page.locator(".board-page .actions a").evaluateAll((as) => as.map((a) => a.href)), ["https://battlefieldblitz.domvirus.com/play/", "https://battlefieldblitz.domvirus.com/play/two/"]);
+  assert.deepEqual(await page.locator(".board-page .actions a").evaluateAll((as) => as.map((a) => a.href)), ["https://battlefieldblitz.fzlt.games/play/", "https://battlefieldblitz.fzlt.games/play/two/"]);
   // The catalog: seven games, a genre filter narrows it, Multiplayer leaves Blitz.
   await page.goto(base + "games/");
   assert.equal(await page.locator(".catalog-card").count(), 7);

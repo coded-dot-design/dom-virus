@@ -49,10 +49,10 @@ for (const name of ["null-invaders", "byte-runner", "sherman-bytes"]) {
     resolve(shared, "ORIGIN.json"),
     JSON.stringify(
       {
-        project: "https://github.com/coded-dot-design/dom-virus",
+        project: "https://github.com/fizlet/dom-virus",
         version,
         sourceSha256,
-        license: "MIT",
+        license: "UNLICENSED",
         note: "Generated engine, React adapter, declarations and builder. Edit dom-virus/src, then run npm run sync:games and rebuild each game.",
       },
       null,

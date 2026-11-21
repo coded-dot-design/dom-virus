@@ -992,12 +992,12 @@ pre {
     display: none;
   }
 }
-/* Very small phones only: "By", no MIT (lines still truncate if needed). */
+/* Very small phones only: "By", no rights line (lines still truncate if needed). */
 @media (max-width: 360px) {
   .footer-legal .by-short {
     display: inline;
   }
-  .footer-legal :is(.mit, .by-long) {
+  .footer-legal :is(.rights, .by-long) {
     display: none;
   }
 }
@@ -1065,9 +1065,6 @@ pre {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .footer-legal .oss {
-    display: none;
   }
   .footer-icons {
     gap: 10px;

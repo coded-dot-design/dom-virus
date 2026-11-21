@@ -1,7 +1,7 @@
 // What site/releases.json must hold: every released tag of every game, read from the game's repo.
 // Shared by scripts/sync-releases.mjs (writes the file) and tests/site-releases.mjs (fails when a
 // released tag is missing from it).
-import { execFileSync } from "node:child_process";
+import { remoteTagsText } from "./github.mjs";
 
 // Arcade games (games.json): the oldest tag each game's hub factory can mount (earlier builds
 // predate the engine API). Their builds are archived into the hub (site-kit/scripts/releases.mjs).
@@ -47,9 +47,7 @@ export function catalogFrom(tags, first) {
 
 export function remoteTags(name) {
   return parseTags(
-    execFileSync("git", ["ls-remote", "--tags", `https://github.com/coded-dot-design/${name}.git`], {
-      encoding: "utf8",
-    }),
+    remoteTagsText(name),
   );
 }
 

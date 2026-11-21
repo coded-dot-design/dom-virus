@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "aae62c88e3ccd747"
+    "hash": "78a1fda427f2d4c9"
   },
   "collection": "posts",
   "id": "news-swarm-protocol-1-3",
@@ -105,7 +105,7 @@
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/swarm-protocol"
+            "href": "https://github.com/fizlet/swarm-protocol"
           }
         ]
       }

@@ -47,7 +47,7 @@ Each cartridge gets an engine cut next: less code, the same feel, at least as fa
 [/text]
 
 [cta]
-Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
+Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 See everything coming soon -> /games/coming-soon/
 [/cta]
 

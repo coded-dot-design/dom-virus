@@ -40,13 +40,13 @@ Structure counts no longer build temporary snapshot arrays. Setup, configuration
 
 [features cards]
 heading: Built from Sherman Bytes | The same tanks, two board games.
-item: DOM Battlefield | Same tanks, a whole platoon. Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://coded-dot-design.github.io/dom-battlefield/play/
-item: Battlefield Blitz | Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://coded-dot-design.github.io/dom-battlefield/blitz/play/
+item: DOM Battlefield | Same tanks, a whole platoon. Plan every route, then command your squad under fire. | Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+item: Battlefield Blitz | Same tanks, every crew for itself. Parachute in, call airstrikes, most kills wins. | Play Battlefield Blitz -> https://battlefieldblitz.fzlt.games/play/
 [/features]
 
 [cta]
 Play Sherman Bytes -> /games/sherman-bytes/
-Get the code & setup instructions -> https://github.com/coded-dot-design/sherman-bytes
+Get the code & setup instructions -> https://github.com/fizlet/sherman-bytes
 [/cta]
 
 [seo]

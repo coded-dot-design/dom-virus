@@ -40,7 +40,7 @@ Setup, configuration and integration examples live in the repository README.
 
 [cta]
 Play Null Invaders -> /games/null-invaders/
-Get the code & setup instructions -> https://github.com/coded-dot-design/null-invaders
+Get the code & setup instructions -> https://github.com/fizlet/null-invaders
 [/cta]
 
 [seo]

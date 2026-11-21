@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "39bf53ff72bdf263"
+    "hash": "127977ac39f6549d"
   },
   "collection": "posts",
   "id": "news-null-invaders-1-0-patch-notes",
@@ -121,7 +121,7 @@
           },
           {
             "label": "Read the full changelog",
-            "href": "https://github.com/coded-dot-design/null-invaders/blob/main/CHANGELOG.md"
+            "href": "https://github.com/fizlet/null-invaders/blob/main/CHANGELOG.md"
           },
           {
             "label": "How the games run on Fizlet",

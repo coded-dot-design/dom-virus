@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
-import { execFileSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { cloneAny } from "./github.mjs";
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const games = JSON.parse(
   process.env.DOM_VIRUS_GAME_PINS_JSON ||
@@ -41,7 +41,7 @@ export function coreGameRoot(name) {
   const dest = resolve(repoRoot, ".games", name, tag);
   if (!existsSync(resolve(dest, "src"))) {
     mkdirSync(resolve(repoRoot, ".games", name), { recursive: true });
-    execFileSync("git", ["clone", "--depth", "1", "--branch", tag, `https://github.com/coded-dot-design/${name}.git`, dest], { stdio: "inherit" });
+    cloneAny(name, ["--depth", "1", "--branch", tag], dest);
   }
   return dest;
 }

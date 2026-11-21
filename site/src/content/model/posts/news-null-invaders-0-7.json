@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "74533ca3bc18406d"
+    "hash": "c511895176a8e69b"
   },
   "collection": "posts",
   "id": "news-null-invaders-0-7",
@@ -109,7 +109,7 @@
           },
           {
             "label": "Get the code & setup instructions",
-            "href": "https://github.com/coded-dot-design/null-invaders"
+            "href": "https://github.com/fizlet/null-invaders"
           }
         ]
       }

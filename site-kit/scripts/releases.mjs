@@ -10,6 +10,7 @@ import {
 import { resolve, dirname, relative } from "node:path";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { cloneAny } from "../../scripts/github.mjs";
 const command = (cwd, ...args) =>
   execFileSync(args[0], args.slice(1), {
     cwd,
@@ -41,17 +42,7 @@ export function prepareArchives(root, names, current = {}) {
       const checkout = resolve(root, ".site-releases", name, version);
       if (!existsSync(resolve(checkout, ".git"))) {
         mkdirSync(dirname(checkout), { recursive: true });
-        command(
-          root,
-          "git",
-          "clone",
-          "--depth",
-          "1",
-          "--branch",
-          version,
-          `https://github.com/coded-dot-design/${name}.git`,
-          checkout,
-        );
+        cloneAny(name, ["--depth", "1", "--branch", version], checkout);
       }
       if (command(checkout, "git", "rev-parse", "HEAD") !== commit)
         throw Error(`Release tag changed: ${name} ${version}`);

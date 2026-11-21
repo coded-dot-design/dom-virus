@@ -6,7 +6,7 @@
   "seo": {
     "title": "Cookies and storage: analytics only with consent | DOM VIRUS",
     "description": "DOM VIRUS sets analytics cookies only if you accept. Here is every cookie and every setting the games save in your browser, and how to clear them.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/cookies/",
+    "canonical": "https://domvirus.com/legal/cookies/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -21,7 +21,7 @@
       "heading": "Cookies and storage",
       "headingAccent": "No cookies until you say yes.",
       "eyebrow": "Legal",
-      "body": "DOM VIRUS sets no cookies unless you accept analytics. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every cookie and key, what it holds and how to clear it. Last updated 2026-10-31."
+      "body": "DOM VIRUS sets no cookies unless you accept analytics. The games remember a few settings in your browser's local storage, and those never leave your device. This page lists every cookie and key, what it holds and how to clear it. Last updated 2026-11-20."
     },
     {
       "id": "text-1",
@@ -39,8 +39,8 @@
       "variant": "lead",
       "heading": "Where the saved settings live",
       "body": [
-        "Browsers keep local storage per site address. Today the DOM VIRUS hub, the DOM Battlefield site and the Fizlet site share one address, coded-dot-design.github.io.",
-        "That is why one theme choice follows you between them. Clearing that address's data clears all three.",
+        "Browsers keep local storage per site address. The DOM VIRUS hub (domvirus.com), the Battlefield site (battlefield.fzlt.games) and the Fizlet site (fizlet.com) each have their own address.",
+        "So a theme chosen on one does not follow you to the others, and clearing one address's data leaves the others alone.",
         "When another site runs one of the games, the game saves its keys under that site's address instead."
       ]
     },
@@ -212,6 +212,6 @@
       "privacy",
       "cookies"
     ],
-    "created": "2026-10-31"
+    "created": "2026-11-20"
   }
 }

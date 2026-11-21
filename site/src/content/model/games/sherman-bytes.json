@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "5c02bfb39d9a7e47"
+    "hash": "7232e85acb0482d6"
   },
   "collection": "games",
   "id": "sherman-bytes",
@@ -319,7 +319,7 @@
         },
         {
           "q": "Can I put Sherman Bytes on my own site?",
-          "a": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+          "a": "Ask first. Sherman Bytes is all rights reserved, so putting it on another site needs written permission from Chris Cooley."
         },
         {
           "q": "What happens to the page when I play?",

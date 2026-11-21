@@ -6,11 +6,11 @@
   "seo": {
     "title": "Browser games you play on the page: every DOM VIRUS game",
     "description": "Six free browser games that play on a real webpage: a shooter, tank battles, a maze chase, a bug defense and a two-player tank arena.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/",
+    "canonical": "https://domvirus.com/games/",
     "schemaPageType": "CollectionPage",
     "openGraph": {
       "image": {
-        "sourceUrl": "https://coded-dot-design.github.io/dom-virus/og/dom-virus.png"
+        "sourceUrl": "https://domvirus.com/og/dom-virus.png"
       }
     }
   },

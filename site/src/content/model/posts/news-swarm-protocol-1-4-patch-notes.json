@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "ac270e0772e8ec46"
+    "hash": "a3a3507ea6ea6ecc"
   },
   "collection": "posts",
   "id": "news-swarm-protocol-1-4-patch-notes",
@@ -84,7 +84,7 @@
           },
           {
             "label": "Read the full changelog",
-            "href": "https://github.com/coded-dot-design/swarm-protocol/blob/main/CHANGELOG.md"
+            "href": "https://github.com/fizlet/swarm-protocol/blob/main/CHANGELOG.md"
           },
           {
             "label": "How the games run on Fizlet",

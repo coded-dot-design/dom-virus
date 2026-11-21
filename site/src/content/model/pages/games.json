@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "49a9d8dbf7c31a88"
+    "hash": "63e7df7c43045b66"
   },
   "collection": "pages",
   "id": "games",
@@ -9,17 +9,13 @@
   "status": "published",
   "relations": {
     "brand": "domvirus",
-    "games": [
-      "kaiju"
-    ]
+    "games": []
   },
   "data": {
     "id": "games",
     "site": "dom-virus",
     "brand": "domvirus",
-    "games": [
-      "kaiju"
-    ],
+    "games": [],
     "type": "section",
     "slug": "games",
     "title": "Every game",
@@ -40,14 +36,6 @@
         "heading": "Coming soon",
         "headingAccent": "Ideas on the bench.",
         "items": [
-          {
-            "title": "DOM Kaiju",
-            "body": "A giant pixel gorilla climbs your page from the footer to the top while helicopters swarm.",
-            "link": {
-              "label": "See DOM Kaiju",
-              "href": "/games/kaiju/"
-            }
-          },
           {
             "title": "Everything next",
             "body": "The next cartridges in build order and the engine work behind them.",

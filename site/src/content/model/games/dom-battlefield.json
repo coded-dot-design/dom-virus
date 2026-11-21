@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "7b1ff5aa96a6e7b9"
+    "hash": "71cdce2c4707de88"
   },
   "collection": "games",
   "id": "dom-battlefield",
@@ -226,7 +226,7 @@
       "faq": [
         {
           "q": "Is DOM Battlefield free to play?",
-          "a": "Yes. It plays in your browser with no install and no account, and it is open source (MIT)."
+          "a": "Yes. It plays in your browser with no install and no account."
         },
         {
           "q": "Can I play DOM Battlefield on a phone?",

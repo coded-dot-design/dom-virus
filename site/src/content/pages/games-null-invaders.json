@@ -6,13 +6,13 @@
   "seo": {
     "title": "Null Invaders: a browser shooter you play on the page",
     "description": "Fly an interceptor through a real webpage: shoot letters into binary, break button factories and clear four waves. Free in your browser.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/games/null-invaders/",
+    "canonical": "https://domvirus.com/games/null-invaders/",
     "schemaPageType": "VideoGame",
     "schemaExtra": {
       "gamePlatform": "Web browser",
       "applicationCategory": "Game",
       "isAccessibleForFree": true,
-      "codeRepository": "https://github.com/coded-dot-design/null-invaders",
+      "codeRepository": "https://github.com/fizlet/null-invaders",
       "genre": [
         "Shooter",
         "Arcade"
@@ -213,7 +213,7 @@
         },
         {
           "question": "Can I put Null Invaders on my own site?",
-          "answer": "Yes. It is open source (MIT). The GitHub repository has the source code, setup instructions and integration examples."
+          "answer": "Ask first. Null Invaders is all rights reserved, so putting it on another site needs written permission from Chris Cooley."
         }
       ]
     }

@@ -32,7 +32,7 @@ const slot = (name) => (content ? name : undefined);
 // House rule (swap.ts): a related game with a cartridge on the hub shelf plays through the cartridge swap.
 const SHELF = { 'DOM Battlefield': 'battlefield' };
 const RELATED_LOOK = { 'DOM Battlefield': { accent: 'cyan', icon: 'battlefield' }, 'Battlefield Blitz': { accent: 'pink', icon: 'tank' } };
-const repo=`https://github.com/coded-dot-design/${game.id}`;
+const repo=`https://github.com/fizlet/${game.id}`;
 const kb=(n)=> (n/1000).toFixed(1);
 const enemy = ({ship:"ship",runner:"fly-chaser",bug:"bug",tank:"tank"})[game.icon];
 // Control lines read "Keys — action · Keys — action". Keys become keycaps; plain-language
@@ -60,7 +60,7 @@ const controls = game.controls.map(parseControl);
 ---
 <section id={game.id} class:list={['game-section', `accent-${game.accent}`, { standalone: page }]} aria-labelledby={`${game.id}-title`}>
   {page && <a class="back-link" href={`${base}?play=${game.id}#console`} data-virus-ignore data-swarm-ignore><span class="eject-key" aria-hidden="true"><UiIcon name="eject" size={16}/></span> Eject cartridge</a>}
-  <div class="section-heading"><span class="eyebrow"><span class="index">0{index+1}</span> {game.kind}</span><span class="version">v{game.version} / MIT</span></div>
+  <div class="section-heading"><span class="eyebrow"><span class="index">0{index+1}</span> {game.kind}</span><span class="version">v{game.version}</span></div>
   <div class="game-intro">
     <div><Title id={`${game.id}-title`}>{game.name}<span>{game.tagline}</span></Title><p class="lead">{lead}</p><div class="actions" data-virus-ignore data-swarm-ignore><button class="button primary" data-launch={game.id} data-site-slot={slot('play')}><UiIcon name="play" size={18}/> {play?.label || `Play ${game.name}`}</button>{page
       ? null

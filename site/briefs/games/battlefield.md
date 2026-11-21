@@ -5,15 +5,15 @@ slug: battlefield
 eyebrow: 02 / SQUAD TACTICS
 tags: [board, tactics, tank]
 image: /shots/dom-battlefield.jpg
-codeRepository: https://github.com/coded-dot-design/dom-battlefield
+codeRepository: https://github.com/fizlet/battlefield
 genre: [Strategy, Tactics, Tank]
 playMode: [SinglePlayer]
 ---
 Command a platoon of up to twelve tanks on a grid built from real page elements. Pick the ground, freeze time to plan every route, then radio your squad through a live firefight. Free in your browser: no install, no account.
 
 [cta]
-Play DOM Battlefield -> https://battlefield.domvirus.com/play/
-Visit battlefield.domvirus.com -> https://battlefield.domvirus.com/
+Play DOM Battlefield -> https://battlefield.fzlt.games/play/
+Visit battlefield.fzlt.games -> https://battlefield.fzlt.games/
 [/cta]
 
 [figure]
@@ -71,7 +71,7 @@ item: No garbage-collection hitches | Once warm, a battle step allocates nothing
 
 [faq]
 Q: Is DOM Battlefield free to play?
-A: Yes. It plays in your browser with no install and no account, and it is open source (MIT).
+A: Yes. It plays in your browser with no install and no account.
 Q: Can I play DOM Battlefield on a phone?
 A: Yes. Phone battles put a see-through rail on each side of a full-screen field, with an analog thumbstick and labeled buttons.
 Q: How is it related to Sherman Bytes?

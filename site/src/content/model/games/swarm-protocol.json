@@ -1,7 +1,7 @@
 {
   "$generated": {
     "by": "the Fizlet factory: fe content collections (generated, never hand-edit)",
-    "hash": "bf40eb5bcfd8e09a"
+    "hash": "8c05caf322cf3253"
   },
   "collection": "games",
   "id": "swarm-protocol",
@@ -287,7 +287,7 @@
         },
         {
           "q": "Can I put Swarm Protocol on my own site?",
-          "a": "Yes. It is open source (MIT), as an npm package or a self-hosted drop-in ZIP. Your visitors never load it from GitHub or a game server."
+          "a": "Ask first. Swarm Protocol is all rights reserved, so putting it on another site needs written permission from Chris Cooley."
         }
       ],
       "seo": {

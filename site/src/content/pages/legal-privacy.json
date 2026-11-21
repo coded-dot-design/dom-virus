@@ -6,7 +6,7 @@
   "seo": {
     "title": "Privacy policy: no accounts, analytics only with consent | DOM VIRUS",
     "description": "What DOM VIRUS collects, why and for how long: consent-based Google Analytics and PostHog, what the games keep in your browser, hosting logs and how to opt out.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/legal/privacy/",
+    "canonical": "https://domvirus.com/legal/privacy/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -29,7 +29,7 @@
       "variant": "lead",
       "heading": "Who we are",
       "body": [
-        "DOM VIRUS is a family of small open-source arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, \"we\" means the people behind that project.",
+        "DOM VIRUS is a family of small arcade games that play on a real webpage. It is made by Chris Cooley under the coded.design name. In this policy, \"we\" means the people behind that project.",
         "This policy covers the DOM VIRUS site, the DOM Battlefield site, the Fizlet site and the games on them."
       ]
     },

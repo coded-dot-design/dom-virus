@@ -5,8 +5,8 @@
   "status": "published",
   "seo": {
     "title": "Support DOM VIRUS: free games, one maker",
-    "description": "DOM VIRUS is a one-person, open-source passion project. See what support will pay for and how to help today: play, star, share and report bugs.",
-    "canonical": "https://coded-dot-design.github.io/dom-virus/support/",
+    "description": "DOM VIRUS is a one-person passion project. See what support will pay for and how to help today: play the games, share them and report bugs.",
+    "canonical": "https://domvirus.com/support/",
     "schemaPageType": "WebPage",
     "openGraph": {
       "image": {
@@ -21,11 +21,11 @@
       "heading": "Support DOM VIRUS",
       "headingAccent": "Keep the games coming.",
       "eyebrow": "Support",
-      "body": "DOM VIRUS is a one-person, open-source passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.",
+      "body": "DOM VIRUS is a one-person passion project: a solo maker shipping roughly a game a week on the side. Every game is free to play, with no ads. Sponsorship and tip links go live soon. Here is how to help today.",
       "ctas": [
         {
-          "label": "Star DOM VIRUS on GitHub",
-          "href": "https://github.com/coded-dot-design/dom-virus",
+          "label": "Play the DOM VIRUS games",
+          "href": "/",
           "variant": "primary"
         }
       ]
@@ -67,14 +67,6 @@
           }
         },
         {
-          "title": "Star the repositories",
-          "body": "Stars help other developers find the games on GitHub.",
-          "link": {
-            "label": "Star DOM VIRUS on GitHub",
-            "href": "https://github.com/coded-dot-design/dom-virus"
-          }
-        },
-        {
           "title": "Share a game",
           "body": "Send a game to a friend, or post it where your people hang out."
         },
@@ -84,14 +76,6 @@
           "link": {
             "label": "Contact DOM VIRUS",
             "href": "/contact/"
-          }
-        },
-        {
-          "title": "Contribute",
-          "body": "Every game is open source under MIT. Read the code, suggest a fix or open a pull request.",
-          "link": {
-            "label": "Browse the code on GitHub",
-            "href": "https://github.com/coded-dot-design"
           }
         }
       ]
@@ -115,7 +99,7 @@
       "items": [
         {
           "question": "Can I sponsor DOM VIRUS today?",
-          "answer": "Not yet. The sponsorship and tip links appear here once the accounts are live. Until then, a star or a share helps most."
+          "answer": "Not yet. The sponsorship and tip links appear here once the accounts are live. Until then, a share helps most."
         },
         {
           "question": "Where will the money go?",
@@ -123,7 +107,7 @@
         },
         {
           "question": "Can I help without money?",
-          "answer": "Yes. Play the games, star the repositories, share a game, report bugs or contribute code."
+          "answer": "Yes. Play the games, share a game and report bugs."
         }
       ]
     }
